@@ -1,0 +1,10 @@
+Section43.jsx:16: { title: lang === "kr" ? "인구" : "Population", sub: "Population" },
+Section43.jsx:17: { title: lang === "kr" ? "생산성" : "Productivity", sub: "Productivity" },
+Section43.jsx:18: { title: lang === "kr" ? "지정학" : "Geopolitics", sub: "Geopolitics" },
+Section43.jsx:19: { title: lang === "kr" ? "기술 패권" : "Tech Hegemony", sub: "Tech Hegemony" }
+Section43.jsx:27: 시나리오 핵심 변수
+Section43.jsx:31: 한국 GDP 3조 달러 달성을 좌우하는 4대 프레임
+Section61.jsx:35: 잠재성장률 하방 압력을 방어하기 위한 2대 핵심 전략
+Section65.jsx:42: 환산 시 USD 200/sqft 돌파
+Section66.jsx:35: 2030년 정점 이후 인구·기업 통폐합 쇼크 (Bear Scenario)
+Section66.jsx:59: 거시 하방 충격에도 GBD·삼성동 코어 수요 집중으로 견고한 가격 유지

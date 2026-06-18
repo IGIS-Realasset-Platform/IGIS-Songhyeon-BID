@@ -1,0 +1,310 @@
+Section41.jsx:42:<span className="text-right">한국 GDP 2조</span>
+Section41.jsx:44:<span className="text-left">3조 달러</span>
+Section41.jsx:48:<span className="text-left">2040 시나리오</span>
+Section42.jsx:32:Base · Bull · Bear<br/>3개 시나리오 프레임
+Section43.jsx:14:{ title: "인구", sub: "Population" },
+Section43.jsx:15:{ title: "생산성", sub: "Productivity" },
+Section43.jsx:16:{ title: "지정학", sub: "Geopolitics" },
+Section43.jsx:17:{ title: "기술 패권", sub: "Tech Hegemony" }
+Section43.jsx:25:시나리오 핵심 변수
+Section43.jsx:29:한국 GDP 3조 달러 달성을 좌우하는 4대 프레임
+Section44.jsx:20:Base Scenario (확률 50%)
+Section44.jsx:23:IMF·OECD·KDI<br/>공통 컨센서스 기반<br/>표준 성장 궤도 진입
+Section44.jsx:31:<p className="text-gray-400 text-[16px] md:text-[17px] font-bold mb-2 uppercase">2030년 예상 GDP</p>
+Section44.jsx:32:<p className="text-[32px] md:text-[40px] font-bold text-black tracking-tight">2.2 ~ 2.4조 달러</p>
+Section44.jsx:36:<p className="text-gray-400 text-[16px] md:text-[17px] font-bold mb-2 uppercase">3조 달러 도달 시점</p>
+Section44.jsx:37:<p className="text-[32px] md:text-[40px] font-bold text-black tracking-tight">2037 ~ 2038년</p>
+Section44.jsx:41:<p className="text-gray-400 text-[16px] md:text-[17px] font-bold mb-4 uppercase">핵심 전제</p>
+Section44.jsx:43:<li className="flex items-start"><span className="text-gray-400 mr-3">•</span><span>실질성장률 연 1.5~2.0%, 인플레 2~3% 유지</span></li>
+Section44.jsx:44:<li className="flex items-start"><span className="text-gray-400 mr-3">•</span><span>환율 KRW/USD 1,200~1,300 박스권</span></li>
+Section44.jsx:45:<li className="flex items-start"><span className="text-gray-400 mr-3">•</span><span>AI 생산성 향상(0.3~0.5%p 상향)으로 인구 감소 상쇄</span></li>
+Section45.jsx:20:Bull Scenario (확률 30%)
+Section45.jsx:23:고급제조 + 콘텐츠 + 금융<br/>"동아시아 스위스" 모델<br/>재포지셔닝
+Section45.jsx:31:<p className="text-blue-500 text-[16px] md:text-[17px] font-bold mb-2 uppercase">2030년 예상 GDP</p>
+Section45.jsx:32:<p className="text-[32px] md:text-[40px] font-bold text-[#0055ff] tracking-tight">2.5 ~ 2.7조 달러</p>
+Section45.jsx:36:<p className="text-blue-500 text-[16px] md:text-[17px] font-bold mb-2 uppercase">3조 달러 도달 시점</p>
+Section45.jsx:37:<p className="text-[32px] md:text-[40px] font-bold text-[#0055ff] tracking-tight">2034 ~ 2035년</p>
+Section45.jsx:41:<p className="text-blue-500 text-[16px] md:text-[17px] font-bold mb-4 uppercase">핵심 전제</p>
+Section45.jsx:43:<li className="flex items-start"><span className="text-blue-400 mr-3">•</span><span>HBM/AI 인프라 패권 유지 및 대규모 외인 자본 유입</span></li>
+Section45.jsx:44:<li className="flex items-start"><span className="text-blue-400 mr-3">•</span><span>환율 KRW/USD 1,000~1,150 (원화 강세)</span></li>
+Section45.jsx:45:<li className="flex items-start"><span className="text-blue-400 mr-3">•</span><span>K-콘텐츠, K-방산, K-원전, K-조선 슈퍼사이클 진입</span></li>
+Section46.jsx:20:Bear Scenario (확률 20%)
+Section46.jsx:23:지정학적 갈등 및 구조적 모순<br/>심화에 따른<br/>일본식 "잃어버린 10년" 진입
+Section46.jsx:31:<p className="text-red-500 text-[16px] md:text-[17px] font-bold mb-2 uppercase">2030년 예상 GDP</p>
+Section46.jsx:32:<p className="text-[32px] md:text-[40px] font-bold text-[#e11d48] tracking-tight">2.0 ~ 2.1조 달러</p>
+Section46.jsx:36:<p className="text-red-500 text-[16px] md:text-[17px] font-bold mb-2 uppercase">3조 달러 도달 시점</p>
+Section46.jsx:37:<p className="text-[32px] md:text-[40px] font-bold text-[#e11d48] tracking-tight">2042년 이후 (또는 미달)</p>
+Section46.jsx:41:<p className="text-red-500 text-[16px] md:text-[17px] font-bold mb-4 uppercase">핵심 전제</p>
+Section46.jsx:43:<li className="flex items-start"><span className="text-red-400 mr-3">•</span><span>2024년 정점 이후 가파른 인구 감소 (인구 절벽)</span></li>
+Section46.jsx:44:<li className="flex items-start"><span className="text-red-400 mr-3">•</span><span>미·중 디커플링 심화 및 중국 반도체 자급 가속화</span></li>
+Section46.jsx:45:<li className="flex items-start"><span className="text-red-400 mr-3">•</span><span>가계부채 누적 및 부동산 PF 부실 재발</span></li>
+Section47.jsx:23:미래 시나리오 종합
+Section47.jsx:27:한국 GDP 3조 달러 도달 시나리오별 핵심 지표 비교
+Section47.jsx:37:<p className="text-[18px] font-bold text-gray-500 mb-5 border-b border-gray-300 pb-4">확률 50%</p>
+Section47.jsx:40:<p className="text-[14px] font-bold text-gray-500 mb-1 uppercase">2030년 예상 GDP</p>
+Section47.jsx:41:<p className="text-[28px] font-bold text-black tracking-tight">2.2 ~ 2.4조 달러</p>
+Section47.jsx:44:<p className="text-[14px] font-bold text-gray-500 mb-1 uppercase">3조 달러 도달</p>
+Section47.jsx:45:<p className="text-[28px] font-bold text-black tracking-tight">2037 ~ 2038년</p>
+Section47.jsx:48:<p className="text-[14px] font-bold text-gray-500 mb-3 uppercase">핵심 전제</p>
+Section47.jsx:50:<li className="flex items-start"><span className="text-gray-400 mr-2">•</span>기관 컨센서스(IMF 등) 수렴</li>
+Section47.jsx:51:<li className="flex items-start"><span className="text-gray-400 mr-2">•</span>실질성장률 연 1.5~2.0% 유지</li>
+Section47.jsx:52:<li className="flex items-start"><span className="text-gray-400 mr-2">•</span>AI 향상이 인구 감소 효과 상쇄</li>
+Section47.jsx:60:<p className="text-[18px] font-bold text-gray-500 mb-5 border-b border-blue-200 pb-4">확률 30%</p>
+Section47.jsx:63:<p className="text-[14px] font-bold text-blue-500 mb-1 uppercase">2030년 예상 GDP</p>
+Section47.jsx:64:<p className="text-[28px] font-bold text-black tracking-tight">2.5 ~ 2.7조 달러</p>
+Section47.jsx:67:<p className="text-[14px] font-bold text-blue-500 mb-1 uppercase">3조 달러 도달</p>
+Section47.jsx:68:<p className="text-[28px] font-bold text-[#0055ff] tracking-tight">2034 ~ 2035년</p>
+Section47.jsx:71:<p className="text-[14px] font-bold text-blue-500 mb-3 uppercase">핵심 전제</p>
+Section47.jsx:73:<li className="flex items-start"><span className="text-blue-400 mr-2">•</span>"동아시아 스위스" 모델 안착</li>
+Section47.jsx:74:<li className="flex items-start"><span className="text-blue-400 mr-2">•</span>주력 산업 글로벌 슈퍼사이클</li>
+Section47.jsx:75:<li className="flex items-start"><span className="text-blue-400 mr-2">•</span>대규모 외국인 자본 유입</li>
+Section47.jsx:83:<p className="text-[18px] font-bold text-gray-500 mb-5 border-b border-red-200 pb-4">확률 20%</p>
+Section47.jsx:86:<p className="text-[14px] font-bold text-red-500 mb-1 uppercase">2030년 예상 GDP</p>
+Section47.jsx:87:<p className="text-[28px] font-bold text-black tracking-tight">2.0 ~ 2.1조 달러</p>
+Section47.jsx:90:<p className="text-[14px] font-bold text-red-500 mb-1 uppercase">3조 달러 도달</p>
+Section47.jsx:91:<p className="text-[28px] font-bold text-[#e11d48] tracking-tight">2042년 이후</p>
+Section47.jsx:94:<p className="text-[14px] font-bold text-red-500 mb-3 uppercase">핵심 전제</p>
+Section47.jsx:96:<li className="flex items-start"><span className="text-red-400 mr-2">•</span>일본식 "잃어버린 10년" 진입</li>
+Section47.jsx:97:<li className="flex items-start"><span className="text-red-400 mr-2">•</span>가파른 인구 절벽 현실화</li>
+Section47.jsx:98:<li className="flex items-start"><span className="text-red-400 mr-2">•</span>미·중 디커플링 및 PF 부실 심화</li>
+Section48.jsx:30:핵심 산업 모멘텀<br/>시나리오별 전망
+Section49.jsx:23:AI 반도체 / 메모리
+Section49.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '모든 시나리오에서 메모리는 한국 경제의 최대 변수' }}>
+Section49.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '모든 시나리오에서 메모리는 한국 경제의 최대 변수' }}></p>
+Section49.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '모든 시나리오에서 메모리는 한국 경제의 최대 변수' }}></p>
+Section49.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '모든 시나리오에서 메모리는 한국 경제의 최대 변수' }}></p>
+Section49.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Base 케이스에서도 한국이 HBM 글로벌 점유율 70%+ 유지</span></li>
+Section49.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Bull 시 SK하이닉스·삼성전자 합산 영업이익 폭증 전망 (2030년 300조+)</span></li>
+Section49.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>그러나 모든 시나리오에서 메모리는 한국 경제의 단일 최대 변수로 잔존</span></li>
+Section50.jsx:23:AI 데이터센터
+Section50.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '데이터센터 10GW 시대를 여는<br/>글로벌 하이퍼스케일러의 집결' }}>
+Section50.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '2030년 한국 IT 용량<br/>6.3GW (현재 3배)' }}></p>
+Section50.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '글로벌 허브 집중<br/>10GW+ 도달 가능' }}></p>
+Section50.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '국가 이니셔티브<br/>지연 시 성장 둔화' }}></p>
+Section50.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Stock Farm Road(3GW), SK-AWS 확장, 삼성 2,300억 달러 등 거대 파이프라인 집중</span></li>
+Section50.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>단일 산업으로 GDP 10% 기여 목표라는 정부의 명시적 정책 의지 반영</span></li>
+Section50.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>전력 수급 한계 극복 여부가 최상의 Bull 시나리오 달성을 위한 핵심 트리거</span></li>
+Section51.jsx:23:로봇 / 휴머노이드
+Section51.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '공간의 표준을 재정의할 2030년대<br/>100조 원 규모 로봇 산업의 폭발' }}>
+Section51.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '2030년대 산업 규모<br/>50조 원 안착' }}></p>
+Section51.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '상용화 가속으로<br/>100조 원+ 폭발' }}></p>
+Section51.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '티핑 포인트 지연<br/>(2035년 이후)' }}></p>
+Section51.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>현대차그룹, 삼성전자, 두산로보틱스가 주도하는 차세대 폼팩터 경쟁 심화</span></li>
+Section51.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>인간의 노동력을 대체하고 물리적 공간의 표준을 완전히 재정의할 거대 산업</span></li>
+Section51.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>2030~2035년 사이가 상용화의 진정한 Commercial Inflection Point로 작용</span></li>
+Section52.jsx:23:바이오 융합 / 장수의학 / 세포·유전자치료
+Section52.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '매출 10조 시대를 여는 CDMO 역량이<br/>창출할 거대 부동산 실수요' }}>
+Section52.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '삼성바이오 2030년<br/>매출 10조 원+ 전망' }}></p>
+Section52.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '글로벌 CDMO 시장<br/>두 자릿수 점유 조기 달성' }}></p>
+Section52.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '글로벌 규제 및<br/>경쟁 심화로 수익성 둔화' }}></p>
+Section52.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>삼성바이오로직스 등 핵심 기업 매출 컨센서스 상향 및 K-바이오 글로벌 확장 가속화</span></li>
+Section52.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>세포 및 유전자 치료 CDMO에서 글로벌 두 자릿수 점유율을 차지할 수 있는 잠재력</span></li>
+Section52.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>매출 10조 시대를 여는 생산 역량이 창출할 거대한 연구시설 및 공장 부동산 실수요</span></li>
+Section53.jsx:23:방산·우주
+Section53.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '2030년 500억 달러 수출을 겨냥하는<br/>K-디펜스의 퀀텀 점프' }}>
+Section53.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '우주·방산 글로벌 진출<br/>안정적 시장 확보' }}></p>
+Section53.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '2030년 방산 수출<br/>500억 달러 (현재 3배)' }}></p>
+Section53.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '지정학적 리스크<br/>완화 시 모멘텀 축소' }}></p>
+Section53.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>KAI, 한화, KARI가 주도하는 K-방산과 우주 산업의 구조적 퀀텀 점프 기대</span></li>
+Section53.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>1조 달러대 거대 글로벌 시장에서 지정학적 갈등을 기회로 삼는 새로운 신데렐라 산업</span></li>
+Section53.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>미·중 패권 경쟁 및 유라시아 긴장 국면이 오히려 수출의 장기 슈퍼사이클을 지지</span></li>
+Section54.jsx:23:K-콘텐츠
+Section54.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '음악을 넘어 게임, 패션, 영상으로<br/>확장될 새로운 문화 자본의 영토' }}>
+Section54.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '글로벌 OTT 내<br/>점유율 지속 상승' }}></p>
+Section54.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '다변화 융합 시장<br/>2~3조 달러 진입' }}></p>
+Section54.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '글로벌 플랫폼<br/>종속성 심화' }}></p>
+Section54.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>HYBE, SM, CJ ENM 주도의 라이브 비주얼, IP 비즈니스, 게임 산업의 동반 팽창</span></li>
+Section54.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>음악(K-pop) 단일 장르를 넘어 Game, Film, Animation, Fashion 등 문화 영토 다변화</span></li>
+Section54.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>1조 달러대 K-pop 시장이 3조 달러대 거대 무형자산 제국으로 진화하는 변곡점</span></li>
+Section55.jsx:23:양자 / 수소 / 우주
+Section55.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '양자 컴퓨팅, 수소, 우주 산업이 담보하는<br/>국가 경제의 미래 방어막' }}>
+Section55.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '2030년까지 GDP<br/>기여도 1% 미만' }}></p>
+Section55.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '초기 딥테크 안착<br/>(미래 방어막 실현)' }}></p>
+Section55.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '옵션 가치 실현<br/>불투명 (장기 정체)' }}></p>
+Section55.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>양자 컴퓨팅, 수소, 우주 등 딥테크 인프라의 파괴적 미래 잠재력에 선제적 대비</span></li>
+Section55.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>신산업 특성상 단기적인 거시 경제 기여도는 낮으나 장기적 파급력은 예측 불허</span></li>
+Section55.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>거시 경제의 지정학 및 기술 불확실성을 방어할 국가 차원의 필수적인 '옵션 가치'</span></li>
+Section56.jsx:23:시니어 케어 경제
+Section56.jsx:28:<h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} dangerouslySetInnerHTML={{ __html: '글로벌 펀드와 융합하여 침투율 0.6%의<br/>블루오션을 선점할 시니어 케어' }}>
+Section56.jsx:38:<p className="text-[24px] md:text-[28px] font-black text-black leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '2030년 시니어 하우징<br/>168조 원 전망' }}></p>
+Section56.jsx:45:<p className="text-[24px] md:text-[28px] font-black text-[#0055ff] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '글로벌 펀드 진입으로<br/>침투율 급속 팽창' }}></p>
+Section56.jsx:52:<p className="text-[24px] md:text-[28px] font-black text-[#e11d48] leading-snug break-keep" dangerouslySetInnerHTML={{ __html: '규제 및 인프라<br/>한계로 0.6% 장기화' }}></p>
+Section56.jsx:60:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>한국 시니어 하우징 침투율은 0.6%로 미국(11%), 호주(6%) 대비 극도로 저개발된 블루오션</span></li>
+Section56.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>전체 시니어 하우징 시장 규모는 2020년 72조 원에서 2030년 168조 원으로 폭발적 성장 전망</span></li>
+Section56.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>이지스 KB골든라이프케어 협력 실버타운 출시(국내 운용사 최초 펀드 통한 실버타운 공급)</span></li>
+Section56.jsx:63:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Warburg Pincus·Invesco 한국 시니어 시장 진입(2026 발표)이 시작점</span></li>
+Section57.jsx:30:인구·구조적 변수
+Section58.jsx:27:혹독한 인구 다이어트의 시작
+Section58.jsx:33:2024년 5,175만 정점 통과 후 직면할<br/>가파른 국가 규모 축소의 현실
+Section58.jsx:40:<span>6,000만</span>
+Section58.jsx:41:<span>4,000만</span>
+Section58.jsx:42:<span>2,000만</span>
+Section58.jsx:48:<div className="absolute bottom-[calc(86%+10px)] text-[20px] md:text-[24px] font-black text-black">5,175만</div>
+Section58.jsx:50:<div className="absolute -bottom-[35px] font-bold text-[16px] text-black">2024 (정점)</div>
+Section58.jsx:55:<div className="absolute bottom-[calc(79%+10px)] text-[18px] md:text-[22px] font-bold text-gray-600">4,734만</div>
+Section58.jsx:62:<div className="absolute bottom-[calc(71%+10px)] text-[18px] md:text-[22px] font-bold text-gray-600">4,300만</div>
+Section58.jsx:69:<div className="absolute bottom-[calc(61%+10px)] text-[18px] md:text-[22px] font-bold text-gray-600">3,664만</div>
+Section58.jsx:76:<div className="absolute bottom-[calc(35%+10px)] text-[20px] md:text-[24px] font-black text-red-600 whitespace-nowrap">1,100~3,000만</div>
+Section58.jsx:78:<div className="absolute -bottom-[35px] font-black text-[16px] text-red-600 whitespace-nowrap">2100 (추정)</div>
+Section58.jsx:85:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>통계청·UN 중위 변동치 기준 2024년 5,175만 명 정점 이후 본격적인 감소 진입</span></li>
+Section58.jsx:86:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>2040년 약 4,734만 명, 2050년 약 4,300만 명, 2060년 3,664만 명으로 가파른 축소</span></li>
+Section58.jsx:87:<li className="flex items-start"><span className="mr-3 text-red-600">▪</span><span className="text-red-900">Bayesian 확률 추정 기준 2100년에는 1,100만~3,000만 명 사이로 국가 규모 축소 불가피</span></li>
+Section59.jsx:23:생산 인구 35% 증발의 충격파
+Section59.jsx:28:2035년 고령 비중 30% 돌파가 몰고 올<br/>잠재성장률 하방 압력
+Section59.jsx:36:<h3 className="text-[24px] font-black text-black mb-8">고령 인구(65세 이상) 비중 급증</h3>
+Section59.jsx:58:<h3 className="text-[24px] font-black text-gray-900 mb-8">생산가능인구(15~64세) 증발</h3>
+Section59.jsx:62:<span className="font-black text-gray-800 text-[24px]">3,738만</span>
+Section59.jsx:64:<span className="mt-4 font-bold text-gray-700">2020년</span>
+Section59.jsx:74:<span className="font-black text-white text-[18px]">2,419만</span>
+Section59.jsx:76:<span className="mt-4 font-black text-[#1d1d1f]">2050년</span>
+Section59.jsx:86:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>65세 이상 고령자 비중은 2025년 20%로 초고령사회 진입 후 2035년 30%를 돌파 전망</span></li>
+Section59.jsx:87:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>생산가능인구(15~64세)는 2020년 3,738만 명에서 2050년 2,419만 명으로 약 35% 증발</span></li>
+Section59.jsx:88:<li className="flex items-start"><span className="mr-3 text-red-600">▪</span><span className="text-red-900">극단적인 부양비 증가와 노동력 부족으로 거시 경제의 잠재성장률 하방 압력 가중</span></li>
+Section60.jsx:23:인구 역설이 창출할 자본의 대이동
+Section60.jsx:28:가계 자산의 유동화가 열어젖힐<br/>자산운용 및 시니어 하우징 수요의 빅뱅
+Section60.jsx:36:<div className="text-[20px] font-bold text-gray-400 mb-2">인구 감소의 역설</div>
+Section60.jsx:37:<h3 className="text-[34px] font-black leading-tight text-center">가계 자산의<br/>대규모 유동화</h3>
+Section60.jsx:38:<p className="mt-6 text-gray-300 font-medium">부동산 및 금융 자산 처분 가속</p>
+Section60.jsx:51:<div className="text-[28px] font-black text-blue-900">자산운용 산업으로의 폭발적 자본 이전</div>
+Section60.jsx:54:<div className="text-[28px] font-black text-green-900">시니어 하우징 및 헬스케어 수요 빅뱅</div>
+Section60.jsx:57:<span className="font-bold text-gray-600">💡 글로벌 벤치마크: 일본 '잃어버린 30년'의 신규 시장 패턴과 유사</span>
+Section60.jsx:66:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>거시 양면성: 노동력 부족이라는 부정 효과와 시니어 하우징 등 신규 시장 창출 효과 병존</span></li>
+Section60.jsx:67:<li className="flex items-start"><span className="mr-3 text-blue-600">▪</span><span className="text-blue-900">가계의 부동산·금융 자산 처분이 자산운용 산업으로 이전되며 거대한 자본 대이동 발생</span></li>
+Section60.jsx:68:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>일본이 잃어버린 30년에도 자산운용·시니어 케어·인바운드 관광에서 새 시장을 만들어낸 패턴과 유사</span></li>
+Section61.jsx:23:이민자 수용 및 AI로 방어하는 펀더멘털
+Section61.jsx:28:외국인 10% 비중 확대와 기술적 생산성<br/>상쇄를 통한 거시 연착륙 전략
+Section61.jsx:35:잠재성장률 하방 압력을 방어하기 위한 2대 핵심 전략
+Section61.jsx:45:<h3 className="text-[24px] font-black text-gray-800">Strategy 01. 이민자 수용 확대</h3>
+Section61.jsx:48:<p className="text-[18px] font-bold text-gray-500 mt-2">2040년 목표 (싱가포르 모델 차용)</p>
+Section61.jsx:57:<h3 className="text-[24px] font-black text-gray-800">Strategy 02. AI 기술 상쇄</h3>
+Section61.jsx:60:<p className="text-[18px] font-bold text-gray-500 mt-2">생산성 향상을 통한 경제 방어 효과</p>
+Section61.jsx:68:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>한국 이민자 비중은 약 4.5% 수준이나, Bull 시나리오는 2040년 10%까지 끌어올리는 정책 전환을 전제</span></li>
+Section61.jsx:69:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>이는 싱가포르 모델(외국인 비중 30%+)을 부분 차용하여 노동력 감소를 적극 방어하는 전략</span></li>
+Section61.jsx:70:<li className="flex items-start"><span className="mr-3 text-purple-700">▪</span><span className="text-purple-900">AI 기술 도입(BCG·McKinsey 보고서)으로 인한 생산성 향상이 인구 감소 효과를 최대 1.0%p 상쇄 가능</span></li>
+Section62.jsx:30:서울 오피스 시장 2030~2040 전망
+Section63.jsx:23:7축 메가 권역으로의 팽창
+Section63.jsx:28:YSBD(용산/서울역)와 KBD(삼성/잠실)가<br/>주도하는 권역 지도의 재편
+Section63.jsx:35:<div className="text-[20px] font-black text-gray-600 mb-6 uppercase tracking-widest">기존 5축 권역 구조</div>
+Section63.jsx:42:<div className="bg-gray-400 text-white w-[140px] py-3 flex items-center justify-center font-bold text-[18px]">MBD (마곡)</div>
+Section63.jsx:43:<div className="bg-gray-400 text-white w-[140px] py-3 flex items-center justify-center font-bold text-[18px]">BBD (분당·판교)</div>
+Section63.jsx:52:<div className="text-[24px] font-black text-blue-900 mb-6 uppercase tracking-widest">진화된 7축 메가 권역</div>
+Section63.jsx:54:<div className="absolute -top-3 bg-blue-600 text-white px-4 py-1 text-[14px] font-bold uppercase">신규 메가 거점 편입</div>
+Section63.jsx:56:YSBD <span className="text-[20px] text-gray-500 font-bold">(용산·서울역)</span>
+Section63.jsx:60:KBD <span className="text-[20px] text-gray-500 font-bold">(삼성·잠실)</span>
+Section63.jsx:64:<span className="text-gray-400">+</span> 기존 5축 권역 병존
+Section63.jsx:72:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>향후 15년간 가장 큰 구조 변화는 YSBD(용산역 + 서울역 IOTA 일대) 신규 권역의 등장과 GBD 동쪽 확장(GBC·잠실MICE·환승센터)임</span></li>
+Section63.jsx:73:<li className="flex items-start"><span className="mr-3 text-blue-600">▪</span><span className="text-blue-900">기존 3대 핵심축(CBD, GBD, YBD)과 2대 확장축(MBD, BBD)에 2개의 신규 초대형 거점이 편입되며 7축 구조로 진화</span></li>
+Section64.jsx:23:Base 시나리오 임대료 전망
+Section64.jsx:28:2040년 평당 34만 원을 돌파할<br/>신규 트로피 자산(IOTA·GBC)의 프라이싱
+Section64.jsx:36:<div className={`text-center font-black text-[22px] border-b-[4px] border-gray-400 text-gray-800 pb-2 transition-all duration-1000 ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>2030년</div>
+Section64.jsx:37:<div className={`text-center font-black text-[22px] border-b-[4px] border-gray-400 text-gray-800 pb-2 transition-all duration-1000 delay-100 ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>2035년</div>
+Section64.jsx:38:<div className={`text-center font-black text-[24px] border-b-[4px] border-[#1d1d1f] pb-2 text-[#1d1d1f] transition-all duration-1000 delay-200 ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>2040년</div>
+Section64.jsx:41:<div className={`bg-gray-200 border-l-[6px] border-gray-500 p-4 font-black flex items-center justify-center text-center text-gray-900 transition-all duration-700 delay-300 ${step >= 3 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>CBD 프라임 평균</div>
+Section64.jsx:42:<div className={`bg-gray-50 border-[2px] border-gray-300 p-4 flex items-center justify-center font-black transition-all duration-700 delay-400 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>17~18<span className="font-bold text-gray-800 ml-1">만 원</span></div>
+Section64.jsx:43:<div className={`bg-gray-50 border-[2px] border-gray-300 p-4 flex items-center justify-center font-black transition-all duration-700 delay-500 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>21~23<span className="font-bold text-gray-800 ml-1">만 원</span></div>
+Section64.jsx:44:<div className={`bg-gray-100 border-[3px] border-gray-400 p-4 flex items-center justify-center font-black text-gray-900 transition-all duration-700 delay-600 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>25~28<span className="font-bold text-gray-800 ml-1">만 원</span></div>
+Section64.jsx:47:<div className={`bg-blue-100 border-l-[6px] border-blue-600 p-4 font-black flex items-center justify-center text-center text-blue-900 mt-2 transition-all duration-700 delay-400 ${step >= 3 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>GBD 프라임 평균</div>
+Section64.jsx:48:<div className={`bg-blue-50 border-[2px] border-blue-200 p-4 flex items-center justify-center font-black mt-2 text-blue-900 transition-all duration-700 delay-500 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>18~20<span className="font-bold text-blue-900 ml-1">만 원</span></div>
+Section64.jsx:49:<div className={`bg-blue-50 border-[2px] border-blue-200 p-4 flex items-center justify-center font-black mt-2 text-blue-900 transition-all duration-700 delay-600 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>24~27<span className="font-bold text-blue-900 ml-1">만 원</span></div>
+Section64.jsx:50:<div className={`bg-blue-100 border-[3px] border-blue-400 p-4 flex items-center justify-center font-black text-[24px] text-blue-900 mt-2 transition-all duration-700 delay-700 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>30~34<span className="text-[20px] font-bold text-blue-900 ml-1">만 원</span></div>
+Section64.jsx:53:<div className={`bg-[#1d1d1f] text-white p-4 font-black flex items-center justify-center text-center shadow-lg mt-2 transition-all duration-700 delay-500 ${step >= 3 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>IOTA 서울 트로피 오피스</div>
+Section64.jsx:54:<div className={`bg-white border-[4px] border-[#1d1d1f] p-4 flex flex-col items-center justify-center font-black mt-2 shadow-sm text-gray-900 transition-all duration-700 delay-600 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>23~26<span className="font-bold text-gray-800">만 원</span></div>
+Section64.jsx:56:<div className={`bg-[#1d1d1f] text-white p-4 flex flex-col items-center justify-center font-black text-[22px] mt-2 shadow-lg transition-all duration-700 delay-800 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>도쿄 수준의<span className="text-[28px] text-yellow-400 leading-none mt-1">65~80%</span></div>
+Section64.jsx:63:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>CBD 프라임은 2030년 약 17~18만 원에서 2040년 25~28만 원으로 상승 전망</span></li>
+Section64.jsx:64:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>GBD 프라임은 2030년 약 18~20만 원에서 2040년 30~34만 원까지 수직 상승 전망</span></li>
+Section64.jsx:65:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span className="text-[#1d1d1f]">IOTA 및 GBC 등 신규 트로피 자산은 도쿄 마루노우치(USD 200/sqft) 대비 65~80% 수준으로 수렴하며 압도적 프라이싱 형성</span></li>
+Section65.jsx:22:Bull 시나리오의 도쿄 마루노우치 수렴
+Section65.jsx:27:평당 50만 원 시대, 글로벌 1선 도시의<br/>핵심부와 어깨를 나란히 하다
+Section65.jsx:35:<div className="text-[24px] font-bold text-gray-500 mb-2 mt-4">IOTA·GBC 신규 트로피 자산</div>
+Section65.jsx:38:<span className="text-[36px] font-black text-gray-800 mb-2 ml-2">만 원</span>
+Section65.jsx:40:<div className="text-[18px] font-bold text-gray-500 mt-2">/ 평·월</div>
+Section65.jsx:42:환산 시 USD 200/sqft 돌파
+Section65.jsx:54:<div className="text-[24px] font-bold text-gray-400 mb-2 mt-4">글로벌 최고 수준 핵심 권역</div>
+Section65.jsx:56:도쿄<br/>마루노우치
+Section65.jsx:60:글로벌 1선 도시 코어 오피스와의<br/>임대료 디커플링(Decoupling) 완전 해소
+Section65.jsx:69:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>가장 낙관적인 Bull 시나리오 발동 시, GBD 프라임은 2040년 38~42만 원 수준 도달 전망</span></li>
+Section65.jsx:70:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span className="text-[#1d1d1f]">IOTA 및 GBC 트로피 자산은 2035년 35만 원을 거쳐 2040년 45~50만 원/평·월 시대 개막</span></li>
+Section65.jsx:71:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>이는 도쿄 마루노우치 코어 오피스의 상징적 저항선인 USD 200/sqft와 완전히 수렴하는 역사적 분기점</span></li>
+Section66.jsx:22:극단적 양극화를 방어하는 트로피 자산
+Section66.jsx:27:Bear 국면에서도 프리미엄을 사수할<br/>신규 랜드마크의 탁월한 자산 방어력
+Section66.jsx:35:2030년 정점 이후 인구·기업 통폐합 쇼크 (Bear Scenario)
+Section66.jsx:43:<div className="text-[28px] font-black text-gray-700 mb-1">가치 약세 및 횡보</div>
+Section66.jsx:45:<div className="text-[20px] font-bold text-gray-600 mt-2">일반 등급 클래스(Class B) 공실 누적</div>
+Section66.jsx:46:<div className="text-[20px] font-bold text-gray-600 mt-2">CBD 일부 노후 자산 임대료 약세</div>
+Section66.jsx:55:<div className="text-[28px] font-black text-[#1d1d1f] mb-1">절대적 방어력 (프리미엄 사수)</div>
+Section66.jsx:57:<div className="text-[22px] font-black text-[#1d1d1f] mt-2">IOTA · GBC 신규 트로피 자산</div>
+Section66.jsx:59:거시 하방 충격에도 GBD·삼성동 코어 수요 집중으로 견고한 가격 유지
+Section66.jsx:68:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Bear 시나리오 발동 시 2030년 정점 이후 인구 및 기업 본사 통폐합으로 전체 시장 임대료 횡보세 진입</span></li>
+Section66.jsx:69:<li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span className="text-gray-600">CBD 일부 자산은 노후화와 수요 이탈로 약세를 보이며 극단적 양극화 현상 심화</span></li>
+Section66.jsx:70:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span className="text-[#1d1d1f]">반면 IOTA 등 삼성동 신규 랜드마크는 핵심 코어 자산으로서 자본의 '안전 도피처(Safe Haven)' 역할을 수행</span></li>
+Section67.jsx:23:공실률 전망
+Section67.jsx:28:노후 자산의 도태 속에서 오직 프라임 등급만이<br/>향유할 4% 이내 완전 임차
+Section67.jsx:36:<div className="text-[20px] font-black mb-2 text-gray-300">최상위 프라임 등급 (Trophy)</div>
+Section67.jsx:37:<div className="text-[34px] font-black text-white tracking-tighter">공실률 4% 이내 유지</div>
+Section67.jsx:39:<span className="font-black text-[#1d1d1f] text-[20px]">▶ 완전 임차(Full Occupancy) 달성</span>
+Section67.jsx:45:<div className="text-[18px] font-bold mb-2 text-gray-200">서울 권역 평균 (Base 시나리오)</div>
+Section67.jsx:46:<div className="text-[30px] font-black">2035년 이후 6~8% 도달</div>
+Section67.jsx:48:<span className="font-bold text-gray-500 text-[18px]">▶ 인구 감소 충격 반영 (완충 구간)</span>
+Section67.jsx:54:<div className="text-[18px] font-bold mb-2 text-gray-500">일반 오피스 & 노후 자산 (Class B 이하)</div>
+Section67.jsx:55:<div className="text-[30px] font-black text-gray-700">10%+ 의미 있는 심각한 공실 발생</div>
+Section67.jsx:57:<span className="font-black text-red-600 text-[18px]">▶ 자산 도태 가속화 (Flight-to-Quality)</span>
+Section67.jsx:66:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>권역 평균 공실률은 Base 시 2030년 5~7%, 2035년 이후 인구 감소가 반영되며 6~8%로 상승 전망</span></li>
+Section67.jsx:67:<li className="flex items-start"><span className="mr-3 text-red-600">▪</span><span className="text-gray-600">Bear 시나리오 발동 시 권역 평균 10% 이상 도달 및 Class B 이하 노후 자산의 급격한 도태 우려</span></li>
+Section67.jsx:68:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span className="text-[#1d1d1f]">그러나 프라임 등급은 'Flight-to-Quality' 쏠림 현상으로 4% 이내의 완전 임차 상태를 구조적으로 향유</span></li>
+Section68.jsx:30:산업/물류 부동산 2030~2040
+Section69.jsx:23:데이터센터 수요 폭발과 분산화
+Section69.jsx:28:전력인입 제약으로 지방 분산가속,<br/>단일 부동산 카테고리로 향후 15년간 가장 큰 자본 흡수 예상
+Section69.jsx:36:<div className="absolute top-4 left-6 text-[20px] font-black text-gray-500 uppercase">한국 데이터센터 전력 수요 전망</div>
+Section69.jsx:41:<div className="text-[20px] font-black text-gray-800 mt-2">2030년 (Base)</div>
+Section69.jsx:47:<div className="text-[20px] font-black text-gray-800 mt-2">2035년</div>
+Section69.jsx:53:<div className="text-[20px] font-black text-gray-800 mt-2">2040년</div>
+Section69.jsx:60:<div className="text-[22px] font-black text-red-800 mb-2">수도권 전력 인입 제약</div>
+Section69.jsx:61:<div className="text-[18px] font-bold text-red-600">성장의 구조적 병목 (Bottleneck) 발생</div>
+Section69.jsx:65:<div className="text-[22px] font-black text-blue-900 mb-2">지방 거점 분산 가속화</div>
+Section69.jsx:66:<div className="text-[18px] font-bold text-blue-700">전남 · 경북 · 강원 중심의 신규 클러스터 조성</div>
+Section69.jsx:74:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>한국 데이터센터 수요는 2030년 6.3GW에서 2040년 최대 22GW까지 3.5배 이상 폭발적 성장 전망</span></li>
+Section69.jsx:75:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>수도권 전력망 한계가 구조적 제약으로 작용하며, 풍부한 전력 확보가 가능한 지방으로의 입지 분산 필연적</span></li>
+Section69.jsx:76:<li className="flex items-start"><span className="mr-3 text-blue-600">▪</span><span className="text-blue-900">결과적으로 데이터센터는 단일 산업 부동산 카테고리로서 향후 15년간 가장 거대한 자본을 흡수할 섹터로 부상</span></li>
+Section70.jsx:23:시니어 하우징 메가 트렌드
+Section70.jsx:28:300조 원 거대 시장을 장악할<br/>한국형 시니어 REIT 모델의 탄생
+Section70.jsx:37:<div className="text-[20px] font-bold text-gray-400 mb-2">2030년 168조 원</div>
+Section70.jsx:39:<div className="text-[24px] font-bold text-white mb-2">2040년 시장 규모</div>
+Section70.jsx:40:<div className="font-black text-yellow-400 leading-none tracking-tighter" style={{ fontSize: '66px' }}>300<span className="text-white font-bold ml-1" style={{ fontSize: '40px' }}>조 원+</span></div>
+Section70.jsx:42:<div className="text-[20px] font-bold text-gray-300">침투율 0.6% ➔ 3~5% 확장 시<br/><span className="text-white text-[24px]">신규 공급 50만 호 이상 필요</span></div>
+Section70.jsx:48:<div className="text-[24px] font-black text-gray-800 mb-2 inline-block mx-auto">이지스 시니어 플랫폼의 비전</div>
+Section70.jsx:52:<div className="text-[22px] font-black text-[#1d1d1f]">블랙스톤 BREIT</div>
+Section70.jsx:53:<div className="text-[16px] font-bold text-gray-500">압도적 펀딩·스케일업</div>
+Section70.jsx:57:<div className="text-[22px] font-black text-[#1d1d1f]">미국 Welltower 모델</div>
+Section70.jsx:58:<div className="text-[16px] font-bold text-gray-500">헬스케어·운영 전문성 결합</div>
+Section70.jsx:62:<div className="text-[26px] font-black text-white">한국형 압도적 시니어 REIT 모델 진화</div>
+Section70.jsx:71:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>한국 시니어 하우징 시장은 2030년 168조 원에서 2040년 300조 원 이상으로 폭발적 성장이 확정된 메가 섹터</span></li>
+Section70.jsx:72:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>현재 0.6%에 불과한 침투율이 글로벌 평균인 3~5% 수준으로 오를 경우 최소 50만 호의 신규 공급 필요</span></li>
+Section70.jsx:73:<li className="flex items-start"><span className="mr-3 text-blue-600">▪</span><span className="text-blue-900">이지스는 블랙스톤(BREIT)의 자본력과 웰타워(Welltower)의 운영 전문성을 결합한 거대 시니어 REIT로 시장 장악</span></li>
+Section71.jsx:22:생명과학 및 콜드체인 물류 생태계
+Section71.jsx:27:생명과학 클러스터와 콜드체인 제약 물류가<br/>결합하는 신규 거점의 안착
+Section71.jsx:37:<div className="text-[26px] font-bold text-[#888]">생명과학 클러스터</div>
+Section71.jsx:40:<span className="bg-gray-100 px-4 py-2 font-bold text-gray-800 rounded-full">송도</span>
+Section71.jsx:41:<span className="bg-gray-100 px-4 py-2 font-bold text-gray-800 rounded-full">판교</span>
+Section71.jsx:42:<span className="bg-gray-100 px-4 py-2 font-bold text-gray-800 rounded-full">마곡</span>
+Section71.jsx:45:K-바이오 클러스터 특화 부동산이<br/>독립적인 우량 신규 카테고리로 안착
+Section71.jsx:53:<div className="text-[26px] font-bold text-[#888]">콜드체인 · 제약 물류</div>
+Section71.jsx:56:<span className="bg-blue-50 border border-blue-200 px-4 py-2 font-bold text-blue-900 rounded-full">인구 고령화</span>
+Section71.jsx:57:<span className="bg-blue-50 border border-blue-200 px-4 py-2 font-bold text-blue-900 rounded-full">바이오 직배송</span>
+Section71.jsx:60:의약품 수요 증가와 맞물려<br/>특수 온도 제어 물류 수요의 지속적 성장
+Section71.jsx:69:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>송도, 판교, 마곡 등 주요 거점을 중심으로 한 '생명과학 클러스터'가 새로운 핵심 카테고리로 부상</span></li>
+Section71.jsx:70:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>인구 고령화 및 바이오/의약품 직배송 트렌드와 결합하여 콜드체인(특수 제어) 물류 인프라 수요 급증</span></li>
+Section71.jsx:71:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span className="text-[#1d1d1f]">연구개발 거점과 특수 물류 인프라가 시너지를 내며 K-바이오 특화 밸류체인 부동산 완성</span></li>
+Section72.jsx:22:Grade-A 물류센터의 패러다임 전환
+Section72.jsx:27:모든 신규 대형 물류센터의 절대적 설계 표준<br/>로봇·AMR 친화형
+Section72.jsx:34:<div className="text-[18px] font-bold text-gray-400 uppercase tracking-widest">Industry Leaders 주도</div>
+Section72.jsx:36:<span className="text-[28px] font-black leading-none">쿠팡</span>
+Section72.jsx:37:<span className="text-[28px] font-black leading-none">CJ대한통운</span>
+Section72.jsx:38:<span className="text-[28px] font-black leading-none">네이버</span>
+Section72.jsx:44:<div className="text-[36px] font-bold text-[#888] mb-2">로봇 · AMR 친화 설계 (Robot-Friendly)</div>
+Section72.jsx:46:<div className="flex-1 bg-gray-50 border-[2px] border-gray-200 py-3 px-2 font-bold text-gray-800 text-[17px] break-keep flex items-center justify-center text-center">초평탄 바닥 구조 및 하중 강화</div>
+Section72.jsx:47:<div className="flex-1 bg-gray-50 border-[2px] border-gray-200 py-3 px-2 font-bold text-gray-800 text-[17px] break-keep flex items-center justify-center text-center">물류 로봇 전용 동선 최적화</div>
+Section72.jsx:48:<div className="flex-1 bg-gray-50 border-[2px] border-gray-200 py-3 px-2 font-bold text-gray-800 text-[17px] break-keep flex items-center justify-center text-center">고전력 인입 및 5G 통신망 완비</div>
+Section72.jsx:53:<div className="text-[24px] font-black">향후 모든 신규 Grade-A 물류센터의 절대적 표준</div>
+Section72.jsx:61:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>쿠팡, CJ대한통운, 네이버, LG CNS 등 물류 및 IT 거인들이 전면적인 자동화를 시장의 벤치마크로 주도</span></li>
+Section72.jsx:62:<li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>바닥 평탄도, 로봇 전용 통신/전력망, 하중 등 로봇(AMR/AGV) 운영에 최적화된 하드웨어 스펙 필수 요구</span></li>
+Section72.jsx:63:<li className="flex items-start"><span className="mr-3 text-blue-600">▪</span><span className="text-blue-900">단순 창고를 넘어선 '자동화 설비의 플랫폼'으로서 로봇 친화 설계가 우량 물류센터의 생존 조건으로 정착</span></li>
