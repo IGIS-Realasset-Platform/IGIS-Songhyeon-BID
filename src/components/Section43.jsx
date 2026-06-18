@@ -5,80 +5,114 @@ export default function Section43({ isActive }) {
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
                         SBD의 가치 귀속 원천
                     </span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     타 업무지구(CBD·GBD·YBD)가 끝내 갖지 못한 녹지 축과 광역 연결성의 결합
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 다채로운 인포그래픽 영역 (대칭 밸런스시트: 서울역 교통 노드 vs 남산 에코 축) */}
+                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] flex flex-col lg:flex-row items-stretch justify-between gap-8 relative z-10">
                     
-                    {/* 좌측 박스: 기존 3대 업무지구(GBD, YBD, CBD)의 환경 스펙 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Existing Districts (GBD/YBD/CBD)
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    자연 조망 부재와 국지적 교통 중심의 한계
-                                </div>
+                    {/* 좌측: 서울역 교통 결절 (Transit Hub) */}
+                    <div className="w-full lg:w-[48%] bg-[#0f172a] border-2 border-[#0f172a] rounded-none p-6 text-left shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-blue-500 text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Transit Node Premium
+                            </span>
+                            <h3 className="text-[24px] font-black text-white mb-4 leading-tight">
+                                서울역 광역 교통 결절점
+                            </h3>
+                            <p className="text-gray-400 text-[13px] font-bold mb-6">
+                                KTX, GTX-A/B, 1/4호선, 공항철도 연계로 수도권 및 전국 비즈니스 노드를 최단 시간에 묶어주는 초광역 교통 거점
+                            </p>
+
+                            {/* 교통망 시각화 SVG */}
+                            <div className="w-full h-[150px] bg-white/5 border border-white/10 relative flex items-center justify-center">
+                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 150">
+                                    {/* 중앙 중심 노드 */}
+                                    <circle cx="150" cy="75" r="25" fill="#2563eb" fillOpacity="0.8" />
+                                    <circle cx="150" cy="75" r="15" fill="#3b82f6" />
+                                    <text x="150" y="80" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">SEOUL STATION</text>
+                                    
+                                    {/* 연결선 */}
+                                    <line x1="50" y1="30" x2="130" y2="60" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3,3" />
+                                    <line x1="250" y1="30" x2="170" y2="60" stroke="#10b981" strokeWidth="2" />
+                                    <line x1="50" y1="120" x2="130" y2="90" stroke="#3b82f6" strokeWidth="2" />
+                                    <line x1="250" y1="120" x2="170" y2="90" stroke="#ec4899" strokeWidth="2" strokeDasharray="3,3" />
+                                    
+                                    {/* 주변 노드 텍스트 */}
+                                    <text x="40" y="25" fill="#f59e0b" fontSize="10" fontWeight="bold">GTX-A/B (예정)</text>
+                                    <text x="260" y="25" fill="#10b981" fontSize="10" fontWeight="bold">공항철도 (Incheon Airport)</text>
+                                    <text x="35" y="130" fill="#3b82f6" fontSize="10" fontWeight="bold">KTX 전 노선</text>
+                                    <text x="260" y="130" fill="#ec4899" fontSize="10" fontWeight="bold">지하철 1/4호선</text>
+                                </svg>
                             </div>
-                            
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🏢 GBD (강남): 높은 밀도와 유행의 중심이나, 대규모 자연 녹지가 전무하고 광역 KTX/GTX 망 연결 미비
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🏙️ YBD (여의도): 한강 공원 접근성은 좋으나 금융 특화 업종 위주이며 강북 핵심 행정 중심지와의 단절성
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🚫 구도심 CBD: 오랜 역사성과 행정 접근성은 최고이나 자산 파편화와 대규모 기부채납 광장 면적의 절대 부족
-                                </div>
-                            </div>
+                        </div>
+                        
+                        <div className="mt-4 border-t border-white/10 pt-4">
+                            <span className="text-[12px] font-bold text-gray-400">
+                                💼 "지방 출장자 및 해외 파트너 접근성이 국내에서 가장 압도적인 입지 자산"
+                            </span>
                         </div>
                     </div>
 
-                    {/* 우측 박스: SBD만의 독점적 프리미엄 무기 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    SBD's Exclusive Core Values
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    교통 편의성과 친자연 웰빙의 유일무이한 합작
-                                </div>
+                    {/* 우측: 남산 에코 시스템 (Eco & Wellbeing) */}
+                    <div className="w-full lg:w-[48%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#10b981] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Eco-Wellness Premium
+                            </span>
+                            <h3 className="text-[24px] font-black text-gray-900 mb-4 leading-tight">
+                                남산 그린 에코 벨트
+                            </h3>
+                            <p className="text-gray-600 text-[13px] font-bold mb-6">
+                                서울의 최상급 도심 자연 자산인 남산 녹지축을 기점으로 신선한 대기 공급 및 청정 조망을 확보하여 임직원 웰니스를 극대화
+                            </p>
+
+                            {/* 남산 자연 축 시각화 SVG */}
+                            <div className="w-full h-[150px] bg-emerald-50/50 border border-emerald-200 relative flex items-center justify-center">
+                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 150">
+                                    {/* 산 모양 패스 */}
+                                    <path d="M 50,130 Q 150,30 250,130" fill="#a7f3d0" fillOpacity="0.5" stroke="#10b981" strokeWidth="2" />
+                                    <path d="M 100,130 Q 180,50 260,130" fill="#d1fae5" fillOpacity="0.4" stroke="#059669" strokeWidth="1" />
+                                    
+                                    {/* 나무 모양 심볼 */}
+                                    <circle cx="150" cy="55" r="8" fill="#059669" />
+                                    <line x1="150" y1="55" x2="150" y2="70" stroke="#059669" strokeWidth="2" />
+                                    
+                                    <circle cx="130" cy="75" r="7" fill="#10b981" />
+                                    <line x1="130" y1="75" x2="130" y2="90" stroke="#10b981" strokeWidth="2" />
+                                    
+                                    <circle cx="170" cy="75" r="7" fill="#10b981" />
+                                    <line x1="170" y1="75" x2="170" y2="90" stroke="#10b981" strokeWidth="2" />
+                                    
+                                    {/* 웰빙 텍스트 */}
+                                    <text x="150" y="115" textAnchor="middle" fill="#065f46" fontSize="11" fontWeight="black">Namsan Green Spine</text>
+                                </svg>
                             </div>
-                            
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🚇 광역 연결성: KTX 전 노선 및 향후 개통될 GTX-A/B 선상에 직접 노출되어 전국을 반나절 생활권으로 통합</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🌳 남산 에코 시스템: 빌딩 문을 열면 축구장 크기의 녹지 광장과 남산 생태 공원이 직접 보행로로 눈앞에 펼쳐지는 구조</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>💼 글로벌 기업 니즈: ESG 표준을 충족하는 '친환경 탄소제로 등급'과 '원스톱 광역 비즈니스 교통' 완벽 합치</span>
-                                </div>
-                            </div>
+                        </div>
+
+                        <div className="mt-4 border-t border-gray-200 pt-4">
+                            <span className="text-[12px] font-bold text-gray-500">
+                                🌳 "ESG 기준을 중요하게 평가하는 글로벌 테넌트들이 가장 선호하는 웰빙 환경"
+                            </span>
                         </div>
                     </div>
 
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>

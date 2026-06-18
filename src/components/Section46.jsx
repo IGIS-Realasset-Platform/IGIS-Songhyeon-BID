@@ -5,71 +5,94 @@ export default function Section46({ isActive }) {
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
                         용산 IBD 타운매니지먼트 당위성
                     </span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     14.3조 초대형 용산 개발을 조율할 초광역 거버넌스 도입의 필연성
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 다채로운 인포그래픽 영역 (용산 입체 도시 버티컬 스택 SVG + 거버넌스 당위성 카드) */}
+                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] flex flex-col lg:flex-row items-stretch justify-between gap-8 relative z-10">
                     
-                    {/* 좌측 박스: 용산국제업무지구 개발 마스터 스펙 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Yongsan IBD Scale
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    코레일 & SH공사 주도 메가프로젝트
-                                </div>
-                            </div>
+                    {/* 좌측: 용산 IBD 3차원 입체 도시 버티컬 스택 (SVG) */}
+                    <div className="w-full lg:w-[45%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Vertical Stack Structure
+                            </span>
+                            <h3 className="text-[24px] font-black text-gray-900 mb-4 leading-tight">
+                                3차원 입체 복합 도시 설계
+                            </h3>
                             
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    💰 14.3조 사업비: 단일 도심 개발 역사상 단연 세계적 스케일의 메가 파이낸싱
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🏢 100층 랜드마크: 49만㎡ 부지에 상징적인 하이라이트 복합 타워 배치
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🌉 스카이 트레일 (Sky Trail): 마천루 40층 레벨을 둥글게 잇는 공중 보행 인프라 기획
-                                </div>
+                            {/* 버티컬 스택 SVG */}
+                            <div className="w-full h-[240px] bg-slate-50 border border-gray-300 relative flex items-center justify-center">
+                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 240">
+                                    {/* 고층 빌딩 아웃라인 */}
+                                    <line x1="80" y1="20" x2="80" y2="220" stroke="#cbd5e1" strokeWidth="2" />
+                                    <line x1="220" y1="20" x2="220" y2="220" stroke="#cbd5e1" strokeWidth="2" />
+                                    
+                                    {/* 빌딩 실루엣 */}
+                                    <rect x="50" y="30" width="60" height="180" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1" />
+                                    <rect x="190" y="50" width="60" height="160" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1" />
+                                    
+                                    {/* Layer 1: 공중 (Sky Trail 40F) */}
+                                    <rect x="30" y="80" width="240" height="15" fill="#3b82f6" fillOpacity="0.8" stroke="#1d4ed8" strokeWidth="1.5" />
+                                    <text x="150" y="91" textAnchor="middle" fill="white" fontSize="9" fontWeight="black">SKY TRAIL (공중 녹지 보행로 - 40F)</text>
+                                    
+                                    {/* Layer 2: 지상 (Ground Level) */}
+                                    <rect x="30" y="145" width="240" height="15" fill="#10b981" fillOpacity="0.8" stroke="#047857" strokeWidth="1.5" />
+                                    <text x="150" y="156" textAnchor="middle" fill="white" fontSize="9" fontWeight="black">GROUND GREENWAY (보행 가로 & 수변광장)</text>
+                                    
+                                    {/* Layer 3: 지하 (Underground Level) */}
+                                    <rect x="30" y="195" width="240" height="15" fill="#0f172a" fillOpacity="0.9" stroke="#000" strokeWidth="1.5" />
+                                    <text x="150" y="206" textAnchor="middle" fill="white" fontSize="9" fontWeight="black">UNDERGROUND CORE (공동물류 및 로봇 배송)</text>
+
+                                    {/* 연결 엘리베이터 코어 라인 */}
+                                    <line x1="150" y1="80" x2="150" y2="210" stroke="#ef4444" strokeWidth="2" strokeDasharray="3,3" />
+                                    <circle cx="150" cy="87.5" r="3" fill="#ef4444" />
+                                    <circle cx="150" cy="152.5" r="3" fill="#ef4444" />
+                                    <circle cx="150" cy="202.5" r="3" fill="#ef4444" />
+                                </svg>
                             </div>
+                        </div>
+                        <div className="mt-4 bg-gray-50 p-3 border border-gray-200">
+                            <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
+                                🏢 스카이 트레일(공중)-녹지 가로(지상)-공동 하역장(지하)의 수직 복합 레이어가 단일 시스템으로 연계되는 구조적 당위성 제시.
+                            </p>
                         </div>
                     </div>
 
-                    {/* 우측 박스: 타운 매니지먼트의 통합 조율 임무 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Mega Governance Imperative
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    파편적 빌딩별 관리를 넘는 초광역 운영 시스템
-                                </div>
-                            </div>
+                    {/* 우측: 타운 매니지먼트의 통합 조율 임무 카드 */}
+                    <div className="w-full lg:w-[50%] bg-[#0f172a] border-2 border-[#0f172a] rounded-none p-6 text-left shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-yellow-400 text-black text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Governance Imperative
+                            </span>
+                            <h3 className="text-[24px] font-black text-white mb-6 leading-tight">
+                                파편적 관리를 넘는 초광역 운영 주체
+                            </h3>
                             
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🚚 공동 물류 제어: 지하 공동물류 하역장 및 자율 로봇 배송 경로의 일괄 관제권 확보</span>
+                            <div className="space-y-4">
+                                <div className="bg-white/5 p-4 border-l-4 border-blue-500">
+                                    <span className="block text-white font-extrabold text-[15px]">🚚 지하 공동물류 및 인프라 통합 관제</span>
+                                    <span className="text-[12px] text-gray-300">개별 빌딩 하역장 통합 관리 및 로봇 자율주행 배송 인프라 통제</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🌉 스카이트레일 운영: 여러 빌딩에 걸쳐 있는 공중 보행 데크의 시설 정비, 대피 계획, 상업 연계 일괄 수행</span>
+                                <div className="bg-white/5 p-4 border-l-4 border-blue-500">
+                                    <span className="block text-white font-extrabold text-[15px]">🌉 40층 스카이 트레일 통합 오퍼레이션</span>
+                                    <span className="text-[12px] text-gray-300">여러 마천루에 나뉘어 있는 입체 데크의 상업 시설 연계, 보수, 안전 점검 일괄 집행</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>⚖️ 거버넌스 단일화: 코레일, SH, 민간 디벨로퍼들이 의결 보드를 공유하는 단일 운영기구(DMA) 조기 법제화</span>
+                                <div className="bg-white/5 p-4 border-l-4 border-blue-500">
+                                    <span className="block text-white font-extrabold text-[15px]">⚖️ 의결 보드 단일화 거버넌스</span>
+                                    <span className="text-[12px] text-gray-300">코레일, SH공사, 개별 디벨로퍼들이 의결 지분을 공유하는 통합 타운 매니지먼트(DMA) 구축</span>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +101,7 @@ export default function Section46({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>

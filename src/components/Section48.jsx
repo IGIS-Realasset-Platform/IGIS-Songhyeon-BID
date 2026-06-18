@@ -5,71 +5,90 @@ export default function Section48({ isActive }) {
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
                         SBD/IBD 단계별 실행안
                     </span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     이오타서울 파일럿에서 용산 연계 SYBD(서울역-용산) 축 완성까지의 일정
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 다채로운 인포그래픽 영역 (3단계 로드맵 타임라인 SVG + 리스크 및 거버넌스 카드) */}
+                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] flex flex-col lg:flex-row items-stretch justify-between gap-8 relative z-10">
                     
-                    {/* 좌측 박스: 3단계 점진적 개발/운영 로드맵 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    3-Phase SYBD Roadmap
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    파일럿에서 메가 벨트 확장까지의 타임라인
-                                </div>
-                            </div>
+                    {/* 좌측: 3단계 로드맵 타임라인 (SVG) */}
+                    <div className="w-full lg:w-[48%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Roadmap Timeline
+                            </span>
+                            <h3 className="text-[24px] font-black text-gray-900 mb-4 leading-tight">
+                                3단계 통합 개발 및 운영 타임라인
+                            </h3>
                             
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[15px]">
-                                    🏁 Phase 1. 양동·봉래 파일럿 (2026-2028): 이오타 서울(힐튼 재개발) 중심으로 한국 최초 소형 타운매니지먼트 공식 시범 가동
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[15px]">
-                                    🏢 Phase 2. SBD 광역 확장 (2028-2030): 서울역 북부역세권 개발 및 남산 보행 네트워크 준공 시점에 맞춰 SBD 전역 확산
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[15px]">
-                                    🚀 Phase 3. 용산 연계 SYBD 완성 (2030+): 용산국제업무지구 완공과 연계, 서울역-용산 잇는 대한민국 신업무축 확립
-                                </div>
+                            {/* 타임라인 SVG */}
+                            <div className="w-full h-[220px] bg-slate-50 border border-gray-300 relative flex items-center justify-center">
+                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 220">
+                                    {/* 수평 메인 연도 축 */}
+                                    <line x1="30" y1="140" x2="270" y2="140" stroke="#cbd5e1" strokeWidth="3" />
+                                    
+                                    {/* Phase 1 노드 */}
+                                    <line x1="60" y1="140" x2="60" y2="80" stroke="#3b82f6" strokeWidth="2" />
+                                    <circle cx="60" cy="140" r="6" fill="#3b82f6" />
+                                    <circle cx="60" cy="80" r="12" fill="#eff6ff" stroke="#3b82f6" strokeWidth="2" />
+                                    <text x="60" y="83" textAnchor="middle" fill="#1e3a8a" fontSize="8" fontWeight="black">P.1</text>
+                                    <text x="60" y="65" textAnchor="middle" fill="#0f172a" fontSize="9" fontWeight="bold">파일럿 (양동-봉래)</text>
+                                    <text x="60" y="160" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="black">2026 - 2028</text>
+                                    
+                                    {/* Phase 2 노드 */}
+                                    <line x1="150" y1="140" x2="150" y2="60" stroke="#10b981" strokeWidth="2" />
+                                    <circle cx="150" cy="140" r="6" fill="#10b981" />
+                                    <circle cx="150" cy="60" r="12" fill="#d1fae5" stroke="#10b981" strokeWidth="2" />
+                                    <text x="150" y="63" textAnchor="middle" fill="#065f46" fontSize="8" fontWeight="black">P.2</text>
+                                    <text x="150" y="45" textAnchor="middle" fill="#0f172a" fontSize="9" fontWeight="bold">SBD 광역 확장</text>
+                                    <text x="150" y="160" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="black">2028 - 2030</text>
+                                    
+                                    {/* Phase 3 노드 */}
+                                    <line x1="240" y1="140" x2="240" y2="80" stroke="#f59e0b" strokeWidth="2" />
+                                    <circle cx="240" cy="140" r="6" fill="#f59e0b" />
+                                    <circle cx="240" cy="80" r="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
+                                    <text x="240" y="83" textAnchor="middle" fill="#d97706" fontSize="8" fontWeight="black">P.3</text>
+                                    <text x="240" y="65" textAnchor="middle" fill="#0f172a" fontSize="9" fontWeight="bold">SYBD 연계 완성</text>
+                                    <text x="240" y="160" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="black">2030년 이후</text>
+                                </svg>
                             </div>
                         </div>
                     </div>
 
-                    {/* 우측 박스: 리스크 관리 및 거버넌스 안전대응책 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Risk Mitigation & Governance
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    과도한 세제 지원 지양 및 민주적 공조 보장
-                                </div>
-                            </div>
+                    {/* 우측: 리스크 및 거버넌스 가이드라인 대응 카드 */}
+                    <div className="w-full lg:w-[48%] bg-[#0f172a] border-2 border-[#0f172a] rounded-none p-6 text-left shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-yellow-400 text-black text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Risk & Governance Action
+                            </span>
+                            <h3 className="text-[24px] font-black text-white mb-6 leading-tight">
+                                지속 가능 거버넌스 보장 전략
+                            </h3>
                             
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[15px]">
-                                    <span>💸 재정적 위험 통제: 정부 보조(TIF 등)에 의존하지 않고, 민간 자조 분담금 비율을 최소 70% 이상 보수적으로 수립</span>
+                            <div className="space-y-4">
+                                <div className="bg-white/5 p-4 border-l-4 border-red-500">
+                                    <span className="block text-white font-extrabold text-[15px]">💸 재정 리스크 방지 (민간 중심 자조)</span>
+                                    <span className="text-[12px] text-gray-300">정부 세금 지원(TIF 등) 최소화, 부동산 소유주 자발적 자조 분담금 70% 구성 원칙 확립</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[15px]">
-                                    <span>⚖️ 당연직 의원 통제: 서울시장 대리인, 서울시의원 등 당연직 공무원 4인의 이사회 참여 의무화로 상업 사유화 제어</span>
+                                <div className="bg-white/5 p-4 border-l-4 border-red-500">
+                                    <span className="block text-white font-extrabold text-[15px]">⚖️ 상업적 사유화 통제 (당연직 참여)</span>
+                                    <span className="text-[12px] text-gray-300">지자체 대리인 및 서울시의원 등 당연직 공무원 4인의 이사의 당연직 참여로 사유화 방지</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[15px]">
-                                    <span>🛡️ 포용주의 가이드라인: 영세 소상공인 퇴출 논란 방지를 위한 상생 조력 기금 설치 및 임대 보조금 제도 운영</span>
+                                <div className="bg-white/5 p-4 border-l-4 border-red-500">
+                                    <span className="block text-white font-extrabold text-[15px]">🛡️ 젠트리피케이션 완화 (상생 조력)</span>
+                                    <span className="text-[12px] text-gray-300">구역 내 영세 상인의 급격한 임대료 상승 충격 완화를 위한 BID 자체 상생 조력 기금 조성</span>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +97,7 @@ export default function Section48({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>

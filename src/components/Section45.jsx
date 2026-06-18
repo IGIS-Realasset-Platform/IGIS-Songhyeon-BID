@@ -5,80 +5,108 @@ export default function Section45({ isActive }) {
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
                         SBD 정량적 목표 지표
                     </span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     공실률 2%대 달성 및 주변 임대료 10~20% 프리미엄 창출의 목표
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 다채로운 인포그래픽 영역 (정량적 시나리오 KPI 대시보드) */}
+                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
                     
-                    {/* 좌측 박스: BID 미도입 시 가상 시나리오 (As-Is) */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Without Town Management
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    단순 물리적 건물 신축 및 방치 시 추이
-                                </div>
-                            </div>
+                    {/* 카드 1: 공실률 */}
+                    <div className="bg-white border-2 border-[#0f172a] rounded-none p-5 text-left shadow-lg flex flex-col justify-between h-[280px]">
+                        <div>
+                            <span className="text-[11px] font-black text-[#0f172a] block mb-1">METRIC 01</span>
+                            <h3 className="text-[20px] font-black text-gray-900 mb-4">공실률 방어 (Vacancy)</h3>
                             
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    📉 공실률 장기 정체: 권역 경쟁 심화로 7.5% ~ 9.0% 대 공실 장기 누적
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    💸 임대 요율 둔화: 주변 오피스 지구 평균 가격 수준 수렴 및 프리미엄 상실
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🚶‍♂️ 보행 단절 지속: 노후 보행로 및 차량 소음으로 유동 인구가 유입되지 않는 슬럼 현상 잔존
-                                </div>
+                            <div className="flex items-baseline gap-2 mt-4">
+                                <span className="text-gray-400 text-[18px] line-through font-bold">7.5%</span>
+                                <span className="text-[36px] font-black text-blue-600">2.0%</span>
+                                <span className="text-[12px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 mb-1">-5.5%p</span>
                             </div>
+                            <p className="text-[12px] text-gray-500 font-bold mt-2">
+                                글로벌 앵커 및 에코 테넌트 사전 임차 매칭을 통한 초저공실 사수
+                            </p>
+                        </div>
+                        <div className="w-full h-2 bg-gray-100 mt-4">
+                            <div className="h-full bg-blue-600" style={{ width: '27%' }}></div>
                         </div>
                     </div>
 
-                    {/* 우측 박스: SBD 타운 매니지먼트 적용 효과 (To-Be) */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    With SBD OS Implementation
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    운영체제 장착 후 핵심 목표 실적
-                                </div>
-                            </div>
+                    {/* 카드 2: 임대 프리미엄 */}
+                    <div className="bg-white border-2 border-[#0f172a] rounded-none p-5 text-left shadow-lg flex flex-col justify-between h-[280px]">
+                        <div>
+                            <span className="text-[11px] font-black text-[#0f172a] block mb-1">METRIC 02</span>
+                            <h3 className="text-[20px] font-black text-gray-900 mb-4">임대 프리미엄</h3>
                             
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🎯 초저공실률 사수: 글로벌 앵커 및 에코 테넌트 사전 매칭으로 공실률 2.0% 이하 안정 유지</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>📈 임대료 프리미엄: 통합 가로 경관 가치 확보로 미드타운 평균 대비 15% 이상 할증 임대료 달성</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🚶‍♀️ 유동객 35% 증대: 남산 보행 네트워크 가로 설계 개선을 통해 젊은 연령대 보행 유입 대폭 유발</span>
-                                </div>
+                            <div className="flex items-baseline gap-2 mt-4">
+                                <span className="text-gray-400 text-[18px] line-through font-bold">평균가</span>
+                                <span className="text-[36px] font-black text-[#10b981]">+15%</span>
+                                <span className="text-[12px] font-black text-[#10b981] bg-emerald-50 px-2 py-0.5 mb-1">Premium</span>
                             </div>
+                            <p className="text-[12px] text-gray-500 font-bold mt-2">
+                                통합 가로 경관 가치 및 웰니스를 확보한 에리어 매니지먼트 프리미엄
+                            </p>
+                        </div>
+                        <div className="w-full h-2 bg-gray-100 mt-4">
+                            <div className="h-full bg-[#10b981]" style={{ width: '85%' }}></div>
+                        </div>
+                    </div>
+
+                    {/* 카드 3: 보행 유동인구 */}
+                    <div className="bg-white border-2 border-[#0f172a] rounded-none p-5 text-left shadow-lg flex flex-col justify-between h-[280px]">
+                        <div>
+                            <span className="text-[11px] font-black text-[#0f172a] block mb-1">METRIC 03</span>
+                            <h3 className="text-[20px] font-black text-gray-900 mb-4">보행 유동인구</h3>
+                            
+                            <div className="flex items-baseline gap-2 mt-4">
+                                <span className="text-gray-400 text-[18px] font-bold">Base</span>
+                                <span className="text-[36px] font-black text-purple-600">+35%</span>
+                                <span className="text-[12px] font-black text-purple-600 bg-purple-50 px-2 py-0.5 mb-1">Increase</span>
+                            </div>
+                            <p className="text-[12px] text-gray-500 font-bold mt-2">
+                                남산 보행축 개선 및 상설 문화행사 유입 효과로 일반 보행객 유입 극대화
+                            </p>
+                        </div>
+                        <div className="w-full h-2 bg-gray-100 mt-4">
+                            <div className="h-full bg-purple-600" style={{ width: '65%' }}></div>
+                        </div>
+                    </div>
+
+                    {/* 카드 4: 가로 환경 만족도 */}
+                    <div className="bg-[#0f172a] border-2 border-[#0f172a] rounded-none p-5 text-left shadow-2xl flex flex-col justify-between h-[280px]">
+                        <div>
+                            <span className="text-[11px] font-black text-yellow-400 block mb-1">METRIC 04</span>
+                            <h3 className="text-[20px] font-black text-white mb-4">안전 및 쾌적도</h3>
+                            
+                            <div className="flex items-baseline gap-2 mt-4">
+                                <span className="text-gray-400 text-[18px] line-through font-bold">60%</span>
+                                <span className="text-[36px] font-black text-yellow-400">95%</span>
+                                <span className="text-[12px] font-black text-yellow-400 bg-white/10 px-2 py-0.5 mb-1">Satisfaction</span>
+                            </div>
+                            <p className="text-[12px] text-gray-300 font-bold mt-2">
+                                전용 청소/보안 스태프 상주 배치를 통한 무결점 공공 케어 완성
+                            </p>
+                        </div>
+                        <div className="w-full h-2 bg-white/10 mt-4">
+                            <div className="h-full bg-yellow-400" style={{ width: '95%' }}></div>
                         </div>
                     </div>
 
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
