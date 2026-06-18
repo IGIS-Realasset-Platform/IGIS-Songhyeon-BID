@@ -569,3 +569,11 @@ div.bg-\[\#fdfdfd\],
 .bg-gray-100 {
     background-color: #ffffff !important;
 }
+
+/* Disable transitions and animations inside presentation slides globally to keep layout solid and instant */
+.section, .section * {
+    transition: none !important;
+    animation: none !important;
+    transition-delay: 0s !important;
+    animation-delay: 0s !important;
+}
