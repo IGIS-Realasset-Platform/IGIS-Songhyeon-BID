@@ -110,9 +110,11 @@ export default function App() {
 
   return (
   <>
-  <div className="w-full">
+  <LeftNavigator currentPage={currentPage} isOpen={isNavOpen} setIsOpen={setIsNavOpen} />
+
+  <div className={`transition-all duration-300 ease-in-out ${isNavOpen ? 'lg:ml-[240px]' : 'ml-0'}`}>
   <div className={(['system-plan', 'system-bridge', 'system-chat', 'system-detail', 'system-core'].includes(currentPage)) ? "w-full h-screen overflow-hidden" : "scroll-container font-sans"} id="scroll-container">
-  {currentPage === 'home' && <MainLayout isNavOpen={false} />}
+  {currentPage === 'home' && <MainLayout isNavOpen={isNavOpen} />}
   {currentPage === 'action-plan' && <Notes />}
   
   {/* Navigation Handlers overriding the inline SystemPlan internal stage logic */}

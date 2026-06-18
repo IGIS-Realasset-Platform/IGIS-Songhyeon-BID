@@ -145,10 +145,9 @@ import Section141 from './Section141';
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
     return (
         <div 
-            className="absolute inset-0 w-full h-full transition-transform duration-[200ms]"
+            className="absolute inset-0 w-full h-full"
             style={{ 
-                transform: transformStyle,
-                transitionTimingFunction: "cubic-bezier(0.83, 0, 0.17, 1)"
+                transform: transformStyle
             }}
         >
             {React.cloneElement(slide, { isActive })}
