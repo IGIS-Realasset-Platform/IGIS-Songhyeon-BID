@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function Section105({ isActive }) {
     const { lang } = useLanguage();
-    const [step, setStep] = useState(20);
+    const [step, _setStep] = useState(20); const setStep = () => {};
     const [sliderValue, setSliderValue] = useState(50); // fake slider for animation effect
 
     useEffect(() => {

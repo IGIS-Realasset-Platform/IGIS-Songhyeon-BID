@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function Section55({ isActive }) {
     const { lang } = useLanguage();
-    const [step, setStep] = useState(20);
+    const [step, _setStep] = useState(20); const setStep = () => {};
 
     useEffect(() => {
         if (!isActive) { setStep(20); return; }
