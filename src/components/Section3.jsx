@@ -1,68 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section3({ isActive }) {
- const { lang } = useLanguage();
- const [step, _setStep] = useState(20); const setStep = () => {};
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
- useEffect(() => {
- if (!isActive) {
- setStep(20);
- return;
- }
- 
- const t1 = setTimeout(() => setStep(1), 207); // Theme
- const t2 = setTimeout(() => setStep(2), 551); // Main Text
- const t3 = setTimeout(() => setStep(3), 937); // Content Text
- 
- return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
- }, [isActive]);
+    return (
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+            <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
+                
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        NYC BID 실증적 가치 - Bryant Park
+                    </span>
+                </div>
 
- return (
- <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
- 
- <div className="inline-block w-auto max-w-full mx-auto flex flex-col items-center text-center">
- 
- {/* Theme */}
- <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
- <span className="inline-block text-[24px] md:text-[28px] font-bold text-[#888] uppercase tracking-[-0.02em] mb-[14px] bg-transparent">
- {lang === 'kr' ? '3조 달러 시대, 이지스자산운용의 전략적 좌표' : 'The $3 Trillion Era, IGIS Asset Management\'s Strategic Coordinates'}
- </span>
- </div>
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    1988년 BID 도입과 리노베이션 후 치안 확보 및 재정적 완전 독립
+                </h2>
 
- {/* Main Text */}
- <h2 className={`text-[36px] md:text-[52px] lg:text-[60px] font-extrabold leading-[calc(1.3em-2px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
- {lang === 'kr' ? (
- <>
- 한국 경제 1조 → 2조 → 3조 달러 궤적,<br/>
- 이지스자산운용은 어디에 서 있는가?
- </>
- ) : (
- <>
- Korea's $1T → $2T → $3T GDP Trajectory,<br/>
- Where Does IGIS Stand?
- </>
- )}
- </h2>
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                    
+                    {/* 좌측 박스: After 성과 */}
+                    <div className="flex-[1.2] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    After: Bryant Park Corp (BID)
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    민관 협동 운영을 통한 대전환
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[18px]">
+                                    <span>🛡️ 연 강력범죄 500건 → 사실상 0건 수렴</span>
+                                </div>
+                                <div className="bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[18px]">
+                                    <span>🤝 Google, Citibank, HBO 스폰서 참여</span>
+                                </div>
+                                <div className="bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[18px]">
+                                    <span>🎪 연중 문화·오락 프로그램 상시 기획 및 실행</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
- {/* Content */}
- <div className={`inline-block w-auto max-w-full bg-transparent rounded-none border-[8px] border-[#1e3a8a] px-[50px] py-8 mt-12 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
- {lang === 'kr' ? (
- <ul className="text-[22px] md:text-[26px] text-black leading-[1.7] font-bold text-left inline-block space-y-4">
- <li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>한국 명목 GDP 1조 달러 돌파(2007년) 이후, 2조 달러 안착(2026~2027년)을 앞둔 거시적 변곡점</span></li>
- <li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>런던 시티와 뉴욕 미드타운의 진화 패턴을 바탕으로 서울 프라임 부동산의 미래 조망</span></li>
- <li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>새로운 패러다임 속에서 이지스자산운용의 전략적 좌표 재정립</span></li>
- </ul>
- ) : (
- <ul className="text-[22px] md:text-[26px] text-black leading-[1.7] font-bold text-left inline-block space-y-4">
- <li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Macro inflection point approaching $2T GDP (2026-2027) after surpassing $1T in 2007</span></li>
- <li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Forecasting the future of Seoul's prime real estate based on evolutionary patterns of the City of London and Midtown New York</span></li>
- <li className="flex items-start"><span className="mr-3 text-[#1d1d1f]">▪</span><span>Redefining IGIS Asset Management's strategic coordinates within this new paradigm</span></li>
- </ul>
- )}
- </div>
+                    {/* 우측 박스: 재정 자립 */}
+                    <div className="flex-[0.8] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Financial Autonomy
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    자체 수익 비지니스 모델 확립
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-5 font-black text-[#0f172a] text-[20px] text-center">
+                                    연간 자체 운영 수익<br/>
+                                    <span className="text-[28px] text-[#e04c9a]">3,000만 달러</span> (약 420억원)
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 font-bold text-gray-700 text-[16px] text-center">
+                                    29년간 시 예산 지원<br/>
+                                    <span className="text-[22px] text-red-600 font-extrabold">0 원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
- </div>
- </section>
- );
+                </div>
+
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                    <ul className="text-left inline-block space-y-2 mx-auto">
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>공적 규제와 민간 경영이 융합된 BID 운영 모델을 통해 추가 세수 투입 없이도 자생력을 갖춘 뉴욕 최고의 랜드마크 광장으로 재탄생</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    );
 }

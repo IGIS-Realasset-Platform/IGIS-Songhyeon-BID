@@ -1,108 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section47({ isActive }) {
-    const { lang } = useLanguage();
-    const [step, _setStep] = useState(20); const setStep = () => {};
-
-    useEffect(() => {
-        if (!isActive) { setStep(20); return; }
-        const t1 = setTimeout(() => setStep(1), 230);
-        const t2 = setTimeout(() => setStep(2), 536);
-        const t3 = setTimeout(() => setStep(3), 781);
-        const t4 = setTimeout(() => setStep(4), 1087);
-        return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
-    }, [isActive]);
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
-            <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center">
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+            <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        <span className="inline-block text-[22px] md:text-[26px] font-bold text-[#888] tracking-[-0.02em] mb-[12px] bg-transparent">
-                            {lang === 'kr' ? '미래 시나리오 종합' : 'Future Scenario Summary'}
-                        </span>
-                    </div>
-                    <h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        {lang === 'kr' ? '한국 GDP 3조 달러 도달 시나리오별 핵심 지표 비교' : 'Core Indicators by Scenario for Korea reaching $3T GDP'}
-                    </h2>
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        미래 SBD-IBD 연계 비전
+                    </span>
                 </div>
 
-                {/* 3 Columns */}
-                <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    스마트 코어(AI·디지털 트윈) 및 블록체인 기반의 디지털 분담금 징수 구조
+                </h2>
+
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
                     
-                    {/* Base */}
-                    <div className={`flex flex-col bg-gray-50 rounded-none border-[6px] border-gray-400 px-8 py-5 md:px-10 md:py-[18px] transition-all duration-[765ms] ease-out ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <h3 className="text-[28px] font-extrabold text-black mb-2 tracking-tight">Base Scenario</h3>
-                        <p className="text-[18px] font-bold text-gray-500 mb-5 border-b border-gray-300 pb-4">{lang === 'kr' ? '확률 50%' : '50% Prob'}</p>
-                        
-                        <div className="mb-5">
-                            <p className="text-[14px] font-bold text-gray-500 mb-1 uppercase">{lang === 'kr' ? '2030년 예상 GDP' : '2030 Expected GDP'}</p>
-                            <p className="text-[28px] font-bold text-black tracking-tight">{lang === 'kr' ? '2.2 ~ 2.4조 달러' : '$2.2 ~ 2.4T'}</p>
-                        </div>
-                        <div className="mb-5">
-                            <p className="text-[14px] font-bold text-gray-500 mb-1 uppercase">{lang === 'kr' ? '3조 달러 도달' : 'Reach $3T'}</p>
-                            <p className="text-[28px] font-bold text-black tracking-tight">{lang === 'kr' ? '2037 ~ 2038년' : '2037 ~ 2038'}</p>
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-[14px] font-bold text-gray-500 mb-3 uppercase">{lang === 'kr' ? '핵심 전제' : 'Core Premises'}</p>
-                            <ul className="text-[18px] font-bold text-gray-800 space-y-3 leading-relaxed break-keep">
-                                <li className="flex items-start"><span className="text-gray-400 mr-2">•</span>{lang === 'kr' ? '기관 컨센서스(IMF 등) 수렴' : 'Aligns with IMF Consensus'}</li>
-                                <li className="flex items-start"><span className="text-gray-400 mr-2">•</span>{lang === 'kr' ? '실질성장률 연 1.5~2.0% 유지' : 'Real Growth 1.5~2.0%'}</li>
-                                <li className="flex items-start"><span className="text-gray-400 mr-2">•</span>{lang === 'kr' ? 'AI 향상이 인구 감소 효과 상쇄' : 'AI offsets Pop Decline'}</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* Bull */}
-                    <div className={`flex flex-col bg-[#f8fbff] rounded-none border-[6px] border-blue-400 px-8 py-5 md:px-10 md:py-[18px] transition-all duration-[765ms] ease-out ${step >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <h3 className="text-[28px] font-extrabold text-[#0055ff] mb-2 tracking-tight">Bull Scenario</h3>
-                        <p className="text-[18px] font-bold text-gray-500 mb-5 border-b border-blue-200 pb-4">{lang === 'kr' ? '확률 30%' : '30% Prob'}</p>
-                        
-                        <div className="mb-5">
-                            <p className="text-[14px] font-bold text-blue-500 mb-1 uppercase">{lang === 'kr' ? '2030년 예상 GDP' : '2030 Expected GDP'}</p>
-                            <p className="text-[28px] font-bold text-black tracking-tight">{lang === 'kr' ? '2.5 ~ 2.7조 달러' : '$2.5 ~ 2.7T'}</p>
-                        </div>
-                        <div className="mb-5">
-                            <p className="text-[14px] font-bold text-blue-500 mb-1 uppercase">{lang === 'kr' ? '3조 달러 도달' : 'Reach $3T'}</p>
-                            <p className="text-[28px] font-bold text-[#0055ff] tracking-tight">{lang === 'kr' ? '2034 ~ 2035년' : '2034 ~ 2035'}</p>
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-[14px] font-bold text-blue-500 mb-3 uppercase">{lang === 'kr' ? '핵심 전제' : 'Core Premises'}</p>
-                            <ul className="text-[18px] font-bold text-gray-800 space-y-3 leading-relaxed break-keep">
-                                <li className="flex items-start"><span className="text-blue-400 mr-2">•</span>{lang === 'kr' ? '"동아시아 스위스" 모델 안착' : '"East Asian Swiss" Model'}</li>
-                                <li className="flex items-start"><span className="text-blue-400 mr-2">•</span>{lang === 'kr' ? '주력 산업 글로벌 슈퍼사이클' : 'Core Industry Supercycle'}</li>
-                                <li className="flex items-start"><span className="text-blue-400 mr-2">•</span>{lang === 'kr' ? '대규모 외국인 자본 유입' : 'Massive Foreign Capital'}</li>
-                            </ul>
+                    {/* 좌측 박스: SBD 운영 OS의 이식과 AI 고도화 */}
+                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Smart City OS Migration
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    이오타 서울의 운영 데이터 용산 전파
+                                </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    🖥️ 디지털 트윈 통합 관제: 용산 IBD의 공중 스카이트레일 및 지하 공동물류를 3D 그래픽으로 완벽 모니터링
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    🤖 AI 예측 수거: 센서 정보 분석을 통해 쓰레기 적체 및 유동 인구 과밀 구간을 예측하여 미화 요원 선배치
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    🚗 자율 셔틀 제어: 49만㎡ 전체 부지 내 친환경 자율주행 셔틀의 안전 배차 및 동선 통제 OS 탑재
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Bear */}
-                    <div className={`flex flex-col bg-[#fff8f8] rounded-none border-[6px] border-red-400 px-8 py-5 md:px-10 md:py-[18px] transition-all duration-[765ms] ease-out ${step >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <h3 className="text-[28px] font-extrabold text-[#e11d48] mb-2 tracking-tight">Bear Scenario</h3>
-                        <p className="text-[18px] font-bold text-gray-500 mb-5 border-b border-red-200 pb-4">{lang === 'kr' ? '확률 20%' : '20% Prob'}</p>
-                        
-                        <div className="mb-5">
-                            <p className="text-[14px] font-bold text-red-500 mb-1 uppercase">{lang === 'kr' ? '2030년 예상 GDP' : '2030 Expected GDP'}</p>
-                            <p className="text-[28px] font-bold text-black tracking-tight">{lang === 'kr' ? '2.0 ~ 2.1조 달러' : '$2.0 ~ 2.1T'}</p>
-                        </div>
-                        <div className="mb-5">
-                            <p className="text-[14px] font-bold text-red-500 mb-1 uppercase">{lang === 'kr' ? '3조 달러 도달' : 'Reach $3T'}</p>
-                            <p className="text-[28px] font-bold text-[#e11d48] tracking-tight">{lang === 'kr' ? '2042년 이후' : 'Post-2042'}</p>
-                        </div>
-                        <div className="flex-1">
-                            <p className="text-[14px] font-bold text-red-500 mb-3 uppercase">{lang === 'kr' ? '핵심 전제' : 'Core Premises'}</p>
-                            <ul className="text-[18px] font-bold text-gray-800 space-y-3 leading-relaxed break-keep">
-                                <li className="flex items-start"><span className="text-red-400 mr-2">•</span>{lang === 'kr' ? '일본식 "잃어버린 10년" 진입' : 'Japan-style "Lost Decade"'}</li>
-                                <li className="flex items-start"><span className="text-red-400 mr-2">•</span>{lang === 'kr' ? '가파른 인구 절벽 현실화' : 'Steep Demographic Cliff'}</li>
-                                <li className="flex items-start"><span className="text-red-400 mr-2">•</span>{lang === 'kr' ? '미·중 디커플링 및 PF 부실 심화' : 'US-China Decoupling & PF Default'}</li>
-                            </ul>
+                    {/* 우측 박스: 블록체인 기반 디지털 BID (Digital Assessment) */}
+                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Blockchain Assessment
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    스마트 컨트랙트를 통한 실시간 분담 정산
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🔗 블록체인 분담금: 입주 자산의 전력, 수도 사용량 및 보행 트래픽 변동을 고려한 스마트 계산</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>💸 자동 실시간 부과: 지자체의 재산세 고지서 대기 없이 스마트 계약으로 디지털 부과금 자동 징수</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🔑 분산 원장 기록: 징수와 지출 내역을 분산 원장에 영구 보존하여 거버넌스 투명성 100% 보장</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
+
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                    <ul className="text-left inline-block space-y-2 mx-auto">
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>5세대 디지털 BID 비전은 하드웨어 인프라에 첨단 소프트웨어(AI/블록체인)를 융합하여, 아날로그 행정 기반의 서구식 BID 한계를 극복하고 아시아형 스마트 도시 모델의 표준을 선점합니다.</span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </section>
     );

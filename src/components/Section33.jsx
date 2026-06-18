@@ -1,105 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section33({ isActive }) {
-    const { lang } = useLanguage();
-    const [step, _setStep] = useState(20); const setStep = () => {};
-
-    useEffect(() => {
-        if (!isActive) {
-            setStep(20);
-            return;
-        }
-        const timers = [
-            setTimeout(() => setStep(1), 230),
-            setTimeout(() => setStep(2), 765),
-            setTimeout(() => setStep(3), 1132),
-            setTimeout(() => setStep(4), 1591),
-            setTimeout(() => setStep(5), 2050)
-        ];
-        return () => timers.forEach(clearTimeout);
-    }, [isActive]);
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <span className="inline-block text-[22px] md:text-[26px] font-bold text-[#888] uppercase tracking-[-0.02em] mb-[12px] bg-transparent">
-                        {lang === 'kr' ? '연간 거래량 30조 시대와 자본의 회귀' : '30 Trillion Won Era & Return of Capital'}
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        허드슨야드 관리 주체
                     </span>
                 </div>
 
-                <h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    {lang === 'kr' ? '금리 인하 기대 속 외국인 유동성의 대규모 진입과 캡레이트 압축' : 'Massive Influx of Foreign Liquidity & Cap Rate Compression'}
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    디벨로퍼 임원들의 직접 참여를 통한 트로피 자산 가치 방어 거버넌스
                 </h2>
 
-                <div className="relative w-full max-w-[1100px] mt-[40px] mb-[30px] h-auto flex flex-col md:flex-row items-stretch justify-center z-10 gap-8">
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
                     
-                    {/* Volume Card */}
-                    <div className={`flex-1 flex flex-col justify-center items-center bg-white border border-gray-200 rounded-[30px] p-10 shadow-xl transition-all duration-[765ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <div className="text-gray-500 font-bold text-[20px] mb-2">{lang === 'kr' ? '2025년 서울 상업용 부동산 거래량 (예상)' : '2025 Seoul CRE Transaction Volume (Est.)'}</div>
-                        <div className="text-[64px] font-black text-gray-900 leading-none mb-4">30<span className="text-[32px]">{lang === 'kr' ? '조 원' : 'T KRW'}</span></div>
-                        
-                        <div className="w-full mt-6 bg-gray-50 rounded-2xl p-4 flex flex-col gap-2 text-left border border-gray-100">
-                            <div className="flex justify-between items-center text-[16px] font-bold">
-                                <span className="text-gray-500">{lang === 'kr' ? '2021 (저금리기)' : '2021 (Low-rate era)'}</span>
-                                <span className="text-gray-800">{lang === 'kr' ? '21조 원' : '21T KRW'}</span>
+                    {/* 좌측 박스: 디벨로퍼의 직접 참여와 지배력 */}
+                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Developer Board Seats
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    Related & Oxford 중심의 강력한 책임 집행
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center text-[16px] font-bold">
-                                <span className="text-gray-500">2024</span>
-                                <span className="text-gray-800">{lang === 'kr' ? '22조 원' : '22T KRW'}</span>
-                            </div>
-                            <div className="flex justify-between items-center text-[18px] font-black">
-                                <span className="text-blue-600">{lang === 'kr' ? '2025 연말 (예상)' : '2025 Year-end (Est.)'}</span>
-                                <span className="text-blue-600">{lang === 'kr' ? '30조 원 돌파' : 'Surpassing 30T KRW'}</span>
+                            
+                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    👔 핵심 의사결정: Related 부사장 등 앵커 디벨로퍼 핵심 임원들이 이사회 등기 임원으로 등재
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    🔒 투자 얼라인먼트: 준공 후 철수하는 일반 건설사와 달리 소유 지분을 보유하고 장기 관리 관여
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    💵 신속 자금 조달: 추가 자본 투입이 필요할 시 민간 이사회 협의를 통해 예산 추가 승인
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Cap Rate Card */}
-                    <div className={`flex-1 flex flex-col justify-center items-center bg-gray-900 text-white rounded-[30px] p-10 shadow-xl transition-all duration-[765ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] delay-[153ms] ${step >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <div className="text-gray-400 font-bold text-[20px] mb-2">{lang === 'kr' ? '2025 하반기 캡레이트 압축' : 'H2 2025 Cap Rate Compression'}</div>
-                        <div className="text-[64px] font-black text-blue-400 leading-none mb-4">4.2~4.5<span className="text-[32px]">%</span></div>
-                        
-                        <div className="w-full mt-6 bg-white/10 rounded-2xl p-4 flex flex-col gap-2 text-left border border-white/10">
-                            <div className="flex justify-between items-center text-[16px] font-bold text-gray-300">
-                                <span>{lang === 'kr' ? '2021 (저점)' : '2021 (Low)'}</span>
-                                <span>3.5~4.0%</span>
+                    {/* 우측 박스: 민-관-학-민 지역 연대 채널 */}
+                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Multi-Stakeholder Governance
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    지역 커뮤니티 및 지자체 당연직의 감시 균형
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center text-[16px] font-bold text-gray-300">
-                                <span>2023~2024</span>
-                                <span>4.5~5.0%</span>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>👥 CB4 (맨해튼 제4 커뮤니티 보드) 대표: 지역 주민의 소수 배제 우려 감시</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>⚖️ 뉴욕시 소기업지원국(SBS): 비영리 법인인 HYHK BID 운영 합법성 정기 감사</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🌐 가교 역할: 소유자와 지자체, 그리고 지역 주민 간의 갈등을 평화적으로 조율하는 상설 기구화</span>
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center text-[18px] font-black text-white">
-                                <span className="text-blue-300">{lang === 'kr' ? '외국인 자본 회귀 본격화' : 'Return of Foreign Capital'}</span>
-                                <span className="text-blue-300">Q3 2025</span>
-                            </div>
-                        </div>
-                        <div className="mt-4 text-[14px] font-bold text-gray-400">
-                            Aberdeen, BentallGreenOak, PAG 등
                         </div>
                     </div>
 
                 </div>
 
-                <div className={`mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center transition-all duration-[689ms] ease-out ${step >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
-                        {lang === 'kr' ? (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>{lang === 'kr' ? <>2025년 거래량은 9월 누적 25조 원을 기록, <strong>연말 30조 원 돌파 예상</strong>으로 과거 저금리기의 21조 원 기록을 크게 경신.</> : <>2025 transaction volume hit 25T KRW by Sep, <strong>expected to break 30T KRW by year-end</strong>, shattering the 21T KRW record of the low-rate era.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>{lang === 'kr' ? <>캡레이트는 2023~2024년 4.5~5.0%에서 <strong>금리 인하 기대로 4.2~4.5%로 다시 압축</strong> 중.</> : <>Cap rates are <strong>compressing again to 4.2-4.5% on rate cut expectations</strong> from 4.5-5.0% in 2023-2024.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>{lang === 'kr' ? <>Aberdeen, BentallGreenOak, PAG 등 <strong>외국인 자본 회귀가 본격화된 시점이 2025년 3분기</strong>임.</> : <><strong>Q3 2025 marks the full-scale return of foreign capital</strong> including Aberdeen, BentallGreenOak, and PAG.</>}</span></li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>2025 transaction volume hit 25T KRW by Q3, <strong>expected to break 30T KRW by year-end</strong>, smashing the 2021 record.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>Cap rates are <strong>compressing back to 4.2-4.5%</strong> from the 4.5-5.0% peak of 2023-2024.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>The <strong>return of foreign capital</strong> (Aberdeen, BGO, PAG) materialized in full force in Q3 2025.</span></li>
-                            </>
-                        )}
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>HYHK Alliance는 단순 이익 집단이 아닌, 최고 결정권을 가진 자산 소유자와 공적 행정 대리인이 실질적인 이사회 보드를 공유하는 통합 거버넌스 구조를 통해 트로피 자산가치를 수장합니다.</span>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </section>
     );

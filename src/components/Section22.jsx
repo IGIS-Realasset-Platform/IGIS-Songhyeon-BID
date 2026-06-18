@@ -1,95 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section22({ isActive }) {
-    const { lang } = useLanguage();
-    const [step, _setStep] = useState(20); const setStep = () => {};
-
-    useEffect(() => {
-        if (!isActive) {
-            setStep(20);
-            return;
-        }
-        const timers = [
-            setTimeout(() => setStep(1), 230),
-            setTimeout(() => setStep(2), 765),
-            setTimeout(() => setStep(3), 1132),
-            setTimeout(() => setStep(4), 1591),
-            setTimeout(() => setStep(5), 2050)
-        ];
-        return () => timers.forEach(clearTimeout);
-    }, [isActive]);
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <span className="inline-block text-[22px] md:text-[26px] font-bold text-[#888] uppercase tracking-[-0.02em] mb-[12px] bg-transparent">
-                        {lang === 'kr' ? '플랫폼 빅테크의 물류 지형 재편' : 'Logistics Reshaping by Platform Big Tech'}
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        BID의 역할 범위
                     </span>
                 </div>
 
-                <h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    {lang === 'kr' ? '네이버, 쿠팡 등 IT 플랫폼이 촉발한 국가급 물류 수요의 폭발' : 'Explosion of National Logistics Demand Triggered by IT Platforms'}
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    기존 시의 행정 서비스를 대체하지 않고 추가적으로 보완하는 원칙
                 </h2>
 
-                <div className="relative w-full max-w-[900px] -mt-[8px] h-[360px] flex items-center justify-center z-10 gap-16">
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
                     
-                    {/* Big Tech Platforms */}
-                    <div className={`relative flex flex-col gap-4 transition-all duration-[765ms] ease-out ${step >= 2 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                        <div className="flex gap-4">
-                            <div className="w-[100px] h-[100px] bg-[#03c75a] rounded-2xl shadow-lg flex flex-col items-center justify-center text-white">
-                                <span className="font-black text-[20px]">Naver</span>
-                                <span className="text-[12px] font-bold">Cap 30T+</span>
+                    {/* 좌측 박스: 기존 시 정부 서비스 기준선 (Base Level) */}
+                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Base-Level Public Services
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    지방자치단체 고유의 법적 의무 행정
+                                </div>
                             </div>
-                            <div className="w-[100px] h-[100px] bg-[#fee500] rounded-2xl shadow-lg flex flex-col items-center justify-center text-[#3c1e1e]">
-                                <span className="font-black text-[20px]">Kakao</span>
-                                <span className="text-[12px] font-bold">Cap ~30T</span>
+                            
+                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    👮 일반 경찰 순찰 노선 배정 및 사건사고 법적 처리
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    🚛 기본 시 조례 기준의 쓰레기 일일 수거 및 공공 도로 유지 보수
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    📝 기준선 위배 금지: 시 정부는 BID 구역 내의 행정 인력을 인위적으로 철수할 수 없음
+                                </div>
                             </div>
-                        </div>
-                        <div className="w-full h-[100px] bg-black rounded-2xl shadow-lg flex flex-col items-center justify-center text-white">
-                            <span className="font-black text-[24px]">Coupang</span>
-                            <span className="text-[12px] font-bold text-gray-300">NYSE Cap 30T+</span>
                         </div>
                     </div>
 
-                    {/* Arrow / Trigger */}
-                    <div className={`flex flex-col items-center transition-all duration-[765ms] ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>
-                        <div className="text-[16px] font-black text-indigo-600 mb-2 italic">Rocket Delivery</div>
-                        <div className="w-[100px] h-[4px] bg-gradient-to-r from-gray-300 to-indigo-600 relative mb-2">
-                            <div className="absolute right-[-4px] top-1/2 -translate-y-1/2 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[12px] border-l-indigo-600"></div>
+                    {/* 우측 박스: BID의 보완적 서비스 (Supplemental) */}
+                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Supplemental Special Services
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    지구관리협회(DMA)의 6대 프리미엄 가치 창출
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🧹 고밀도 청소 (하루 수회 추가 빗자루 청소 및 고압수 세척 실시)</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🛡️ 전용 보안 가드 (경비 순찰 및 비상 상황 경고 네트워크 독자 운용)</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🎨 플레이스메이킹 (꽃마차 가로등 설치, 특별 예술 프로그램, 브랜드 조형물 등)</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    {/* Logistics Demand */}
-                    <div className={`relative flex flex-col items-center transition-all duration-[765ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] delay-[153ms] ${step >= 4 ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-50 translate-x-12'}`}>
-                        <div className="w-[200px] h-[200px] bg-gradient-to-br from-indigo-500 to-purple-700 rounded-full shadow-2xl border-4 border-white flex flex-col items-center justify-center">
-                            <svg className="w-12 h-12 text-white mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-                            <span className="text-[20px] font-black text-white leading-tight text-center">Logistics<br/>Real Estate</span>
-                        </div>
-                        <span className="text-[14px] font-bold text-indigo-600 mt-3">{lang === 'kr' ? '가장 큰 단일 변수' : 'Largest Single Variable'}</span>
                     </div>
 
                 </div>
 
-                <div className={`mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center transition-all duration-[689ms] ease-out ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
-                        {lang === 'kr' ? (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-indigo-600">▪</span><span>{lang === 'kr' ? <>네이버, 카카오, 쿠팡 등 <strong>IT 플랫폼 빅테크</strong>들은 각각 시총 30조 원 이상을 기록하며 거대 기업으로 성장함.</> : <><strong>IT Platform Big Techs</strong> like Naver, Kakao, and Coupang grew into giant corporations, each exceeding 30T KRW in market cap.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-indigo-600">▪</span><span>{lang === 'kr' ? <>네이버의 일본 LINE 야후 통합, 쿠팡의 로켓배송 전국화 등이 <strong>물류 지형을 근본적으로 재편</strong>함.</> : <>Naver's integration with LINE Yahoo in Japan and Coupang's nationwide Rocket Delivery <strong>fundamentally reshaped the logistics landscape</strong>.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-indigo-600">▪</span><span>{lang === 'kr' ? <>플랫폼이 촉발한 이커머스 혁명은 국내 <strong>물류 부동산 수요 폭발의 가장 큰 단일 변수</strong>로 작용함.</> : <>The e-commerce revolution triggered by platforms acted as the <strong>largest single variable for the explosion in domestic logistics real estate demand</strong>.</>}</span></li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-indigo-600">▪</span><span>IT Platform Big Techs like Naver, Kakao, and Coupang grew into giants, each surpassing <strong>30T KRW in market cap</strong>.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-indigo-600">▪</span><span>Naver's LINE-Yahoo integration in Japan and Coupang's nationwide Rocket Delivery <strong>fundamentally reshaped logistics</strong>.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-indigo-600">▪</span><span>The e-commerce revolution triggered by these platforms became the <strong>largest single variable for logistics real estate demand</strong>.</span></li>
-                            </>
-                        )}
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>지방 정부와 체결하는 기준 서비스 협약서(Base Level Agreement)를 통해, 시 재정 부족에 따른 책임을 민간에 전가(Shifting)하는 부작용을 사전에 원천 예방합니다.</span>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </section>
     );

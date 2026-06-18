@@ -1,93 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section21({ isActive }) {
-    const { lang } = useLanguage();
-    const [step, _setStep] = useState(20); const setStep = () => {};
-
-    useEffect(() => {
-        if (!isActive) {
-            setStep(20);
-            return;
-        }
-        const timers = [
-            setTimeout(() => setStep(1), 230),
-            setTimeout(() => setStep(2), 765),
-            setTimeout(() => setStep(3), 1132),
-            setTimeout(() => setStep(4), 1591),
-            setTimeout(() => setStep(5), 2050)
-        ];
-        return () => timers.forEach(clearTimeout);
-    }, [isActive]);
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <span className="inline-block text-[22px] md:text-[26px] font-bold text-[#888] uppercase tracking-[-0.02em] mb-[12px] bg-transparent">
-                        {lang === 'kr' ? '2차전지 산업의 팽창과 숨고르기' : 'Expansion & Breathing Spell of EV Batteries'}
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        BID 재무 관리 프로세스
                     </span>
                 </div>
 
-                <h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    {lang === 'kr' ? '국내 IPO 붐을 견인한 EV 배터리 시장의 구조적 조정기' : 'Structural Adjustment of the EV Battery Market that Led the IPO Boom'}
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    가로 접면, 부지 면적, 감정평가액 등 자산 특성에 맞춘 분담금 배분
                 </h2>
 
-                <div className="relative w-full max-w-[1000px] mt-[22px] mb-[10px] h-auto py-4 flex items-center justify-center z-10 gap-16">
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
                     
-                    {/* The Boom (Left) */}
-                    <div className={`relative flex flex-col items-center transition-all duration-[765ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] ${step >= 2 ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-20'}`}>
-                        <div className="w-[260px] h-[260px] bg-gradient-to-t from-green-400 to-emerald-600 rounded-3xl shadow-xl flex flex-col items-center justify-center border-[6px] border-white mb-4">
-                            <span className="text-[56px] font-black text-white leading-none">20%</span>
-                            <span className="text-[20px] font-bold text-green-100 mt-2">{lang === 'kr' ? '글로벌 점유율' : 'Global Share'}</span>
-                            <div className="mt-4 text-center text-white text-[15px] font-bold flex flex-col gap-1">
-                                <span>LG Energy Solution</span>
-                                <span>Samsung SDI</span>
-                                <span>SK On</span>
+                    {/* 좌측 박스: 분담금 산정의 3대 매개변수 */}
+                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Assessment Parameters
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    형평성 있는 과세를 위한 변수 조합
+                                </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    📏 가로 접면 길이 (Frontage): 보행자 청소와 경관 개선 혜택에 직접 비례
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    📐 총 연면적 (Gross Square Footage): 오피스 빌딩 등의 자산 규모 반영
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    💵 세금 감정가 (Assessed Value): 실질 담세력과 자산 가치 수익성 추종
+                                </div>
                             </div>
                         </div>
-                        <span className="text-[26px] font-black text-emerald-600">{lang === 'kr' ? '2020 IPO 붐' : '2020 IPO Boom'}</span>
                     </div>
 
-                    {/* Chart Arrow */}
-                    <div className={`flex flex-col items-center transition-all duration-[765ms] ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>
-                        {/* A curved arrow pointing down slightly */}
-                        <svg className="w-48 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 100 50">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M10 25 Q 50 -10, 90 40" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M75 40 L 90 40 L 85 25" />
-                        </svg>
-                        <span className="text-[20px] font-bold text-gray-500 mt-3">{lang === 'kr' ? '2024~2026 사이클' : '2024-2026 Cycle'}</span>
-                    </div>
-
-                    {/* The Adjustment (Right) */}
-                    <div className={`relative flex flex-col items-center transition-all duration-[765ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] delay-[153ms] ${step >= 4 ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-20'}`}>
-                        <div className="w-[260px] h-[260px] bg-gradient-to-b from-gray-200 to-gray-300 rounded-3xl shadow-lg flex flex-col items-center justify-center border-[6px] border-white mb-4">
-                            <svg className="w-20 h-20 text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            <span className="text-[22px] font-bold text-gray-600 text-center px-6 leading-tight">{lang === 'kr' ? '중국·미국 정책 변동' : 'US/China Policy Fluctuations'}</span>
+                    {/* 우측 박스: NYC 앵커 BID 실제 사례 */}
+                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Empirical Assessment Formula
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    대표적인 뉴욕 도심 지구의 분담 요율 스펙
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>Times Square BID: 부동산 공시가격의 0.3% 정률 과세 모델 적용</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>Flatiron BID: 상업용 자산 연면적당 연간 $0.17 수준 정액 과세 모델 혼용</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>주거 에어리어 배려: 일반 입주민과의 마찰을 회피하기 위해 $1/Year 형식적 과세</span>
+                                </div>
+                            </div>
                         </div>
-                        <span className="text-[26px] font-black text-gray-600">{lang === 'kr' ? '구조적 조정기' : 'Structural Adjustment'}</span>
                     </div>
 
                 </div>
 
-                <div className={`mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center transition-all duration-[689ms] ease-out ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
-                        {lang === 'kr' ? (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-emerald-600">▪</span><span>{lang === 'kr' ? <>2차전지(LG엔솔·삼성SDI·SK온)는 <strong>2020년 국내 IPO 붐</strong>을 만든 핵심 엔진임.</> : <>Secondary batteries (LG Energy Solution, Samsung SDI, SK On) were the core engines driving the <strong>2020 domestic IPO boom</strong>.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-emerald-600">▪</span><span>{lang === 'kr' ? <>K-배터리 3사는 합계 <strong>글로벌 EV 배터리 점유율 20% 내외</strong>를 안정적으로 확보함.</> : <>The Big 3 K-Battery makers stably secure a combined <strong>~20% global EV battery market share</strong>.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-emerald-600">▪</span><span>{lang === 'kr' ? <>다만 2024~2026년 사이 중국과 미국의 정책 변동 및 전기차 수요 둔화로 인해 <strong>사이클 조정기(숨고르기)</strong>에 진입함.</> : <>However, entered a <strong>cycle adjustment phase (breather)</strong> due to US-China policy shifts and EV demand slowdown between 2024-2026.</>}</span></li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-emerald-600">▪</span><span>EV Batteries (LG, Samsung, SK) were the core engine driving the <strong>2020 domestic IPO boom</strong>.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-emerald-600">▪</span><span>The Korean Big 3 secured a combined <strong>global EV battery market share of around 20%</strong>.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-emerald-600">▪</span><span>However, entered a <strong>cycle adjustment period (breathing spell)</strong> from 2024-2026 due to US/China policy fluctuations.</span></li>
-                            </>
-                        )}
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>자산의 위치적 가치와 규모를 정확히 반영하는 맞춤식 알고리즘(Algorithm)을 적용함으로써, 소액 건물주와 초대형 개발자 사이의 분쟁을 예방하고 합의를 유도합니다.</span>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </section>
     );

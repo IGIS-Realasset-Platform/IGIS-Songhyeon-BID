@@ -1,92 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section17({ isActive }) {
-    const { lang } = useLanguage();
-    const [step, _setStep] = useState(20); const setStep = () => {};
-
-    useEffect(() => {
-        if (!isActive) {
-            setStep(20);
-            return;
-        }
-        const timers = [
-            setTimeout(() => setStep(1), 230),
-            setTimeout(() => setStep(2), 765),
-            setTimeout(() => setStep(3), 1132),
-            setTimeout(() => setStep(4), 1591),
-            setTimeout(() => setStep(5), 2050)
-        ];
-        return () => timers.forEach(clearTimeout);
-    }, [isActive]);
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <span className="inline-block text-[22px] md:text-[26px] font-bold text-[#888] uppercase tracking-[-0.02em] mb-[12px] bg-transparent">
-                        {lang === 'kr' ? '구조적 한계에 봉착한 석유화학' : 'Petrochemicals Facing Structural Limits'}
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        미국 BID의 역사적 확산
                     </span>
                 </div>
 
-                <h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    {lang === 'kr' ? '중국 자급률 상승이 촉발한 전통 에너지 섹터의 다운사이클' : "Downcycle of Traditional Energy Sector Triggered by China's Self-Sufficiency"}
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    'BID 방법론의 교과서'가 증명한 실증 성과와 1,000여 개 지구로의 확산
                 </h2>
 
-                <div className="relative w-full max-w-[1000px] mt-[12px] mb-[10px] h-auto py-4 flex items-center justify-center z-10 gap-20">
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
                     
-                    {/* 2007 Era */}
-                    <div className={`flex flex-col items-center transition-all duration-[765ms] ease-out ${step >= 2 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                        <div className="text-[28px] font-black text-gray-400 mb-4">2007 Era</div>
-                        <div className="w-[300px] h-[300px] bg-gradient-to-tr from-gray-200 to-white border-2 border-gray-300 rounded-2xl shadow-lg flex flex-col items-center justify-center p-6">
-                            <span className="text-[28px] font-black text-gray-800 mb-6">{lang === 'kr' ? '정유 4강 체제' : 'Big 4 Era'}</span>
-                            <div className="grid grid-cols-2 w-full gap-3">
-                                <span className="text-[14px] bg-gray-100 text-gray-800 font-bold py-3 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center text-center break-keep leading-tight">SK<br/>Innovation</span>
-                                <span className="text-[14px] bg-gray-100 text-gray-800 font-bold py-3 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center text-center break-keep leading-tight">GS<br/>Caltex</span>
-                                <span className="text-[14px] bg-gray-100 text-gray-800 font-bold py-3 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center text-center break-keep leading-tight">S-Oil</span>
-                                <span className="text-[14px] bg-gray-100 text-gray-800 font-bold py-3 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center text-center break-keep leading-tight">Hyundai<br/>Oilbank</span>
+                    {/* 좌측 박스: 필라델피아 CCD의 출범 */}
+                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Philadelphia CCD (1991)
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    폴 레비(Paul Levy) 주도의 과학적 지구 운영
+                                </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[17px]">
+                                    👮 CSR(Community Service Representatives) 파견을 통한 밀착 안내 및 예방 치안
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[17px]">
+                                    🧹 '청소 전후 조도와 청결 수준' 계량화 시스템 등 정량 평가 프레임워크 구축
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[17px]">
+                                    🏢 미드타운 소유주들의 장기 서면 동의를 기반으로 한 안정적 특별세 수입 구조
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Arrow / Downcycle Indicator */}
-                    <div className={`flex flex-col items-center transition-all duration-[765ms] ease-out delay-100 ${step >= 3 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                        <div className="text-[22px] font-black text-red-600 mb-3">{lang === 'kr' ? '구조적 다운사이클' : 'Structural Downcycle'}</div>
-                        <div className="w-[160px] h-[6px] bg-gradient-to-r from-gray-300 to-red-500 relative mb-3">
-                            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[16px] border-l-red-500"></div>
-                        </div>
-                        <div className="text-[18px] font-bold text-gray-500">{lang === 'kr' ? '중국 자급률 상승' : 'China Self-Sufficiency'}</div>
-                    </div>
-
-                    {/* Mid 2020s */}
-                    <div className={`flex flex-col items-center transition-all duration-[765ms] ease-out delay-[153ms] ${step >= 4 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
-                        <div className="text-[28px] font-black text-red-600 mb-4">Mid 2020s</div>
-                        <div className="w-[300px] h-[300px] bg-gradient-to-br from-red-50 to-white border-2 border-red-200 rounded-2xl shadow-xl flex flex-col items-center justify-center p-6">
-                            <svg className="w-24 h-24 text-red-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /></svg>
-                            <span className="text-[28px] font-black text-red-700 text-center leading-tight">{lang === 'kr' ? '후반부\n성장 둔화' : 'Latter Half\nSlowdown'}</span>
+                    {/* 우측 박스: 전국적 확산 성과 */}
+                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    Proven Empirical Results
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    미국 전역 40개 주 확산 로드맵의 모태
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[17px]">
+                                    <span>설립 5년 이내 강력 범죄 50% 급감 및 방문객 만족도 90% 이상 도달</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[17px]">
+                                    <span>투자 대비 세입 증대 유발 효과 10배 달성으로 입주 기업 리턴 가속화</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[17px]">
+                                    <span>미국 40개 주 1,000개 이상 도시 상업 지구가 벤치마킹하는 국가적 모델 정립</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
-                <div className={`mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center transition-all duration-[689ms] ease-out ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
-                        {lang === 'kr' ? (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-red-500">▪</span><span>{lang === 'kr' ? <>2007년에는 <strong>SK이노베이션·GS칼텍스·에쓰오일·현대오일뱅크 4강</strong>이 명확히 시장을 주도함.</> : <>In 2007, the <strong>Big 4 (SK Innovation, GS Caltex, S-Oil, Hyundai Oilbank)</strong> clearly dominated the market.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-red-500">▪</span><span>{lang === 'kr' ? <>그러나 2020년대 중반 들어 <strong>중국의 자급률 상승</strong>으로 인해 구조적 다운사이클에 진입함.</> : <>However, entered a structural downcycle in the mid-2020s due to <strong>China's rising self-sufficiency</strong>.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-red-500">▪</span><span>결과적으로 1조 ➔ 2조 달러 구간 후반부에는 <strong>상대적 둔화 섹터</strong>로 분류해야 하는 상황임.</span></li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-red-500">▪</span><span>In 2007, the <strong>Big 4 (SK, GS, S-Oil, Hyundai)</strong> clearly dominated the market.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-red-500">▪</span><span>However, entered a structural downcycle in the mid-2020s due to <strong>China's rising self-sufficiency</strong>.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-red-500">▪</span><span>Consequently, it must be classified as a <strong>relatively slowing sector</strong> in the latter half of the $1T to $2T era.</span></li>
-                            </>
-                        )}
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>필라델피아 CCD(Center City District)는 BID 운영을 단순 청소 대행이 아닌 정량화된 경영 지표 관리와 전문 행정 구조로 고도화하여 미국식 BID의 전형을 정립했습니다.</span>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </section>
     );

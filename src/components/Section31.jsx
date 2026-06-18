@@ -1,160 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
 
 export default function Section31({ isActive }) {
-    const { lang } = useLanguage();
-    const [step, _setStep] = useState(20); const setStep = () => {};
-
-    useEffect(() => {
-        if (!isActive) {
-            setStep(20);
-            return;
-        }
-        const timers = [
-            setTimeout(() => setStep(1), 230),
-            setTimeout(() => setStep(2), 765),
-            setTimeout(() => setStep(3), 1132),
-            setTimeout(() => setStep(4), 1591),
-            setTimeout(() => setStep(5), 2050)
-        ];
-        return () => timers.forEach(clearTimeout);
-    }, [isActive]);
+    const [step, _setStep] = useState(20);
+    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <span className="inline-block text-[22px] md:text-[26px] font-bold text-[#888] uppercase tracking-[-0.02em] mb-[12px] bg-transparent">
-                        {lang === 'kr' ? '자연 공실률 하한선 돌파' : 'Breaking Natural Vacancy Floor'}
+                {/* 소제목 */}
+                <div>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
+                        용적률 거래 및 가치 귀속
                     </span>
                 </div>
 
-                <h2 className={`text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[calc(1.3em-6px)] text-[#1d1d1f] break-keep tracking-[-0.02em] transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    {lang === 'kr' ? '코로나 이후의 급반등, 사실상 완전 임차에 도달하다' : 'Rapid Rebound Post-COVID, Reaching Full Occupancy'}
+                {/* 제목 */}
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                    디벨로퍼의 용적률 매입 대금으로 공원과 도로를 정비하는 선순환 구조
                 </h2>
 
-                <div className="relative w-full max-w-[1100px] mt-[40px] mb-[20px] h-auto flex flex-col items-center justify-center z-10 gap-4">
+                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
+                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
                     
-                    {/* Timeline Graph */}
-                    <div className={`w-full h-[150px] relative mb-2 transition-all duration-[765ms] ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        {/* SVG Line */}
-                        <svg className="absolute top-[50px] left-0 w-full h-[50px] z-0 overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
-                            <path 
-                                d="M 10,50 L 30,0 L 50,60 L 70,30 L 90,100" 
-                                fill="none" stroke="#cbd5e1" strokeWidth="3" vectorEffect="non-scaling-stroke" 
-                                strokeDasharray="6 6"
-                            />
-                        </svg>
-
-                        {/* Points & Labels */}
-                        <div className="absolute w-full h-full flex justify-between items-center z-10">
-                            
-                            {/* Point 1 */}
-                            <div className="flex flex-col items-center justify-center absolute left-[10%] -translate-x-1/2" style={{ top: 'calc(50px + 50px * 0.5 - 8px)' }}>
-                                <div className="w-4 h-4 rounded-full bg-blue-400 border-[3px] border-white shadow-sm mb-2 relative -top-2"></div>
-                                <div className="text-center absolute top-4 w-[150px]">
-                                    <div className="text-[13px] font-bold text-gray-400">{lang === 'kr' ? '2007~2010' : '2007-2010'}</div>
-                                    <div className="text-[15px] font-bold text-gray-800">{lang === 'kr' ? '글로벌 금융위기' : 'Global Fin. Crisis'}</div>
-                                    <div className="text-[16px] font-black text-blue-600">8~10%</div>
+                    {/* 좌측 박스: 지구개선보너스 (DIB) 작동원리 */}
+                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    DIB (District Improvement Bonus)
+                                </div>
+                                <div className="text-gray-500 font-bold text-[18px] mb-6">
+                                    민간 용용적률 매입을 통한 공공기여금 확보
                                 </div>
                             </div>
                             
-                            {/* Point 2 */}
-                            <div className="flex flex-col items-center justify-center absolute left-[30%] -translate-x-1/2" style={{ top: 'calc(50px + 50px * 0.0 - 8px)' }}>
-                                <div className="text-center absolute bottom-4 w-[150px]">
-                                    <div className="text-[13px] font-bold text-gray-400">{lang === 'kr' ? '2013~2015' : '2013-2015'}</div>
-                                    <div className="text-[15px] font-bold text-gray-800 leading-tight">{lang === 'kr' ? '대형 공급(YBD)' : 'Massive Supply'}</div>
-                                    <div className="text-[16px] font-black text-red-500">{lang === 'kr' ? '18% 상승' : 'Rose to 18%'}</div>
+                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    💵 평방피트당 초기 단가 $100: 기준 용적률 초과 개발을 희망하는 디벨로퍼에 부과
                                 </div>
-                                <div className="w-4 h-4 rounded-full bg-red-400 border-[3px] border-white shadow-sm relative top-2"></div>
-                            </div>
-
-                            {/* Point 3 */}
-                            <div className="flex flex-col items-center justify-center absolute left-[50%] -translate-x-1/2" style={{ top: 'calc(50px + 50px * 0.6 - 8px)' }}>
-                                <div className="w-4 h-4 rounded-full bg-gray-400 border-[3px] border-white shadow-sm mb-2 relative -top-2"></div>
-                                <div className="text-center absolute top-4 w-[150px]">
-                                    <div className="text-[13px] font-bold text-gray-400">{lang === 'kr' ? '2018~2019' : '2018-2019'}</div>
-                                    <div className="text-[15px] font-bold text-gray-800">{lang === 'kr' ? '점진적 안정' : 'Stabilization'}</div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    📈 물가 지수(CPI) 자동 연동: 시간이 흐름에 따라 매입 단가가 시장 실질 가치에 연동되어 자동 상승
+                                </div>
+                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
+                                    🌳 전용 펀드 귀속: 징수액 전액을 허드슨야드 내 공원, 인도, 보행환경 조성을 위해 분리 관리
                                 </div>
                             </div>
-
-                            {/* Point 4 */}
-                            <div className="flex flex-col items-center justify-center absolute left-[70%] -translate-x-1/2" style={{ top: 'calc(50px + 50px * 0.3 - 8px)' }}>
-                                <div className="text-center absolute bottom-4 w-[150px]">
-                                    <div className="text-[13px] font-bold text-gray-400">{lang === 'kr' ? '2020~2021' : '2020-2021'}</div>
-                                    <div className="text-[15px] font-bold text-gray-800">{lang === 'kr' ? '코로나 시기' : 'COVID Era'}</div>
-                                    <div className="text-[15px] font-bold text-red-400">{lang === 'kr' ? '일시 상승' : 'Temp Rise'}</div>
-                                </div>
-                                <div className="w-4 h-4 rounded-full bg-red-400 border-[3px] border-white shadow-sm relative top-2"></div>
-                            </div>
-
-                            {/* Point 5 */}
-                            <div className="flex flex-col items-center justify-center absolute left-[90%] -translate-x-1/2" style={{ top: 'calc(50px + 50px * 1.0 - 8px)' }}>
-                                <div className="w-4 h-4 rounded-full bg-blue-600 border-[3px] border-white shadow-sm mb-2 relative -top-2"></div>
-                                <div className="text-center absolute top-4 w-[150px]">
-                                    <div className="text-[13px] font-bold text-gray-400">{lang === 'kr' ? '2022~' : '2022~'}</div>
-                                    <div className="text-[16px] font-black text-blue-600">{lang === 'kr' ? '급격히 하락' : 'Sharp Drop'}</div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
-                    {/* Vacancy Highlight Box (Height reduced by 30px using py-[25px] instead of p-10) */}
-                    <div className={`-mt-[6px] relative w-full flex flex-col md:flex-row items-center justify-between bg-gradient-to-br from-gray-900 to-black rounded-[24px] px-10 py-[25px] shadow-2xl transition-all duration-[765ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] ${step >= 3 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}>
-                        
-                        <div className="flex-1 text-left flex flex-col gap-1">
-                            <div className="text-gray-400 font-bold text-[18px]">{lang === 'kr' ? 'CBRE 2025년 3분기 기준' : 'CBRE Q3 2025'}</div>
-                            <div className="text-white font-extrabold text-[30px] leading-tight break-keep">
-                                {lang === 'kr' ? '서울 Grade-A 오피스 평균 공실률' : 'Seoul Grade-A Office Average Vacancy Rate'}
+                    {/* 우측 박스: 개발권 이전 제도 (TDR) 구조 */}
+                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
+                        <div className="text-left flex flex-col h-full">
+                            <div>
+                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
+                                    TDR (Transfer of Development Rights)
+                                </div>
+                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
+                                    철도기지 입체적 사용과 공공 재산 가치화
+                                </div>
                             </div>
-                        </div>
-
-                        <div className={`flex flex-col items-center justify-center px-8 py-4 bg-white/10 rounded-[18px] backdrop-blur-sm border border-white/20 transition-all duration-[765ms] delay-[230ms] ${step >= 4 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                            <div className="text-blue-400 font-black text-[64px] leading-none mb-1">
-                                3.1<span className="text-[36px]">%</span>
+                            
+                            <div className="flex flex-col gap-4 flex-1 mb-6">
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🚇 공중권 분리 매각: MTA 차량기지 부지 상부에 남은 미사용 용적률을 주변 민간 필지로 매각 허용</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>🏢 초고층 복합 타워: Related 등 민간 개발자는 TDR 매입을 통해 용적률을 가중 확보하여 랜드마크 마천루 건설</span>
+                                </div>
+                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
+                                    <span>💰 공적 재무 개량: MTA는 TDR 매각 수입으로 시 보조 없이 철도 차량기지 현대화 공사 완수</span>
+                                </div>
                             </div>
-                            <div className="text-white font-bold text-[16px]">Full Occupancy</div>
-                        </div>
-
-                    </div>
-
-                    {/* Breakdown Cards */}
-                    <div className="w-full flex justify-center gap-6 mt-2">
-                        <div className={`flex-1 bg-white border border-gray-200 rounded-[20px] py-4 px-6 shadow-sm transition-all duration-[540ms] hover:-translate-y-2 delay-400 ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                            <div className="text-gray-500 font-bold text-[15px] mb-1">GBD</div>
-                            <div className="text-gray-900 font-black text-[32px]">1.5%</div>
-                        </div>
-                        <div className={`flex-1 bg-white border border-gray-200 rounded-[20px] py-4 px-6 shadow-sm transition-all duration-[540ms] hover:-translate-y-2 delay-[383ms] ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                            <div className="text-gray-500 font-bold text-[15px] mb-1">YBD</div>
-                            <div className="text-gray-900 font-black text-[32px]">3.6%</div>
-                        </div>
-                        <div className={`flex-1 bg-white border border-gray-200 rounded-[20px] py-4 px-6 shadow-sm transition-all duration-[540ms] hover:-translate-y-2 delay-600 ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                            <div className="text-gray-500 font-bold text-[15px] mb-1">CBD</div>
-                            <div className="text-gray-900 font-black text-[32px]">4.1%</div>
                         </div>
                     </div>
 
                 </div>
 
-                <div className={`mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center transition-all duration-[689ms] ease-out ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {/* 최하단 텍스트 */}
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
-                        {lang === 'kr' ? (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>{lang === 'kr' ? <>2007~2010년 글로벌 금융위기로 8~10%대, 2013~2015년 대형 공급(IFC 등)으로 YBD 일시 18%까지 상승.</> : <>Rose to 8-10% during the 07-10 Global Financial Crisis, and YBD temporarily spiked to 18% due to large supplies (e.g. IFC) during 13-15.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>{lang === 'kr' ? <>2020~2021년 코로나 시기 일시 상승 후 2022년부터 급락, <strong>2025년 서울 Grade-A 공실률은 3.1%</strong> 기록.</> : <>After a temporary rise during the 20-21 COVID period, plummeted since 2022, recording a <strong>3.1% Grade-A vacancy rate in Seoul in 2025</strong>.</>}</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>{lang === 'kr' ? <>1조→2조 달러 구간 종료 시점, 서울 프라임 오피스는 사실상 <strong>자연 공실률을 하회하는 완전 임차 상태</strong> 도달.</> : <>At the end of the $1T to $2T period, Seoul prime offices practically reached a <strong>fully leased state below the natural vacancy rate</strong>.</>}</span></li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>Historically rose to 8-10% post-GFC, and YBD hit 18% during massive supply waves (2013-2015).</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>Dropped sharply since 2022. By 2025, <strong>Seoul Grade-A vacancy reached 3.1%</strong>.</span></li>
-                                <li className="flex items-start"><span className="mr-3 text-gray-500">▪</span><span>At the end of the $1T-$2T era, prime offices have effectively reached <strong>Full Occupancy</strong> below natural vacancy.</span></li>
-                            </>
-                        )}
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>DIB와 TDR의 유기적 작동은 정부 예산 배정이나 공적 부채 증대 없이 오직 시장 내부의 용적률 공급-수요 메커니즘을 통해 공공 공간과 교통 인프라를 확장해내는 획기적인 모델입니다.</span>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </section>
     );
