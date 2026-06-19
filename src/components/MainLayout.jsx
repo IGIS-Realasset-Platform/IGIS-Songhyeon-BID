@@ -47,6 +47,7 @@ import Section45 from './Section45';
 import Section46 from './Section46';
 import Section47 from './Section47';
 import Section48 from './Section48';
+import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
     return (
@@ -62,7 +63,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 48; 
+    const slidesLength = 59; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -75,54 +76,65 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
     });
 
     const slides = React.useMemo(() => [
-        <Section1 />, 
-        <Section2 />, 
-        <Section3 />, 
-        <Section4 />, 
-        <Section5 />, 
-        <Section6 />, 
-        <Section7 />, 
-        <Section8 />, 
-        <Section9 />, 
-        <Section10 />, 
-        <Section11 />, 
-        <Section12 />,
-        <Section13 />,
-        <Section14 />,
-        <Section15 />,
-        <Section16 />,
-        <Section17 />,
-        <Section18 />,
-        <Section19 />,
-        <Section20 />,
-        <Section21 />,
-        <Section22 />,
-        <Section23 />,
-        <Section24 />,
-        <Section25 />,
-        <Section26 />,
-        <Section27 />,
-        <Section28 />,
-        <Section29 />,
-        <Section30 />,
-        <Section31 />,
-        <Section32 />,
-        <Section33 />,
-        <Section34 />,
-        <Section35 />,
-        <Section36 />,
-        <Section37 />,
-        <Section38 />,
-        <Section39 />,
-        <Section40 />,
-        <Section41 />,
-        <Section42 />,
-        <Section43 />,
-        <Section44 />,
-        <Section45 />,
-        <Section46 />,
-        <Section47 />,
-        <Section48 />
+        <Section1 />, // Page 1 (Part 1 Cover)
+        <ChapterCover chapterNum="1" title="뉴욕시 BID 가치 분석" />, // Page 2
+        <Section2 />, // Page 3
+        <Section3 />, // Page 4
+        <Section4 />, // Page 5
+        <Section5 />, // Page 6
+        <Section6 />, // Page 7
+        <Section7 />, // Page 8
+        <ChapterCover chapterNum="2" title="플레이스메이킹과 에리어매니지먼트" />, // Page 9
+        <Section8 />, // Page 10
+        <Section9 />, // Page 11
+        <Section10 />, // Page 12
+        <Section11 />, // Page 13
+        <Section12 />, // Page 14
+        <Section13 />, // Page 15 (Part 2 Cover)
+        <ChapterCover chapterNum="1" title="BIA/BID 기원과 역사" />, // Page 16
+        <Section14 />, // Page 17
+        <Section15 />, // Page 18
+        <Section16 />, // Page 19
+        <Section17 />, // Page 20
+        <ChapterCover chapterNum="2" title="BID 제도적 작동 메커니즘" />, // Page 21
+        <Section18 />, // Page 22
+        <Section19 />, // Page 23
+        <Section20 />, // Page 24
+        <Section21 />, // Page 25
+        <Section22 />, // Page 26
+        <Section23 />, // Page 27
+        <Section24 />, // Page 28
+        <ChapterCover chapterNum="3" title="법적 판례와 실패/비판론" />, // Page 29
+        <Section25 />, // Page 30
+        <Section26 />, // Page 31
+        <Section27 />, // Page 32
+        <Section28 />, // Page 33 (Part 3 Cover)
+        <ChapterCover chapterNum="1" title="메가 PPP 개발과 파이낸싱" />, // Page 34
+        <Section29 />, // Page 35
+        <Section30 />, // Page 36
+        <Section31 />, // Page 37
+        <ChapterCover chapterNum="2" title="공간 운영 관리 체계" />, // Page 38
+        <Section32 />, // Page 39
+        <Section33 />, // Page 40
+        <Section34 />, // Page 41
+        <ChapterCover chapterNum="3" title="플레이스메이킹 실무와 갈등" />, // Page 42
+        <Section35 />, // Page 43
+        <Section36 />, // Page 44
+        <Section37 />, // Page 45
+        <Section38 />, // Page 46
+        <Section39 />, // Page 47 (Part 4 Cover)
+        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 48
+        <Section40 />, // Page 49
+        <Section41 />, // Page 50
+        <Section42 />, // Page 51
+        <Section43 />, // Page 52
+        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 53
+        <Section44 />, // Page 54
+        <Section45 />, // Page 55
+        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 56
+        <Section46 />, // Page 57
+        <Section47 />, // Page 58
+        <Section48 />  // Page 59
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);

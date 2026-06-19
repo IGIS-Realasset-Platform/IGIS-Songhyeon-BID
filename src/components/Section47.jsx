@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section47({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
@@ -10,9 +12,7 @@ export default function Section47({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        미래 SBD-IBD 연계 비전
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">{lang === 'kr' ? '블록체인 연계 5세대 디지털 BID' : '5G Digital Block Chain BID'}</span>
                 </div>
 
                 {/* 제목 */}

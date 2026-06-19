@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section18({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
-                        BID의 학술적/법적 성격
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">{lang === 'kr' ? '민간 정부(Private Governments) 이론' : 'Private Governments Theory'}</span>
                 </div>
 
                 {/* 제목 */}
@@ -20,59 +20,65 @@ export default function Section18({ isActive }) {
                     보충적이고 배타적인 공공재를 특정 구역에 한정하여 제공하는 거버넌스
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 다채로운 인포그래픽 영역 (3각 거버넌스 매트릭스 다이어그램) */}
+                <div className="w-full max-w-[1100px] mt-[40px] mb-[40px] relative h-[380px] flex items-center justify-center">
                     
-                    {/* 좌측 박스: 민간 정부(Private Governments) 이론 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Theoretical Foundation
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    헬슬리 & 스트레인지(Helsley & Strange, 1998) 정의
-                                </div>
-                            </div>
+                    {/* 3각 연결 화살표 배경 (SVG) */}
+                    <div className="absolute inset-0 z-0 flex items-center justify-center">
+                        <svg className="w-[600px] h-[350px] text-[#1e3a8a]" viewBox="0 0 600 350" fill="none">
+                            {/* A (중앙 상단) -> B (우측 하단) */}
+                            <path d="M 300,40 L 480,260" stroke="#bae6fd" strokeWidth="6" strokeLinecap="round" />
+                            <path d="M 300,40 L 480,260" stroke="#1e3a8a" strokeWidth="2" strokeLinecap="round" />
+                            {/* B (우측 하단) -> C (좌측 하단) */}
+                            <path d="M 480,260 L 120,260" stroke="#bae6fd" strokeWidth="6" strokeLinecap="round" />
+                            <path d="M 480,260 L 120,260" stroke="#1e3a8a" strokeWidth="2" strokeLinecap="round" />
+                            {/* C (좌측 하단) -> A (중앙 상단) */}
+                            <path d="M 120,260 L 300,40" stroke="#bae6fd" strokeWidth="6" strokeLinecap="round" />
+                            <path d="M 120,260 L 300,40" stroke="#1e3a8a" strokeWidth="2" strokeLinecap="round" />
                             
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[17px]">
-                                    🏛️ 공공 행정이 충족시키지 못하는 특정 상업 권역 전용 공공재 생산 실체
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[17px]">
-                                    🏠 구역 내 부동산 가치 보존과 직결된 전용 청소, 치안, 환경 서비스 위탁
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[17px]">
-                                    🌐 '사적 클럽재(Club Goods)' 성격의 혜택을 클럽 가입(자기과세)자에게 배타적 교부
-                                </div>
-                            </div>
-                        </div>
+                            {/* 중간 전송 라인 글씨 표시용 */}
+                            <rect x="370" y="130" width="100" height="24" fill="#fdfdfd" rx="0" />
+                            <text x="420" y="146" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">조례 승인 & 징수 대행</text>
+                            
+                            <rect x="250" y="248" width="100" height="24" fill="#fdfdfd" rx="0" />
+                            <text x="300" y="264" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">특별분담금 납부</text>
+
+                            <rect x="130" y="130" width="100" height="24" fill="#fdfdfd" rx="0" />
+                            <text x="180" y="146" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">독점적 가로 관리권</text>
+                        </svg>
                     </div>
 
-                    {/* 우측 박스: 공권력 위임 및 독점 메커니즘 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Delegated Authority
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    공법상의 강제력과 사법상의 효율적 집행
-                                </div>
-                            </div>
-                            
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[17px]">
-                                    <span>의무 강제 징수권: 지방세법에 준하여 미납 시 압류 등 법적 강제 절차 가능</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[17px]">
-                                    <span>서비스 독점: 시 정부와의 계약을 통해 당해 권역의 공간 관리 권리를 독점 위임</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[17px]">
-                                    <span>의사결정 주도: 관료주의를 탈피하여 민간 이사회가 예산과 집행을 신속 결정</span>
-                                </div>
-                            </div>
-                        </div>
+                    {/* 노드 1: 시 정부 (Public Authority) - 상단 중앙 */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 bg-white border-4 border-[#0f172a] rounded-none p-4 w-[240px] text-center shadow-lg">
+                        <span className="text-[12px] font-black text-blue-600 block mb-1">GOVERNMENT</span>
+                        <h4 className="text-[18px] font-black text-gray-900">시 정부 (NYC 등)</h4>
+                        <p className="text-[12px] text-gray-500 font-bold mt-2">
+                            • 지방자치 조례 승인권<br/>
+                            • 지방세 징수 인프라 연계 고지<br/>
+                            • 0% 수수료 100% 반환 보증
+                        </p>
+                    </div>
+
+                    {/* 노드 2: 소유주 및 상인 (Taxpayers) - 좌측 하단 */}
+                    <div className="absolute bottom-0 left-[20px] md:left-[80px] z-10 bg-white border-4 border-[#0f172a] rounded-none p-4 w-[240px] text-center shadow-lg">
+                        <span className="text-[12px] font-black text-[#e11d48] block mb-1">MEMBER</span>
+                        <h4 className="text-[18px] font-black text-gray-900">지구 내 소유주/상인</h4>
+                        <p className="text-[12px] text-gray-500 font-bold mt-2">
+                            • 추가 자발적 부과금 동의/납부<br/>
+                            • 이사회 임원 선출 의결권 행사<br/>
+                            • 프리미엄 보완적 서비스 수혜
+                        </p>
+                    </div>
+
+                    {/* 노드 3: 지구관리협회 (DMA) - 우측 하단 */}
+                    <div className="absolute bottom-0 right-[20px] md:right-[80px] z-10 bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-4 w-[240px] text-center shadow-2xl">
+                        <span className="text-[12px] font-black text-yellow-400 block mb-1">PRIVATE AGENT</span>
+                        <h4 className="text-[18px] font-black text-white">지구관리협회 (DMA)</h4>
+                        <p className="text-[12px] text-gray-400 font-bold mt-2">
+                            • 비영리 운영 법인 발기<br/>
+                            • 보완적 서비스 단독 기획/집행<br/>
+                            • 구역 내 부동산 가치 디펜스
+                        </p>
                     </div>
 
                 </div>
@@ -81,8 +87,8 @@ export default function Section18({ isActive }) {
                 <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>학술적으로 BID는 공공의 세금 강제권과 민간의 전문 경영 기법을 결합하여, 지구 내 자산 가치를 고속 방어하는 '민간 정부(Private Government)' 이론의 핵심 실증체입니다.</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>학술적으로 BID는 세금을 걷을 수 있는 **'공법상의 강제성'**과 신속하게 집행할 수 있는 **'사법상의 유연성'**을 결합하여 가치를 방어하는 독창적인 '사적 정부(Private Government)' 이론의 정수입니다.</span>
                         </li>
                     </ul>
                 </div>

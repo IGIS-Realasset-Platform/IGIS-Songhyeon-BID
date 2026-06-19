@@ -1,88 +1,98 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section30({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
-                        공공가치 캡처 및 금융
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '지하철 7호선 연장선 ISP & PILOT 채권' : '7 Line ISP & PILOT Bond'}</span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     미래의 세수를 담보로 24억 달러 규모의 공공 인프라 선투자를 실행한 구조
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 가치 캡처 프로세스 플로우 (4. 프로세스 플로우형) */}
+                <div className="w-full max-w-[1250px] mt-[30px] mb-[30px] relative">
                     
-                    {/* 좌측 박스: 미래세수 담보 채권 (HYIC) */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
+                    {/* SVG 흐름선 배경 */}
+                    <div className="hidden lg:block absolute top-[60px] left-[10%] right-[10%] h-1 bg-gradient-to-r from-[#1e3a8a] via-[#3b82f6] to-emerald-500 -z-10"></div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                        
+                        {/* 단계 1 */}
+                        <div className="border-4 border-[#0f172a] bg-white p-5 flex flex-col justify-between shadow-sm relative">
+                            <span className="absolute -top-4 -right-4 w-9 h-9 bg-[#0f172a] text-white flex items-center justify-center font-black text-[13px]">
+                                01
+                            </span>
                             <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    HYIC Infrastructure Bonds
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    허드슨야드 인프라 공사(HYIC) 금융 모델
-                                </div>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🎫 인프라 채권 발행: 뉴욕시 일반 재정에 부담을 주지 않는 특수목적 채권 발행 체계 구축
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🚇 지하철 7호선 선투자: 조달된 24억 달러를 지하철 연장 공사에 즉각 투입하여 선제 교통망 개통
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🔄 가치 선순환: 대중교통 인프라 개통이 부동산 착공과 자산 가치 상승을 조기 견인
-                                </div>
+                                <span className="block font-black text-[17px] text-[#0f172a] mb-2">🎫 HYIC 채권 발행</span>
+                                <p className="text-[13.5px] text-gray-600 font-bold leading-relaxed">
+                                    • 뉴욕시 보증 특수 법인 **HYIC** 설립.<br />
+                                    • 미래 개발 증분 세수를 상환 재원으로 하는 **24억 달러 전용 채권** 발행.
+                                </p>
                             </div>
                         </div>
-                    </div>
 
-                    {/* 우측 박스: 세수 락인 재원 (PILOT & DIB) */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
+                        {/* 단계 2 */}
+                        <div className="border-4 border-[#0f172a] bg-white p-5 flex flex-col justify-between shadow-sm relative">
+                            <span className="absolute -top-4 -right-4 w-9 h-9 bg-[#0f172a] text-white flex items-center justify-center font-black text-[13px]">
+                                02
+                            </span>
                             <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Value Capture Backing
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    미래 증분 세수를 담보하는 이중 안전망
-                                </div>
-                            </div>
-                            
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>💸 PILOT (Payment in Lieu of Taxes): 건물주가 일반 재산세 대신 내는 고정액을 채권 상환 재원으로 전용</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🏙️ DIB (District Improvement Bonus): 민간이 허용 용적률 이상 개발하기 위해 시에 납부하는 지구 기금</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>💰 TDR (Tax Increment): 세금 증분 자금을 신탁 관리하여 채권 만기 상환 위험을 원천 차단</span>
-                                </div>
+                                <span className="block font-black text-[17px] text-[#0f172a] mb-2">🚇 지하철 7호선 선투자</span>
+                                <p className="text-[13.5px] text-gray-600 font-bold leading-relaxed">
+                                    • 채권 조달액 전액을 **지하철 7호선 연장 노선**에 즉각 투입.<br />
+                                    • 민간 마천루 착공 이전에 지구 중심까지 광역교통망 선제 개통.
+                                </p>
                             </div>
                         </div>
-                    </div>
 
+                        {/* 단계 3 */}
+                        <div className="border-4 border-[#0f172a] bg-[#0f172a] p-5 text-white flex flex-col justify-between shadow-md relative">
+                            <span className="absolute -top-4 -right-4 w-9 h-9 bg-[#3b82f6] text-white flex items-center justify-center font-black text-[13px]">
+                                03
+                            </span>
+                            <div>
+                                <span className="block font-black text-[17px] text-[#93c5fd] mb-2">📈 개발 조기 유인</span>
+                                <p className="text-[13.5px] text-gray-300 font-bold leading-relaxed">
+                                    • 교통망 완비로 Related 등 **민간 디벨로퍼 마천루 착공 조기 유도**.<br />
+                                    • 주변 가로 및 일반 오피스 빌딩 임대 가치의 수직 상승 자극.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* 단계 4 */}
+                        <div className="border-4 border-emerald-600 bg-[#0f172a] p-5 text-white flex flex-col justify-between shadow-md relative">
+                            <span className="absolute -top-4 -right-4 w-9 h-9 bg-emerald-500 text-white flex items-center justify-center font-black text-[13px]">
+                                04
+                            </span>
+                            <div>
+                                <span className="block font-black text-[17px] text-emerald-400 mb-2">💰 미래 증분 세수 상환</span>
+                                <p className="text-[13.5px] text-gray-300 font-bold leading-relaxed">
+                                    • 완공 후 **PILOT**(재산세 대체금) 및 **DIB**(용적률 상향 보너스 기금) 징수.<br />
+                                    • 신탁 계정 적재를 통한 **인프라 채권 원리금 100% 회수**.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                {/* 하단 설명글 */}
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>허드슨야드는 재산세 대체납부제(PILOT)와 용적률 거래 대금(DIB)을 연계하여, 공공이 재정 위기 속에서도 한 푼의 추가 부담 없이 인프라 개발을 완성한 '가치 캡처 금융(Value Capture Finance)'의 정수입니다.</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>허드슨야드는 재산세 대체납부제(PILOT)와 용적률 상향 보너스 대금(DIB)을 융합하여, 공적 세입의 누출 없이 순수 신규 가치 캡처(Value Capture Finance) 방식으로 대규모 광역 도시 인프라를 자력 완성했습니다.</span>
                         </li>
                     </ul>
                 </div>

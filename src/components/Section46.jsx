@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section46({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
@@ -10,9 +12,7 @@ export default function Section46({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        용산 IBD 타운매니지먼트 당위성
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">{lang === 'kr' ? '용산 IBD 타운매니지먼트 당위성' : 'Yongsan IBD Megastructure'}</span>
                 </div>
 
                 {/* 제목 */}

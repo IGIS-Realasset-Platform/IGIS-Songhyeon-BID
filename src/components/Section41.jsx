@@ -1,75 +1,84 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section41({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
-                        SBD의 물리적 코어 - IOTA Seoul
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '이오타 서울(힐튼재개발) 마스터플랜' : 'IOTA Seoul Development Spec'}</span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     연면적 46만㎡ 규모의 강북 최대의 복합 트로피 에셋 탄생
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 수직 통합 아키텍처 및 금융 스택 (7. 에코-버티컬 스택형) */}
+                <div className="w-full max-w-[1200px] mt-[25px] mb-[25px] flex flex-col lg:flex-row gap-8 justify-between items-stretch">
                     
-                    {/* 좌측 박스: 건축 마스터플랜 및 용도 스펙 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Hilton Site Redevelopment
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    SOM / Foster + Partners 글로벌 설계 조화
-                                </div>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🏢 초대형 연면적: 힐튼·메트로·양동구역 통합 연면적 46만㎡ (강북 최고밀 프라임급 복합 단지)
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🏨 최고급 호텔: 하이엔드 럭셔리 '리츠칼튼(Ritz-Carlton)' 호텔 유치 확정
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🌿 친환경 오피스: 리드(LEED) 플래티넘 등급 지향 및 녹지 수직 통합 빌딩 구현
-                                </div>
-                            </div>
+                    {/* 좌측: 수직 통합형 3단 설계 스택 */}
+                    <div className="w-full lg:w-[52%] flex flex-col gap-4 text-left">
+                        <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase self-start">
+                            Vertical Integration Program
+                        </span>
+                        
+                        {/* 1단: 리츠칼튼 호텔 */}
+                        <div className="border-4 border-[#0f172a] bg-white p-4 shadow-sm relative">
+                            <span className="absolute right-4 top-4 text-[#10b981] font-black text-[12px] uppercase">Ritz-Carlton</span>
+                            <span className="block font-black text-[16px] text-gray-900">🏨 최상층: 럭셔리 호스피탈리티 호텔</span>
+                            <p className="text-[13px] text-gray-500 font-bold leading-relaxed mt-1">
+                                글로벌 최고급 호텔 브랜드 유치를 통해 비즈니스 의전 및 VIP 투숙 수요 독점 흡수
+                            </p>
+                        </div>
+
+                        {/* 2단: 프라임 오피스 */}
+                        <div className="border-4 border-[#0f172a] bg-white p-4 shadow-sm relative">
+                            <span className="absolute right-4 top-4 text-[#3b82f6] font-black text-[12px] uppercase">LEED Platinum</span>
+                            <span className="block font-black text-[16px] text-gray-900">🏢 중·저층부: 친환경 최첨단 프라임 오피스</span>
+                            <p className="text-[13px] text-gray-500 font-bold leading-relaxed mt-1">
+                                SOM & Foster + Partners 설계 반영, 친환경 인증 획득으로 다국적 우량 임차인 유치 방어선 구축
+                            </p>
+                        </div>
+
+                        {/* 3단: 문화/상업 포디움 */}
+                        <div className="border-4 border-[#0f172a] bg-white p-4 shadow-sm relative">
+                            <span className="absolute right-4 top-4 text-[#ef4444] font-black text-[12px] uppercase">Retail & Culture</span>
+                            <span className="block font-black text-[16px] text-gray-900">🛍️ 지하 및 저층부: 서울로 연계 상업·예술 포디움</span>
+                            <p className="text-[13px] text-gray-500 font-bold leading-relaxed mt-1">
+                                보행 데크를 서울로 7017 및 서울역 지하도와 직접 연결하여 외부 집객 동선 극대화
+                            </p>
                         </div>
                     </div>
 
-                    {/* 우측 박스: PF 재무 구조 및 리스크 통제 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Financing & Risk Management
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    브릿지론 연장 및 본PF 전환 안정성 방어
-                                </div>
-                            </div>
+                    {/* 우측: 이오타 2 PF 리스크 관리 스탯 보드 */}
+                    <div className="w-full lg:w-[42%] border-4 border-[#0f172a] bg-[#0f172a] p-6 text-left text-white flex flex-col justify-between shadow-md">
+                        <div>
+                            <span className="inline-block bg-[#3b82f6] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Financing Safety Buffer
+                            </span>
+                            <h3 className="text-[24px] font-black mb-6">
+                                이오타 2 PF 안정성 관리
+                            </h3>
                             
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>💸 이오타 2 PF 안정: 브릿지론 연장에 따른 추가 금리 충격을 방어할 금융 구조 설계</span>
+                            <div className="space-y-4">
+                                <div className="bg-white/5 border border-white/10 p-4">
+                                    <span className="block font-black text-[16px] text-[#93c5fd]">💸 브릿지론 연정 구조화</span>
+                                    <span className="text-[13px] text-gray-300">시장 추가 금리 충격을 방어할 신용 연계 대주단 금융 협의 안정적 확정</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🔑 이지스 에쿼티 보강: 모태 펀드 자본금 추가 투입을 통해 대주단 신용 확보</span>
+                                <div className="bg-white/5 border border-white/10 p-4">
+                                    <span className="block font-black text-[16px] text-[#93c5fd]">🔑 에쿼티 추가 보강</span>
+                                    <span className="text-[13px] text-gray-300">이지스 모태 펀드 자본금 투입을 통한 신용 등급 보강 및 대주단 안심 장치 가동</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🚀 본PF 연착륙: 인허가 확정 시기에 맞춰 1금융권 중심 신디케이트 론 사전 조율 완료</span>
+                                <div className="bg-white/5 border border-white/10 p-4">
+                                    <span className="block font-black text-[16px] text-emerald-400">🚀 본PF 전환 완료 목표</span>
+                                    <span className="text-[13px] text-gray-300">인허가 완료 조율 일정에 연동하여 1금융권 신디케이트 론 전환 가이드 수립</span>
                                 </div>
                             </div>
                         </div>
@@ -77,12 +86,12 @@ export default function Section41({ isActive }) {
 
                 </div>
 
-                {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                {/* 하단 설명글 */}
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>IOTA Seoul은 단순 오피스 빌딩을 넘어 복합 문화, 예술, 럭셔리 호스피탈리티가 수직 결합된 초우량 자산이며, 정밀한 금융 구도로 시장 리스크를 무력화하고 개발을 가속화합니다.</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>IOTA Seoul은 단순한 개별 고층 마천루를 넘어 복합 문화, 예술, 럭셔리 호스피탈리티가 수직 통합된 강북 최대의 트로피 자산이며, 철저히 구조화된 금융 설계를 결합하여 거시 경제 리스크를 차단합니다.</span>
                         </li>
                     </ul>
                 </div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section43({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
@@ -10,9 +12,7 @@ export default function Section43({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        SBD의 가치 귀속 원천
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">{lang === 'kr' ? 'SBD의 무기: 서울역 교통 & 남산 자연' : 'SBD Weapon: Seoul Station & Namsan'}</span>
                 </div>
 
                 {/* 제목 */}

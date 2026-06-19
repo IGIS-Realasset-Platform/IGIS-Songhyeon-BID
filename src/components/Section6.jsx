@@ -1,87 +1,108 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section6({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
-                        NYC BID 실증적 가치 - Times Square
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#10b981] tracking-[-0.02em] mb-[12px]">{lang === 'kr' ? '타임스스퀘어의 재생 (After 1992)' : 'Times Square Regeneration (After 1992)'}</span>
                 </div>
 
                 {/* 제목 */}
                 <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
-                    1992년 BID 도입 후 범죄율 97% 급감 및 안전지대화 안착
+                    Times Square Alliance BID 설립 후 범죄율 97% 감소의 실증
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 다채로운 인포그래픽 영역 (얼라이언스 실드 뱃지 및 범죄 감소 곡선) */}
+                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] flex flex-col lg:flex-row items-stretch justify-between gap-8 relative z-10">
                     
-                    {/* 좌측 박스: After 운영 혁신 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    After: Times Square Alliance
+                    {/* 좌측: Times Square Alliance BID의 파수꾼 모델 */}
+                    <div className="w-full lg:w-[48%] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 text-left shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#10b981] text-white text-[13px] font-black px-3 py-1 uppercase mb-6">
+                                Private Protection Force
+                            </span>
+                            <h3 className="text-[26px] font-black text-white mb-4 leading-tight">
+                                자체 미화단 및 민간 순찰대(PSA) 가동
+                            </h3>
+                            <p className="text-gray-400 text-[14px] font-bold mb-6">
+                                시 경찰과 연계하는 무장 해제 민간 경비단(Public Safety Officers)을 24시간 도심에 배치
+                            </p>
+
+                            <div className="space-y-4">
+                                <div className="bg-white/5 p-4 border-l-4 border-[#10b981]">
+                                    <span className="block text-white font-extrabold text-[16px]">🧹 24시간 쓰레기 수거 및 고압 살수</span>
+                                    <span className="text-[13px] text-gray-400">깨진 유리창 이론 차단: 낙서와 전단을 2시간 내에 완전 제거</span>
                                 </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    민관 합동 상권 수호 체계 수립
-                                </div>
-                            </div>
-                            
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="bg-white/10 border border-white/20 p-4 font-bold text-white text-[17px]">
-                                    🧹 24시간 운영되는 가로 청소 및 환경 정화단 구축
-                                </div>
-                                <div className="bg-white/10 border border-white/20 p-4 font-bold text-white text-[17px]">
-                                    👮 민간 특별 보안 요원(Public Safety Officers) 배치
-                                </div>
-                                <div className="bg-white/10 border border-white/20 p-4 font-bold text-white text-[17px]">
-                                    🤝 공공 경찰(NYPD)과의 실시간 정보 공유 채널 개설
+                                <div className="bg-white/5 p-4 border-l-4 border-[#10b981]">
+                                    <span className="block text-white font-extrabold text-[16px]">👮 NYPD 공동 밀착 협업</span>
+                                    <span className="text-[13px] text-gray-400">무전 채널 공유 및 매주 범죄 핫스팟 정보를 공유하여 예방 배치</span>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="mt-6 border-t border-white/10 pt-4">
+                            <span className="text-[13px] font-bold text-gray-400">
+                                💡 "단순 순찰에 그치지 않고, 가로등 조도를 3배 높이고 노상 불법 행위를 민관 합동으로 지속 단속"
+                            </span>
+                        </div>
                     </div>
 
-                    {/* 우측 박스: 강력한 범죄 감소 수치 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Dramatic Crime Reduction
+                    {/* 우측: 범죄 급감 실증 곡선 (SVG 드로잉 포함) */}
+                    <div className="w-full lg:w-[48%] bg-white border-4 border-[#0f172a] rounded-none p-8 text-left shadow-lg flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-6">
+                                Empirical Crime Drop
+                            </span>
+                            <h3 className="text-[26px] font-black text-gray-900 mb-4 leading-tight">
+                                범죄 해방구 딱지를 뗀 대전환 지표
+                            </h3>
+
+                            {/* 감소 추이 SVG 곡선 */}
+                            <div className="w-full h-[150px] bg-emerald-50/50 border border-emerald-200 p-4 mb-6 relative overflow-hidden">
+                                <div className="absolute inset-0">
+                                    <svg className="w-full h-full" viewBox="0 0 300 120" preserveAspectRatio="none">
+                                        <path d="M 10,10 L 100,20 L 200,90 L 290,110" fill="none" stroke="#10b981" strokeWidth="4" />
+                                        <circle cx="10" cy="10" r="5" fill="#10b981" />
+                                        <circle cx="290" cy="110" r="5" fill="#10b981" />
+                                    </svg>
                                 </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    지표로 증명된 가로 안전의 정량적 확보
+                                
+                                <div className="relative z-10 flex justify-between h-full items-start">
+                                    <div>
+                                        <span className="block text-[11px] font-bold text-gray-500">1992 (BID 설립)</span>
+                                        <span className="text-[15px] font-black text-gray-800">범죄 최고점 기록</span>
+                                    </div>
+                                    <div className="text-right self-end">
+                                        <span className="block text-[11px] font-bold text-emerald-600">1998~현재</span>
+                                        <span className="text-[18px] font-black text-[#10b981]">전체 범죄 97% 감소 🎉</span>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div className="flex flex-col gap-4 flex-1 mb-6 justify-center">
-                                <div className="bg-gray-100 border border-gray-300 p-4 font-bold text-[#0f172a] text-[18px] text-center">
-                                    42번가 강력범죄 수<br/>
-                                    <span className="text-[28px] text-[#e04c9a]">2,300건 → 60건</span> (97% 급감)
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 font-bold text-[#0f172a] text-[18px] text-center">
-                                    설립 초기 6년간 전체 범죄율<br/>
-                                    <span className="text-[24px] text-[#e04c9a]">57% 감소</span>
-                                </div>
-                            </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 border border-gray-200">
+                            <span className="text-[13px] font-bold text-gray-600 block">
+                                🔑 **지구 청결 관리와 범죄 예방의 인과성**: 깨진 유리창 이론을 도시 행정에 완벽히 이식하여, 깨끗하고 조명이 밝아진 거리에 우범 분자들이 스스로 자취를 감춤.
+                            </span>
                         </div>
                     </div>
 
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>공적 경찰력과 BID 법인의 보완적 서비스가 결합되어 뉴욕 최고의 역사적 슬럼가를 단 6년 만에 글로벌 랜드마크 명소로 세팅한 성공 사례</span>
+                            <span className="mr-3 text-[#10b981]">▪</span>
+                            <span>타임스스퀘어 연합회(Alliance)의 대성공은 공적 치안에 의존하기보다 민간 자본을 동원해 경관과 조명, 기본 관리 순찰을 통합 운영하는 방식이 훨씬 빠르고 강력함을 입증했습니다.</span>
                         </li>
                     </ul>
                 </div>

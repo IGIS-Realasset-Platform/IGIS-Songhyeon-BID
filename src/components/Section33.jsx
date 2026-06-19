@@ -1,88 +1,90 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section33({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
-                        허드슨야드 관리 주체
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? 'HYHK Alliance 이사회 구성' : 'HYHK Alliance Board'}</span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     디벨로퍼 임원들의 직접 참여를 통한 트로피 자산 가치 방어 거버넌스
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 3각 거버넌스 다이어그램 (2. 3각 매트릭스형) */}
+                <div className="w-full max-w-[1100px] mt-[15px] mb-[25px] flex flex-col items-center">
                     
-                    {/* 좌측 박스: 디벨로퍼의 직접 참여와 지배력 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Developer Board Seats
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    Related & Oxford 중심의 강력한 책임 집행
-                                </div>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    👔 핵심 의사결정: Related 부사장 등 앵커 디벨로퍼 핵심 임원들이 이사회 등기 임원으로 등재
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🔒 투자 얼라인먼트: 준공 후 철수하는 일반 건설사와 달리 소유 지분을 보유하고 장기 관리 관여
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    💵 신속 자금 조달: 추가 자본 투입이 필요할 시 민간 이사회 협의를 통해 예산 추가 승인
-                                </div>
-                            </div>
-                        </div>
+                    {/* SVG 3각 거버넌스 관계망 */}
+                    <div className="relative w-full h-[300px] hidden md:block">
+                        <svg className="w-full h-full" viewBox="0 0 800 300">
+                            {/* 연결선 */}
+                            <g stroke="#0f172a" strokeWidth="2.5" fill="none">
+                                <path d="M 400,80 L 220,180" />
+                                <path d="M 400,80 L 580,180" />
+                                <path d="M 220,220 L 580,220" strokeDasharray="5,5" />
+                            </g>
+
+                            {/* 노드 1: 상단 중앙 - 디벨로퍼 임원단 (Related/Oxford) */}
+                            <g transform="translate(280, 10)">
+                                <rect width="240" height="70" fill="#0f172a" stroke="#0f172a" strokeWidth="2" />
+                                <text x="120" y="30" textAnchor="middle" fill="#ffffff" fontSize="14" fontWeight="black">👑 디벨로퍼 임원 보드</text>
+                                <text x="120" y="50" textAnchor="middle" fill="#3b82f6" fontSize="11" fontWeight="bold">Related 부사장 등 이사회 등기 임원 참여</text>
+                                <text x="120" y="62" textAnchor="middle" fill="#94a3b8" fontSize="10" fontWeight="bold">강력한 장기 가치 보호 체계 구축</text>
+                            </g>
+
+                            {/* 노드 2: 좌측 하단 - 주민 대변 CB4 (Community Board 4) */}
+                            <g transform="translate(60, 170)">
+                                <rect width="240" height="85" fill="#ffffff" stroke="#0f172a" strokeWidth="3" />
+                                <text x="120" y="28" textAnchor="middle" fill="#0f172a" fontSize="14" fontWeight="black">👥 CB4 (맨해튼 4 커뮤니티 보드)</text>
+                                <text x="120" y="48" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="bold">지역 주민 대리권 행사</text>
+                                <text x="120" y="62" textAnchor="middle" fill="#64748b" fontSize="10" fontWeight="medium">민간 가드의 차별적 배제 감시</text>
+                                <text x="120" y="76" textAnchor="middle" fill="#64748b" fontSize="10" fontWeight="medium">지역 사회와의 상생/포용 균형 조율</text>
+                            </g>
+
+                            {/* 노드 3: 우측 하단 - 뉴욕시 소기업지원국 (SBS) */}
+                            <g transform="translate(500, 170)">
+                                <rect width="240" height="85" fill="#0f172a" stroke="#0f172a" strokeWidth="2" />
+                                <text x="120" y="28" textAnchor="middle" fill="#ffffff" fontSize="14" fontWeight="black">🏛️ 뉴욕시 소기업지원국 (SBS)</text>
+                                <text x="120" y="48" textAnchor="middle" fill="#93c5fd" fontSize="11" fontWeight="bold">공식 지자체 감독 행정관 참여</text>
+                                <text x="120" y="62" textAnchor="middle" fill="#cbd5e1" fontSize="10" fontWeight="medium">비영리 BID 법인의 세무/회계 감독</text>
+                                <text x="120" y="76" textAnchor="middle" fill="#cbd5e1" fontSize="10" fontWeight="medium">도시 계획 조례 정합성 및 행정 중재</text>
+                            </g>
+                        </svg>
                     </div>
 
-                    {/* 우측 박스: 민-관-학-민 지역 연대 채널 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Multi-Stakeholder Governance
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    지역 커뮤니티 및 지자체 당연직의 감시 균형
-                                </div>
-                            </div>
-                            
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>👥 CB4 (맨해튼 제4 커뮤니티 보드) 대표: 지역 주민의 소수 배제 우려 감시</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>⚖️ 뉴욕시 소기업지원국(SBS): 비영리 법인인 HYHK BID 운영 합법성 정기 감사</span>
-                                </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🌐 가교 역할: 소유자와 지자체, 그리고 지역 주민 간의 갈등을 평화적으로 조율하는 상설 기구화</span>
-                                </div>
-                            </div>
+                    {/* 모바일 리스트 */}
+                    <div className="md:hidden w-full flex flex-col gap-4">
+                        <div className="border-4 border-[#0f172a] bg-[#0f172a] text-white p-4">
+                            <span className="block font-black text-[16px]">👑 Related & Oxford 디벨로퍼 임원</span>
+                            <span className="text-[13px] text-gray-300">자산 가치 주도, 소유 지분 기반의 강력한 의결권 참여</span>
+                        </div>
+                        <div className="border-4 border-[#0f172a] bg-white p-4 text-left">
+                            <span className="block font-black text-[16px] text-gray-900">👥 CB4 (주민 커뮤니티 대표)</span>
+                            <span className="text-[13px] text-gray-600">지구 내 약자 축출 및 차별적 배제 활동 감시</span>
+                        </div>
+                        <div className="border-4 border-[#0f172a] bg-white p-4 text-left">
+                            <span className="block font-black text-[16px] text-gray-900">🏛️ 뉴욕시 소기업지원국 (SBS)</span>
+                            <span className="text-[13px] text-gray-600">공적인 행정 감사 및 비영리 법인 투명성 보증</span>
                         </div>
                     </div>
 
                 </div>
 
-                {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                {/* 하단 설명글 */}
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>HYHK Alliance는 단순 이익 집단이 아닌, 최고 결정권을 가진 자산 소유자와 공적 행정 대리인이 실질적인 이사회 보드를 공유하는 통합 거버넌스 구조를 통해 트로피 자산가치를 수장합니다.</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>HYHK Alliance BID는 단순 이익 단체가 아닌, 최고 결정권을 가진 자산 소유자와 공적 행정 대리인이 실질적인 이사회 보드를 공유하는 입체적 3각 거버넌스 구조를 통해 트로피 자산가치를 장기 방어합니다.</span>
                         </li>
                     </ul>
                 </div>

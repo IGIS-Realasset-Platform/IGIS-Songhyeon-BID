@@ -1,75 +1,84 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Section34({ isActive }) {
+    const { lang } = useLanguage();
     const [step, _setStep] = useState(20);
     const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#ffffff] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] tracking-[-0.02em] mb-[12px]">
-                        지속가능한 공원 운영
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '벨라 압죽 공원 민간 위탁 운영' : 'Bella Abzug Park Model'}</span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep tracking-[-0.02em] mb-4">
+                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
                     공공 인프라를 민간 BID가 기부채납 형태로 완벽하게 위탁 관리하는 혁신
                 </h2>
 
-                {/* 중앙 콘텐츠 (직사각형 박스, 네이비/블루 계열) */}
-                <div className="w-full max-w-[1200px] mt-[20px] mb-[36px] flex flex-col md:flex-row gap-8 justify-center items-stretch">
+                {/* 대칭형 비교 테이블 (3. 대칭 밸런스시트형) */}
+                <div className="w-full max-w-[1200px] mt-[30px] mb-[36px] flex flex-col lg:flex-row gap-8 justify-center items-stretch relative">
                     
-                    {/* 좌측 박스: 소유권과 위탁의 분리 메커니즘 */}
-                    <div className="flex-[1] bg-white border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-sm">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-[#0f172a] font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Public Ownership & Private Operation
-                                </div>
-                                <div className="text-gray-500 font-bold text-[18px] mb-6">
-                                    뉴욕시 공원국(DPR)과의 법적 계약 구조
-                                </div>
-                            </div>
+                    {/* Left: 뉴욕시 공원국 (DPR) 소유권 */}
+                    <div className="w-full lg:w-[48%] border-4 border-[#0f172a] bg-white p-6 text-left flex flex-col justify-between shadow-sm">
+                        <div>
+                            <span className="inline-block bg-gray-400 text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Public Ownership
+                            </span>
+                            <h3 className="text-[24px] font-black text-gray-900 mb-2">
+                                뉴욕시 공원국 (DPR)
+                            </h3>
+                            <p className="text-gray-500 text-[15px] font-bold mb-6">
+                                공원 부지의 영구 소유권 보유
+                            </p>
                             
-                            <div className="grid grid-cols-1 gap-4 flex-1 mb-6">
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🌳 공원 부지 소유: 뉴욕시 정부 소유권을 명확히 유지하여 사유화 시비 차단
+                            <div className="space-y-4">
+                                <div className="p-4 bg-gray-50 border border-gray-200">
+                                    <span className="block font-black text-[16px] text-gray-900">🌳 공원 부지 영구 소유</span>
+                                    <span className="text-[13px] text-gray-600">공공 광장 및 공원의 소유권을 시 정부에 묶어두어 **민간 사유화 시비 원천 차단**</span>
                                 </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    📜 장기 관리 위탁: HYHK BID가 모든 일상적 조경, 청소, 시설 유지 보수를 완전 대행
-                                </div>
-                                <div className="bg-gray-100 border border-gray-300 p-4 flex flex-col justify-center font-bold text-[#0f172a] text-[16px]">
-                                    🔒 공공 안전 책임: 뉴욕경찰(NYPD)과 협업하는 사설 보안 요원 정기 순찰 실시
+                                <div className="p-4 bg-gray-50 border border-gray-200">
+                                    <span className="block font-black text-[16px] text-gray-900">⚖️ 최소 서비스 의무 보장</span>
+                                    <span className="text-[13px] text-gray-600">지자체 소관의 소방, 최소 방재 등 법적 행정 지원 지속성 제공</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* 우측 박스: 민간 기법 도입을 통한 가치 극대화 */}
-                    <div className="flex-[1] bg-[#0f172a] border-4 border-[#0f172a] rounded-none p-8 flex flex-col justify-between shadow-md">
-                        <div className="text-left flex flex-col h-full">
-                            <div>
-                                <div className="text-white font-black text-[24px] md:text-[28px] mb-2 uppercase">
-                                    Flexible Asset Activation
-                                </div>
-                                <div className="text-[#93c5fd] font-bold text-[18px] mb-6">
-                                    지속 가능한 운영 재원 및 프로그램
-                                </div>
-                            </div>
+                    {/* 중앙 VS 뱃지 */}
+                    <div className="hidden lg:flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#0f172a] text-white border-4 border-white font-black text-[16px] z-10">
+                        CO
+                    </div>
+
+                    {/* Right: HYHK BID 운영권 */}
+                    <div className="w-full lg:w-[48%] border-4 border-[#0f172a] bg-[#0f172a] p-6 text-left text-white flex flex-col justify-between shadow-md">
+                        <div>
+                            <span className="inline-block bg-[#3b82f6] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
+                                Private Operation
+                            </span>
+                            <h3 className="text-[24px] font-black mb-2">
+                                HYHK Alliance BID
+                            </h3>
+                            <p className="text-[#93c5fd] text-[15px] font-bold mb-6">
+                                공원 일상 유지 관리권 & 상업 임대권 위탁
+                            </p>
                             
-                            <div className="flex flex-col gap-4 flex-1 mb-6">
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🍔 상업 키오스크: 공원 내 푸드 코트/키오스크 임대 권한을 BID가 행사하여 자체 운영 수입화</span>
+                            <div className="space-y-4">
+                                <div className="p-4 bg-white/5 border border-white/10">
+                                    <span className="block font-black text-[16px] text-[#93c5fd]">🧹 고품질 환경 정비</span>
+                                    <span className="text-[13px] text-gray-300">조경 식재, 쓰레기 분리배출, 정기 고압세척 및 전용 경비 순찰 집행</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🎨 문화 활성화: 조각품 야외 전시, 음악회 개최 등으로 공공공간을 고급 마케팅 장소화</span>
+                                <div className="p-4 bg-white/5 border border-white/10">
+                                    <span className="block font-black text-[16px] text-[#93c5fd]">🍔 상업 키오스크 임대 및 수익 귀속</span>
+                                    <span className="text-[13px] text-gray-300">공원 내 푸드 키오스크 임대 권한을 행사하여 **자체 공원 운영 재원 확보**</span>
                                 </div>
-                                <div className="flex-1 bg-white/10 border border-white/20 p-4 font-bold text-white flex justify-between items-center text-[16px]">
-                                    <span>🧹 예산 절감: 시 예산 없이 오직 BID 분담금과 자체 임대료 수익만으로 공원을 철저히 청결 유지</span>
+                                <div className="p-4 bg-white/5 border border-white/10">
+                                    <span className="block font-black text-[16px] text-[#93c5fd]">🎨 문화 프로그래밍 독점권</span>
+                                    <span className="text-[13px] text-gray-300">미술품 야외 전시회, 콘서트, 스폰서 이벤트 유치로 지역 상권 활성화 주도</span>
                                 </div>
                             </div>
                         </div>
@@ -77,12 +86,12 @@ export default function Section34({ isActive }) {
 
                 </div>
 
-                {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                {/* 하단 설명글 */}
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>벨라 압죽 공원은 공기업의 느리고 비효율적인 사후 관리 관성을 탈피하고, 신속하고 영리한 민간 에리어 매니지먼트(Area Management) 기법을 장착하여 연중 무결점 상태를 사수합니다.</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>벨라 압죽 공원은 공기업의 비효율적이고 느린 사후 관리 관성을 완전히 극복하고, 신속하며 세밀한 민간 에리어 매니지먼트(Area Management)의 비즈니스 논리를 이식하여 영속적 품질을 확보했습니다.</span>
                         </li>
                     </ul>
                 </div>
