@@ -44,16 +44,17 @@ export default function Header({ onNavigateToNews, onNavigateToHome, onNavigateT
  };
  }, []);
 
- const getActiveNavIndex = () => {
- if (currentPage === 'action-plan') return 3;
- const pageNum = parseInt(activeHash.replace('#page-', ''), 10) || 1;
- if (pageNum >= 2 && pageNum <= 11) return 0; // The Engine
- if (pageNum >= 12 && pageNum <= 17) return 1; // The Steering Wheel
- if (pageNum === 18) return 2; // Inside IFPDP
- if (pageNum === 19 || pageNum === 20) return 3; // Execution Plan
- if (pageNum === 21 || pageNum === 22) return 4; // AI Peer Review
- return -1;
- };
+  const getActiveNavIndex = () => {
+    if (currentPage === 'action-plan') return -1;
+    const pageNum = parseInt(activeHash.replace('#page-', ''), 10) || 1;
+    const partPages = currentMenuData.map(part => parseInt((part.id || 'page-1').replace('page-', ''), 10));
+    for (let i = partPages.length - 1; i >= 0; i--) {
+        if (pageNum >= partPages[i]) {
+            return i;
+        }
+    }
+    return -1;
+  };
  const activeNavIndex = getActiveNavIndex();
 
  React.useEffect(() => {
