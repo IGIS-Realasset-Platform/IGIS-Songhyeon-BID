@@ -100,40 +100,42 @@ export const menuDataEn = [
                     { label: "37th St Streetscape", id: "page-44" },
                     { label: "SOMOS Latin Dance Party", id: "page-45" },
                     { label: "Vessel Security Crisis", id: "page-46" },
-                    { label: "Tree Beds Expansion Debate", id: "page-47" }
+                    { label: "Tree Beds Expansion Debate", id: "page-47" },
+                    { label: "Tokyo Area Management & Japanese BID", id: "page-48" },
+                    { label: "US BID vs Japanese Area Management", id: "page-49" }
                 ]
             }
         ] 
     },
     { 
         title: "Part 4. SBD & Yongsan IBD", 
-        id: "page-48", 
+        id: "page-50", 
         chapters: [
             {
                 title: "Chapter 1. SBD Core Assets & Public Benefit",
-                id: "page-49",
+                id: "page-51",
                 items: [
-                    { label: "SBD Corridor Declaration", id: "page-50" },
-                    { label: "IOTA Seoul Development Spec", id: "page-51" },
-                    { label: "7,000㎡ Public Green Space", id: "page-52" },
-                    { label: "SBD Weapon: Seoul Station & Namsan", id: "page-53" }
+                    { label: "SBD Corridor Declaration", id: "page-52" },
+                    { label: "IOTA Seoul Development Spec", id: "page-53" },
+                    { label: "7,000㎡ Public Green Space", id: "page-54" },
+                    { label: "SBD Weapon: Seoul Station & Namsan", id: "page-55" }
                 ]
             },
             {
                 title: "Chapter 2. Operation & Target Indicators",
-                id: "page-54",
+                id: "page-56",
                 items: [
-                    { label: "Location vs Operation", id: "page-55" },
-                    { label: "Quantitative Target Scenarios", id: "page-56" }
+                    { label: "Location vs Operation", id: "page-57" },
+                    { label: "Quantitative Target Scenarios", id: "page-58" }
                 ]
             },
             {
                 title: "Chapter 3. Yongsan IBD & Future SBD",
-                id: "page-57",
+                id: "page-59",
                 items: [
-                    { label: "Yongsan IBD Megastructure", id: "page-58" },
-                    { label: "5G Digital Block Chain BID", id: "page-59" },
-                    { label: "SYBD 3-Stage Roadmap", id: "page-60" }
+                    { label: "Yongsan IBD Megastructure", id: "page-60" },
+                    { label: "5G Digital Block Chain BID", id: "page-61" },
+                    { label: "SYBD 3-Stage Roadmap", id: "page-62" }
                 ]
             }
         ] 
@@ -242,40 +244,42 @@ export const menuDataKr = [
                     { label: "37번가 보행자 친화 가로 개선 설계", id: "page-44" },
                     { label: "벨라 압죽 공원 소모스 댄스 파티", id: "page-45" },
                     { label: "베셀(Vessel) 자살 사고와 안전 대책", id: "page-46" },
-                    { label: "가로수 화단 확장 및 노점상 갈등", id: "page-47" }
+                    { label: "가로수 화단 확장 및 노점상 갈등", id: "page-47" },
+                    { label: "일본 도쿄 에리어 매니지먼트 & 일본판 BID", id: "page-48" },
+                    { label: "미국형 BID vs 일본형 에리어 매니지먼트", id: "page-49" }
                 ]
             }
         ] 
     },
     { 
         title: "Part 4. 서울 SBD 및 용산 IBD 비전", 
-        id: "page-48", 
+        id: "page-50", 
         chapters: [
             {
                 title: "Chapter 1. SBD 핵심 자산과 공공 기여",
-                id: "page-49",
+                id: "page-51",
                 items: [
-                    { label: "SBD 서울역-남산 신업무 권역 선언", id: "page-50" },
-                    { label: "이오타 서울(힐튼재개발) 마스터플랜", id: "page-51" },
-                    { label: "7,000㎡ 공개녹지 기부채납 설계", id: "page-52" },
-                    { label: "SBD의 무기: 서울역 교통 & 남산 자연", id: "page-53" }
+                    { label: "SBD 서울역-남산 신업무 권역 선언", id: "page-52" },
+                    { label: "이오타 서울(힐튼재개발) 마스터플랜", id: "page-53" },
+                    { label: "7,000㎡ 공개녹지 기부채납 설계", id: "page-54" },
+                    { label: "SBD의 무기: 서울역 교통 & 남산 자연", id: "page-55" }
                 ]
             },
             {
                 title: "Chapter 2. 지구 운영 가치 및 정량 지표",
-                id: "page-54",
+                id: "page-56",
                 items: [
-                    { label: "SBD 차별화: 입지(Location) vs 운영(OS)", id: "page-55" },
-                    { label: "SBD BID 도입 전/후 목표 지표 시나리오", id: "page-56" }
+                    { label: "SBD 차별화: 입지(Location) vs 운영(OS)", id: "page-57" },
+                    { label: "SBD BID 도입 전/후 목표 지표 시나리오", id: "page-58" }
                 ]
             },
             {
                 title: "Chapter 3. 용산 연계 및 미래 디지털 BID",
-                id: "page-57",
+                id: "page-59",
                 items: [
-                    { label: "용산 IBD 타운매니지먼트 당위성", id: "page-58" },
-                    { label: "블록체인 연계 5세대 디지털 BID", id: "page-59" },
-                    { label: "서울역-용산(SYBD) 3단계 통합 로드맵", id: "page-60" }
+                    { label: "용산 IBD 타운매니지먼트 당위성", id: "page-60" },
+                    { label: "블록체인 연계 5세대 디지털 BID", id: "page-61" },
+                    { label: "서울역-용산(SYBD) 3단계 통합 로드맵", id: "page-62" }
                 ]
             }
         ] 

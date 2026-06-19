@@ -38,6 +38,8 @@ import Section35 from './Section35';
 import Section36 from './Section36';
 import Section37 from './Section37';
 import Section38 from './Section38';
+import Section38_1 from './Section38_1';
+import Section38_2 from './Section38_2';
 import Section39 from './Section39';
 import Section40 from './Section40';
 import Section41 from './Section41';
@@ -64,7 +66,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 60; 
+    const slidesLength = 62; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -124,7 +126,9 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section36 />, // Page 44
         <Section37 />, // Page 45
         <Section38 />, // Page 46
-        <Section39 />, // Page 47 (Part 4 Cover)
+        <Section38_1 />, // Page 47
+        <Section38_2 />, // Page 48
+        <Section39 />, // Page 49 (Part 4 Cover)
         <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 48
         <Section40 />, // Page 49
         <Section41 />, // Page 50
