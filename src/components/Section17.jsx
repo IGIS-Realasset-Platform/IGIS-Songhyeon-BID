@@ -105,11 +105,19 @@ export default function Section17({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '가로 미화와 도보 순찰 등 가장 기초적인 치안/환경 관리가 지역 상권 부활로 이어진 명확한 인과관계 증명' : 'Proof of direct correlation between basic street cleanliness/security and local commercial revitalization'}</span>
+                            <span>1990년 설립 이후 지구 범죄율 50% 감소 및 5,600만 달러 규모의 가로 환경 개선 완료</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>지구 지정 이후 강력범죄 건수가 97% 감소하는 등 공공 서비스 공백을 민간의 자조로 정비</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>민간 비영리 기구의 전문성과 행정의 시스템을 유기적으로 통합하여 실증적 성과 도출</span>
                         </li>
                     </ul>
                 </div>

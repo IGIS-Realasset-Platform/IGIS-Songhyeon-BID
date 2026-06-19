@@ -97,11 +97,19 @@ export default function Section11({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '지속적인 지역 가치 제고를 통해 경기 침체기에도 도심 오피스의 안정적인 초저공실률과 자산 가치를 방어하는 구조' : 'A structure that stabilizes office vacancies and asset values during economic downturns via continuous area value improvements'}</span>
+                            <span>2026년 기준 공실률 1.4%대를 기록하여 도심 전체 평균인 2.8%의 절반 수준으로 방어</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>지속적인 지구 가치 제고를 바탕으로 오피스 최고 임대료 평당 81,000엔을 달성하며 상승세 지속</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>도쿄 역사상 최대 거래 규모인 4,200억 엔 재개발 딜을 유치하는 등 상업용 부동산 시장 유동성 집중</span>
                         </li>
                     </ul>
                 </div>

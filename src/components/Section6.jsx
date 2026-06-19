@@ -98,11 +98,19 @@ export default function Section6({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#10b981]">▪</span>
-                            <span>{lang === 'kr' ? '전담 안전/청소 인력 상주 등 민간 거버넌스의 신속한 의사결정으로 범죄율을 획기적으로 낮춘 혁신 사례' : 'An innovative case where private governance drastically lowered crime rates through dedicated safety and cleaning staff'}</span>
+                            <span>1992년 Times Square Alliance BID 설립 후 전담 치안 및 환경 미화 인력 상주</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#10b981]">▪</span>
+                            <span>지구 지정 이후 강력범죄 건수가 97% 감소하는 등 공공 서비스 공백을 민간의 자조로 정비</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#10b981]">▪</span>
+                            <span>민간 소유주들의 자기 과세를 통해 조달된 예산으로 야간 조명 강화 및 거리 청결 상태 상시 유지</span>
                         </li>
                     </ul>
                 </div>

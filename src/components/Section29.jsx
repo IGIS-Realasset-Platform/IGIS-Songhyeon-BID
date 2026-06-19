@@ -87,7 +87,15 @@ export default function Section29({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '초대형 개발 사업의 인허가 및 금융 리스크를 지자체(MTA/NYC)와 민간 디벨로퍼가 분산 매핑한 협력 체계' : 'A collaborative partnership model distributing massive development risks between municipal agencies and private developers'}</span>
+                            <span>Related Companies, Oxford, NYC, MTA의 정밀 결합으로 성사된 250억 달러 초대형 PPP</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>민간 개발사가 준공 후 철수하더라도 영구 설립된 BID가 바통을 이어받아 동일한 프리미엄 품질 관리</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>공공 유휴 부지와 민간의 기획 및 자본력을 입체적으로 결합한 글로벌 메가 디벨롭먼트의 표준</span>
                         </li>
                     </ul>
                 </div>

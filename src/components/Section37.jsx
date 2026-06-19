@@ -101,7 +101,15 @@ export default function Section37({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>{lang === 'kr' ? '전망대 내 자살 사고로 인한 임시 폐쇄 위기를 안전 그물망 보강 및 동행 의무화 등의 운영 변경으로 극복한 사례' : 'A crisis management case where a suicide crisis at a landmark observatory was resolved through safety netting and companion requirements'}</span>
+                            <span>2억 달러 규모 랜드마크 조형물이 겪은 잇따른 추락 사고와 이로 인한 장기 폐쇄의 시사점</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-red-600">▪</span>
+                            <span>도시 개발 및 랜드마크 기획 단계에서 휴먼 리스크와 공공 안전에 대한 정밀 검토 의무성 방증</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-red-600">▪</span>
+                            <span>그물망 보강 및 동행제 도입 등 운영 규격 개편을 통해 공공성 훼손과 물리적 부채화를 긴급 방어</span>
                         </li>
                     </ul>
                 </div>

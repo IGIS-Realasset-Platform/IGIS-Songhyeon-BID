@@ -84,7 +84,15 @@ export default function Section33({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '대형 디벨로퍼 임원들이 이사회 의사결정에 주도적으로 참여하여 지역 관리 품질을 트로피 자산 스펙으로 관리하는 구조' : 'A structure where large developer executives lead decision-making to manage area maintenance at trophy asset standards'}</span>
+                            <span>Related Companies 부사장을 비롯한 앵커 개발사 핵심 임원진이 이사회 보드에 직접 참여</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>민간의 고속 의사결정 및 전문성을 지구 관리에 그대로 이식하여 관리 품질 최상급 유지</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>대형 자산 소유주들과 공적 행정 대리인 간의 유기적 이사회 운영을 통해 트로피 자산 가치 방어</span>
                         </li>
                     </ul>
                 </div>

@@ -116,11 +116,19 @@ export default function Section16({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '도시 재정 위기 시기에 정부 세부담 없이 민간이 스스로 기금을 모아 청소와 치안 등 기초 공공 서비스를 유지한 위기 대응책' : 'A crisis response where the private sector self-funded basic services like cleaning and security during municipal fiscal crises'}</span>
+                            <span>1970년대 뉴욕시의 심각한 재정난과 치안 불안, 청결 공백 문제를 해소하기 위한 자구책</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>공공이 더 이상 제공하지 못하는 기초 공공 서비스를 민간 자조 형식으로 전환한 계기</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>상업용 부동산 소유주들이 지구 재생과 자산 가치 방어를 위해 추가적인 자기 과세를 수용</span>
                         </li>
                     </ul>
                 </div>

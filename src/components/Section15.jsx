@@ -106,11 +106,19 @@ export default function Section15({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '지자체의 행정 징수망을 활용하되 기금의 오퍼레이션은 민간 상인이 전권을 갖는 효율적 민관 협력 구조' : 'An efficient public-private partnership structure leveraging government tax systems while giving private merchants full operational control'}</span>
+                            <span>무임승차 문제를 원천 예방하기 위해 상인들이 온타리오주 지방자치법 제361조 개정을 청원</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>자산 가치세에 부가하여 강제로 부과금을 수납하는 법적 집행력 확보</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>1970년 275개 점포가 참여하여 47,500달러의 예산으로 본격 출범한 법제화 성공의 역사적 기원</span>
                         </li>
                     </ul>
                 </div>

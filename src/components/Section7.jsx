@@ -93,11 +93,19 @@ export default function Section7({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '차도를 보행 광장으로 전환하여 통행량을 늘리고 가로 상업 매출 및 세수를 극대화한 가치 창출 흐름' : 'A value creation flow maximizing commercial sales and tax revenue by converting car lanes to pedestrian plazas'}</span>
+                            <span>기존 차도를 과감히 축소하고 보행자 중심 광장을 조성하여 통행량을 11% 이상 증가시킨 혁신</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>쾌적한 보행 환경 확보를 통해 광장 주변 상권의 소매 매출을 평균 71% 폭등시킨 성과</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>연간 뉴욕시와 주 정부에 총 24억 달러 이상의 신규 세수를 헌납하는 초우량 세원 지구로 변모</span>
                         </li>
                     </ul>
                 </div>

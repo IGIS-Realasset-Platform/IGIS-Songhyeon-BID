@@ -95,11 +95,19 @@ export default function Section8({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '물리적 입지의 한계를 뛰어넘어 독창적인 장소 가치 창조로 주변 시세 대비 프리미엄을 확보한 개발 방식' : 'A development model that overcame physical location limits by creating unique place value to secure premium rent'}</span>
+                            <span>전통적인 '입지(Location)' 가치를 깨고 창조적인 '장소(Place)' 가치로 임대 프리미엄을 창출한 모델</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>Related와 Oxford가 주도하여 단순 부동산 개발을 넘어 복합 문화 인프라를 도시 단위로 결합</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>개발 오픈 전후로 주변 상업용 자산의 평균 임대 가치가 단 1년 만에 40% 폭등하는 양상 시연</span>
                         </li>
                     </ul>
                 </div>

@@ -95,11 +95,19 @@ export default function Section9({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '글로벌 하이테크 및 금융 앵커 임차인들이 직원 생산성 향상을 위해 고액의 임대료 할증을 수용하는 현상' : 'A trend where global high-tech and finance anchor tenants accept high rent premiums to enhance employee productivity'}</span>
+                            <span>평방피트당 $120~150선에 달하며 미드타운 평균 대비 10~20% 수준의 임대료 프리미엄 확보</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>블랙록, KKR, 메타 등 글로벌 선도 기업들이 높은 할증률을 감수하고 앵커 임차인으로 선제 입주</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>트로피 오피스의 물리적 스펙과 에리어 매니지먼트의 결합이 최상급 임대 경쟁력을 창출함을 입증</span>
                         </li>
                     </ul>
                 </div>

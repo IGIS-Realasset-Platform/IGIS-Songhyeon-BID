@@ -82,11 +82,19 @@ export default function Section10({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '민간 주도의 유기적 거버넌스를 통해 차도를 보행자 중심 가로로 개조하고 지역 매력을 높인 선진 사례' : 'A leading model of converting car roads into pedestrian-friendly streets through private-led organic governance'}</span>
+                            <span>미쓰비시 지쇼와 지자체가 OMY 지구에서 차도를 보행자 중심 광장 및 가로로 개조하는 사업 실행</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>도로 점용 기준 완화 및 상시적인 야외 문화 이벤트를 유치하여 빌딩 숲의 활력을 재생</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>개별 빌딩 수준을 넘어 지구 전체의 환경을 하나의 일관된 가치로 관리하는 거버넌스 체계 구축</span>
                         </li>
                     </ul>
                 </div>

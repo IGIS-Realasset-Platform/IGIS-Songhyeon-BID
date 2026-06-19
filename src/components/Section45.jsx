@@ -110,11 +110,15 @@ export default function Section45({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '초저공실 유지 및 임대료 프리미엄 획득을 통한 자산 가치 극대화' : 'Maximizing asset value by maintaining super-low vacancy and securing rent premiums'}</span>
+                            <span>타운 매니지먼트 실행 시 기대되는 정량적 재무 및 임대 지표 시나리오</span>
                         </li>
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '타운 매니지먼트(Area Management) 실행 시 기대되는 정량적 재무 지표 시나리오' : 'Quantitative financial scenarios projected upon executing professional town management'}</span>
+                            <span>통합 관리를 통해 공실률을 2%대로 낮추고 주변 대비 10~20%의 임대료 프리미엄 확보</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>유동인구 증가와 치안/청결 만족도 향상을 통해 자산 가치의 하방 경직성 확보</span>
                         </li>
                     </ul>
                 </div>

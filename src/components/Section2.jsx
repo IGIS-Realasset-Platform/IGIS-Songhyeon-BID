@@ -92,11 +92,19 @@ export default function Section2({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>{lang === 'kr' ? '예산 지원 중단과 치안 부재로 인해 핵심 도심 공원이 급격히 슬럼화된 대표적 사례' : 'Key example of a major downtown park decaying rapidly due to budget cuts and lack of security'}</span>
+                            <span>1980년대 뉴욕 미드타운 중심부에서 연간 500건 이상의 강력범죄와 마약 거래가 발생하던 무법 지대</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-red-600">▪</span>
+                            <span>뉴욕시의 극심한 재정난으로 인해 청소, 조명 보수, 공원 프로그램 등이 전면 방치되었던 실태</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-red-600">▪</span>
+                            <span>대낮에도 시민들이 진입을 기피하여 인근 오피스 빌딩의 공실을 늘리고 자산 가치를 심각하게 훼손</span>
                         </li>
                     </ul>
                 </div>

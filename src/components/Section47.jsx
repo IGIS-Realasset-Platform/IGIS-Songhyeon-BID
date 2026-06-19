@@ -111,7 +111,15 @@ export default function Section47({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '디지털 트윈, IoT 예측 관제, 블록체인 스마트 컨트랙트를 통한 실시간 분담 정산으로 진화하는 미래형 스마트 관리' : 'A future smart management model evolving into digital twins, IoT predictive care, and blockchain smart contracts'}</span>
+                            <span>디지털 트윈 및 IoT 예측 관제 시스템을 통한 시설 운영 비용의 효율화</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>블록체인 스마트 컨트랙트를 도입하여 지구 내 분담금을 실시간 분담 및 정산하는 금융 모델</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>데이터 기반의 실시간 대응을 통해 물리적 관리 수준을 고도화하는 5세대 스마트 지구 관리 OS</span>
                         </li>
                     </ul>
                 </div>

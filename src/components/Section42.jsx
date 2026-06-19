@@ -114,7 +114,15 @@ export default function Section42({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '대규모 녹지 광장 제공 및 서울역에서 남산으로 이어지는 입체 보행 인프라를 연결하여 시민에 개방하는 공공 기여' : 'A public contribution providing a large green plaza and connecting pedestrian paths from Seoul Station to Namsan'}</span>
+                            <span>개발 지구 내 대규모 축구장 면적 크기의 공개녹지를 기부채납하여 시민의 공간으로 개방</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>서울역 8번출구에서 남산 에스컬레이터로 연결되는 무장애 입체 보행 인프라 연결선 구축</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>사적 개발이 도시적 보행 가치 및 자연의 연계성을 극대화시키는 수준 높은 공공 기여의 표본</span>
                         </li>
                     </ul>
                 </div>

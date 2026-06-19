@@ -105,11 +105,15 @@ export default function Section46({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '공중 스카이트레일, 지상 녹지, 지하 물류를 조율하는 다차원 입체 설계' : 'Multi-level space design coordinating sky trails, ground green areas, and underground logistics'}</span>
+                            <span>14.3조 초대형 용산 개발에 따른 다차원 스카이트레일, 지하 공동물류 통합 관제의 당위성</span>
                         </li>
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '이해관계자 간의 원활한 운영 및 조율을 극대화하기 위한 통합 타운 거버넌스의 필요성' : 'The necessity of unified town governance to optimize coordination and operations among stakeholders'}</span>
+                            <span>SH, 코레일, 개별 디벨로퍼의 이해관계를 조율할 단일 통합 타운 거버넌스의 필요성</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>대규모 인프라 운영 비효율을 방지하고 장기 도시 프리미엄을 영속화하기 위한 공공-민간 협력</span>
                         </li>
                     </ul>
                 </div>

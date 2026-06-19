@@ -91,7 +91,15 @@ export default function Section34({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '시 정부 대신 민간 BID가 공원 청소, 보수, 안전 비용을 자체 충당하고 높은 관리 품질을 보장하는 위탁 모델' : 'An outsourcing model where a private BID self-funds park cleaning, repair, and security to maintain peak quality instead of the city'}</span>
+                            <span>허드슨야드 중앙 공원의 청소, 조경, 안전, 이벤트 프로그램 운영을 민간 BID가 100% 전담</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>시 정부의 공공 예산 지원 없이 민간 기금으로 관리 비용을 자체 충당하는 위탁 운영 체계</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>공공 공간의 가치를 트로피 스펙으로 상시 유지하여 단지 전반의 집객 및 브랜드 상승을 보장</span>
                         </li>
                     </ul>
                 </div>

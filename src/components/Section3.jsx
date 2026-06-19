@@ -98,11 +98,19 @@ export default function Section3({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#10b981]">▪</span>
-                            <span>{lang === 'kr' ? '민간 비즈니스 기법과 자체 재원 마련을 통해 도심 공공 공간을 복합 문화 랜드마크로 전환한 성공 모델' : 'Success model of turning a decaying public space into a cultural landmark using private business methods and self-funding'}</span>
+                            <span>1988년 민간 주도의 Bryant Park Corporation 설립 및 전면 리노베이션 후 1991년 재개장</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#10b981]">▪</span>
+                            <span>강력범죄 건수가 사실상 제로에 수렴하고 시 지원금 없이 연간 3,000만 달러의 자체 수익으로만 운영</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#10b981]">▪</span>
+                            <span>구글, 뱅크오브아메리카 등 글로벌 대기업의 스폰서십 참여를 유치하며 브랜드 자산화 성공</span>
                         </li>
                     </ul>
                 </div>

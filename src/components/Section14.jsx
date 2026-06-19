@@ -138,11 +138,19 @@ export default function Section14({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[20px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '기부 형식의 자발적 협회가 지닌 무임승차 한계를 극복하기 위해 제도적 강제 과세의 필요성을 확인한 역사적 배경' : 'Historical background confirming the need for institutional mandatory assessments to overcome the free-rider limits of voluntary associations'}</span>
+                            <span>1960년대 교외형 대형 쇼핑몰의 급부상에 따른 전통적인 도심 가로 상권의 붕괴 위기</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>자발적 상인협회 모금 방식이 지닌 고질적인 무임승차(Free-Rider) 문제로 인한 상권 정비 실패</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>1970년 세계 최초의 BIA(Bloor West Village BIA)가 탄생하여 강제 부과금 제도의 초석 마련</span>
                         </li>
                     </ul>
                 </div>

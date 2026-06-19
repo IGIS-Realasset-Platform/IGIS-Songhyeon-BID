@@ -97,11 +97,19 @@ export default function Section20({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '지자체가 세금 고지서로 징수 대행을 수행하되, 수수료 없이 해당 지구로 전액 돌려주어 온전히 환원시키는 재무 흐름' : 'A financial flow where the city handles tax billing but returns 100% of the funds to the district without administrative fees'}</span>
+                            <span>지자체가 재산세와 연동하여 특별부과금을 징수하되 시 행정 수수료 없이 100% 교부하는 원칙</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>징수된 자금이 지자체의 일반 재정으로 편입되거나 유출되지 않도록 전용 방지 장치 마련</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>뉴욕시(NYC) 등 선진 지자체에서 대행하는 신속하고 투명한 금융 환원 메커니즘 구축</span>
                         </li>
                     </ul>
                 </div>

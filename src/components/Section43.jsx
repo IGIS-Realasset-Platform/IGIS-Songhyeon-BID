@@ -116,7 +116,15 @@ export default function Section43({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? 'KTX/GTX 광역 대중교통 노드와 영구 조망권을 갖춘 남산 자연환경이 융합된 유일무이한 상징적 가치' : 'A unique symbolic value fusing KTX/GTX transit nodes with Namsan\'s natural views'}</span>
+                            <span>KTX, GTX 등 광역 대교통 거절점과 영구 조망권을 갖춘 남산 자연 생태축의 압도적 결합</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>GBD나 YBD 등 여타 업무지구가 복제 불가능한 자연환경과 인프라의 독점적 결합 가치</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>보행 중심 녹지 브릿지와 역사적 가로 환경을 융합하여 독보적인 업무 지구 아이덴티티 구축</span>
                         </li>
                     </ul>
                 </div>

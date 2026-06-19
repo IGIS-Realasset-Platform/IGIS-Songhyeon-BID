@@ -103,7 +103,15 @@ export default function Section40({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '서울역 교통 인프라와 남산 생태축을 결합하여 구도심의 한계를 돌파하는 신업무 권역 공급 비전' : 'A vision for a new business district corridor by combining Seoul Station\'s transport hub and Namsan\'s ecological axis'}</span>
+                            <span>서울역에서 남산에 이르는 메가스케일 트로피 자산 연계 공급축과 신업무 권역 포지셔닝 선언</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>기존 CBD의 고질적인 공간 공급 과잉 속에서 SBD만의 차별화된 지구 운영 가치 제고</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>자연(남산)과 광역 교통망(서울역)의 입지 인프라 위에 타운 매니지먼트 OS를 결합한 공급 Vision</span>
                         </li>
                     </ul>
                 </div>

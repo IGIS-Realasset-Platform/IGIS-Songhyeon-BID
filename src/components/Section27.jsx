@@ -82,7 +82,15 @@ export default function Section27({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '부자 지역과 가난한 지역의 격차 심화 및 노숙인 배제 등 민간 효율성 추구에 따른 공적 형평성 훼손 쟁점' : 'Debates on the erosion of public equity due to private efficiency, widening regional disparities, and exclusion of the homeless'}</span>
+                            <span>민주적 대의성 결핍, 지구간 양극화, 이중과세 논란, 공적 공간의 사적 사유화 등 4대 쟁점</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>노숙인 등 취약 계층의 배타적 축출 및 상업적 목적만을 위한 과도한 규제 강화 부작용</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>공공의 포용성 가치와 민간의 효율성 가치가 도시 공학적으로 충돌하는 구조적 비판론 제기</span>
                         </li>
                     </ul>
                 </div>

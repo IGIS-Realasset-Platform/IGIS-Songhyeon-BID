@@ -81,11 +81,19 @@ export default function Section4({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '환경 개선이 인근 오피스의 수요와 자산 가치 상승을 직접적으로 유도함을 입증한 랜드마크 분석' : 'Case study proving that environmental improvements directly drive nearby office demand and asset value growth'}</span>
+                            <span>공원 재생 완료 후 주변 상업용 오피스 빌딩의 신규 개발 및 리노베이션 활성화</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>쾌적한 환경 조성을 통한 오피스 수요 견인으로 주변 빌딩들의 임대료 급등 유발</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>공공 공간의 가치가 사적 자산의 임대 경쟁력을 결정한다는 플레이스메이킹 이론의 표준 증거</span>
                         </li>
                     </ul>
                 </div>

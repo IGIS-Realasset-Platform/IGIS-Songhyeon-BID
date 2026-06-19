@@ -92,11 +92,19 @@ export default function Section12({ isActive }) {
                 </div>
 
                 {/* 최하단 텍스트 */}
-                <div className="mt-[10px] max-w-[1100px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
+                <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '문화, 비즈니스, 주거, 여가를 수직으로 결합하여 자산의 공실 위험을 낮추고 장기 자산 가치를 상승시킨 복합 생태계 모델' : 'A mixed ecosystem model that vertically integrates culture, business, and housing to reduce vacancy risks and boost asset value'}</span>
+                            <span>주거, 상업, 호텔, 문화 인프라(모리 미술관 등)를 수직 단일 랜드마크 내에 결합한 수직 도시 모델</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>완공 후 독립 감정평가에서 개발 투자 가치가 기존 계획 대비 약 60% 이상 순증함을 증명</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>입주사 임직원들을 위한 다국어 탁아소, 병원 및 100% 무정전 자체 발전 시스템 완비로 공실 0% 방어</span>
                         </li>
                     </ul>
                 </div>

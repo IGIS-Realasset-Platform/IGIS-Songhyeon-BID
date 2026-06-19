@@ -97,7 +97,15 @@ export default function Section31({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '증가하는 용적률 대금을 지구 공공 개선 기금으로 직접 연계하여 상업 개발과 인프라 개선을 일체화시킨 메커니즘' : 'A mechanism integrating commercial development and infrastructure by linking zoning bonus payments directly to public improvement funds'}</span>
+                            <span>디벨로퍼들이 추가 용적률을 매입하기 위해 지급한 지구 개선 보너스(DIB) 기금의 선순환 구조</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>개발권 이전(TDR) 메커니즘을 유기적으로 작동하여 시 예산 지원 없이 공공 인프라 재원 마련</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>시장 친화적인 용적률 거래 방식을 통해 인프라와 공원 개선에 직접 자금을 환류시킨 장치</span>
                         </li>
                     </ul>
                 </div>

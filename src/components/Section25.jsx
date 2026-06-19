@@ -89,7 +89,15 @@ export default function Section25({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '자산 규모에 비례한 의결권 배분이 합헌임을 인정한 판례로, 투자 비례 효율성과 공공 책임성의 균형을 인정한 결정' : 'A precedent confirming property-weighted voting is constitutional, balancing investment efficiency and public accountability'}</span>
+                            <span>Kessler v. Grand Central DMA 판결을 통해 1인 1표 원칙의 예외를 법적으로 공인한 마일스톤</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>일반 민주주의적 평등 선거가 아닌, 사업 리스크와 세액 분담 비율에 비례하는 주주형 의결권 지지</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>BID를 '제한적 목적을 지닌 특별 실체'로 규정하여 소유주 중심 비즈니스 거버넌스의 합법성 확보</span>
                         </li>
                     </ul>
                 </div>
