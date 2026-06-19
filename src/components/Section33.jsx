@@ -84,7 +84,7 @@ export default function Section33({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '대형 디벨로퍼 임원들이 이사회 의사결정에 주도적으로 참여하여 지역 관리 품질을 트로피 자산 스펙으로 관리하는 구조.' : 'A structure where large developer executives lead decision-making to manage area maintenance at trophy asset standards.'}</span>
+                            <span>{lang === 'kr' ? '대형 디벨로퍼 임원들이 이사회 의사결정에 주도적으로 참여하여 지역 관리 품질을 트로피 자산 스펙으로 관리하는 구조' : 'A structure where large developer executives lead decision-making to manage area maintenance at trophy asset standards'}</span>
                         </li>
                     </ul>
                 </div>

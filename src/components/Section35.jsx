@@ -103,7 +103,7 @@ export default function Section35({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '차량 도로 폭을 줄이고 보도를 넓히는 넥다운 설계를 적용하여 걷기 좋은 환경을 마련하고 빌딩 접근성을 제고한 사례.' : 'A case of road narrowing and sidewalk widening to improve walkability and enhance building accessibility.'}</span>
+                            <span>{lang === 'kr' ? '차량 도로 폭을 줄이고 보도를 넓히는 넥다운 설계를 적용하여 걷기 좋은 환경을 마련하고 빌딩 접근성을 제고한 사례' : 'A case of road narrowing and sidewalk widening to improve walkability and enhance building accessibility'}</span>
                         </li>
                     </ul>
                 </div>

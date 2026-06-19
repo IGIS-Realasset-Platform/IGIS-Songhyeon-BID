@@ -103,7 +103,7 @@ export default function Section19({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '부동산 소유주 과반수 서명과 까다로운 동의 절차를 통해 지구 지정의 법률적 정당성과 이해관계 조율을 확보하는 절차.' : 'A process ensuring legal legitimacy and stakeholder alignment through majority owner sign-offs and public reviews.'}</span>
+                            <span>{lang === 'kr' ? '부동산 소유주 과반수 서명과 까다로운 동의 절차를 통해 지구 지정의 법률적 정당성과 이해관계 조율을 확보하는 절차' : 'A process ensuring legal legitimacy and stakeholder alignment through majority owner sign-offs and public reviews'}</span>
                         </li>
                     </ul>
                 </div>

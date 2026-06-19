@@ -92,7 +92,7 @@ export default function Section30({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '신설 지하철 노선 주변에서 발생할 미래 재산세를 담보로 인프라 선투자를 실행하여 민간 개발을 유인한 가치 캡처 기법.' : 'A value capture method utilizing future incremental property taxes as collateral to fund upfront subway infrastructure.'}</span>
+                            <span>{lang === 'kr' ? '신설 지하철 노선 주변에서 발생할 미래 재산세를 담보로 인프라 선투자를 실행하여 민간 개발을 유인한 가치 캡처 기법' : 'A value capture method utilizing future incremental property taxes as collateral to fund upfront subway infrastructure'}</span>
                         </li>
                     </ul>
                 </div>

@@ -89,7 +89,7 @@ export default function Section25({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '자산 규모에 비례한 의결권 배분이 합헌임을 인정한 판례로, 투자 비례 효율성과 공공 책임성의 균형을 인정한 결정.' : 'A precedent confirming property-weighted voting is constitutional, balancing investment efficiency and public accountability.'}</span>
+                            <span>{lang === 'kr' ? '자산 규모에 비례한 의결권 배분이 합헌임을 인정한 판례로, 투자 비례 효율성과 공공 책임성의 균형을 인정한 결정' : 'A precedent confirming property-weighted voting is constitutional, balancing investment efficiency and public accountability'}</span>
                         </li>
                     </ul>
                 </div>

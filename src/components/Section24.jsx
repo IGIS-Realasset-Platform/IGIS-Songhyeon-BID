@@ -102,7 +102,7 @@ export default function Section24({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '기획부터 입법, 공청회 수렴까지 평균 수년의 소요 기간을 통해 사업 실행 시의 분쟁과 리스크를 선제 제어하는 로드맵.' : 'A roadmap preventing execution-stage disputes and risks through multi-stage planning, public hearings, and legislation.'}</span>
+                            <span>{lang === 'kr' ? '기획부터 입법, 공청회 수렴까지 평균 수년의 소요 기간을 통해 사업 실행 시의 분쟁과 리스크를 선제 제어하는 로드맵' : 'A roadmap preventing execution-stage disputes and risks through multi-stage planning, public hearings, and legislation'}</span>
                         </li>
                     </ul>
                 </div>

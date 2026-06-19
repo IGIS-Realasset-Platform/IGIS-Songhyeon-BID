@@ -101,7 +101,11 @@ export default function Section48({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '양동-봉래 시범 지구를 거쳐 서울역 전체로 확장하고, 궁극적으로 용산 IBD를 결합하는 3단계 추진 로드맵.' : 'A 3-stage roadmap starting with Yangdong-Bong래 pilot, expanding to Seoul Station, and ultimately integrating Yongsan IBD.'}</span>
+                            <span>{lang === 'kr' ? '양동-봉래 시범 지구를 거쳐 서울역 전체로 확장하는 가로 활성화 계획' : 'A street revitalization plan starting with Yangdong-Bongrae pilot and expanding to Seoul Station'}</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>{lang === 'kr' ? '궁극적으로 용산 IBD와 결합하여 서울의 핵심 업무 벨트(SYBD)를 구축하는 로드맵' : 'A roadmap to ultimately integrate Yongsan IBD and establish Seoul\'s core business belt (SYBD)'}</span>
                         </li>
                     </ul>
                 </div>

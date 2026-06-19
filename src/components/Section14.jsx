@@ -142,7 +142,7 @@ export default function Section14({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '기부 형식의 자발적 협회가 지닌 무임승차 한계를 극복하기 위해 제도적 강제 과세의 필요성을 확인한 역사적 배경.' : 'Historical background confirming the need for institutional mandatory assessments to overcome the free-rider limits of voluntary associations.'}</span>
+                            <span>{lang === 'kr' ? '기부 형식의 자발적 협회가 지닌 무임승차 한계를 극복하기 위해 제도적 강제 과세의 필요성을 확인한 역사적 배경' : 'Historical background confirming the need for institutional mandatory assessments to overcome the free-rider limits of voluntary associations'}</span>
                         </li>
                     </ul>
                 </div>

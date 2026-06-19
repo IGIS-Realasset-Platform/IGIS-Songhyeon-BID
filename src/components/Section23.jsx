@@ -84,7 +84,7 @@ export default function Section23({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '대형 소유주, 소상공인, 지역 공무원이 의사결정 보드를 공유하여 독점을 방지하고 투명한 공공성을 유지하는 지침.' : 'Guidelines for sharing decision boards among owners, merchants, and officials to prevent monopoly and ensure public integrity.'}</span>
+                            <span>{lang === 'kr' ? '대형 소유주, 소상공인, 지역 공무원이 의사결정 보드를 공유하여 독점을 방지하고 투명한 공공성을 유지하는 지침' : 'Guidelines for sharing decision boards among owners, merchants, and officials to prevent monopoly and ensure public integrity'}</span>
                         </li>
                     </ul>
                 </div>

@@ -72,7 +72,7 @@ export default function Section32({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '인허가 당국, 앵커 개발자, 그리고 현장 관리 BID의 연동을 통해 입주 후에도 장기적으로 자산의 최고 품질을 유지하는 모델.' : 'An integrated model ensuring long-term asset quality by linking zoning approvals, developers, and field-level BID operations.'}</span>
+                            <span>{lang === 'kr' ? '인허가 당국, 앵커 개발자, 그리고 현장 관리 BID의 연동을 통해 입주 후에도 장기적으로 자산의 최고 품질을 유지하는 모델' : 'An integrated model ensuring long-term asset quality by linking zoning approvals, developers, and field-level BID operations'}</span>
                         </li>
                     </ul>
                 </div>

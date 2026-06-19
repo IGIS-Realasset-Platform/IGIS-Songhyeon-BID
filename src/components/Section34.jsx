@@ -91,7 +91,7 @@ export default function Section34({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '시 정부 대신 민간 BID가 공원 청소, 보수, 안전 비용을 자체 충당하고 높은 관리 품질을 보장하는 위탁 모델.' : 'An outsourcing model where a private BID self-funds park cleaning, repair, and security to maintain peak quality instead of the city.'}</span>
+                            <span>{lang === 'kr' ? '시 정부 대신 민간 BID가 공원 청소, 보수, 안전 비용을 자체 충당하고 높은 관리 품질을 보장하는 위탁 모델' : 'An outsourcing model where a private BID self-funds park cleaning, repair, and security to maintain peak quality instead of the city'}</span>
                         </li>
                     </ul>
                 </div>

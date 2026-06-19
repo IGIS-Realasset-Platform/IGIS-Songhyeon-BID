@@ -105,7 +105,11 @@ export default function Section46({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '공중 스카이트레일 및 지하 공동물류 하역장 등 다차원 입체 설계를 조율하기 위한 통합 타운 거버넌스의 필요성.' : 'The necessity of unified town governance to coordinate complex multi-level designs like sky trails and underground logistics.'}</span>
+                            <span>{lang === 'kr' ? '공중 스카이트레일, 지상 녹지, 지하 물류를 조율하는 다차원 입체 설계' : 'Multi-level space design coordinating sky trails, ground green areas, and underground logistics'}</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>{lang === 'kr' ? '이해관계자 간의 원활한 운영 및 조율을 극대화하기 위한 통합 타운 거버넌스의 필요성' : 'The necessity of unified town governance to optimize coordination and operations among stakeholders'}</span>
                         </li>
                     </ul>
                 </div>

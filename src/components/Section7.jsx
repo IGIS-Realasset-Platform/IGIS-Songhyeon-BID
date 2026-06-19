@@ -97,7 +97,7 @@ export default function Section7({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '차도를 보행 광장으로 전환하여 통행량을 늘리고 가로 상업 매출 및 세수를 극대화한 가치 창출 흐름.' : 'A value creation flow maximizing commercial sales and tax revenue by converting car lanes to pedestrian plazas.'}</span>
+                            <span>{lang === 'kr' ? '차도를 보행 광장으로 전환하여 통행량을 늘리고 가로 상업 매출 및 세수를 극대화한 가치 창출 흐름' : 'A value creation flow maximizing commercial sales and tax revenue by converting car lanes to pedestrian plazas'}</span>
                         </li>
                     </ul>
                 </div>

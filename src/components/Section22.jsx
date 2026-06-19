@@ -95,7 +95,7 @@ export default function Section22({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '기존 시정부의 청소/치안 의무 예산을 대체하지 않고, 오직 추가적인 고품질 환경 정비에만 기금을 투입하는 원칙.' : 'A strict rule ensuring BID funds are spent only on extra environmental upgrades, not replacing existing city service budgets.'}</span>
+                            <span>{lang === 'kr' ? '기존 시정부의 청소/치안 의무 예산을 대체하지 않고, 오직 추가적인 고품질 환경 정비에만 기금을 투입하는 원칙' : 'A strict rule ensuring BID funds are spent only on extra environmental upgrades, not replacing existing city service budgets'}</span>
                         </li>
                     </ul>
                 </div>

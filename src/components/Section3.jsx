@@ -102,7 +102,7 @@ export default function Section3({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#10b981]">▪</span>
-                            <span>{lang === 'kr' ? '민간 비즈니스 기법과 자체 재원 마련을 통해 도심 공공 공간을 복합 문화 랜드마크로 전환한 성공 모델.' : 'Success model of turning a decaying public space into a cultural landmark using private business methods and self-funding.'}</span>
+                            <span>{lang === 'kr' ? '민간 비즈니스 기법과 자체 재원 마련을 통해 도심 공공 공간을 복합 문화 랜드마크로 전환한 성공 모델' : 'Success model of turning a decaying public space into a cultural landmark using private business methods and self-funding'}</span>
                         </li>
                     </ul>
                 </div>

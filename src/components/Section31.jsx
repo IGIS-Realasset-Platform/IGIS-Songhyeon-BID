@@ -97,7 +97,7 @@ export default function Section31({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '증가하는 용적률 대금을 지구 공공 개선 기금으로 직접 연계하여 상업 개발과 인프라 개선을 일체화시킨 메커니즘.' : 'A mechanism integrating commercial development and infrastructure by linking zoning bonus payments directly to public improvement funds.'}</span>
+                            <span>{lang === 'kr' ? '증가하는 용적률 대금을 지구 공공 개선 기금으로 직접 연계하여 상업 개발과 인프라 개선을 일체화시킨 메커니즘' : 'A mechanism integrating commercial development and infrastructure by linking zoning bonus payments directly to public improvement funds'}</span>
                         </li>
                     </ul>
                 </div>

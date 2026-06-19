@@ -110,7 +110,11 @@ export default function Section45({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>{lang === 'kr' ? '초저공실 유지와 임대료 프리미엄 획득 등 타운 매니지먼트 실행 시 기대되는 정량적 재무 지표 시나리오.' : 'A quantitative financial scenario expected when executing town management, such as super-low vacancy and rent premiums.'}</span>
+                            <span>{lang === 'kr' ? '초저공실 유지 및 임대료 프리미엄 획득을 통한 자산 가치 극대화' : 'Maximizing asset value by maintaining super-low vacancy and securing rent premiums'}</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-[#0f172a]">▪</span>
+                            <span>{lang === 'kr' ? '타운 매니지먼트(Area Management) 실행 시 기대되는 정량적 재무 지표 시나리오' : 'Quantitative financial scenarios projected upon executing professional town management'}</span>
                         </li>
                     </ul>
                 </div>

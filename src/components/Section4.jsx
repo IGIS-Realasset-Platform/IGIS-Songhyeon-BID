@@ -85,7 +85,7 @@ export default function Section4({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '환경 개선이 인근 오피스의 수요와 자산 가치 상승을 직접적으로 유도함을 입증한 랜드마크 분석.' : 'Case study proving that environmental improvements directly drive nearby office demand and asset value growth.'}</span>
+                            <span>{lang === 'kr' ? '환경 개선이 인근 오피스의 수요와 자산 가치 상승을 직접적으로 유도함을 입증한 랜드마크 분석' : 'Case study proving that environmental improvements directly drive nearby office demand and asset value growth'}</span>
                         </li>
                     </ul>
                 </div>

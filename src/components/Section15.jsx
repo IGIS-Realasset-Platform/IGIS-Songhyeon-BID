@@ -110,7 +110,7 @@ export default function Section15({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '지자체의 행정 징수망을 활용하되 기금의 오퍼레이션은 민간 상인이 전권을 갖는 효율적 민관 협력 구조.' : 'An efficient public-private partnership structure leveraging government tax systems while giving private merchants full operational control.'}</span>
+                            <span>{lang === 'kr' ? '지자체의 행정 징수망을 활용하되 기금의 오퍼레이션은 민간 상인이 전권을 갖는 효율적 민관 협력 구조' : 'An efficient public-private partnership structure leveraging government tax systems while giving private merchants full operational control'}</span>
                         </li>
                     </ul>
                 </div>

@@ -88,7 +88,7 @@ export default function Section18({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '특정 지구의 공공재 생산을 활성화하기 위해 민간 기구에 법적 부담금 징수 권한을 부여하는 행정학적 배경.' : 'Academic background of granting legal assessment collection power to private entities to promote public goods production.'}</span>
+                            <span>{lang === 'kr' ? '특정 지구의 공공재 생산을 활성화하기 위해 민간 기구에 법적 부담금 징수 권한을 부여하는 행정학적 배경' : 'Academic background of granting legal assessment collection power to private entities to promote public goods production'}</span>
                         </li>
                     </ul>
                 </div>
