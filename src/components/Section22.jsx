@@ -95,7 +95,7 @@ export default function Section22({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지방 정부와 체결하는 '기준 서비스 수준 협약서(Base Level Agreement)'를 통해 시 재정 부족에 따른 공적 책임을 민간에 무단 전가(Shifting)하는 부작용을 사전에 완벽히 통제합니다.</span>
+                            <span>{lang === 'kr' ? '기존 시정부의 청소/치안 의무 예산을 대체하지 않고, 오직 추가적인 고품질 환경 정비에만 기금을 투입하는 원칙.' : 'A strict rule ensuring BID funds are spent only on extra environmental upgrades, not replacing existing city service budgets.'}</span>
                         </li>
                     </ul>
                 </div>

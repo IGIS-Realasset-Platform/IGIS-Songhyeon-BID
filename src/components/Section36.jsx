@@ -88,7 +88,7 @@ export default function Section36({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>공간의 프리미엄 가치는 차갑게 서 있는 빌딩의 단순 연면적에만 비례하는 것이 아니며, 그 단지 내부에서 매주 가동되는 활기찬 휴먼 커뮤니티의 빈도와 프로그래밍 밀도에 의해 최종 입증됩니다.</span>
+                            <span>{lang === 'kr' ? '정기적 댄스 파티 등 다양한 문화 콘텐츠를 상시 가동하여 오피스 타운의 삭막함을 해소하고 상권 활성화를 유도하는 소프트웨어.' : 'A program injecting vitality and reducing office isolation by running diverse cultural content like regular dance parties.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -101,7 +101,7 @@ export default function Section11({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>마루노우치 OMY의 실적은 개별 오피스 스펙보다 에리어 전체의 관리 서비스와 보행 네트워크 조성이 임차 수요를 가두어두는 <strong>'가두리 효과'</strong>를 가져옴을 입증합니다.</span>
+                            <span>{lang === 'kr' ? '지속적인 지역 가치 제고를 통해 경기 침체기에도 도심 오피스의 안정적인 초저공실률과 자산 가치를 방어하는 구조.' : 'A structure that stabilizes office vacancies and asset values during economic downturns via continuous area value improvements.'}</span>
                         </li>
                     </ul>
                 </div>

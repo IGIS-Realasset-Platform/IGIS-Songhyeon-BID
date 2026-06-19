@@ -78,7 +78,7 @@ export default function Section26({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>로체스터시의 무산 사례는 대형 자본 위주의 일방적 추진이 어떻게 지역 공동체(Community)의 거부권에 의해 무력화될 수 있는지 보여주는 대표적인 실무적 리스크 사례입니다.</span>
+                            <span>{lang === 'kr' ? '상업 젠트리피케이션 우려 및 저소득 세입자의 배제 문제를 해결하지 못해 지역 사회의 거센 반대로 무산된 사례.' : 'A Rochester failure case due to severe local opposition over commercial gentrification and low-income tenant exclusion.'}</span>
                         </li>
                     </ul>
                 </div>

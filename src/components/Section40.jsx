@@ -103,7 +103,7 @@ export default function Section40({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>SBD(Station/Seoul Business District)는 서울 도심 권역에 자연, 교통, 그리고 민간 에리어 매니지먼트의 조화를 입체 이식하여 글로벌 비즈니스 테넌트를 수용하는 제4 업무구역을 선언합니다.</span>
+                            <span>{lang === 'kr' ? '서울역 교통 인프라와 남산 생태축을 결합하여 구도심의 한계를 돌파하는 신업무 권역 공급 비전.' : 'A vision for a new business district corridor by combining Seoul Station's transport hub and Namsan's ecological axis.'}</span>
                         </li>
                     </ul>
                 </div>

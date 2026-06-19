@@ -96,7 +96,7 @@ export default function Section2({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>브라이언트 파크는 뉴욕의 심장부인 42번가라는 최상급 입지에 있었음에도 불구하고, 공적 자금 지원 중단과 치안 공백이 겹쳐 어떻게 도시가 슬럼화되는지 보여준 역사적 전형입니다.</span>
+                            <span>{lang === 'kr' ? '예산 지원 중단과 치안 부재로 인해 핵심 도심 공원이 급격히 슬럼화된 대표적 사례.' : 'Key example of a major downtown park decaying rapidly due to budget cuts and lack of security.'}</span>
                         </li>
                     </ul>
                 </div>

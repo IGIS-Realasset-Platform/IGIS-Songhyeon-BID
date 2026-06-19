@@ -109,7 +109,7 @@ export default function Section17({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>필라델피아 CCD(Center City District)는 BID 운영을 단순 보조 행정이 아닌 **'데이터 기반의 브랜드 자산화(Area Management)'**로 고도화하여 미국식 BID의 전형을 정립했습니다.</span>
+                            <span>{lang === 'kr' ? '가로 미화와 도보 순찰 등 가장 기초적인 치안/환경 관리가 지역 상권 부활로 이어진 명확한 인과관계 증명.' : 'Proof of direct correlation between basic street cleanliness/security and local commercial revitalization.'}</span>
                         </li>
                     </ul>
                 </div>

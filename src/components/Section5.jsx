@@ -90,7 +90,7 @@ export default function Section5({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>1984년 이전의 타임스스퀘어는 민주적 일반 행정 서비스가 완전히 파탄 난 영역을 보여주는 대표적인 실증 사례이며, 이후 대대적인 공공-민간 협력 개발의 당위성을 제공했습니다.</span>
+                            <span>{lang === 'kr' ? '치안 공백과 유흥업 난립이 도심 전체의 공실률과 자산 가치 폭락에 미치는 부정적 영향 분석.' : 'Analysis showing the negative impact of security voids and chaotic adult businesses on downtown vacancy and asset values.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -120,7 +120,7 @@ export default function Section16({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>행정 부서의 재정 디폴트는 역설적으로 민간 부동산 소유주들이 지구의 공동 안녕과 자산 가치 보존을 위해 **'추가적인 법적 자기 과세'**를 수용하는 계기가 되었습니다.</span>
+                            <span>{lang === 'kr' ? '도시 재정 위기 시기에 정부 세부담 없이 민간이 스스로 기금을 모아 청소와 치안 등 기초 공공 서비스를 유지한 위기 대응책.' : 'A crisis response where the private sector self-funded basic services like cleaning and security during municipal fiscal crises.'}</span>
                         </li>
                     </ul>
                 </div>

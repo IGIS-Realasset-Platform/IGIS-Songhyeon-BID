@@ -101,7 +101,7 @@ export default function Section37({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>비셀(Vessel)의 시행착오는 랜드마크 디자인 시 휴먼 디재스터(Human Disaster)와 안전 예방을 사전에 정밀 고려하지 않을 경우, 천문학적 개발 투자가 일순간에 거대한 물리적 부채로 변질될 수 있음을 증명합니다.</span>
+                            <span>{lang === 'kr' ? '전망대 내 자살 사고로 인한 임시 폐쇄 위기를 안전 그물망 보강 및 동행 의무화 등의 운영 변경으로 극복한 사례.' : 'A crisis management case where a suicide crisis at a landmark observatory was resolved through safety netting and companion requirements.'}</span>
                         </li>
                     </ul>
                 </div>

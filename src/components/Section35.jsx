@@ -103,7 +103,7 @@ export default function Section35({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>37번가 보행자 친화 가로 개선은 도시 도로를 단순 차량 흐름의 파이프로 보지 않고, 통행자의 체류 시간을 연장하여 주변 자산의 매력도를 배가하는 '장소(Place)'로 재정의한 실증 사례입니다.</span>
+                            <span>{lang === 'kr' ? '차량 도로 폭을 줄이고 보도를 넓히는 넥다운 설계를 적용하여 걷기 좋은 환경을 마련하고 빌딩 접근성을 제고한 사례.' : 'A case of road narrowing and sidewalk widening to improve walkability and enhance building accessibility.'}</span>
                         </li>
                     </ul>
                 </div>

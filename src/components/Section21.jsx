@@ -118,7 +118,7 @@ export default function Section21({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>자산 특성(상업/주거/공공)과 가로 혜택 범위를 다각도로 반영하는 분담금 산정 공식을 도출하여, 대형 소유주와 소상공인 간의 세액 형평성 분쟁을 사전 예방합니다.</span>
+                            <span>{lang === 'kr' ? '각 자산의 가로 면적, 부지 규모, 평가 가치에 비례하여 징수액을 정교하게 나누는 합리적 형평성 달성 장치.' : 'A fair allocation device distributing costs based on each asset's street frontage, lot size, and assessed value.'}</span>
                         </li>
                     </ul>
                 </div>

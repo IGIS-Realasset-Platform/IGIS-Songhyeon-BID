@@ -105,7 +105,7 @@ export default function Section46({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>용산국제업무지구는 극도로 복잡한 입체 도시 설계(지하-지상-공중)를 수반하므로, 물리적 완공 이전에 전체 타운의 혈맥을 제어할 전문 타운 매니지먼트의 기획이 절대적인 선제 조건입니다.</span>
+                            <span>{lang === 'kr' ? '공중 스카이트레일 및 지하 공동물류 하역장 등 다차원 입체 설계를 조율하기 위한 통합 타운 거버넌스의 필요성.' : 'The necessity of unified town governance to coordinate complex multi-level designs like sky trails and underground logistics.'}</span>
                         </li>
                     </ul>
                 </div>

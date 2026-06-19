@@ -101,7 +101,7 @@ export default function Section20({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>행정 부처의 예산 전용을 막기 위해 지방세 징수 대행망만 시가 빌려주고, 징수된 자금은 수수료 차감 없이 민간 비영리 협회(DMA) 계좌로 직행하는 투명한 금융 메커니즘을 정착했습니다.</span>
+                            <span>{lang === 'kr' ? '지자체가 세금 고지서로 징수 대행을 수행하되, 수수료 없이 해당 지구로 전액 돌려주어 온전히 환원시키는 재무 흐름.' : 'A financial flow where the city handles tax billing but returns 100% of the funds to the district without administrative fees.'}</span>
                         </li>
                     </ul>
                 </div>

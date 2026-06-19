@@ -120,7 +120,7 @@ export default function Section44({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>SBD(Station/Seoul Business District)는 빌딩 내부 스펙에 그치지 않고, 가로와 커뮤니티라는 전체 공간 인프라의 '운영 매니지먼트' 품질을 자산 가치에 직접 내장시키는 한국 부동산 금융의 전환점입니다.</span>
+                            <span>{lang === 'kr' ? '지리적 조건에 안주하지 않고, 가로 공간 전체의 케어와 콘텐츠 운영 품질을 자산 가치에 직접 반영시키는 전환.' : 'A transition from geographical dependence to embedding street care and cultural operation quality directly into asset values.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -142,7 +142,7 @@ export default function Section14({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>자발적 상인협회 모델의 태생적 한계인 <strong>'무임승차 악순환'</strong>은 도심 상권의 붕괴를 가속화시켰으며, 이를 강제할 수 있는 새로운 법률적 강제 과세 제도의 탄생을 요구했습니다.</span>
+                            <span>{lang === 'kr' ? '기부 형식의 자발적 협회가 지닌 무임승차 한계를 극복하기 위해 제도적 강제 과세의 필요성을 확인한 역사적 배경.' : 'Historical background confirming the need for institutional mandatory assessments to overcome the free-rider limits of voluntary associations.'}</span>
                         </li>
                     </ul>
                 </div>

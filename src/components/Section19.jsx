@@ -103,7 +103,7 @@ export default function Section19({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>설립 합법성을 획득하기 위한 주별 동의율 기준은 각 지역의 소유자 구성 특성과 역사적 법률 조례(Prop 13 등)에 연동되어 정교한 사법 감시 하에 징수 정당성을 방어합니다.</span>
+                            <span>{lang === 'kr' ? '부동산 소유주 과반수 서명과 까다로운 동의 절차를 통해 지구 지정의 법률적 정당성과 이해관계 조율을 확보하는 절차.' : 'A process ensuring legal legitimacy and stakeholder alignment through majority owner sign-offs and public reviews.'}</span>
                         </li>
                     </ul>
                 </div>

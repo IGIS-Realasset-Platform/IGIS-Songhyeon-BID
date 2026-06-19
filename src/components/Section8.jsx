@@ -99,7 +99,7 @@ export default function Section8({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>허드슨야드의 대성공은 전통적인 '입지(Location)'라는 아날로그 불변 법칙을 넘어, 민간의 창의적 '장소 운영 역량(Place Operating OS)'이 부동산 가치를 전면 리레이팅함을 시사합니다.</span>
+                            <span>{lang === 'kr' ? '물리적 입지의 한계를 뛰어넘어 독창적인 장소 가치 창조로 주변 시세 대비 프리미엄을 확보한 개발 방식.' : 'A development model that overcame physical location limits by creating unique place value to secure premium rent.'}</span>
                         </li>
                     </ul>
                 </div>

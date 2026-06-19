@@ -87,7 +87,7 @@ export default function Section29({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>허드슨야드는 공공기관(MTA/NYC)의 공적 유휴 부지(차량기지)와 민간 디벨로퍼의 기획력 및 자본을 입체적으로 정밀 결합하여, 단순 도시 재생을 넘어 인프라 파급 혁신을 일궈낸 PPP의 세계적 표준 모델입니다.</span>
+                            <span>{lang === 'kr' ? '초대형 개발 사업의 인허가 및 금융 리스크를 지자체(MTA/NYC)와 민간 디벨로퍼가 분산 매핑한 협력 체계.' : 'A collaborative partnership model distributing massive development risks between municipal agencies and private developers.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -110,7 +110,7 @@ export default function Section15({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지방자치법 개정은 자치단체가 세금 수납 인프라를 지원하되, 그 지출과 기획은 민간 BIA가 100% 전담하는 <strong>'공공 지원 - 민간 자율 경영'</strong>의 모델을 완성했습니다.</span>
+                            <span>{lang === 'kr' ? '지자체의 행정 징수망을 활용하되 기금의 오퍼레이션은 민간 상인이 전권을 갖는 효율적 민관 협력 구조.' : 'An efficient public-private partnership structure leveraging government tax systems while giving private merchants full operational control.'}</span>
                         </li>
                     </ul>
                 </div>

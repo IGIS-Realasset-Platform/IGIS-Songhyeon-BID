@@ -101,7 +101,7 @@ export default function Section48({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>SBD-IBD 통합 마스터플랜은 정교한 3단계 기획과 민·관의 합리적 견제 거버넌스를 동력 삼아, 자산 가치의 프리미엄 방어와 공공의 생태 민주성을 동시에 성취해 나갈 것입니다.</span>
+                            <span>{lang === 'kr' ? '양동-봉래 시범 지구를 거쳐 서울역 전체로 확장하고, 궁극적으로 용산 IBD를 결합하는 3단계 추진 로드맵.' : 'A 3-stage roadmap starting with Yangdong-Bong래 pilot, expanding to Seoul Station, and ultimately integrating Yongsan IBD.'}</span>
                         </li>
                     </ul>
                 </div>

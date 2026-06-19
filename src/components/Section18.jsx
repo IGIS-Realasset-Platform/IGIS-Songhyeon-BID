@@ -88,7 +88,7 @@ export default function Section18({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>학술적으로 BID는 세금을 걷을 수 있는 **'공법상의 강제성'**과 신속하게 집행할 수 있는 **'사법상의 유연성'**을 결합하여 가치를 방어하는 독창적인 '사적 정부(Private Government)' 이론의 정수입니다.</span>
+                            <span>{lang === 'kr' ? '특정 지구의 공공재 생산을 활성화하기 위해 민간 기구에 법적 부담금 징수 권한을 부여하는 행정학적 배경.' : 'Academic background of granting legal assessment collection power to private entities to promote public goods production.'}</span>
                         </li>
                     </ul>
                 </div>

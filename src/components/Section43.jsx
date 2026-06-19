@@ -116,7 +116,7 @@ export default function Section43({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>남산의 영구 조망권과 서울역의 광역 허브 스펙이 결합된 SBD는, 시간이 흐를수록 주변 노후 빌딩들과의 격차를 압도적으로 벌리며 최고 수준의 임대료 프리미엄을 방어하는 기초 체력을 확보했습니다.</span>
+                            <span>{lang === 'kr' ? 'KTX/GTX 광역 대중교통 노드와 영구 조망권을 갖춘 남산 자연환경이 융합된 유일무이한 상징적 가치.' : 'A unique symbolic value fusing KTX/GTX transit nodes with Namsan's natural views.'}</span>
                         </li>
                     </ul>
                 </div>

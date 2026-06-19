@@ -82,7 +82,7 @@ export default function Section27({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>BID 제도는 상업 자산 가치 보존이라는 민간의 순기능과 공공 공간의 민주성 및 포용성 확보라는 상치되는 도시 공학적 가치를 동시에 조명하는 현대적 쟁점 모델입니다.</span>
+                            <span>{lang === 'kr' ? '부자 지역과 가난한 지역의 격차 심화 및 노숙인 배제 등 민간 효율성 추구에 따른 공적 형평성 훼손 쟁점.' : 'Debates on the erosion of public equity due to private efficiency, widening regional disparities, and exclusion of the homeless.'}</span>
                         </li>
                     </ul>
                 </div>

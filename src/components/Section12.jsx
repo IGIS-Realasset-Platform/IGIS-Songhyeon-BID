@@ -96,7 +96,7 @@ export default function Section12({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>롯폰기 힐스는 도시를 단순 기능적으로 분할하지 않고, 수직 복합 단일 빌딩 내에 다채로운 목적(Work, Live, Play, Art)을 융합시킬 때 유발되는 가치 시너지를 증명한 대표적 랜드마크입니다.</span>
+                            <span>{lang === 'kr' ? '문화, 비즈니스, 주거, 여가를 수직으로 결합하여 자산의 공실 위험을 낮추고 장기 자산 가치를 상승시킨 복합 생태계 모델.' : 'A mixed ecosystem model that vertically integrates culture, business, and housing to reduce vacancy risks and boost asset value.'}</span>
                         </li>
                     </ul>
                 </div>

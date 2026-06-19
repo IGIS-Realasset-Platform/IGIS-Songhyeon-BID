@@ -91,7 +91,7 @@ export default function Section34({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>벨라 압죽 공원은 공기업의 비효율적이고 느린 사후 관리 관성을 완전히 극복하고, 신속하며 세밀한 민간 에리어 매니지먼트(Area Management)의 비즈니스 논리를 이식하여 영속적 품질을 확보했습니다.</span>
+                            <span>{lang === 'kr' ? '시 정부 대신 민간 BID가 공원 청소, 보수, 안전 비용을 자체 충당하고 높은 관리 품질을 보장하는 위탁 모델.' : 'An outsourcing model where a private BID self-funds park cleaning, repair, and security to maintain peak quality instead of the city.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -92,7 +92,7 @@ export default function Section30({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>허드슨야드는 재산세 대체납부제(PILOT)와 용적률 상향 보너스 대금(DIB)을 융합하여, 공적 세입의 누출 없이 순수 신규 가치 캡처(Value Capture Finance) 방식으로 대규모 광역 도시 인프라를 자력 완성했습니다.</span>
+                            <span>{lang === 'kr' ? '신설 지하철 노선 주변에서 발생할 미래 재산세를 담보로 인프라 선투자를 실행하여 민간 개발을 유인한 가치 캡처 기법.' : 'A value capture method utilizing future incremental property taxes as collateral to fund upfront subway infrastructure.'}</span>
                         </li>
                     </ul>
                 </div>

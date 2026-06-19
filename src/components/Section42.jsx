@@ -114,7 +114,7 @@ export default function Section42({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>IOTA Seoul은 민간 개발 이익을 활용해 끊어진 서울역과 남산의 보행축을 잇고 대규모 녹지를 도심에 공급하는 대표적인 공공-민간 상생 모델입니다.</span>
+                            <span>{lang === 'kr' ? '대규모 녹지 광장 제공 및 서울역에서 남산으로 이어지는 입체 보행 인프라를 연결하여 시민에 개방하는 공공 기여.' : 'A public contribution providing a large green plaza and connecting pedestrian paths from Seoul Station to Namsan.'}</span>
                         </li>
                     </ul>
                 </div>

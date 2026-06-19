@@ -86,7 +86,7 @@ export default function Section10({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>도쿄 OMY(오테마치·마루노우치·유락초) 지구는 지자체와 미쓰비시 지쇼 컨소시엄이 **'에리어 매니지먼트'**라는 강력한 협력 체계를 구축해, 차가 지배하던 오피스 도로를 보행자의 천국이자 브랜드 자산으로 탈바꿈시켰습니다.</span>
+                            <span>{lang === 'kr' ? '민간 주도의 유기적 거버넌스를 통해 차도를 보행자 중심 가로로 개조하고 지역 매력을 높인 선진 사례.' : 'A leading model of converting car roads into pedestrian-friendly streets through private-led organic governance.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -89,7 +89,7 @@ export default function Section25({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>Kessler 판례는 BID 제도가 일반 주민 투표식의 평등주의 민주주의가 아닌, 사업 리스크와 납부액에 비례해 운영 권한을 갖는 주주형 비즈니스 거버넌스(Shareholder Governance)로 정착할 수 있는 합법적 근거를 제공했습니다.</span>
+                            <span>{lang === 'kr' ? '자산 규모에 비례한 의결권 배분이 합헌임을 인정한 판례로, 투자 비례 효율성과 공공 책임성의 균형을 인정한 결정.' : 'A precedent confirming property-weighted voting is constitutional, balancing investment efficiency and public accountability.'}</span>
                         </li>
                     </ul>
                 </div>

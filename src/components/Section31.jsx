@@ -97,7 +97,7 @@ export default function Section31({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>DIB와 TDR의 유기적 작동은 정부 예산 배정이나 공적 부채 증대 없이, 오직 시장 내부의 용적률(FAR) 공급-수요 메커니즘을 통해 공공 공간과 교통 인프라를 확장해내는 입체적 도시 금융 전략의 정수입니다.</span>
+                            <span>{lang === 'kr' ? '증가하는 용적률 대금을 지구 공공 개선 기금으로 직접 연계하여 상업 개발과 인프라 개선을 일체화시킨 메커니즘.' : 'A mechanism integrating commercial development and infrastructure by linking zoning bonus payments directly to public improvement funds.'}</span>
                         </li>
                     </ul>
                 </div>

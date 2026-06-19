@@ -110,7 +110,7 @@ export default function Section45({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>정량 지표 예측 모델링은 타운 매니지먼트의 투입 비용 대비 약 8배의 실질적 자산가치 증대 효과를 도출하여, 대주단 및 투자자(LP)들을 설득하는 가장 강력한 무기가 됩니다.</span>
+                            <span>{lang === 'kr' ? '초저공실 유지와 임대료 프리미엄 획득 등 타운 매니지먼트 실행 시 기대되는 정량적 재무 지표 시나리오.' : 'A quantitative financial scenario expected when executing town management, such as super-low vacancy and rent premiums.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -99,7 +99,7 @@ export default function Section9({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>허드슨야드는 입지가 조금 떨어지더라도 완벽한 단지내 공간 연출이 이루어진다면, 전통 중심지 오피스 대비 20% 이상의 임대 가치 초과 상승이 가능함을 보여준 강력한 자산 모델입니다.</span>
+                            <span>{lang === 'kr' ? '글로벌 하이테크 및 금융 앵커 임차인들이 직원 생산성 향상을 위해 고액의 임대료 할증을 수용하는 현상.' : 'A trend where global high-tech and finance anchor tenants accept high rent premiums to enhance employee productivity.'}</span>
                         </li>
                     </ul>
                 </div>

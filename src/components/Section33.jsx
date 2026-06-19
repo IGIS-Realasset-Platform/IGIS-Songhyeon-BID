@@ -84,7 +84,7 @@ export default function Section33({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>HYHK Alliance BID는 단순 이익 단체가 아닌, 최고 결정권을 가진 자산 소유자와 공적 행정 대리인이 실질적인 이사회 보드를 공유하는 입체적 3각 거버넌스 구조를 통해 트로피 자산가치를 장기 방어합니다.</span>
+                            <span>{lang === 'kr' ? '대형 디벨로퍼 임원들이 이사회 의사결정에 주도적으로 참여하여 지역 관리 품질을 트로피 자산 스펙으로 관리하는 구조.' : 'A structure where large developer executives lead decision-making to manage area maintenance at trophy asset standards.'}</span>
                         </li>
                     </ul>
                 </div>

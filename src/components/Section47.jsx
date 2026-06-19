@@ -111,7 +111,7 @@ export default function Section47({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>5세대 디지털 BID 비전은 하드웨어 인프라에 첨단 소프트웨어(AI/블록체인)를 융합하여, 아날로그 행정 기반의 서구식 BID 한계를 극복하고 아시아형 스마트 도시 모델의 표준을 선점합니다.</span>
+                            <span>{lang === 'kr' ? '디지털 트윈, IoT 예측 관제, 블록체인 스마트 컨트랙트를 통한 실시간 분담 정산으로 진화하는 미래형 스마트 관리.' : 'A future smart management model evolving into digital twins, IoT predictive care, and blockchain smart contracts.'}</span>
                         </li>
                     </ul>
                 </div>

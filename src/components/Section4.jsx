@@ -85,7 +85,7 @@ export default function Section4({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>브라이언트 파크의 기적은 **"공원(Place)이 주변 부동산 가치와 오피스 수요를 창출한다"**는 현대 플레이스메이킹 이론의 완벽한 실증 근거로 인용됩니다.</span>
+                            <span>{lang === 'kr' ? '환경 개선이 인근 오피스의 수요와 자산 가치 상승을 직접적으로 유도함을 입증한 랜드마크 분석.' : 'Case study proving that environmental improvements directly drive nearby office demand and asset value growth.'}</span>
                         </li>
                     </ul>
                 </div>
