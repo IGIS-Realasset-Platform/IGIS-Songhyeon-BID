@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CoverSection from './CoverSection';
+import SectionExecutiveSummary from './SectionExecutiveSummary';
 import Section1 from './Section1';
 import Section2 from './Section2';
 import Section3 from './Section3';
@@ -70,7 +71,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 69; 
+    const slidesLength = 70; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -84,7 +85,8 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
 
     const slides = React.useMemo(() => [
         <CoverSection />, // Page 1 (Title Cover)
-        <Section1 />, // Page 2 (Part 1 Cover)
+        <SectionExecutiveSummary />, // Page 2 (Executive Summary)
+        <Section1 />, // Page 3 (Part 1 Cover)
         <ChapterCover chapterNum="1" title="뉴욕시 BID 가치 분석" />, // Page 2
         <Section2 />, // Page 3
         <Section3 />, // Page 4
