@@ -71,7 +71,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 70; 
+    const slidesLength = 71; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -87,14 +87,15 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <CoverSection />, // Page 1 (Title Cover)
         <SectionExecutiveSummary />, // Page 2 (Executive Summary)
         <Section1 />, // Page 3 (Part 1 Cover)
-        <ChapterCover chapterNum="1" title="뉴욕시 BID 가치 분석" />, // Page 2
-        <Section2 />, // Page 3
-        <Section3 />, // Page 4
-        <Section4 />, // Page 5
-        <Section5 />, // Page 6
-        <Section6 />, // Page 7
-        <Section7 />, // Page 8
-        <ChapterCover chapterNum="2" title="플레이스메이킹과 에리어매니지먼트" />, // Page 9
+        <ChapterCover chapterNum="1" title={<>뉴욕시 BID 가치 분석<br />브라이언 파크의 부활</>} />, // Page 4
+        <Section2 />, // Page 5
+        <Section3 />, // Page 6
+        <Section4 />, // Page 7
+        <ChapterCover chapterNum="2" title={<>뉴욕시 BID 가치 분석<br />타임스퀘어 재생</>} />, // Page 8
+        <Section5 />, // Page 9
+        <Section6 />, // Page 10
+        <Section7 />, // Page 11
+        <ChapterCover chapterNum="3" title="플레이스메이킹과 에리어매니지먼트" />, // Page 12
         <Section8 />, // Page 10
         <Section9 />, // Page 11
         <Section10 />, // Page 12
