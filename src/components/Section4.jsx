@@ -85,7 +85,7 @@ export default function Section4({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>공원 재생 완료 후 주변 상업용 오피스 빌딩의 신규 개발 및 리노베이션 활성화</span>
+                            <span>환경 개선이 인근 오피스의 수요와 자산 가치 상승을 직접적으로 유도함을 입증한 랜드마크 분석</span>
                         </li>
                     </ul>
                 </div>

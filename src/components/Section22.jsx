@@ -95,7 +95,7 @@ export default function Section22({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지자체가 기존에 제공하던 행정 서비스 수준(Base Level)을 법적으로 동결하고 추가 서비스만 제공</span>
+                            <span>기존 시정부의 청소/치안 의무 예산을 대체하지 않고, 오직 추가적인 고품질 환경 정비에만 기금을 투입하는 원칙</span>
                         </li>
                     </ul>
                 </div>

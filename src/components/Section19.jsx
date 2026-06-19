@@ -103,7 +103,7 @@ export default function Section19({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>BID 지정을 위해 부동산 소유주 및 사업자의 법적 동의 요건(과반수 이상)을 획득하는 단계</span>
+                            <span>부동산 소유주 과반수 서명과 까다로운 동의 절차를 통해 지구 지정의 법률적 정당성과 이해관계 조율을 확보하는 절차</span>
                         </li>
                     </ul>
                 </div>

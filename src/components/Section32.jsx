@@ -72,7 +72,7 @@ export default function Section32({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>공공 기관(NYC/MTA), 개발사(Related), 지구관리협회(HYHK BID)로 이어지는 3단계 복합 구조</span>
+                            <span>인허가 당국, 앵커 개발자, 그리고 현장 관리 BID의 연동을 통해 입주 후에도 장기적으로 자산의 최고 품질을 유지하는 모델</span>
                         </li>
                     </ul>
                 </div>

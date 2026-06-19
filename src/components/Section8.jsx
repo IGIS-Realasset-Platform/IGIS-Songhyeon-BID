@@ -99,7 +99,7 @@ export default function Section8({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>전통적인 '입지(Location)' 가치를 깨고 창조적인 '장소(Place)' 가치로 임대 프리미엄을 창출한 모델</span>
+                            <span>물리적 입지의 한계를 뛰어넘어 독창적인 장소 가치 창조로 주변 시세 대비 프리미엄을 확보한 개발 방식</span>
                         </li>
                     </ul>
                 </div>

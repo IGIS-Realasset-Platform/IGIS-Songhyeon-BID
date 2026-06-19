@@ -97,7 +97,7 @@ export default function Section31({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>디벨로퍼들이 추가 용적률을 매입하기 위해 지급한 지구 개선 보너스(DIB) 기금의 선순환 구조</span>
+                            <span>증가하는 용적률 대금을 지구 공공 개선 기금으로 직접 연계하여 상업 개발과 인프라 개선을 일체화시킨 메커니즘</span>
                         </li>
                     </ul>
                 </div>

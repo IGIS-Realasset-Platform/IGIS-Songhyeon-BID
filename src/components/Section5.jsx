@@ -90,7 +90,7 @@ export default function Section5({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>1984년 당시 성인 업소 난립과 노상강도 등 42번가 단일 블록에서만 연간 2,300건의 강력범죄 발생</span>
+                            <span>치안 공백과 유흥업 난립이 도심 전체의 공실률과 자산 가치 폭락에 미치는 부정적 영향 분석</span>
                         </li>
                     </ul>
                 </div>

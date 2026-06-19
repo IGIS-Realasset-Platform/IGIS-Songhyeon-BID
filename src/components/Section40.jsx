@@ -103,7 +103,7 @@ export default function Section40({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>서울역에서 남산에 이르는 메가스케일 트로피 자산 연계 공급축과 신업무 권역 포지셔닝 선언</span>
+                            <span>서울역 교통 인프라와 남산 생태축을 결합하여 구도심의 한계를 돌파하는 신업무 권역 공급 비전</span>
                         </li>
                     </ul>
                 </div>

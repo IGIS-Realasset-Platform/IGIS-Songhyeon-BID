@@ -118,7 +118,7 @@ export default function Section21({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>감정평가액(A.V.), 부지 면적, 가로 접면에 비례하여 분담 요율을 나누는 형평성 공식 설계</span>
+                            <span>각 자산의 가로 면적, 부지 규모, 평가 가치에 비례하여 징수액을 정교하게 나누는 합리적 형평성 달성 장치</span>
                         </li>
                     </ul>
                 </div>

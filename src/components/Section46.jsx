@@ -105,7 +105,7 @@ export default function Section46({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>14.3조 초대형 용산 개발에 따른 다차원 스카이트레일, 지하 공동물류 통합 관제의 당위성</span>
+                            <span>공중 스카이트레일 및 지하 공동물류 하역장 등 다차원 입체 설계를 조율하기 위한 통합 타운 거버넌스의 필요성</span>
                         </li>
                     </ul>
                 </div>

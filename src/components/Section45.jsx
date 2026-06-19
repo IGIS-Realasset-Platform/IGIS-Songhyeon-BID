@@ -110,7 +110,7 @@ export default function Section45({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>타운 매니지먼트 실행 시 기대되는 정량적 재무 및 임대 지표 시나리오</span>
+                            <span>초저공실 유지와 임대료 프리미엄 획득 등 타운 매니지먼트 실행 시 기대되는 정량적 재무 지표 시나리오</span>
                         </li>
                     </ul>
                 </div>

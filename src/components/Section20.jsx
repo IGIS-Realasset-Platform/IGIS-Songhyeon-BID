@@ -101,7 +101,7 @@ export default function Section20({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지자체가 재산세와 연동하여 특별부과금을 징수하되 시 행정 수수료 없이 100% 교부하는 원칙</span>
+                            <span>지자체가 세금 고지서로 징수 대행을 수행하되, 수수료 없이 해당 지구로 전액 돌려주어 온전히 환원시키는 재무 흐름</span>
                         </li>
                     </ul>
                 </div>

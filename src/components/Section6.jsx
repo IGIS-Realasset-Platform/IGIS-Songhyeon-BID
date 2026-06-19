@@ -102,7 +102,7 @@ export default function Section6({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#10b981]">▪</span>
-                            <span>1992년 Times Square Alliance BID 설립 후 전담 치안 및 환경 미화 인력 상주</span>
+                            <span>전담 안전/청소 인력 상주 등 민간 거버넌스의 신속한 의사결정으로 범죄율을 획기적으로 낮춘 혁신 사례</span>
                         </li>
                     </ul>
                 </div>

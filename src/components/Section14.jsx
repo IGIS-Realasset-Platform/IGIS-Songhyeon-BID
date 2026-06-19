@@ -142,7 +142,7 @@ export default function Section14({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>1960년대 교외형 대형 쇼핑몰의 급부상에 따른 전통적인 도심 가로 상권의 붕괴 위기</span>
+                            <span>기부 형식의 자발적 협회가 지닌 무임승차 한계를 극복하기 위해 제도적 강제 과세의 필요성을 확인한 역사적 배경</span>
                         </li>
                     </ul>
                 </div>

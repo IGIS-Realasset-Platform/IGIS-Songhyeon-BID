@@ -89,7 +89,7 @@ export default function Section25({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>Kessler v. Grand Central DMA 판결을 통해 1인 1표 원칙의 예외를 법적으로 공인한 마일스톤</span>
+                            <span>자산 규모에 비례한 의결권 배분이 합헌임을 인정한 판례로, 투자 비례 효율성과 공공 책임성의 균형을 인정한 결정</span>
                         </li>
                     </ul>
                 </div>

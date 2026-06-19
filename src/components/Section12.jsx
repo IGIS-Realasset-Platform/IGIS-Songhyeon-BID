@@ -96,7 +96,7 @@ export default function Section12({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>주거, 상업, 호텔, 문화 인프라(모리 미술관 등)를 수직 단일 랜드마크 내에 결합한 수직 도시 모델</span>
+                            <span>문화, 비즈니스, 주거, 여가를 수직으로 결합하여 자산의 공실 위험을 낮추고 장기 자산 가치를 상승시킨 복합 생태계 모델</span>
                         </li>
                     </ul>
                 </div>

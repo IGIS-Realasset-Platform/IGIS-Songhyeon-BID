@@ -78,7 +78,7 @@ export default function Section26({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>2024년 뉴욕주 로체스터시에서 상인 및 주민들의 거센 반대로 BID 설립이 완전 무산된 사례</span>
+                            <span>상업 젠트리피케이션 우려 및 저소득 세입자의 배제 문제를 해결하지 못해 지역 사회의 거센 반대로 무산된 사례</span>
                         </li>
                     </ul>
                 </div>

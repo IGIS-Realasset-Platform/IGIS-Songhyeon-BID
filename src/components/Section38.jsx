@@ -103,7 +103,7 @@ export default function Section38({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>보도 상의 가로수 식재 면적(Tree beds)을 12.5피트까지 확장하여 노점상의 통행을 규제한 사건</span>
+                            <span>보도 상 가로수 화단을 인위적으로 넓혀 무허가 노점상을 정비하는 등 청결 확보 이면의 젠트리피케이션 갈등</span>
                         </li>
                     </ul>
                 </div>

@@ -120,7 +120,7 @@ export default function Section16({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>1970년대 뉴욕시의 심각한 재정난과 치안 불안, 청결 공백 문제를 해소하기 위한 자구책</span>
+                            <span>도시 재정 위기 시기에 정부 세부담 없이 민간이 스스로 기금을 모아 청소와 치안 등 기초 공공 서비스를 유지한 위기 대응책</span>
                         </li>
                     </ul>
                 </div>

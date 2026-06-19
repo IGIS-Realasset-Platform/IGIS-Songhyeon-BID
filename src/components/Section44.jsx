@@ -120,7 +120,7 @@ export default function Section44({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>단순 지리적 이점에 의존하는 입지론을 탈피하여, 지구 전체의 콘텐츠 운영 품질을 자산 가치에 반영</span>
+                            <span>지리적 조건에 안주하지 않고, 가로 공간 전체의 케어와 콘텐츠 운영 품질을 자산 가치에 직접 반영시키는 전환</span>
                         </li>
                     </ul>
                 </div>

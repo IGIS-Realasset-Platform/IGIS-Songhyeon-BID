@@ -116,7 +116,7 @@ export default function Section43({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>KTX, GTX 등 광역 대교통 거절점과 영구 조망권을 갖춘 남산 자연 생태축의 압도적 결합</span>
+                            <span>KTX/GTX 광역 대중교통 노드와 영구 조망권을 갖춘 남산 자연환경이 융합된 유일무이한 상징적 가치</span>
                         </li>
                     </ul>
                 </div>

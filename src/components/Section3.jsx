@@ -102,7 +102,7 @@ export default function Section3({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#10b981]">▪</span>
-                            <span>1988년 민간 주도의 Bryant Park Corporation 설립 및 전면 리노베이션 후 1991년 재개장</span>
+                            <span>민간 비즈니스 기법과 자체 재원 마련을 통해 도심 공공 공간을 복합 문화 랜드마크로 전환한 성공 모델</span>
                         </li>
                     </ul>
                 </div>

@@ -82,7 +82,7 @@ export default function Section27({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>민주적 대의성 결핍, 지구간 양극화, 이중과세 논란, 공적 공간의 사적 사유화 등 4대 쟁점</span>
+                            <span>부자 지역과 가난한 지역의 격차 심화 및 노숙인 배제 등 민간 효율성 추구에 따른 공적 형평성 훼손 쟁점</span>
                         </li>
                     </ul>
                 </div>

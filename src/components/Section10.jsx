@@ -86,7 +86,7 @@ export default function Section10({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>미쓰비시 지쇼와 지자체가 OMY 지구에서 차도를 보행자 중심 광장 및 가로로 개조하는 사업 실행</span>
+                            <span>민간 주도의 유기적 거버넌스를 통해 차도를 보행자 중심 가로로 개조하고 지역 매력을 높인 선진 사례</span>
                         </li>
                     </ul>
                 </div>

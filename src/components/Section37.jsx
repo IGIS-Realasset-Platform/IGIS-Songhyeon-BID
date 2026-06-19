@@ -101,7 +101,7 @@ export default function Section37({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>2억 달러 규모 랜드마크 조형물이 겪은 잇따른 추락 사고와 이로 인한 장기 폐쇄의 시사점</span>
+                            <span>전망대 내 자살 사고로 인한 임시 폐쇄 위기를 안전 그물망 보강 및 동행 의무화 등의 운영 변경으로 극복한 사례</span>
                         </li>
                     </ul>
                 </div>

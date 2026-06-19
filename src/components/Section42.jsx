@@ -114,7 +114,7 @@ export default function Section42({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>개발 지구 내 대규모 축구장 면적 크기의 공개녹지를 기부채납하여 시민의 공간으로 개방</span>
+                            <span>대규모 녹지 광장 제공 및 서울역에서 남산으로 이어지는 입체 보행 인프라를 연결하여 시민에 개방하는 공공 기여</span>
                         </li>
                     </ul>
                 </div>

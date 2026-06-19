@@ -102,7 +102,7 @@ export default function Section24({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>기획, 소통, 법제화, 출범에 이르는 설립 프로세스로 평균 3~6년의 장기 합의 기간 소요</span>
+                            <span>기획부터 입법, 공청회 수렴까지 평균 수년의 소요 기간을 통해 사업 실행 시의 분쟁과 리스크를 선제 제어하는 로드맵</span>
                         </li>
                     </ul>
                 </div>

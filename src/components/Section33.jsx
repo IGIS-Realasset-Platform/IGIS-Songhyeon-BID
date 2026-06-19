@@ -84,7 +84,7 @@ export default function Section33({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>Related Companies 부사장을 비롯한 앵커 개발사 핵심 임원진이 이사회 보드에 직접 참여</span>
+                            <span>대형 디벨로퍼 임원들이 이사회 의사결정에 주도적으로 참여하여 지역 관리 품질을 트로피 자산 스펙으로 관리하는 구조</span>
                         </li>
                     </ul>
                 </div>

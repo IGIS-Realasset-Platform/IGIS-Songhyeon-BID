@@ -97,7 +97,7 @@ export default function Section7({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>기존 차도를 과감히 축소하고 보행자 중심 광장을 조성하여 통행량을 11% 이상 증가시킨 혁신</span>
+                            <span>차도를 보행 광장으로 전환하여 통행량을 늘리고 가로 상업 매출 및 세수를 극대화한 가치 창출 흐름</span>
                         </li>
                     </ul>
                 </div>

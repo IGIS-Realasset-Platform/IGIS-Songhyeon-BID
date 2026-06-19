@@ -96,7 +96,7 @@ export default function Section2({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-red-600">▪</span>
-                            <span>1980년대 뉴욕 미드타운 중심부에서 연간 500건 이상의 강력범죄와 마약 거래가 발생하던 무법 지대</span>
+                            <span>예산 지원 중단과 치안 부재로 인해 핵심 도심 공원이 급격히 슬럼화된 대표적 사례</span>
                         </li>
                     </ul>
                 </div>

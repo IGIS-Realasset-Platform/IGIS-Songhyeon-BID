@@ -101,7 +101,7 @@ export default function Section11({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>2026년 기준 공실률 1.4%대를 기록하여 도심 전체 평균인 2.8%의 절반 수준으로 방어</span>
+                            <span>지속적인 지역 가치 제고를 통해 경기 침체기에도 도심 오피스의 안정적인 초저공실률과 자산 가치를 방어하는 구조</span>
                         </li>
                     </ul>
                 </div>

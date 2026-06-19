@@ -91,7 +91,7 @@ export default function Section34({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>허드슨야드 중앙 공원의 청소, 조경, 안전, 이벤트 프로그램 운영을 민간 BID가 100% 전담</span>
+                            <span>시 정부 대신 민간 BID가 공원 청소, 보수, 안전 비용을 자체 충당하고 높은 관리 품질을 보장하는 위탁 모델</span>
                         </li>
                     </ul>
                 </div>

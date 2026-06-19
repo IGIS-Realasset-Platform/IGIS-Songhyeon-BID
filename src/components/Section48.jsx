@@ -101,7 +101,7 @@ export default function Section48({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>양동-봉래 시범 지구를 거쳐 서울역 전체로 확장하고, 궁극적으로 용산 IBD를 결합하는 로드맵</span>
+                            <span>양동-봉래 시범 지구를 거쳐 서울역 전체로 확장하고, 궁극적으로 용산 IBD를 결합하는 3단계 추진 로드맵</span>
                         </li>
                     </ul>
                 </div>
