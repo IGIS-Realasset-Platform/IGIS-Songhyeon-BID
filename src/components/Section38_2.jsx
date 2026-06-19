@@ -4,26 +4,6 @@ import { useLanguage } from '../context/LanguageContext';
 export default function Section38_2({ isActive }) {
     const { lang } = useLanguage();
 
-    const krRows = [
-        { cat: '주도 주체', us: '다수 소유자 연합 (바텀업 횡적 연대)', jp: '대형 디벨로퍼 주도 (탑다운 수직 통합)' },
-        { cat: '재원 강제성', us: '법적 강제 부과금 (재산세 비례)', jp: '2018년 이후 강제 부담금제 (그 전은 임의 기부)' },
-        { cat: '지구 특성', us: '소규모 상업 지구부터 대형 CBD까지 다양', jp: '대규모 신개발 및 역세권(TOD) 복합 개발지 중심' },
-        { cat: '공공 공간', us: '지자체로부터 공공 공간 운영 및 유지보수권 위탁', jp: '디벨로퍼가 부지 내 공개공지 직접 소유 및 큐레이션' },
-        { cat: '법적 근거', us: '주(State) 단위 입법 ➔ 시(City) 조례 기반', jp: '지역재생법, 도시재생특별조치법 기반' },
-        { cat: '대표 사례', us: 'Times Square Alliance, Hudson Yards BID', jp: '마루노우치(미쓰비시), 롯폰기·아자부다이힐스(모리)' },
-    ];
-
-    const enRows = [
-        { cat: 'Lead Subject', us: 'Multi-Owner Coalition (Bottom-up lateral alliance)', jp: 'Major Developers (Top-down vertical integration)' },
-        { cat: 'Funding Mandate', us: 'Legally mandated assessment (tied to property tax)', jp: 'Mandated since 2018 (Prior: voluntary donations)' },
-        { cat: 'District Scope', us: 'Diverse (from small retail streets to large CBDs)', jp: 'Large-scale new development & TOD projects' },
-        { cat: 'Public Space', us: 'Formally delegated city services (Clean & Safe)', jp: 'Developer-owned plazas directly curated and managed' },
-        { cat: 'Legal Basis', us: 'State enabling legislation ➔ City ordinances', jp: 'Local Regeneration Act, Special Act on Urban Renaissance' },
-        { cat: 'Key Benchmark', us: 'Times Square Alliance, Hudson Yards BID', jp: 'Marunouchi (Mitsubishi), Roppongi & Azabudai Hills (Mori)' },
-    ];
-
-    const rows = lang === 'kr' ? krRows : enRows;
-
     return (
         <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
@@ -31,66 +11,113 @@ export default function Section38_2({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '미국 vs 일본 제도 비교 / Comparison' : 'US vs Japan System Comparison'}
+                        {lang === 'kr' ? '3대 디벨로퍼 실행 전략 / Major Developer Strategies' : 'Major Developer Strategies / Tokyo'}
                     </span>
                 </div>
 
                 {/* 제목 */}
                 <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-6">
                     {lang === 'kr' 
-                        ? '미국형 BID와 일본형 에리어 매니지먼트의 비교 분석' 
-                        : 'Comparative Analysis of US BID vs Japanese Area Management'}
+                        ? '미쓰비시 · 모리 · 미쓰이의 에리어 매니지먼트 실행 모델' 
+                        : 'Area Management execution models of Mitsubishi, Mori, and Mitsui'}
                 </h2>
 
-                {/* 비교 테이블 영역 */}
-                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] overflow-x-auto border-4 border-[#0f172a] shadow-sm bg-white">
-                    <table className="w-full text-left border-collapse min-w-[700px]">
-                        <thead>
-                            <tr className="bg-[#0f172a] text-white border-b-4 border-[#0f172a]">
-                                <th className="p-4 text-[15px] md:text-[17px] font-black w-[20%] border-r border-white/20">
-                                    {lang === 'kr' ? '구분' : 'Category'}
-                                </th>
-                                <th className="p-4 text-[15px] md:text-[17px] font-black w-[40%] border-r border-white/20 text-[#93c5fd]">
-                                    {lang === 'kr' ? '🇺🇸 미국형 BID 모델' : '🇺🇸 US-style BID Model'}
-                                </th>
-                                <th className="p-4 text-[15px] md:text-[17px] font-black w-[40%] text-emerald-400">
-                                    {lang === 'kr' ? '🇯🇵 일본형 에리어 매니지먼트 모델' : '🇯🇵 Japanese Area Management Model'}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows.map((row, idx) => (
-                                <tr 
-                                    key={idx} 
-                                    className={`border-b border-gray-200 text-[13.5px] md:text-[15.5px] font-semibold text-gray-800 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/70'}`}
-                                >
-                                    <td className="p-4 border-r border-gray-200 font-bold bg-gray-100/50 text-gray-900">
-                                        {row.cat}
-                                    </td>
-                                    <td className="p-4 border-r border-gray-200 text-gray-700">
-                                        {row.us}
-                                    </td>
-                                    <td className="p-4 text-gray-700">
-                                        {row.jp}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                {/* 콘텐츠 영역: 3열 카드 그리드 */}
+                <div className="w-full max-w-[1300px] mt-[10px] mb-[20px] grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    
+                    {/* 미쓰비시 지쇼 - OMY 협의회 및 용적이전 */}
+                    <div className="border-4 border-[#0f172a] bg-white p-5 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[11px] font-black px-2 py-0.5 uppercase mb-3">
+                                Mitsubishi Estate
+                            </span>
+                            <h3 className="text-[19px] font-black text-gray-900 mb-3">
+                                {lang === 'kr' ? '🏢 미쓰비시 지쇼 (OMY 지구)' : '🏢 Mitsubishi Estate (OMY)'}
+                            </h3>
+                            <p className="text-[13.5px] text-gray-600 font-semibold leading-relaxed">
+                                {lang === 'kr' ? (
+                                    <>
+                                        • <strong>지구 규모:</strong> 120ha 내 오피스 빌딩 106개 관리.<br />
+                                        • <strong>용적 이전(TDR):</strong> 역사 복원 시 남은 공중 용적률을 다른 개발자에게 매각하여 수익화 및 환경 정비 재원 확보.<br />
+                                        • <strong>TMIP 플랫폼:</strong> 오픈 이노베이션을 촉진하기 위한 민관학 네트워크 구축.
+                                    </>
+                                ) : (
+                                    <>
+                                        • <strong>Scale:</strong> Manages 106 towers in 120ha.<br />
+                                        • <strong>TDR System:</strong> Sold unused development air rights to fund historical station restoration and streetscapes.<br />
+                                        • <strong>TMIP:</strong> Established an open-innovation ecosystem connecting industry, academia, and government.
+                                    </>
+                                )}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* 모리 빌딩 - 롯폰기힐스 및 수직통합 */}
+                    <div className="border-4 border-[#0f172a] bg-[#0f172a] p-5 text-white shadow-md flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#ef4444] text-white text-[11px] font-black px-2 py-0.5 uppercase mb-3">
+                                Mori Building
+                            </span>
+                            <h3 className="text-[19px] font-black text-[#93c5fd] mb-3">
+                                {lang === 'kr' ? '🌳 모리 빌딩 (Hills 시리즈)' : '🌳 Mori Building (Hills Series)'}
+                            </h3>
+                            <p className="text-[13.5px] text-gray-300 font-semibold leading-relaxed">
+                                {lang === 'kr' ? (
+                                    <>
+                                        • <strong>수직 통합 모델:</strong> 단일 디벨로퍼가 부지를 통합 매수하여 장기 보유·직영 운영.<br />
+                                        • <strong>문화·산업 클러스터:</strong> 미술관, 호텔, 주거에 더해 도쿄 스타트업 허브 및 VC 허브를 유기 결합.<br />
+                                        • <strong>도시 기능 내재화:</strong> 재정 불안 없는 장기 에리어 큐레이션 역량 확보.
+                                    </>
+                                ) : (
+                                    <>
+                                        • <strong>Vertical Integration:</strong> Single developer buys, owns, and manages key commercial spaces long-term.<br />
+                                        • <strong>Socio-cultural Incubation:</strong> Integrates Tokyo Startup Hub, VC hubs, art galleries, and residential zones.<br />
+                                        • <strong>Curatorial Autonomy:</strong> Preserves long-term placemaking capability without financial volatility.
+                                    </>
+                                )}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* 미쓰이 부동산 - 니혼바시 클러스터 */}
+                    <div className="border-4 border-[#0f172a] bg-white p-5 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[11px] font-black px-2 py-0.5 uppercase mb-3">
+                                Mitsui Fudosan
+                            </span>
+                            <h3 className="text-[19px] font-black text-gray-900 mb-3">
+                                {lang === 'kr' ? '🏙️ 미쓰이 부동산 (니혼바시)' : '🏙️ Mitsui Fudosan (Nihonbashi)'}
+                            </h3>
+                            <p className="text-[13.5px] text-gray-600 font-semibold leading-relaxed">
+                                {lang === 'kr' ? (
+                                    <>
+                                        • <strong>도쿄 미드타운(롯폰기):</strong> 6.9ha 규모 복합 용도 개발에 약 20억 엔의 지자체 공공보조금 수령.<br />
+                                        • <strong>LINK-J 생태계:</strong> 라이프사이언스 및 바이오헬스케어 관련 다국적 기업, 연구소 클러스터 구축.<br />
+                                        • <strong>우주·푸드테크:</strong> 미래 유망 신산업 지구 브랜딩과 에리어 매니지먼트의 결합.
+                                    </>
+                                ) : (
+                                    <>
+                                        • <strong>Tokyo Midtown:</strong> Received 2 billion Yen public subsidy for public-space enhancements in 6.9ha.<br />
+                                        • <strong>LINK-J:</strong> Clustered life-science startups, research institutes, and MNCs to build a bio-health hub.<br />
+                                        • <strong>Space & Food Tech:</strong> Integrated new-industry branding with area management.
+                                    </>
+                                )}
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
                 {/* 하단 설명글 */}
                 <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     {lang === 'kr' ? (
-                        <ul className="text-left inline-block space-y-2 mx-auto">
-                            <li>• <strong>미국</strong>은 소유권이 고도로 분산된 구역에서 <strong>바텀업 합의와 공적 강제 부과금</strong>을 조화시켜 무임승차를 해결하는 구조입니다.</li>
-                            <li>• <strong>일본</strong>은 대형 디벨로퍼의 <strong>자본력과 마스터플랜 기획권</strong>을 통해 공간의 활성화를 주도하며 법제 부담금으로 보완했습니다.</li>
-                        </ul>
+                        <p className="font-semibold">
+                            ※ 일본 디벨로퍼들은 단순히 건물을 짓는 데 그치지 않고 역사 복원, 바이오 클러스터 구축, 오픈 이노베이션 등 소프트웨어 차별화에 투자했습니다.
+                        </p>
                     ) : (
-                        <ul className="text-left inline-block space-y-2 mx-auto">
-                            <li>• The <strong>US model</strong> utilizes <strong>bottom-up agreement and public levies</strong> to solve the free-rider problem across fragmented ownerships.</li>
-                            <li>• The <strong>Japan model</strong> leverages developer-led <strong>capital and master-planning authority</strong>, recently backed by legal assessments.</li>
-                        </ul>
+                        <p className="font-semibold">
+                            ※ Japanese developers went beyond building physical structures, investing in historical preservation, open innovation, and industry clustering.
+                        </p>
                     )}
                 </div>
 

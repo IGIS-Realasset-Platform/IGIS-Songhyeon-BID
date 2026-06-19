@@ -38,8 +38,12 @@ import Section35 from './Section35';
 import Section36 from './Section36';
 import Section37 from './Section37';
 import Section38 from './Section38';
+import Section38_Part4Cover from './Section38_Part4Cover';
 import Section38_1 from './Section38_1';
 import Section38_2 from './Section38_2';
+import Section38_3 from './Section38_3';
+import Section38_4 from './Section38_4';
+import Section38_5 from './Section38_5';
 import Section39 from './Section39';
 import Section40 from './Section40';
 import Section41 from './Section41';
@@ -66,7 +70,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 62; 
+    const slidesLength = 69; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -126,10 +130,17 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section36 />, // Page 44
         <Section37 />, // Page 45
         <Section38 />, // Page 46
-        <Section38_1 />, // Page 47
-        <Section38_2 />, // Page 48
-        <Section39 />, // Page 49 (Part 4 Cover)
-        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 48
+        <Section38_Part4Cover />, // Page 47 (Part 4 Cover)
+        <ChapterCover chapterNum="1" title="타운 매니지먼트 철학과 디벨로퍼" />, // Page 48
+        <Section38_1 />, // Page 49
+        <Section38_2 />, // Page 50
+        <ChapterCover chapterNum="2" title="일본판 BID 제도와 오사카 모델" />, // Page 51
+        <Section38_3 />, // Page 52
+        <ChapterCover chapterNum="3" title="미·일 비교 및 SBD 전략 적용" />, // Page 53
+        <Section38_4 />, // Page 54
+        <Section38_5 />, // Page 55
+        <Section39 />, // Page 56 (Part 5 Cover)
+        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 57
         <Section40 />, // Page 49
         <Section41 />, // Page 50
         <Section42 />, // Page 51
