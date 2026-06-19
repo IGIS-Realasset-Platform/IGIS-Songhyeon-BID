@@ -40,16 +40,16 @@ export default function CoverSection({ isActive }) {
                 {/* Title */}
                 <h1 className="mt-8 flex flex-col items-center">
                     <span 
-                        className={`text-[46px] md:text-[76px] lg:text-[90px] font-black leading-none tracking-[-0.03em] bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400 transition-all duration-[1000ms] ease-out ${step >= 1 ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-95 blur-[8px]'}`}
+                        className={`text-[32px] md:text-[62px] lg:text-[72px] font-black leading-none tracking-[-0.03em] bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400 transition-all duration-[1000ms] ease-out ${step >= 1 ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-95 blur-[8px]'}`}
                         style={{ fontFamily: "'Inter', 'Apple SD Gothic Neo', sans-serif" }}
                     >
-                        {lang === 'kr' ? '3조 달러 시대' : 'The $3 Trillion Era'}
+                        {lang === 'kr' ? 'IOTA SEOUL의 BID 적용과' : 'Application of BID to IOTA SEOUL'}
                     </span>
                     <span 
-                        className={`mt-4 text-[22px] md:text-[36px] lg:text-[44px] font-bold text-gray-300 tracking-[-0.02em] max-w-[1000px] break-keep transition-all duration-[1000ms] ease-out delay-[300ms] ${step >= 2 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-[6px]'}`}
-                        style={{ fontFamily: "'Apple SD Gothic Neo', sans-serif" }}
+                        className={`mt-4 text-[32px] md:text-[62px] lg:text-[72px] font-black leading-none tracking-[-0.03em] bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400 transition-all duration-[1000ms] ease-out delay-[300ms] ${step >= 2 ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-95 blur-[8px]'}`}
+                        style={{ fontFamily: "'Inter', 'Apple SD Gothic Neo', sans-serif" }}
                     >
-                        {lang === 'kr' ? '이지스의 글로벌 도약과 IOTA 프로젝트 마스터플랜' : "IGIS's Global Leap and IOTA Project Master Plan"}
+                        {lang === 'kr' ? 'SBD 전략 마스터플랜' : '& SBD Strategic Master Plan'}
                     </span>
                 </h1>
 
