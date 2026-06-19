@@ -91,7 +91,7 @@ export default function Section41({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '이지스 시행 및 Foster + Partners 설계로 강북 최대 규모의 친환경 트로피 복합 단지를 조성하는 코어 프로젝트.' : 'A core project creating Gangbuk's largest eco-friendly trophy complex led by IGIS and designed by Foster + Partners.'}</span>
+                            <span>{lang === 'kr' ? '이지스 시행 및 Foster + Partners 설계로 강북 최대 규모의 친환경 트로피 복합 단지를 조성하는 코어 프로젝트.' : 'A core project creating Gangbuk\'s largest eco-friendly trophy complex led by IGIS and designed by Foster + Partners.'}</span>
                         </li>
                     </ul>
                 </div>

@@ -118,7 +118,7 @@ export default function Section21({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '각 자산의 가로 면적, 부지 규모, 평가 가치에 비례하여 징수액을 정교하게 나누는 합리적 형평성 달성 장치.' : 'A fair allocation device distributing costs based on each asset's street frontage, lot size, and assessed value.'}</span>
+                            <span>{lang === 'kr' ? '각 자산의 가로 면적, 부지 규모, 평가 가치에 비례하여 징수액을 정교하게 나누는 합리적 형평성 달성 장치.' : 'A fair allocation device distributing costs based on each asset\'s street frontage, lot size, and assessed value.'}</span>
                         </li>
                     </ul>
                 </div>

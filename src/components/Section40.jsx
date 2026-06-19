@@ -103,7 +103,7 @@ export default function Section40({ isActive }) {
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>{lang === 'kr' ? '서울역 교통 인프라와 남산 생태축을 결합하여 구도심의 한계를 돌파하는 신업무 권역 공급 비전.' : 'A vision for a new business district corridor by combining Seoul Station's transport hub and Namsan's ecological axis.'}</span>
+                            <span>{lang === 'kr' ? '서울역 교통 인프라와 남산 생태축을 결합하여 구도심의 한계를 돌파하는 신업무 권역 공급 비전.' : 'A vision for a new business district corridor by combining Seoul Station\'s transport hub and Namsan\'s ecological axis.'}</span>
                         </li>
                     </ul>
                 </div>
