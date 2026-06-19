@@ -104,14 +104,6 @@ export default function Section24({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>기획, 소통, 법제화, 출범에 이르는 설립 프로세스로 평균 3~6년의 장기 합의 기간 소요</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>공청회와 소유주 개별 동의 조율을 거쳐 사업 시행 단계에서 발생할 사법 분쟁을 선제 제어</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>철저한 민주적 정당성 확보 과정을 통해 설립 완료 후의 장기 거버넌스 지속성을 보장</span>
-                        </li>
                     </ul>
                 </div>
 

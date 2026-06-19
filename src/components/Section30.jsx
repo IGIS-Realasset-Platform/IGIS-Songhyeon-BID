@@ -94,14 +94,6 @@ export default function Section30({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>신설 지하철 7호선 연장 비용 24억 달러를 조달하기 위한 가치 캡처(Value Capture) 금융 기법</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>미래의 재산세 상승액을 담보로 채권(HYIC)을 선발행하여 인프라를 건설하고 민간 투자를 유인</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>세수의 시 재정 유출 없이 순수하게 개발 지구 내 자력으로 광역 교통망을 유치해낸 금융 전략</span>
-                        </li>
                     </ul>
                 </div>
 

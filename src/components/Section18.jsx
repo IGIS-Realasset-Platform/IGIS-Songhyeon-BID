@@ -90,14 +90,6 @@ export default function Section18({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>헬슬리와 스트레인지(1998)의 연구에 기반한 특정 구역 내 보충적 공공재 제공 모델</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지방정부가 행정 규모를 늘리지 않고도 공공 서비스의 질을 혁신적으로 개선하는 장치</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>공공의 조세 권한과 민간의 신속한 의사결정 및 자본을 결합한 하이브리드 거버넌스 이론</span>
-                        </li>
                     </ul>
                 </div>
 

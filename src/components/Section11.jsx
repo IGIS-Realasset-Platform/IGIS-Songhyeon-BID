@@ -103,14 +103,6 @@ export default function Section11({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>2026년 기준 공실률 1.4%대를 기록하여 도심 전체 평균인 2.8%의 절반 수준으로 방어</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지속적인 지구 가치 제고를 바탕으로 오피스 최고 임대료 평당 81,000엔을 달성하며 상승세 지속</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>도쿄 역사상 최대 거래 규모인 4,200억 엔 재개발 딜을 유치하는 등 상업용 부동산 시장 유동성 집중</span>
-                        </li>
                     </ul>
                 </div>
 

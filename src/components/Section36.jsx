@@ -90,14 +90,6 @@ export default function Section36({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>매년 5~9월 벨라 압죽 공원에서 가동되는 라틴 댄스 등 다채로운 상시 문화 프로그래밍</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>삭막해지기 쉬운 오피스 단지에 휴먼 액티비티를 주입하여 직장인 생산성 및 가로 활력 제고</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>정기적 프로그램 운영으로 방문객과 입주민 간의 자발적 유대를 강화하고 리테일 매출 증대 유도</span>
-                        </li>
                     </ul>
                 </div>
 

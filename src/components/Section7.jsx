@@ -99,14 +99,6 @@ export default function Section7({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>기존 차도를 과감히 축소하고 보행자 중심 광장을 조성하여 통행량을 11% 이상 증가시킨 혁신</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>쾌적한 보행 환경 확보를 통해 광장 주변 상권의 소매 매출을 평균 71% 폭등시킨 성과</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>연간 뉴욕시와 주 정부에 총 24억 달러 이상의 신규 세수를 헌납하는 초우량 세원 지구로 변모</span>
-                        </li>
                     </ul>
                 </div>
 

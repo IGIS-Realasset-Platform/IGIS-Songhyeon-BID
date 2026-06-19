@@ -107,14 +107,6 @@ export default function Section46({ isActive }) {
                             <span className="mr-3 text-[#0f172a]">▪</span>
                             <span>14.3조 초대형 용산 개발에 따른 다차원 스카이트레일, 지하 공동물류 통합 관제의 당위성</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>SH, 코레일, 개별 디벨로퍼의 이해관계를 조율할 단일 통합 타운 거버넌스의 필요성</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>대규모 인프라 운영 비효율을 방지하고 장기 도시 프리미엄을 영속화하기 위한 공공-민간 협력</span>
-                        </li>
                     </ul>
                 </div>
 

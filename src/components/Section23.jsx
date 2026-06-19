@@ -86,14 +86,6 @@ export default function Section23({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>소수 대형 개발사나 자본의 지구 의사결정 독점을 방지하기 위한 이사회 다각화 구성 조건</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>부동산 소유자 과반 의무와 함께 세입자 상인, 그리고 선출직 공무원 4인을 당연직 감사자로 배정</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>사적 자산 가치 극대화라는 목적과 지역 공동체의 공공성 유지 간의 균형을 담보하는 통제 장치</span>
-                        </li>
                     </ul>
                 </div>
 

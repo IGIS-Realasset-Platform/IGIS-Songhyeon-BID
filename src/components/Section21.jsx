@@ -120,14 +120,6 @@ export default function Section21({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>감정평가액(A.V.), 부지 면적, 가로 접면에 비례하여 분담 요율을 나누는 형평성 공식 설계</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>플랫아이언 지구(SF당 0.17달러) 및 타임스스퀘어(0.3% 요율) 등 지구 특성별 차등 부과식 적용</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>자산별 편익의 크기와 분담 비율의 정밀 대칭을 유도하여 징수 저항과 소유주 갈등 최소화</span>
-                        </li>
                     </ul>
                 </div>
 

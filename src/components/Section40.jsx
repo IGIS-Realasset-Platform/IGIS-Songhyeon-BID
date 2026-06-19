@@ -105,14 +105,6 @@ export default function Section40({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>서울역에서 남산에 이르는 메가스케일 트로피 자산 연계 공급축과 신업무 권역 포지셔닝 선언</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>기존 CBD의 고질적인 공간 공급 과잉 속에서 SBD만의 차별화된 지구 운영 가치 제고</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>자연(남산)과 광역 교통망(서울역)의 입지 인프라 위에 타운 매니지먼트 OS를 결합한 공급 Vision</span>
-                        </li>
                     </ul>
                 </div>
 

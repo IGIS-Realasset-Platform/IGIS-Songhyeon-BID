@@ -80,14 +80,6 @@ export default function Section26({ isActive }) {
                             <span className="mr-3 text-red-600">▪</span>
                             <span>2024년 뉴욕주 로체스터시에서 상인 및 주민들의 거센 반대로 BID 설립이 완전 무산된 사례</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-red-600">▪</span>
-                            <span>대형 자본 위주의 일방적 추진이 부른 젠트리피케이션 우려와 소상공인 축출 논란의 결과</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-red-600">▪</span>
-                            <span>지역 공동체의 동의 없이 추진되는 탑다운(Top-down) 방식 개발이 지닌 위험성과 한계 반면교사</span>
-                        </li>
                     </ul>
                 </div>
 

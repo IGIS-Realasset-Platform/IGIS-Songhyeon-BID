@@ -74,14 +74,6 @@ export default function Section32({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>공공 기관(NYC/MTA), 개발사(Related), 지구관리협회(HYHK BID)로 이어지는 3단계 복합 구조</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>기획, 시공, 그리고 영속적 사후 운영 관리로 수직 연동되는 지속 가능한 도시 재생 체계</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>사적 자산 가치의 극대화 성과를 보행 가로 케어 및 공공 혜택으로 상시 순환 환류하는 거버넌스</span>
-                        </li>
                     </ul>
                 </div>
 

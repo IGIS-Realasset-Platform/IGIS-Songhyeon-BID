@@ -111,14 +111,6 @@ export default function Section17({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>1990년 설립 이후 지구 범죄율 50% 감소 및 5,600만 달러 규모의 가로 환경 개선 완료</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지구 지정 이후 강력범죄 건수가 97% 감소하는 등 공공 서비스 공백을 민간의 자조로 정비</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>민간 비영리 기구의 전문성과 행정의 시스템을 유기적으로 통합하여 실증적 성과 도출</span>
-                        </li>
                     </ul>
                 </div>
 

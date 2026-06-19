@@ -116,14 +116,6 @@ export default function Section42({ isActive }) {
                             <span className="mr-3 text-[#0f172a]">▪</span>
                             <span>개발 지구 내 대규모 축구장 면적 크기의 공개녹지를 기부채납하여 시민의 공간으로 개방</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>서울역 8번출구에서 남산 에스컬레이터로 연결되는 무장애 입체 보행 인프라 연결선 구축</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>사적 개발이 도시적 보행 가치 및 자연의 연계성을 극대화시키는 수준 높은 공공 기여의 표본</span>
-                        </li>
                     </ul>
                 </div>
 

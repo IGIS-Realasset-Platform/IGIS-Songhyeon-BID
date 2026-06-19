@@ -105,14 +105,6 @@ export default function Section38({ isActive }) {
                             <span className="mr-3 text-red-600">▪</span>
                             <span>보도 상의 가로수 식재 면적(Tree beds)을 12.5피트까지 확장하여 노점상의 통행을 규제한 사건</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-red-600">▪</span>
-                            <span>보행 환경 정비라는 표면적 명분 이면의 노점상 배제 및 물리적 젠트리피케이션 관철 의도 논란</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-red-600">▪</span>
-                            <span>에리어 매니지먼트의 상업적 지향성이 지닌 정화 효과와 지역 공동체적 포용성 간의 그늘과 마찰</span>
-                        </li>
                     </ul>
                 </div>
 

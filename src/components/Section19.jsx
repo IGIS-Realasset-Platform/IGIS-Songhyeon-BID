@@ -105,14 +105,6 @@ export default function Section19({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>BID 지정을 위해 부동산 소유주 및 사업자의 법적 동의 요건(과반수 이상)을 획득하는 단계</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>매사추세츠(60% 서명) 및 캘리포니아(Prop 13 연동 부담) 등 각 주별 정교한 입법 기준 존재</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>지구 획정을 통해 징수의 법적 합당성을 방어하고 소유주간 이해관계를 최종 조율하는 관문</span>
-                        </li>
                     </ul>
                 </div>
 

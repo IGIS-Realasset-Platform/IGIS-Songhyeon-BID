@@ -144,14 +144,6 @@ export default function Section14({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>1960년대 교외형 대형 쇼핑몰의 급부상에 따른 전통적인 도심 가로 상권의 붕괴 위기</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>자발적 상인협회 모금 방식이 지닌 고질적인 무임승차(Free-Rider) 문제로 인한 상권 정비 실패</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>1970년 세계 최초의 BIA(Bloor West Village BIA)가 탄생하여 강제 부과금 제도의 초석 마련</span>
-                        </li>
                     </ul>
                 </div>
 

@@ -86,14 +86,6 @@ export default function Section33({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>Related Companies 부사장을 비롯한 앵커 개발사 핵심 임원진이 이사회 보드에 직접 참여</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>민간의 고속 의사결정 및 전문성을 지구 관리에 그대로 이식하여 관리 품질 최상급 유지</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>대형 자산 소유주들과 공적 행정 대리인 간의 유기적 이사회 운영을 통해 트로피 자산 가치 방어</span>
-                        </li>
                     </ul>
                 </div>
 

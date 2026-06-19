@@ -103,14 +103,6 @@ export default function Section20({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>지자체가 재산세와 연동하여 특별부과금을 징수하되 시 행정 수수료 없이 100% 교부하는 원칙</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>징수된 자금이 지자체의 일반 재정으로 편입되거나 유출되지 않도록 전용 방지 장치 마련</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>뉴욕시(NYC) 등 선진 지자체에서 대행하는 신속하고 투명한 금융 환원 메커니즘 구축</span>
-                        </li>
                     </ul>
                 </div>
 

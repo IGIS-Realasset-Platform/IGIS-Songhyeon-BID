@@ -89,14 +89,6 @@ export default function Section29({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>Related Companies, Oxford, NYC, MTA의 정밀 결합으로 성사된 250억 달러 초대형 PPP</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>민간 개발사가 준공 후 철수하더라도 영구 설립된 BID가 바통을 이어받아 동일한 프리미엄 품질 관리</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>공공 유휴 부지와 민간의 기획 및 자본력을 입체적으로 결합한 글로벌 메가 디벨롭먼트의 표준</span>
-                        </li>
                     </ul>
                 </div>
 

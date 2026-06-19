@@ -92,14 +92,6 @@ export default function Section5({ isActive }) {
                             <span className="mr-3 text-red-600">▪</span>
                             <span>1984년 당시 성인 업소 난립과 노상강도 등 42번가 단일 블록에서만 연간 2,300건의 강력범죄 발생</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-red-600">▪</span>
-                            <span>극심한 치안 불안으로 인해 입주 기업들이 이탈하고 임대료 할인에도 공실이 장기화된 실태</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-red-600">▪</span>
-                            <span>뉴욕시 전체의 중심 상업지구가 슬럼화되며 도시 브랜드 이미지와 세수 기반이 동시 붕괴</span>
-                        </li>
                     </ul>
                 </div>
 

@@ -98,14 +98,6 @@ export default function Section12({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>주거, 상업, 호텔, 문화 인프라(모리 미술관 등)를 수직 단일 랜드마크 내에 결합한 수직 도시 모델</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>완공 후 독립 감정평가에서 개발 투자 가치가 기존 계획 대비 약 60% 이상 순증함을 증명</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>입주사 임직원들을 위한 다국어 탁아소, 병원 및 100% 무정전 자체 발전 시스템 완비로 공실 0% 방어</span>
-                        </li>
                     </ul>
                 </div>
 

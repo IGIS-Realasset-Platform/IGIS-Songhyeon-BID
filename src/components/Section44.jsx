@@ -122,14 +122,6 @@ export default function Section44({ isActive }) {
                             <span className="mr-3 text-[#0f172a]">▪</span>
                             <span>단순 지리적 이점에 의존하는 입지론을 탈피하여, 지구 전체의 콘텐츠 운영 품질을 자산 가치에 반영</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>타운 매니지먼트(OS)가 가동되는 오피스 지구가 미운영 지구 대비 장기 자산 가치 할증을 주도</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>청결, 안전, 이벤트, 커뮤니티 케어가 임차인들의 생산성을 높여 기업의 장기 락인을 보장</span>
-                        </li>
                     </ul>
                 </div>
 

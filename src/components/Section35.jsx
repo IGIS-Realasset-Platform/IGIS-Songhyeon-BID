@@ -105,14 +105,6 @@ export default function Section35({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>도로 차도 폭을 축소하고 보행 환경을 확장하는 넥다운(Neckdowns) 설계를 적용한 물리적 혁신</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>체류 시간을 늘리고 통행 만족도를 극대화하여 도로를 단순 통로가 아닌 '장소'로 재정의</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>조경 확충 및 가로 시설물 정비를 통해 주변 상업용 빌딩의 접근성과 도보 가치를 동시에 증진</span>
-                        </li>
                     </ul>
                 </div>
 

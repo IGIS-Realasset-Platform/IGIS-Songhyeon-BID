@@ -101,14 +101,6 @@ export default function Section9({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>평방피트당 $120~150선에 달하며 미드타운 평균 대비 10~20% 수준의 임대료 프리미엄 확보</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>블랙록, KKR, 메타 등 글로벌 선도 기업들이 높은 할증률을 감수하고 앵커 임차인으로 선제 입주</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>트로피 오피스의 물리적 스펙과 에리어 매니지먼트의 결합이 최상급 임대 경쟁력을 창출함을 입증</span>
-                        </li>
                     </ul>
                 </div>
 

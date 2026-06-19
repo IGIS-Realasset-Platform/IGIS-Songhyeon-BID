@@ -103,14 +103,6 @@ export default function Section48({ isActive }) {
                             <span className="mr-3 text-[#0f172a]">▪</span>
                             <span>양동-봉래 시범 지구를 거쳐 서울역 전체로 확장하고, 궁극적으로 용산 IBD를 결합하는 로드맵</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>단계별 추진을 통한 사업 리스크 제어 및 공공-민간 협력(PPP) 거버넌스의 점진적 고도화</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>서울역과 용산을 잇는 거대 국가 상징축(SYBD)의 통합 운영 및 자산화 비전</span>
-                        </li>
                     </ul>
                 </div>
 

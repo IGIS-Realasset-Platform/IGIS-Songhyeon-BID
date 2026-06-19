@@ -93,14 +93,6 @@ export default function Section41({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>이지스 시행 및 Foster + Partners 설계 기반의 강북 최대 규모 친환경 트로피 복합 단지</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>광역 교통망과 녹지 네트워크를 유기적으로 연결하는 핵심 코어 프로젝트</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>전통 오피스 스펙을 넘어 친환경 등급과 복합 편의 시설을 결합한 하이엔드 오피스 모델</span>
-                        </li>
                     </ul>
                 </div>
 

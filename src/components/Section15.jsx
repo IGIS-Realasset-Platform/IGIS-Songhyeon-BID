@@ -112,14 +112,6 @@ export default function Section15({ isActive }) {
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>무임승차 문제를 원천 예방하기 위해 상인들이 온타리오주 지방자치법 제361조 개정을 청원</span>
                         </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>자산 가치세에 부가하여 강제로 부과금을 수납하는 법적 집행력 확보</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>1970년 275개 점포가 참여하여 47,500달러의 예산으로 본격 출범한 법제화 성공의 역사적 기원</span>
-                        </li>
                     </ul>
                 </div>
 
