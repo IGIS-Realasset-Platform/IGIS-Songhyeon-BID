@@ -13,6 +13,7 @@ import Section9 from './Section9';
 import Section10 from './Section10';
 import Section11 from './Section11';
 import Section12 from './Section12';
+import Section12_Formula from './Section12_Formula';
 import Section13 from './Section13';
 import Section14 from './Section14';
 import Section15 from './Section15';
@@ -71,7 +72,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 71; 
+    const slidesLength = 72; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -100,8 +101,9 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section9 />, // Page 11
         <Section10 />, // Page 12
         <Section11 />, // Page 13
-        <Section12 />, // Page 14
-        <Section13 />, // Page 15 (Part 2 Cover)
+        <Section12 />, // Page 17
+        <Section12_Formula />, // Page 18 (Key Formula)
+        <Section13 />, // Page 19 (Part 2 Cover)
         <ChapterCover chapterNum="1" title="BIA/BID 기원과 역사" />, // Page 16
         <Section14 />, // Page 17
         <Section15 />, // Page 18

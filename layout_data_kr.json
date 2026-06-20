@@ -4534,6 +4534,185 @@
   },
   {
     "slideIndex": 18,
+    "bgColor": "rgb(255, 255, 255)",
+    "cards": [
+      {
+        "rect": {
+          "x": 410,
+          "y": 463.953125,
+          "w": 308,
+          "h": 220
+        },
+        "bgColor": "rgb(15, 23, 42)",
+        "borderColor": "rgb(15, 23, 42)",
+        "borderWidth": "4px",
+        "borderRadius": "0px"
+      },
+      {
+        "rect": {
+          "x": 806,
+          "y": 463.953125,
+          "w": 308,
+          "h": 220
+        },
+        "bgColor": "rgb(15, 23, 42)",
+        "borderColor": "rgb(15, 23, 42)",
+        "borderWidth": "4px",
+        "borderRadius": "0px"
+      },
+      {
+        "rect": {
+          "x": 1202,
+          "y": 463.953125,
+          "w": 308,
+          "h": 220
+        },
+        "bgColor": "rgb(15, 23, 42)",
+        "borderColor": "rgb(15, 23, 42)",
+        "borderWidth": "4px",
+        "borderRadius": "0px"
+      }
+    ],
+    "texts": [
+      {
+        "tagName": "SPAN",
+        "text": "글로벌 비즈니스 지구 공식 / Key Formula",
+        "rect": {
+          "x": 762.859375,
+          "y": 300.953125,
+          "w": 394.265625,
+          "h": 36
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "H2",
+        "text": "글로벌 비즈니스 지구의 부활 공식",
+        "rect": {
+          "x": 638.015625,
+          "y": 348.953125,
+          "w": 643.953125,
+          "h": 65
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "50px",
+        "fontWeight": "800",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "SPAN",
+        "text": "STEP 1",
+        "rect": {
+          "x": 539.484375,
+          "y": 540.546875,
+          "w": 49.03125,
+          "h": 24
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "P",
+        "text": "공공 관리 방치로 인한 쇠퇴",
+        "rect": {
+          "x": 452.234375,
+          "y": 576.546875,
+          "w": 223.515625,
+          "h": 30.796875
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "22px",
+        "fontWeight": "900",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "SPAN",
+        "text": "STEP 2",
+        "rect": {
+          "x": 934.34375,
+          "y": 525.15625,
+          "w": 51.296875,
+          "h": 24
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "P",
+        "text": "민관협력 에리어매니지먼트/BID 도입",
+        "rect": {
+          "x": 842,
+          "y": 561.15625,
+          "w": 236,
+          "h": 61.59375
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "22px",
+        "fontWeight": "900",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "SPAN",
+        "text": "STEP 3",
+        "rect": {
+          "x": 1330.125,
+          "y": 540.546875,
+          "w": 51.75,
+          "h": 24
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "P",
+        "text": "지속 가능한 자산 가치 창출",
+        "rect": {
+          "x": 1244.234375,
+          "y": 576.546875,
+          "w": 223.515625,
+          "h": 30.796875
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "22px",
+        "fontWeight": "900",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      },
+      {
+        "tagName": "P",
+        "text": "※ 행정력 공백으로 슬럼화된 지구를 민관협력 거버넌스(BID/AM) 모델로 재정비함으로써, 집객 효과 증대와 자산 가치 상승의 선순환 구조를 구축하는 것이 핵심 요체입니다.",
+        "rect": {
+          "x": 460,
+          "y": 723.953125,
+          "w": 1000,
+          "h": 55.09375
+        },
+        "color": "rgba(0, 0, 0, 0)",
+        "fontSize": "19px",
+        "fontWeight": "600",
+        "fontFamily": "Pretendard, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "textAlign": "center"
+      }
+    ]
+  },
+  {
+    "slideIndex": 19,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -4585,7 +4764,7 @@
     ]
   },
   {
-    "slideIndex": 19,
+    "slideIndex": 20,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -4622,7 +4801,7 @@
     ]
   },
   {
-    "slideIndex": 20,
+    "slideIndex": 21,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -5167,7 +5346,7 @@
     ]
   },
   {
-    "slideIndex": 21,
+    "slideIndex": 22,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -5652,7 +5831,7 @@
     ]
   },
   {
-    "slideIndex": 22,
+    "slideIndex": 23,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -6080,7 +6259,7 @@
     ]
   },
   {
-    "slideIndex": 23,
+    "slideIndex": 24,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -6589,7 +6768,7 @@
     ]
   },
   {
-    "slideIndex": 24,
+    "slideIndex": 25,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -6626,7 +6805,7 @@
     ]
   },
   {
-    "slideIndex": 25,
+    "slideIndex": 26,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -6850,7 +7029,7 @@
     ]
   },
   {
-    "slideIndex": 26,
+    "slideIndex": 27,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -7320,7 +7499,7 @@
     ]
   },
   {
-    "slideIndex": 27,
+    "slideIndex": 28,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -7760,7 +7939,7 @@
     ]
   },
   {
-    "slideIndex": 28,
+    "slideIndex": 29,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -8275,7 +8454,7 @@
     ]
   },
   {
-    "slideIndex": 29,
+    "slideIndex": 30,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -8721,7 +8900,7 @@
     ]
   },
   {
-    "slideIndex": 30,
+    "slideIndex": 31,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [],
     "texts": [
@@ -8773,7 +8952,7 @@
     ]
   },
   {
-    "slideIndex": 31,
+    "slideIndex": 32,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -9162,7 +9341,7 @@
     ]
   },
   {
-    "slideIndex": 32,
+    "slideIndex": 33,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -9199,7 +9378,7 @@
     ]
   },
   {
-    "slideIndex": 33,
+    "slideIndex": 34,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -9546,7 +9725,7 @@
     ]
   },
   {
-    "slideIndex": 34,
+    "slideIndex": 35,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -9770,7 +9949,7 @@
     ]
   },
   {
-    "slideIndex": 35,
+    "slideIndex": 36,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -10051,7 +10230,7 @@
     ]
   },
   {
-    "slideIndex": 36,
+    "slideIndex": 37,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -10088,7 +10267,7 @@
     ]
   },
   {
-    "slideIndex": 37,
+    "slideIndex": 38,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -10125,7 +10304,7 @@
     ]
   },
   {
-    "slideIndex": 38,
+    "slideIndex": 39,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [],
     "texts": [
@@ -10177,7 +10356,7 @@
     ]
   },
   {
-    "slideIndex": 39,
+    "slideIndex": 40,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -10458,7 +10637,7 @@
     ]
   },
   {
-    "slideIndex": 40,
+    "slideIndex": 41,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -10748,7 +10927,7 @@
     ]
   },
   {
-    "slideIndex": 41,
+    "slideIndex": 42,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -10785,7 +10964,7 @@
     ]
   },
   {
-    "slideIndex": 42,
+    "slideIndex": 43,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -11009,7 +11188,7 @@
     ]
   },
   {
-    "slideIndex": 43,
+    "slideIndex": 44,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [],
     "texts": [
@@ -11061,7 +11240,7 @@
     ]
   },
   {
-    "slideIndex": 44,
+    "slideIndex": 45,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -11465,7 +11644,7 @@
     ]
   },
   {
-    "slideIndex": 45,
+    "slideIndex": 46,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -11502,7 +11681,7 @@
     ]
   },
   {
-    "slideIndex": 46,
+    "slideIndex": 47,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -11735,7 +11914,7 @@
     ]
   },
   {
-    "slideIndex": 47,
+    "slideIndex": 48,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -12124,7 +12303,7 @@
     ]
   },
   {
-    "slideIndex": 48,
+    "slideIndex": 49,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -12513,7 +12692,7 @@
     ]
   },
   {
-    "slideIndex": 49,
+    "slideIndex": 50,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -12746,7 +12925,7 @@
     ]
   },
   {
-    "slideIndex": 50,
+    "slideIndex": 51,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -12783,7 +12962,7 @@
     ]
   },
   {
-    "slideIndex": 51,
+    "slideIndex": 52,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -12820,7 +12999,7 @@
     ]
   },
   {
-    "slideIndex": 52,
+    "slideIndex": 53,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -13017,7 +13196,7 @@
     ]
   },
   {
-    "slideIndex": 53,
+    "slideIndex": 54,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -13241,7 +13420,7 @@
     ]
   },
   {
-    "slideIndex": 54,
+    "slideIndex": 55,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -13278,7 +13457,7 @@
     ]
   },
   {
-    "slideIndex": 55,
+    "slideIndex": 56,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -13667,7 +13846,7 @@
     ]
   },
   {
-    "slideIndex": 56,
+    "slideIndex": 57,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -13704,7 +13883,7 @@
     ]
   },
   {
-    "slideIndex": 57,
+    "slideIndex": 58,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -13901,7 +14080,7 @@
     ]
   },
   {
-    "slideIndex": 58,
+    "slideIndex": 59,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -13966,7 +14145,7 @@
     ]
   },
   {
-    "slideIndex": 59,
+    "slideIndex": 60,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -14003,7 +14182,7 @@
     ]
   },
   {
-    "slideIndex": 60,
+    "slideIndex": 61,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -14040,7 +14219,7 @@
     ]
   },
   {
-    "slideIndex": 61,
+    "slideIndex": 62,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -14273,7 +14452,7 @@
     ]
   },
   {
-    "slideIndex": 62,
+    "slideIndex": 63,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -14680,7 +14859,7 @@
     ]
   },
   {
-    "slideIndex": 63,
+    "slideIndex": 64,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -15063,7 +15242,7 @@
     ]
   },
   {
-    "slideIndex": 64,
+    "slideIndex": 65,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -15308,7 +15487,7 @@
     ]
   },
   {
-    "slideIndex": 65,
+    "slideIndex": 66,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -15345,7 +15524,7 @@
     ]
   },
   {
-    "slideIndex": 66,
+    "slideIndex": 67,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -15521,7 +15700,7 @@
     ]
   },
   {
-    "slideIndex": 67,
+    "slideIndex": 68,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -15982,7 +16161,7 @@
     ]
   },
   {
-    "slideIndex": 68,
+    "slideIndex": 69,
     "bgColor": "rgba(0, 0, 0, 0)",
     "cards": [],
     "texts": [
@@ -16019,7 +16198,7 @@
     ]
   },
   {
-    "slideIndex": 69,
+    "slideIndex": 70,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -16321,7 +16500,7 @@
     ]
   },
   {
-    "slideIndex": 70,
+    "slideIndex": 71,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
@@ -16638,7 +16817,7 @@
     ]
   },
   {
-    "slideIndex": 71,
+    "slideIndex": 72,
     "bgColor": "rgb(255, 255, 255)",
     "cards": [
       {
