@@ -122,10 +122,12 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section25 />, // Page 30
         <Section26 />, // Page 31
         <Section27 />, // Page 32
-        <Section28 />, // Page 33 (Part 3 Cover)
-        <ChapterCover chapterNum="1" title="메가 PPP 개발과 파이낸싱" />, // Page 34
-        <Section29 />, // Page 35
-        <Section30 />, // Page 36
+        <ChapterCover chapterNum="4" title={<>뉴욕 현황<br />72개 BID의 생태계</>} />, // Page 33
+        <Section27_NewContent />, // Page 34
+        <Section28 />, // Page 35 (Part 3 Cover)
+        <ChapterCover chapterNum="1" title="메가 PPP 개발과 파이낸싱" />, // Page 36
+        <Section29 />, // Page 37
+        <Section30 />, // Page 38
         <Section31 />, // Page 39
         <ChapterCover chapterNum="2" title="공간 운영 관리 체계" />, // Page 40
         <Section32 />, // Page 41
