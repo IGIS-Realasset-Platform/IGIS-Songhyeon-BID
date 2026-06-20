@@ -29,7 +29,9 @@ import Section24 from './Section24';
 import Section25 from './Section25';
 import Section26 from './Section26';
 import Section27 from './Section27';
-import Section27_NewContent from './Section27_NewContent';
+import Section27_NewContent1 from './Section27_NewContent1';
+import Section27_NewContent2 from './Section27_NewContent2';
+import Section27_NewContent3 from './Section27_NewContent3';
 import Section28 from './Section28';
 import Section29 from './Section29';
 import Section30 from './Section30';
@@ -73,7 +75,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 74; 
+    const slidesLength = 76; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -123,43 +125,45 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section26 />, // Page 31
         <Section27 />, // Page 32
         <ChapterCover chapterNum="4" title={<>뉴욕 현황<br />72개 BID의 생태계</>} />, // Page 33
-        <Section27_NewContent />, // Page 34
-        <Section28 />, // Page 35 (Part 3 Cover)
-        <ChapterCover chapterNum="1" title="메가 PPP 개발과 파이낸싱" />, // Page 36
-        <Section29 />, // Page 37
-        <Section30 />, // Page 38
-        <Section31 />, // Page 39
-        <ChapterCover chapterNum="2" title="공간 운영 관리 체계" />, // Page 40
-        <Section32 />, // Page 41
-        <Section33 />, // Page 42
-        <Section34 />, // Page 43
-        <ChapterCover chapterNum="3" title="플레이스메이킹 실무와 갈등" />, // Page 44
-        <Section35 />, // Page 45
-        <Section36 />, // Page 46
-        <Section37 />, // Page 47
-        <Section38 />, // Page 48
-        <Section38_Part4Cover />, // Page 49 (Part 4 Cover)
-        <ChapterCover chapterNum="1" title="타운 매니지먼트 철학과 디벨로퍼" />, // Page 50
-        <Section38_1 />, // Page 51
-        <Section38_2 />, // Page 52
-        <ChapterCover chapterNum="2" title="일본판 BID 제도와 오사카 모델" />, // Page 53
-        <Section38_3 />, // Page 54
-        <ChapterCover chapterNum="3" title="미·일 비교 및 SBD 전략 적용" />, // Page 55
-        <Section38_4 />, // Page 56
-        <Section38_5 />, // Page 57
-        <Section39 />, // Page 58 (Part 5 Cover)
-        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 59
-        <Section40 />, // Page 51
-        <Section41 />, // Page 52
-        <Section42 />, // Page 53
-        <Section43 />, // Page 54
-        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 55
-        <Section44 />, // Page 56
-        <Section45 />, // Page 57
-        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 58
-        <Section46 />, // Page 59
-        <Section47 />, // Page 60
-        <Section48 />  // Page 61
+        <Section27_NewContent1 />, // Page 34
+        <Section27_NewContent2 />, // Page 35
+        <Section27_NewContent3 />, // Page 36
+        <Section28 />, // Page 37 (Part 3 Cover)
+        <ChapterCover chapterNum="1" title="메가 PPP 개발과 파이낸싱" />, // Page 38
+        <Section29 />, // Page 39
+        <Section30 />, // Page 40
+        <Section31 />, // Page 41
+        <ChapterCover chapterNum="2" title="공간 운영 관리 체계" />, // Page 42
+        <Section32 />, // Page 43
+        <Section33 />, // Page 44
+        <Section34 />, // Page 45
+        <ChapterCover chapterNum="3" title="플레이스메이킹 실무와 갈등" />, // Page 46
+        <Section35 />, // Page 47
+        <Section36 />, // Page 48
+        <Section37 />, // Page 49
+        <Section38 />, // Page 50
+        <Section38_Part4Cover />, // Page 51 (Part 4 Cover)
+        <ChapterCover chapterNum="1" title="타운 매니지먼트 철학과 디벨로퍼" />, // Page 52
+        <Section38_1 />, // Page 53
+        <Section38_2 />, // Page 54
+        <ChapterCover chapterNum="2" title="일본판 BID 제도와 오사카 모델" />, // Page 55
+        <Section38_3 />, // Page 56
+        <ChapterCover chapterNum="3" title="미·일 비교 및 SBD 전략 적용" />, // Page 57
+        <Section38_4 />, // Page 58
+        <Section38_5 />, // Page 59
+        <Section39 />, // Page 60 (Part 5 Cover)
+        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 61
+        <Section40 />, // Page 53
+        <Section41 />, // Page 54
+        <Section42 />, // Page 55
+        <Section43 />, // Page 56
+        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 57
+        <Section44 />, // Page 58
+        <Section45 />, // Page 59
+        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 60
+        <Section46 />, // Page 61
+        <Section47 />, // Page 62
+        <Section48 />  // Page 63
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
