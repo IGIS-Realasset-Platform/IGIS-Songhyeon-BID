@@ -25,10 +25,10 @@ async function captureBackgrounds(lang) {
     };
   });
   
-  const totalSlides = 142;
+  const totalSlides = 74;
   
   for (let s = 1; s <= totalSlides; s++) {
-    const url = `http://localhost:8082/?lang=${lang}#page-${s}`;
+    const url = `http://localhost:8083/?lang=${lang}#page-${s}`;
     console.log(`Capturing slide ${s}/${totalSlides}...`);
     
     try {
