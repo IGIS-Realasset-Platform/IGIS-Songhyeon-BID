@@ -43,6 +43,7 @@ import Section35 from './Section35';
 import Section36 from './Section36';
 import Section37 from './Section37';
 import Section38 from './Section38';
+import Section38_Newschool from './Section38_Newschool';
 import Section38_Part4Cover from './Section38_Part4Cover';
 import Section38_1 from './Section38_1';
 import Section38_2 from './Section38_2';
@@ -75,7 +76,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 76; 
+    const slidesLength = 77; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -140,30 +141,31 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="3" title="플레이스메이킹 실무와 갈등" />, // Page 46
         <Section35 />, // Page 47
         <Section36 />, // Page 48
-        <Section37 />, // Page 49
-        <Section38 />, // Page 50
-        <Section38_Part4Cover />, // Page 51 (Part 4 Cover)
-        <ChapterCover chapterNum="1" title="타운 매니지먼트 철학과 디벨로퍼" />, // Page 52
-        <Section38_1 />, // Page 53
-        <Section38_2 />, // Page 54
-        <ChapterCover chapterNum="2" title="일본판 BID 제도와 오사카 모델" />, // Page 55
-        <Section38_3 />, // Page 56
-        <ChapterCover chapterNum="3" title="미·일 비교 및 SBD 전략 적용" />, // Page 57
-        <Section38_4 />, // Page 58
-        <Section38_5 />, // Page 59
-        <Section39 />, // Page 60 (Part 5 Cover)
-        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 61
-        <Section40 />, // Page 53
-        <Section41 />, // Page 54
-        <Section42 />, // Page 55
-        <Section43 />, // Page 56
-        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 57
-        <Section44 />, // Page 58
-        <Section45 />, // Page 59
-        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 60
-        <Section46 />, // Page 61
-        <Section47 />, // Page 62
-        <Section48 />  // Page 63
+        <Section37 />, // Page 53
+        <Section38 />, // Page 54
+        <Section38_Newschool />, // Page 55
+        <Section38_Part4Cover />, // Page 56 (Part 4 Cover)
+        <ChapterCover chapterNum="1" title="타운 매니지먼트 철학과 디벨로퍼" />, // Page 57
+        <Section38_1 />, // Page 58
+        <Section38_2 />, // Page 59
+        <ChapterCover chapterNum="2" title="일본판 BID 제도와 오사카 모델" />, // Page 60
+        <Section38_3 />, // Page 61
+        <ChapterCover chapterNum="3" title="미·일 비교 및 SBD 전략 적용" />, // Page 62
+        <Section38_4 />, // Page 63
+        <Section38_5 />, // Page 64
+        <Section39 />, // Page 65 (Part 5 Cover)
+        <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 66
+        <Section40 />, // Page 67
+        <Section41 />, // Page 68
+        <Section42 />, // Page 69
+        <Section43 />, // Page 70
+        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 71
+        <Section44 />, // Page 72
+        <Section45 />, // Page 73
+        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 74
+        <Section46 />, // Page 75
+        <Section47 />, // Page 76
+        <Section48 />  // Page 77
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
