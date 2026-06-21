@@ -11,7 +11,7 @@ export default function Section38_3({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '일본의 도시재생 법제 체계 / Legal Evolution' : 'Japanese Urban Regeneration Framework'}
+                        {lang === 'kr' ? '[제도의 진화] 자발적 마을 만들기에서 법정 부담금 제도(일본판 BID)로의 도약' : '[Evolution] Leap from Voluntary Machizukuri to Mandated Assessment'}
                     </span>
                 </div>
 

@@ -11,7 +11,7 @@ export default function Section38_4({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '작동 메커니즘 대조 / Governance Dynamics' : 'Governance Dynamics / US vs Japan'}
+                        {lang === 'kr' ? '[거버넌스 대조] 미국의 조세 기반 횡적 바텀업 vs 일본의 자본 기반 종적 탑다운' : '[Governance Contrast] US Tax-based Horizontal vs Japan Capital-based Vertical'}
                     </span>
                 </div>
 

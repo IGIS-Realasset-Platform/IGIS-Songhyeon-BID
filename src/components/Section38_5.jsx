@@ -67,7 +67,7 @@ export default function Section38_5({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '3각 비교 매트릭스 / 3-Way Matrix' : '3-Way Comparative Matrix'}
+                        {lang === 'kr' ? '[서울형의 제안] 미국형 BID와 일본형 타운매니지먼트를 융합한 SBD 하이브리드 거버넌스' : '[Seoul Proposal] SBD Hybrid Fusing US BID and Japan AM'}
                     </span>
                 </div>
 

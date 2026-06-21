@@ -11,7 +11,7 @@ export default function Section38_1({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '도쿄 타운 매니지먼트 / Mori Building' : 'Tokyo Town Management / Mori Building'}
+                        {lang === 'kr' ? '[개발의 철학] 도시 유기체론에 입각한 모리빌딩의 \'문화도심\' 기획' : '[Philosophy] Mori Building\'s "Cultural Heart" based on Urban Organism'}
                     </span>
                 </div>
 

@@ -11,7 +11,7 @@ export default function Section38_2({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '3대 디벨로퍼 실행 전략 / Major Developer Strategies' : 'Major Developer Strategies / Tokyo'}
+                        {lang === 'kr' ? '[실행의 모델] 3대 디벨로퍼(미쓰비시·모리·미쓰이)의 독자적 차별화 전략' : '[Execution Model] Unique Strategies of the 3 Major Developers'}
                     </span>
                 </div>
 
