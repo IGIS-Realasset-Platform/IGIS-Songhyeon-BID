@@ -31,9 +31,8 @@ export default function Section63({ isActive }) {
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (화려한 3D 레이어 및 그라데이션) */}
-                <div className={`w-full max-w-[1250px] mt-[10px] mb-[25px] relative transition-all duration-[765ms] ${step >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                    <div className="w-full h-[360px] bg-gradient-to-br from-slate-50 to-slate-100/50 border border-slate-200 relative flex items-center justify-center shadow-inner">
-                        <svg className="w-full h-full" viewBox="0 0 940 360">
+                <div className={`w-full max-w-[1250px] mt-[10px] mb-[25px] relative transition-all duration-[765ms] ${step >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} flex items-center justify-center`}>
+                    <svg className="w-full h-[360px]" viewBox="0 0 940 360">
                             <defs>
                                 <linearGradient id="gradPillar1" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#475569" />
@@ -124,7 +123,6 @@ export default function Section63({ isActive }) {
                             </g>
 
                         </svg>
-                    </div>
                 </div>
 
                 {/* 하단 설명글 - 규격 완벽 준수 */}
