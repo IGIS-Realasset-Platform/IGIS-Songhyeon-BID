@@ -73,6 +73,9 @@ import Section59 from './Section59';
 import Section60 from './Section60';
 import Section61 from './Section61';
 import Section62 from './Section62';
+import Section63 from './Section63';
+import Section64 from './Section64';
+import Section65 from './Section65';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -89,7 +92,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 93; 
+    const slidesLength = 97; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -194,7 +197,11 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="6" title="증거 1. 디벨로퍼와 자산 소유자를 위한 재무적 실익 입증" />, // Page 90
         <Section60 />, // Page 91
         <Section61 />, // Page 92
-        <Section62 /> // Page 93
+        <Section62 />, // Page 93
+        <ChapterCover chapterNum="7" title="증거 2. 도시·정부(서울시)에게 무엇이 좋은가" />, // Page 94
+        <Section63 />, // Page 95
+        <Section64 />, // Page 96
+        <Section65 /> // Page 97
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);

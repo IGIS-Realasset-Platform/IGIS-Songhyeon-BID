@@ -211,6 +211,15 @@ export const menuDataEn = [
                     { label: "글로벌 3대 플레이스메이킹 성공 실증 사례", id: "page-92" },
                     { label: "자산가치 상승 엔진으로서의 SBD OS 최종 결론", id: "page-93" }
                 ]
+            },
+            {
+                title: "Chapter 7. 증거 2. 도시·정부(서울시)에게 무엇이 좋은가",
+                id: "page-94",
+                items: [
+                    { label: "예산 부담 없는 민간 협력형 도시 복지 모델", id: "page-95" },
+                    { label: "뉴욕 타임스스퀘어 실증: 안전과 세수의 거대 지렛대", id: "page-96" },
+                    { label: "환경 성능의 지속 관리와 글로벌 도시 브랜드 효과", id: "page-97" }
+                ]
             }
         ] 
     }
@@ -428,6 +437,15 @@ export const menuDataKr = [
                     { label: "BID의 상업 가치 상승 분석과 SBD ROI", id: "page-91" },
                     { label: "글로벌 3대 플레이스메이킹 성공 실증 사례", id: "page-92" },
                     { label: "자산가치 상승 엔진으로서의 SBD OS 최종 결론", id: "page-93" }
+                ]
+            },
+            {
+                title: "Chapter 7. 증거 2. 도시·정부(서울시)에게 무엇이 좋은가",
+                id: "page-94",
+                items: [
+                    { label: "예산 부담 없는 민간 협력형 도시 복지 모델", id: "page-95" },
+                    { label: "뉴욕 타임스스퀘어 실증: 안전과 세수의 거대 지렛대", id: "page-96" },
+                    { label: "환경 성능의 지속 관리와 글로벌 도시 브랜드 효과", id: "page-97" }
                 ]
             }
         ] 
