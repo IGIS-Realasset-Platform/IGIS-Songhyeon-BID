@@ -20,76 +20,95 @@ export default function Section46({ isActive }) {
                     {lang === 'kr' ? '서울형 BID 안착을 위한 5대 제도적 커스터마이징 전략' : 'Five Strategies for Localizing Seoul-Style BID'}
                 </h2>
 
-                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 5대 카드형 인포그래픽 설계 */}
-                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px]">
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 items-stretch">
-                        
-                        {/* 카드 1 */}
-                        <div className="border border-[#0f172a] bg-white p-5 flex flex-col justify-between text-left">
-                            <div>
-                                <span className="text-[12px] font-black text-[#1e3a8a] block mb-2">STRATEGY 01</span>
-                                <h3 className="text-[16px] md:text-[18px] font-black text-[#0f172a] mb-3 leading-snug">
-                                    법적 근거 신설
-                                </h3>
-                                <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
-                                    도시재생특별법 개정 혹은 '에리어매니지먼트법'을 제정하고, 소유자+상업 임차인(사업소세 연동)의 이중 부과 구조 및 면적+인수 기준 동의제 마련.
-                                </p>
+                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 5각 메커니즘 기어 SVG 인포그래픽 적용 */}
+                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] flex flex-col lg:flex-row gap-6 items-stretch">
+                    
+                    {/* 좌측: 5각 기어 메커니즘 다이어그램 (SVG) */}
+                    <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
+                                Customization Mechanism Gear
+                            </span>
+                            <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-4 leading-snug">
+                                {lang === 'kr' ? '5대 커스터마이징 유기적 연결 구조도' : 'Integrated 5-Axis Gear Matrix'}
+                            </h3>
+                            
+                            {/* 5각 기어 SVG */}
+                            <div className="w-full h-[280px] bg-slate-50 border border-gray-200 relative flex items-center justify-center">
+                                <svg className="w-full h-full" viewBox="0 0 350 280">
+                                    {/* 중심 코어 */}
+                                    <circle cx="175" cy="140" r="35" fill="#0f172a" stroke="#1e3a8a" strokeWidth="2.5" />
+                                    <text x="175" y="137" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="black">K-BID</text>
+                                    <text x="175" y="150" textAnchor="middle" fill="#93c5fd" fontSize="7" fontWeight="bold">서울형 모델</text>
+                                    
+                                    {/* 5개 축 연결 노드 */}
+                                    {/* 1. 법적 근거 (Top) */}
+                                    <line x1="175" y1="140" x2="175" y2="45" stroke="#0f172a" strokeWidth="1.5" />
+                                    <circle cx="175" cy="45" r="18" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
+                                    <text x="175" y="48" textAnchor="middle" fill="#0f172a" fontSize="8" fontWeight="black">①법제</text>
+                                    
+                                    {/* 2. 기부채납 (Top Right) */}
+                                    <line x1="175" y1="140" x2="265" y2="90" stroke="#0f172a" strokeWidth="1.5" />
+                                    <circle cx="265" cy="90" r="18" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
+                                    <text x="265" y="93" textAnchor="middle" fill="#0f172a" fontSize="8" fontWeight="black">②위탁</text>
+
+                                    {/* 3. 소유 분절 (Bottom Right) */}
+                                    <line x1="175" y1="140" x2="230" y2="215" stroke="#0f172a" strokeWidth="1.5" />
+                                    <circle cx="230" cy="215" r="18" fill="#ffffff" stroke="#ef4444" strokeWidth="2" />
+                                    <text x="230" y="218" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="black">③앵커</text>
+
+                                    {/* 4. 시 거버넌스 (Bottom Left) */}
+                                    <line x1="175" y1="140" x2="120" y2="215" stroke="#0f172a" strokeWidth="1.5" />
+                                    <circle cx="120" cy="215" r="18" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
+                                    <text x="120" y="218" textAnchor="middle" fill="#0f172a" fontSize="8" fontWeight="black">④SH</text>
+
+                                    {/* 5. 재원 다각화 (Top Left) */}
+                                    <line x1="175" y1="140" x2="85" y2="90" stroke="#0f172a" strokeWidth="1.5" />
+                                    <circle cx="85" cy="90" r="18" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
+                                    <text x="85" y="93" textAnchor="middle" fill="#0f172a" fontSize="8" fontWeight="black">⑤재원</text>
+                                    
+                                    {/* 기어 회전 가이드 라인 */}
+                                    <circle cx="175" cy="140" r="100" fill="none" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3,3" />
+                                </svg>
                             </div>
                         </div>
-
-                        {/* 카드 2 */}
-                        <div className="border border-[#0f172a] bg-white p-5 flex flex-col justify-between text-left">
-                            <div>
-                                <span className="text-[12px] font-black text-[#1e3a8a] block mb-2">STRATEGY 02</span>
-                                <h3 className="text-[16px] md:text-[18px] font-black text-[#0f172a] mb-3 leading-snug">
-                                    기부채납-BID 연계
-                                </h3>
-                                <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
-                                    대형 재개발 사업 인허가 시 기부채납하는 보행 광장·공원의 관리권을 BID에 위탁하고, 시 예산 일부를 보조하는 '서비스 계약 모델'을 장착.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 카드 3 */}
-                        <div className="border border-[#0f172a] bg-white p-5 flex flex-col justify-between text-left">
-                            <div>
-                                <span className="text-[12px] font-black text-[#1e3a8a] block mb-2">STRATEGY 03</span>
-                                <h3 className="text-[16px] md:text-[18px] font-black text-[#0f172a] mb-3 leading-snug">
-                                    소유 분절 대응
-                                </h3>
-                                <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
-                                    소유주가 극도로 분절된 구도심 특성을 감안해 재개발 조합 및 도시환경정비사업 시행자를 발의 주체로 포용하며, 이오타 등 앵커 디벨로퍼를 핵심 축으로 설정.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 카드 4 */}
-                        <div className="border border-[#0f172a] bg-white p-5 flex flex-col justify-between text-left">
-                            <div>
-                                <span className="text-[12px] font-black text-[#1e3a8a] block mb-2">STRATEGY 04</span>
-                                <h3 className="text-[16px] md:text-[18px] font-black text-[#0f172a] mb-3 leading-snug">
-                                    서울시 거버넌스 연계
-                                </h3>
-                                <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
-                                    서울주택도시공사(SH) 또는 서울도시재생지원센터가 BID의 공적 감독 기구 역할을 수행하고, 서울시 도시재생 활성화 계획과 예산 심의를 연계.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 카드 5 */}
-                        <div className="border border-[#0f172a] bg-white p-5 flex flex-col justify-between text-left">
-                            <div>
-                                <span className="text-[12px] font-black text-[#1e3a8a] block mb-2">STRATEGY 05</span>
-                                <h3 className="text-[16px] md:text-[18px] font-black text-[#0f172a] mb-3 leading-snug">
-                                    다각적 재원 구조
-                                </h3>
-                                <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
-                                    기본 토지 소유자 부담금 외에도 공개공지 운영 보조금, 문체부 특화거리 예산 지원, 관광진흥개발기금 등을 보완적으로 레이어링하여 재정 자립도 확보.
-                                </p>
-                            </div>
-                        </div>
-
                     </div>
+
+                    {/* 우측: 5대 전략 세부 매트릭스 도표 */}
+                    <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
+                        <div>
+                            <span className="inline-block bg-[#0f172a] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
+                                Strategy Matrix Table
+                            </span>
+                            <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-4 leading-snug">
+                                {lang === 'kr' ? '5대 맞춤 전략 실행 세부사항' : 'Implementation Specifications'}
+                            </h3>
+                            
+                            <div className="space-y-3 text-[13px] font-bold text-gray-700">
+                                <div className="border-b border-gray-200 pb-2">
+                                    <span className="text-[#1e3a8a] block">① 법적 근거 신설 (일본 선례 벤치마킹)</span>
+                                    <span className="text-[12px] text-gray-500 font-medium block mt-0.5">에리어매니지먼트법 제정, 소유주+임차인 이중 구조 및 동의 요건 완화</span>
+                                </div>
+                                <div className="border-b border-gray-200 pb-2">
+                                    <span className="text-[#1e3a8a] block">② 공공기여의 BID 연동 위탁 구조화</span>
+                                    <span className="text-[12px] text-gray-500 font-medium block mt-0.5">기부채납 공원 관리권을 BID에 위탁, 시 예산 매칭 서비스 계약 모델 도입</span>
+                                </div>
+                                <div className="border-b border-gray-200 pb-2">
+                                    <span className="text-red-500 block">③ 소유 분절 해결을 위한 앵커 디벨로퍼 주도</span>
+                                    <span className="text-[12px] text-gray-500 font-medium block mt-0.5">재개발 조합/정비시행자를 주체로 편입하고 대형 앵커 투자자를 발의 핵심으로 지정</span>
+                                </div>
+                                <div className="border-b border-gray-200 pb-2">
+                                    <span className="text-[#1e3a8a] block">④ 서울시 거버넌스 및 SH 연계 감독</span>
+                                    <span className="text-[12px] text-gray-500 font-medium block mt-0.5">SH(서울주택도시공사)에 BID 공적 감독 위임 및 활성화 계획 상호 연동</span>
+                                </div>
+                                <div>
+                                    <span className="text-[#1e3a8a] block">⑤ 다각적 자생 재원 레이어링</span>
+                                    <span className="text-[12px] text-gray-500 font-medium block mt-0.5">기본 부담금(감정평가 연면적 연계) + 보행로 운영 보조금 + 특화거리 기금</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 {/* 하단 설명글 - 규격 준수 */}

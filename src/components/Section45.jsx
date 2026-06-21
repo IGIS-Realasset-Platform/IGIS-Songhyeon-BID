@@ -20,96 +20,99 @@ export default function Section45({ isActive }) {
                     {lang === 'kr' ? '자발적 연합의 한계: 무교·다동 실험이 남긴 무임승차(Free-rider) 교훈' : 'Limits of Voluntary Alliance: The Free-rider Lesson of Mugyo Da-dong'}
                 </h2>
 
-                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 커스텀 인포그래픽 설계 */}
+                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 입체적 인포그래픽 설계 (구역 구성 분포도 + 재원 쇠퇴 파이프라인) */}
                 <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] flex flex-col lg:flex-row gap-6 items-stretch">
                     
-                    {/* 좌측: 무교·다동 타운매니지먼트 사업 개요 */}
+                    {/* 좌측: 무교·다동 구역의 소유 분절 구조 및 한계 분석 (SVG) */}
                     <div className="w-full lg:w-[48%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
                             <span className="inline-block bg-[#0f172a] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
-                                Pilot Project Overview
+                                District Structure & Soft Governance
                             </span>
-                            <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-6 leading-snug">
-                                {lang === 'kr' ? '느슨한 연성(Soft) 거버넌스의 실태' : 'Soft Governance in Practice (2018)'}
+                            <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-4 leading-snug">
+                                {lang === 'kr' ? '무교·다동 구역 소유구조 격자망' : 'Soft Governance Configuration'}
                             </h3>
                             
-                            <div className="space-y-4">
-                                <div className="border border-gray-300 p-4 bg-slate-50">
-                                    <span className="block font-black text-[15px] text-gray-900">🏢 분절된 복합 구역</span>
-                                    <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed mt-1">
-                                        17개의 대형 프라임 오피스 빌딩과 200여 개가 넘는 영세 음식점 및 도소매업종이 한데 뒤엉킨 복잡한 서울 구도심 상권.
-                                    </p>
-                                </div>
-                                <div className="border border-gray-300 p-4 bg-slate-50">
-                                    <span className="block font-black text-[15px] text-gray-900">🤝 자발성 중심의 민민 협력</span>
-                                    <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed mt-1">
-                                        강제 부담금이나 세금 징수를 철저히 배제하고, 민간 빌딩주들과 상인들의 자발적 참여 및 서울시의 느슨한 행정 지원에만 의존.
-                                    </p>
-                                </div>
-                                <div className="border border-gray-300 p-4 bg-slate-50">
-                                    <span className="block font-black text-[15px] text-red-500">⚠️ 지속 불가능성 노출</span>
-                                    <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed mt-1">
-                                        자체적인 강제 재원 징수권과 사업화 구조가 없어 마케팅 및 지속적인 지구 환경 관리를 위한 자금을 마련하는 데 만성적 한계를 보임.
-                                    </p>
-                                </div>
+                            {/* 무교다동 빌딩-상인 구역 구성 격자형 맵 */}
+                            <div className="w-full h-[220px] bg-slate-50 border border-gray-200 relative mb-4">
+                                <svg className="w-full h-full" viewBox="0 0 350 220">
+                                    {/* 17개 빌딩 상징 (남색 큰 상자들) */}
+                                    <rect x="20" y="30" width="40" height="60" fill="#0f172a" stroke="#0f172a" strokeWidth="1" />
+                                    <rect x="75" y="20" width="45" height="70" fill="#0f172a" stroke="#0f172a" strokeWidth="1" />
+                                    <rect x="135" y="40" width="35" height="50" fill="#0f172a" stroke="#0f172a" strokeWidth="1" />
+                                    
+                                    <rect x="20" y="110" width="50" height="50" fill="#0f172a" stroke="#0f172a" strokeWidth="1" />
+                                    <rect x="85" y="110" width="40" height="65" fill="#0f172a" stroke="#0f172a" strokeWidth="1" />
+                                    
+                                    {/* 200여개 영세 상점 상징 (작은 회색 점/상자들) */}
+                                    <circle cx="210" cy="40" r="4" fill="#94a3b8" />
+                                    <circle cx="225" cy="35" r="4" fill="#94a3b8" />
+                                    <circle cx="240" cy="45" r="4" fill="#94a3b8" />
+                                    <circle cx="215" cy="60" r="4" fill="#ef4444" /> {/* 자발적 참여 주체 */}
+                                    <circle cx="235" cy="65" r="4" fill="#94a3b8" />
+                                    <circle cx="220" cy="80" r="4" fill="#94a3b8" />
+                                    
+                                    <circle cx="270" cy="110" r="4" fill="#94a3b8" />
+                                    <circle cx="285" cy="105" r="4" fill="#94a3b8" />
+                                    <circle cx="300" cy="115" r="4" fill="#ef4444" /> {/* 자발적 참여 주체 */}
+                                    <circle cx="275" cy="130" r="4" fill="#94a3b8" />
+                                    <circle cx="295" cy="135" r="4" fill="#94a3b8" />
+                                    
+                                    {/* 텍스트 설명 데코 */}
+                                    <text x="65" y="195" textAnchor="middle" fill="#0f172a" fontSize="9" fontWeight="bold">17개 프라임 오피스</text>
+                                    <text x="260" y="165" textAnchor="middle" fill="#475569" fontSize="9" fontWeight="bold">200여개 소상공인</text>
+                                    
+                                    <line x1="160" y1="140" x2="200" y2="140" stroke="#ef4444" strokeWidth="2" strokeDasharray="3,3" />
+                                    <text x="180" y="130" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">자발적 협의체</text>
+                                    
+                                    {/* 경고 딱지 */}
+                                    <rect x="20" y="20" width="50" height="15" fill="#ef4444" />
+                                    <text x="45" y="31" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">무임승차 노출</text>
+                                </svg>
                             </div>
+                            
+                            <p className="text-[13px] text-gray-500 font-bold leading-relaxed">
+                                {lang === 'kr' 
+                                    ? '대형 빌딩주들과 골목 영세 업소의 복잡한 분절 구조 속에서, 법적 의무 없는 자발적 기부금 유치 모델은 지속적인 재원 마련에 한계를 드러냈습니다.'
+                                    : '散산재한 소유주들 간의 자발적 참여에 의존한 Soft 거버넌스는 마케팅 재원 지속성 확보에 실패하여 한계를 보였습니다.'}
+                            </p>
                         </div>
                     </div>
 
-                    {/* 우측: 무임승차(Free-rider) 악순환 루프 SVG 시각화 */}
+                    {/* 우측: 재원 쇠퇴 파이프라인 및 무임승차 순환 매커니즘 (SVG) */}
                     <div className="w-full lg:w-[52%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
                             <span className="inline-block bg-[#ef4444] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
-                                The Free-rider Loop
+                                Resource Pipeline & Free-rider Loop
                             </span>
                             <h3 className="text-[20px] md:text-[22px] font-black text-[#ef4444] mb-6 leading-snug">
-                                {lang === 'kr' ? '강제력 없는 자발적 모델의 악순환 루프' : 'Vicious Cycle of Non-Mandatory Model'}
+                                {lang === 'kr' ? '자발적 모델의 재원 쇠퇴 루프' : 'Vicious Cycle of Non-Mandatory Model'}
                             </h3>
                             
                             {/* 악순환 SVG 다이어그램 */}
-                            <div className="w-full h-[240px] bg-slate-50 border border-gray-200 relative flex items-center justify-center">
-                                <svg className="w-full h-full" viewBox="0 0 400 240">
-                                    {/* 중앙 원형 가이드 라인 */}
-                                    <circle cx="200" cy="115" r="70" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4,4" />
+                            <div className="w-full h-[220px] bg-slate-50 border border-gray-200 relative mb-4 flex items-center justify-center">
+                                <svg className="w-full h-full" viewBox="0 0 380 220">
+                                    {/* 파이프라인 입구 (재원 유입) */}
+                                    <rect x="20" y="50" width="80" height="30" fill="#cbd5e1" stroke="#475569" strokeWidth="1.5" />
+                                    <text x="60" y="68" textAnchor="middle" fill="#0f172a" fontSize="9" fontWeight="bold">기부금 유입</text>
                                     
-                                    {/* 1. 법적 강제력 부재 (Top) */}
-                                    <rect x="130" y="15" width="140" height="36" fill="#0f172a" stroke="#0f172a" strokeWidth="1.5" />
-                                    <text x="200" y="37" textAnchor="middle" fill="#ffffff" fontSize="11" fontWeight="bold">① 법적 강제력 부재</text>
+                                    {/* 유출 구멍 (무임승차로 인한 유실) */}
+                                    <path d="M 100,65 L 200,65 L 200,130" fill="none" stroke="#ef4444" strokeWidth="3" />
+                                    <polygon points="200,135 204,129 196,129" fill="#ef4444" />
+                                    <text x="250" y="105" textAnchor="middle" fill="#ef4444" fontSize="9" fontWeight="black">⚠️ 무임승차(Free-rider)</text>
+                                    <text x="250" y="118" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">[분담자 ➔ 기부 중단]</text>
                                     
-                                    {/* 2. 무임승차 발생 (Right) */}
-                                    <rect x="250" y="97" width="130" height="36" fill="#ffffff" stroke="#ef4444" strokeWidth="2" />
-                                    <text x="315" y="119" textAnchor="middle" fill="#ef4444" fontSize="11" fontWeight="bold">② 무임승차(Free-rider)</text>
+                                    {/* 파이프라인 출구 (고갈된 재정 게이지) */}
+                                    <rect x="160" y="160" width="130" height="30" fill="#ffffff" stroke="#ef4444" strokeWidth="2" />
+                                    <rect x="162" y="162" width="20" height="26" fill="#ef4444" /> {/* 빈약한 잔고 */}
+                                    <text x="225" y="178" textAnchor="middle" fill="#ef4444" fontSize="9" fontWeight="black">재원 고갈 (Low Cash Flow)</text>
                                     
-                                    {/* 3. 재원 고갈 (Bottom) */}
-                                    <rect x="130" y="180" width="140" height="36" fill="#ffffff" stroke="#0f172a" strokeWidth="1.5" />
-                                    <text x="200" y="202" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">③ 재원 확보 실패</text>
-                                    
-                                    {/* 4. 지속 불가능 (Left) */}
-                                    <rect x="20" y="97" width="130" height="36" fill="#ffffff" stroke="#0f172a" strokeWidth="1.5" />
-                                    <text x="85" y="119" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">④ 관리 수준의 저하</text>
-                                    
-                                    {/* 순환 화살표 데코 */}
-                                    {/* Top -> Right */}
-                                    <path d="M 270,33 C 310,45 325,75 320,95" fill="none" stroke="#ef4444" strokeWidth="2" markerEnd="url(#arrow)" />
-                                    {/* Right -> Bottom */}
-                                    <path d="M 315,135 C 310,165 290,185 270,195" fill="none" stroke="#ef4444" strokeWidth="2" />
-                                    {/* Bottom -> Left */}
-                                    <path d="M 130,198 C 90,190 75,165 80,135" fill="none" stroke="#ef4444" strokeWidth="2" />
-                                    {/* Left -> Top */}
-                                    <path d="M 85,97 C 90,65 110,45 130,33" fill="none" stroke="#ef4444" strokeWidth="2" />
-                                    
-                                    {/* 화살표 마커 헤드 정의 */}
-                                    <defs>
-                                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
-                                        </marker>
-                                    </defs>
+                                    {/* 피드백 루프 화살표 */}
+                                    <path d="M 160,175 C 90,170 50,130 50,85" fill="none" stroke="#64748b" strokeWidth="1.5" strokeDasharray="3,3" />
+                                    <polygon points="50,80 53,86 47,86" fill="#64748b" />
+                                    <text x="65" y="130" textAnchor="middle" fill="#64748b" fontSize="8" fontWeight="bold">지속적 관리 실패</text>
                                 </svg>
                             </div>
-                        </div>
-                        
-                        <div className="mt-4 bg-red-50/10 p-3 border border-[#ef4444]/20 text-[12px] text-gray-500 font-bold">
-                            * 아무리 세련된 가로 활성화 프로그램을 기획하더라도, 이를 지속해서 뒷받침할 "법적 강제 징수 권한"이 없으면 결국 무임승차자가 늘어 재원이 고갈됩니다.
                         </div>
                     </div>
 

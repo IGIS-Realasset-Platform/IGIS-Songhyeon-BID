@@ -20,37 +20,51 @@ export default function Section47({ isActive }) {
                     {lang === 'kr' ? '앵커 연합체와 공공공간 수익 사업화: 서울형 SBD 2대 성공 원칙' : 'Anchor Federation & Space Monetization: Two Rules for Seoul SBD'}
                 </h2>
 
-                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 2대 원칙 대칭 및 순환 매커니즘 */}
-                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] flex flex-col lg:flex-row gap-8 items-stretch">
+                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 2대 원칙 입체 순환 파이프라인 인포그래픽 적용 */}
+                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] flex flex-col lg:flex-row gap-6 items-stretch">
                     
-                    {/* 원칙 1: 앵커 디벨로퍼 자본 투입 */}
+                    {/* 좌측: 원칙 01 앵커 기금 파이프라인 (SVG) */}
                     <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
                             <span className="inline-block bg-[#0f172a] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
                                 RULE 01
                             </span>
                             <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-4 leading-tight">
-                                {lang === 'kr' ? '앵커 디벨로퍼 중심의 초기 기금 조성' : 'Anchor Developer-Led Capital & Fund Setup'}
+                                {lang === 'kr' ? '앵커 연합체 중심의 초기 기금 조성' : 'Anchor Federation Capitalization'}
                             </h3>
-                            <p className="text-[#1e3a8a] text-[14px] font-black mb-4">
-                                * 파편화된 영세 상권이 아닌, 대형 자산운용사와 글로벌 디벨로퍼 지배 구역에서 시작
-                            </p>
-                            <p className="text-[13px] text-gray-600 font-bold leading-relaxed mb-6">
+                            
+                            {/* 앵커 연합 기금 파이프라인 SVG */}
+                            <div className="w-full h-[180px] bg-slate-50 border border-gray-200 relative mb-4">
+                                <svg className="w-full h-full" viewBox="0 0 300 180">
+                                    {/* 대형 소유주 노드 */}
+                                    <rect x="20" y="30" width="80" height="40" fill="#0f172a" stroke="#0f172a" strokeWidth="1.5" />
+                                    <text x="60" y="50" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="bold">이지스 (이오타)</text>
+                                    <text x="60" y="62" textAnchor="middle" fill="#93c5fd" fontSize="7">[46만㎡ 트로피]</text>
+
+                                    <rect x="20" y="110" width="80" height="40" fill="#0f172a" stroke="#0f172a" strokeWidth="1.5" />
+                                    <text x="60" y="130" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="bold">한화 (북부역세)</text>
+                                    <text x="60" y="142" textAnchor="middle" fill="#93c5fd" fontSize="7">[35만㎡ 트로피]</text>
+                                    
+                                    {/* 파이프 연결 및 기금 수송 */}
+                                    <path d="M 100,50 L 160,50 L 160,95 L 200,95" fill="none" stroke="#1e3a8a" strokeWidth="2.5" />
+                                    <path d="M 100,130 L 160,130 L 160,95 L 200,95" fill="none" stroke="#1e3a8a" strokeWidth="2.5" />
+                                    
+                                    {/* 초기 기금 적립 (코어) */}
+                                    <rect x="200" y="75" width="80" height="40" fill="#eff6ff" stroke="#1e3a8a" strokeWidth="2" />
+                                    <text x="240" y="94" textAnchor="middle" fill="#1e3a8a" fontSize="9" fontWeight="black">초기 자생 기금</text>
+                                    <text x="240" y="106" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">[수수료 정기적립]</text>
+                                </svg>
+                            </div>
+
+                            <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed">
                                 {lang === 'kr'
-                                    ? '초기에는 소상공인 설득이 어려운 파편 상권을 지양하고, 이오타서울(이지스) 및 서울역 북부역세권(한화) 등 거대 신규 개발 구역의 앵커 소유주 연합체부터 출발합니다. 개별 건물 관리비의 일정 비율을 타운 매니지먼트 수수료로 책정하여 막대한 초기 자생 기금을 선제적으로 구축합니다.'
-                                    : 'Avoid fragmented areas initially. Start with mega developments like IOTA Seoul & Seoul Station North. Set a percentage of building management fees as TM fees to build initial funds.'}
+                                    ? '소상공인이 밀집한 파편 상권 대신, 이오타서울/북부역세권 등 초대형 프라임 앵커 소유주 연합의 관리비 일부를 정기 수수료화하여 막대한 초기 정기 기금을 선제 조성합니다.'
+                                    : 'Avoid fragmented areas initially. Start with mega developments like IOTA Seoul & Seoul Station North.'}
                             </p>
-                        </div>
-                        
-                        <div className="bg-slate-50 p-4 border border-gray-200">
-                            <span className="block text-[12px] font-black text-gray-400 uppercase">Strategic Focus</span>
-                            <span className="text-[13px] font-bold text-gray-700 mt-1 block">
-                                ➔ 이오타서울 + 북부역세권 앵커 연합의 매니지먼트 수수료 선적립
-                            </span>
                         </div>
                     </div>
 
-                    {/* 원칙 2: 공공공간 수익 사업화 */}
+                    {/* 우측: 원칙 02 공공공간 수익권 파이프라인 (SVG) */}
                     <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
                             <span className="inline-block bg-[#3b82f6] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
@@ -59,21 +73,33 @@ export default function Section47({ isActive }) {
                             <h3 className="text-[20px] md:text-[22px] font-black text-gray-900 mb-4 leading-tight">
                                 {lang === 'kr' ? '공공공간 점유를 통한 수익 사업 합법화' : 'Monetizing Public Space (Hudson Yards Benchmark)'}
                             </h3>
-                            <p className="text-[#3b82f6] text-[14px] font-black mb-4">
-                                * 단순 유지보수 의무를 넘어 공개공지 및 보행로의 일괄 점용 허가 양도
-                            </p>
-                            <p className="text-[13px] text-gray-600 font-bold leading-relaxed mb-6">
+                            
+                            {/* 점용권 양도 및 수익 창출 순환 SVG */}
+                            <div className="w-full h-[180px] bg-slate-50 border border-gray-200 relative mb-4">
+                                <svg className="w-full h-full" viewBox="0 0 300 180">
+                                    {/* 서울시 점용 허가 */}
+                                    <rect x="20" y="70" width="80" height="40" fill="#ffffff" stroke="#2563eb" strokeWidth="1.5" />
+                                    <text x="60" y="90" textAnchor="middle" fill="#2563eb" fontSize="9" fontWeight="bold">서울시 (지자체)</text>
+                                    <text x="60" y="102" textAnchor="middle" fill="#475569" fontSize="7">[점용 허가권 위임]</text>
+                                    
+                                    {/* 위임 흐름 */}
+                                    <line x1="100" y1="90" x2="150" y2="90" stroke="#3b82f6" strokeWidth="2.5" />
+                                    <polygon points="155,90 149,94 149,86" fill="#3b82f6" />
+                                    
+                                    {/* 수익 사업 활성화 노드 */}
+                                    <rect x="160" y="50" width="120" height="80" fill="#eff6ff" stroke="#3b82f6" strokeWidth="2" />
+                                    <text x="220" y="75" textAnchor="middle" fill="#1e3a8a" fontSize="9" fontWeight="black">공개공지·보행로 점용</text>
+                                    <text x="220" y="92" textAnchor="middle" fill="#059669" fontSize="8" fontWeight="bold">➔ 팝업 스토어</text>
+                                    <text x="220" y="107" textAnchor="middle" fill="#059669" fontSize="8" fontWeight="bold">➔ 야외 문화 행사 수익</text>
+                                    <text x="220" y="122" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">[자주적 자생 재원]</text>
+                                </svg>
+                            </div>
+
+                            <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed">
                                 {lang === 'kr'
-                                    ? '뉴욕시가 HYHK BID에 공원 관리권을 위탁한 사례를 벤치마킹하여, 서울시는 건물 주변 공개공지, 도로, 보행통로에 대한 일괄 점용 허가권을 매니지먼트 연합에 부여해야 합니다. 팝업 스토어, 야외 문화 행사 기획 등으로 수익을 창출해 정부 재정 없이도 자생할 수 있는 구조를 만듭니다.'
-                                    : 'Following NYC\'s delegation to HYHK, transfer administrative occupancy rights for open plazas & pedestrian paths to the TM alliance. Enable popups & outdoor event revenues for self-financing.'}
+                                    ? '뉴욕 HYHK 모델을 이식하여 단순 공공 유지보수 업무 대행에 그치지 않고, 가로와 공개공지 일대의 일괄 독점 점용권을 부여함으로써 민간이 스스로 인프라 유지 자금을 벌어들이는 자생 구조를 확립합니다.'
+                                    : 'Enable popups & outdoor event revenues for self-financing.'}
                             </p>
-                        </div>
-                        
-                        <div className="bg-blue-50/50 p-4 border border-blue-200">
-                            <span className="block text-[12px] font-black text-blue-500 uppercase">Benchmark Reference</span>
-                            <span className="text-[13px] font-bold text-[#1e3a8a] mt-1 block">
-                                ➔ 뉴욕 HYHK 모델을 이식한 공공공간 점용권 이양 및 자주적 수익 모델 확보
-                            </span>
                         </div>
                     </div>
 
