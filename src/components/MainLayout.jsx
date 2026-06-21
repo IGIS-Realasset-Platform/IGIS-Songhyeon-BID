@@ -55,6 +55,8 @@ import Section40 from './Section40';
 import Section41 from './Section41';
 import Section42 from './Section42';
 import Section43 from './Section43';
+import Section43_1 from './Section43_1';
+import Section43_2 from './Section43_2';
 import Section44 from './Section44';
 import Section45 from './Section45';
 import Section46 from './Section46';
@@ -76,7 +78,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 77; 
+    const slidesLength = 79; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -159,13 +161,15 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section41 />, // Page 68
         <Section42 />, // Page 69
         <Section43 />, // Page 70
-        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 71
-        <Section44 />, // Page 72
-        <Section45 />, // Page 73
-        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 74
-        <Section46 />, // Page 75
-        <Section47 />, // Page 76
-        <Section48 />  // Page 77
+        <Section43_1 />, // Page 71
+        <Section43_2 />, // Page 72
+        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 73
+        <Section44 />, // Page 74
+        <Section45 />, // Page 75
+        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 76
+        <Section46 />, // Page 77
+        <Section47 />, // Page 78
+        <Section48 />  // Page 79
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
