@@ -172,6 +172,13 @@ export const menuDataEn = [
                     { label: "5 Institutional Localizations", id: "page-73" },
                     { label: "Federation & Space Monetization Rules", id: "page-74" }
                 ]
+            },
+            {
+                title: "Chapter 3. Rationale for Seoul Station-Namsan SBD",
+                id: "page-75",
+                items: [
+                    { label: "SBD Rationale & 4th Gen District", id: "page-76" }
+                ]
             }
         ] 
     }
@@ -350,6 +357,13 @@ export const menuDataKr = [
                     { label: "무교·다동 실험의 시사점과 무임승차 교훈", id: "page-72" },
                     { label: "서울형 BID 5대 제도적 커스터마이징 전략", id: "page-73" },
                     { label: "서울형 SBD 2대 성공 원칙", id: "page-74" }
+                ]
+            },
+            {
+                title: "Chapter 3. 서울역-남산 SBD화 명분",
+                id: "page-75",
+                items: [
+                    { label: "이오타 서울 중심의 SBD화 명분과 당위성", id: "page-76" }
                 ]
             }
         ] 
