@@ -70,6 +70,9 @@ import Section56 from './Section56';
 import Section57 from './Section57';
 import Section58 from './Section58';
 import Section59 from './Section59';
+import Section60 from './Section60';
+import Section61 from './Section61';
+import Section62 from './Section62';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -86,7 +89,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 89; 
+    const slidesLength = 93; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -187,7 +190,11 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section57 />, // Page 86
         <ChapterCover chapterNum="5" title="SBD의 구조적 차별성과 진화 모델" />, // Page 87
         <Section58 />, // Page 88
-        <Section59 /> // Page 89
+        <Section59 />, // Page 89
+        <ChapterCover chapterNum="6" title="증거 1. 디벨로퍼와 자산 소유자를 위한 재무적 실익 입증" />, // Page 90
+        <Section60 />, // Page 91
+        <Section61 />, // Page 92
+        <Section62 /> // Page 93
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);

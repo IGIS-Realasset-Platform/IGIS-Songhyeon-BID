@@ -202,6 +202,15 @@ export const menuDataEn = [
                     { label: "업무지구 패러다임: 단순 적치장 vs 면적 기획", id: "page-88" },
                     { label: "최초의 운영체제 탑재형 업무지구 SBD", id: "page-89" }
                 ]
+            },
+            {
+                title: "Chapter 6. 증거 1. 디벨로퍼와 자산 소유자를 위한 재무적 실익 입증",
+                id: "page-90",
+                items: [
+                    { label: "BID의 상업 가치 상승 분석과 SBD ROI", id: "page-91" },
+                    { label: "글로벌 3대 플레이스메이킹 성공 실증 사례", id: "page-92" },
+                    { label: "자산가치 상승 엔진으로서의 SBD OS 최종 결론", id: "page-93" }
+                ]
             }
         ] 
     }
@@ -410,6 +419,15 @@ export const menuDataKr = [
                 items: [
                     { label: "업무지구 패러다임: 단순 적치장 vs 면적 기획", id: "page-88" },
                     { label: "최초의 운영체제 탑재형 업무지구 SBD", id: "page-89" }
+                ]
+            },
+            {
+                title: "Chapter 6. 증거 1. 디벨로퍼와 자산 소유자를 위한 재무적 실익 입증",
+                id: "page-90",
+                items: [
+                    { label: "BID의 상업 가치 상승 분석과 SBD ROI", id: "page-91" },
+                    { label: "글로벌 3대 플레이스메이킹 성공 실증 사례", id: "page-92" },
+                    { label: "자산가치 상승 엔진으로서의 SBD OS 최종 결론", id: "page-93" }
                 ]
             }
         ] 
