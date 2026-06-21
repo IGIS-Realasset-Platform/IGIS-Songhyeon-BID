@@ -255,6 +255,27 @@ export const menuDataEn = [
                 ]
             }
         ] 
+    },
+    {
+        title: "Part 6. 실행 로드맵과 IGIS 관점의 시사점",
+        id: "page-111",
+        chapters: [
+            {
+                title: "Chapter 12. IGIS 관점의 전략적 의미와 SBD 자산 가치 극대화",
+                id: "page-112",
+                items: [
+                    { label: "SBD 도입을 통한 이오타서울 자산 가치 극대화 메커니즘", id: "page-113" }
+                ]
+            },
+            {
+                title: "Chapter 13. SBD 운영 OS의 용산국제업무지구 전이(Transfer) 전략",
+                id: "page-114",
+                items: [
+                    { label: "서울역-남산 SBD 검증 운영 모델의 용산국제업무지구 전이 전략", id: "page-115" },
+                    { label: "5세대 디지털 BID: 스마트코어(AI·디지털트윈) 기반 통합 관리체제", id: "page-116" }
+                ]
+            }
+        ]
     }
 ];
 
@@ -515,5 +536,26 @@ export const menuDataKr = [
                 ]
             }
         ] 
+    },
+    {
+        title: "Part 6. 실행 로드맵과 IGIS 관점의 시사점",
+        id: "page-111",
+        chapters: [
+            {
+                title: "Chapter 12. IGIS 관점의 전략적 의미와 SBD 자산 가치 극대화",
+                id: "page-112",
+                items: [
+                    { label: "SBD 도입을 통한 이오타서울 자산 가치 극대화 메커니즘", id: "page-113" }
+                ]
+            },
+            {
+                title: "Chapter 13. SBD 운영 OS의 용산국제업무지구 전이(Transfer) 전략",
+                id: "page-114",
+                items: [
+                    { label: "서울역-남산 SBD 검증 운영 모델의 용산국제업무지구 전이 전략", id: "page-115" },
+                    { label: "5세대 디지털 BID: 스마트코어(AI·디지털트윈) 기반 통합 관리체제", id: "page-116" }
+                ]
+            }
+        ]
     }
 ];

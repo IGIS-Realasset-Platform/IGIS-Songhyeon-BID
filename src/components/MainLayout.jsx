@@ -85,6 +85,10 @@ import Section71 from './Section71';
 import Section72 from './Section72';
 import Section73 from './Section73';
 import Section74 from './Section74';
+import Section75 from './Section75';
+import Section76 from './Section76';
+import Section77 from './Section77';
+import Section78 from './Section78';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -101,7 +105,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 110; 
+    const slidesLength = 116; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -223,7 +227,13 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="11" title="결론: SBD가 되면 무엇이 좋아지는가 — 이오타서울 + 남산이라는 무기" />, // Page 107
         <Section72 />, // Page 108
         <Section73 />, // Page 109
-        <Section74 /> // Page 110
+        <Section74 />, // Page 110
+        <Section75 />, // Page 111 (Part 6 Cover)
+        <ChapterCover chapterNum="12" title="IGIS 관점의 전략적 의미와 SBD 자산 가치 극대화" />, // Page 112
+        <Section76 />, // Page 113
+        <ChapterCover chapterNum="13" title="SBD 운영 OS의 용산국제업무지구 전이(Transfer) 전략" />, // Page 114
+        <Section77 />, // Page 115
+        <Section78 /> // Page 116
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
