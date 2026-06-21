@@ -184,6 +184,16 @@ export const menuDataEn = [
                     { label: "Seoul Station-Namsan Management Alliance", id: "page-80" },
                     { label: "Seoulo 7017 Delegation & Placemaking", id: "page-81" }
                 ]
+            },
+            {
+                title: "Chapter 4. 서울역-남산 SBD 공간 실행 전략",
+                id: "page-82",
+                items: [
+                    { label: "SBD 대상 구역 현황 및 정비사업 비교", id: "page-83" },
+                    { label: "SBD 성립을 위한 5대 필요충분조건", id: "page-84" },
+                    { label: "허드슨야드 요인의 서울형 SBD 전이", id: "page-85" },
+                    { label: "SBD 4대 플레이스메이킹 고유 자산", id: "page-86" }
+                ]
             }
         ] 
     }
@@ -374,6 +384,16 @@ export const menuDataKr = [
                     { label: "본PF 전환 금융 타결 및 에어리어 매니지먼트 기반 확보", id: "page-79" },
                     { label: "서울역-남산 매니지먼트 얼라이언스 거버넌스", id: "page-80" },
                     { label: "서울로 7017 위탁 및 플레이스메이킹 전략", id: "page-81" }
+                ]
+            },
+            {
+                title: "Chapter 4. 서울역-남산 SBD 공간 실행 전략",
+                id: "page-82",
+                items: [
+                    { label: "SBD 대상 구역 현황 및 정비사업 비교", id: "page-83" },
+                    { label: "SBD 성립을 위한 5대 필요충분조건", id: "page-84" },
+                    { label: "허드슨야드 요인의 서울형 SBD 전이", id: "page-85" },
+                    { label: "SBD 4대 플레이스메이킹 고유 자산", id: "page-86" }
                 ]
             }
         ] 
