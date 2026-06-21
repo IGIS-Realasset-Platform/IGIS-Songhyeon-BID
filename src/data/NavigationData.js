@@ -165,23 +165,6 @@ export const menuDataEn = [
                     { label: "7,000㎡ Public Green Space Design", id: "page-71" },
                     { label: "Seoul Station & Namsan Synergy", id: "page-72" }
                 ]
-            },
-            {
-                title: "Chapter 2. Operation & Target Indicators",
-                id: "page-73",
-                items: [
-                    { label: "Location vs Operation", id: "page-74" },
-                    { label: "Quantitative Target Scenarios", id: "page-75" }
-                ]
-            },
-            {
-                title: "Chapter 3. Yongsan IBD & Future SBD",
-                id: "page-76",
-                items: [
-                    { label: "Yongsan IBD Megastructure", id: "page-77" },
-                    { label: "5G Digital Block Chain BID", id: "page-78" },
-                    { label: "SYBD 3-Stage Roadmap", id: "page-79" }
-                ]
             }
         ] 
     }
@@ -353,23 +336,6 @@ export const menuDataKr = [
                     { label: "이오타 서울 마스터플랜 및 스펙", id: "page-70" },
                     { label: "7,000㎡ 대규모 입체 공개녹지 설계", id: "page-71" },
                     { label: "서울역 광역교통 결절점과 남산 자연 생태축", id: "page-72" }
-                ]
-            },
-            {
-                title: "Chapter 2. 지구 운영 가치 및 정량 지표",
-                id: "page-73",
-                items: [
-                    { label: "SBD 차별화: 입지(Location) vs 운영(OS)", id: "page-74" },
-                    { label: "SBD BID 도입 전/후 목표 지표 시나리오", id: "page-75" }
-                ]
-            },
-            {
-                title: "Chapter 3. 용산 연계 및 미래 디지털 BID",
-                id: "page-76",
-                items: [
-                    { label: "용산 IBD 타운매니지먼트 당위성", id: "page-77" },
-                    { label: "블록체인 연계 5세대 디지털 BID", id: "page-78" },
-                    { label: "서울역-용산(SYBD) 3단계 통합 로드맵", id: "page-79" }
                 ]
             }
         ] 

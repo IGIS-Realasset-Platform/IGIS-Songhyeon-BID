@@ -57,11 +57,6 @@ import Section42 from './Section42';
 import Section43 from './Section43';
 import Section43_1 from './Section43_1';
 import Section43_2 from './Section43_2';
-import Section44 from './Section44';
-import Section45 from './Section45';
-import Section46 from './Section46';
-import Section47 from './Section47';
-import Section48 from './Section48';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -78,7 +73,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 79; 
+    const slidesLength = 72; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -162,14 +157,7 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section42 />, // Page 69
         <Section43 />, // Page 70
         <Section43_1 />, // Page 71
-        <Section43_2 />, // Page 72
-        <ChapterCover chapterNum="2" title="지구 운영 가치 및 정량 지표" />, // Page 73
-        <Section44 />, // Page 74
-        <Section45 />, // Page 75
-        <ChapterCover chapterNum="3" title="용산 연계 및 미래 디지털 BID" />, // Page 76
-        <Section46 />, // Page 77
-        <Section47 />, // Page 78
-        <Section48 />  // Page 79
+        <Section43_2 /> // Page 72
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
