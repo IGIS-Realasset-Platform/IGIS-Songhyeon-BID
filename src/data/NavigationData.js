@@ -160,10 +160,7 @@ export const menuDataEn = [
                 items: [
                     { label: "Five Institutional Barriers", id: "page-67" },
                     { label: "Large Institutional Blocks & Timing", id: "page-68" },
-                    { label: "Value Proposition Matrix", id: "page-69" },
-                    { label: "IOTA Seoul Master Plan & Spec", id: "page-70" },
-                    { label: "7,000㎡ Public Green Space Design", id: "page-71" },
-                    { label: "Seoul Station & Namsan Synergy", id: "page-72" }
+                    { label: "Value Proposition Matrix", id: "page-69" }
                 ]
             }
         ] 
@@ -332,10 +329,7 @@ export const menuDataKr = [
                 items: [
                     { label: "서울 도심 BID 도입의 한계와 5대 제도적 암초", id: "page-67" },
                     { label: "이오타서울과 서울역 대형 기관 소유주 블록 형성", id: "page-68" },
-                    { label: "SBD BID 추진의 주체별 핵심 메시지 매트릭스", id: "page-69" },
-                    { label: "이오타 서울 마스터플랜 및 스펙", id: "page-70" },
-                    { label: "7,000㎡ 대규모 입체 공개녹지 설계", id: "page-71" },
-                    { label: "서울역 광역교통 결절점과 남산 자연 생태축", id: "page-72" }
+                    { label: "SBD BID 추진의 주체별 핵심 메시지 매트릭스", id: "page-69" }
                 ]
             }
         ] 

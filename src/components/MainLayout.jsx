@@ -54,9 +54,6 @@ import Section39 from './Section39';
 import Section40 from './Section40';
 import Section41 from './Section41';
 import Section42 from './Section42';
-import Section43 from './Section43';
-import Section43_1 from './Section43_1';
-import Section43_2 from './Section43_2';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -73,7 +70,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 72; 
+    const slidesLength = 69; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -154,10 +151,7 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 66
         <Section40 />, // Page 67
         <Section41 />, // Page 68
-        <Section42 />, // Page 69
-        <Section43 />, // Page 70
-        <Section43_1 />, // Page 71
-        <Section43_2 /> // Page 72
+        <Section42 /> // Page 69
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
