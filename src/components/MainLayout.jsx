@@ -68,6 +68,8 @@ import Section54 from './Section54';
 import Section55 from './Section55';
 import Section56 from './Section56';
 import Section57 from './Section57';
+import Section58 from './Section58';
+import Section59 from './Section59';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -84,7 +86,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 86; 
+    const slidesLength = 89; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -182,7 +184,10 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section54 />, // Page 83
         <Section55 />, // Page 84
         <Section56 />, // Page 85
-        <Section57 /> // Page 86
+        <Section57 />, // Page 86
+        <ChapterCover chapterNum="5" title="SBD의 구조적 차별성과 진화 모델" />, // Page 87
+        <Section58 />, // Page 88
+        <Section59 /> // Page 89
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);

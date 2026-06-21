@@ -194,6 +194,14 @@ export const menuDataEn = [
                     { label: "허드슨야드 요인의 서울형 SBD 전이", id: "page-85" },
                     { label: "SBD 4대 플레이스메이킹 고유 자산", id: "page-86" }
                 ]
+            },
+            {
+                title: "Chapter 5. SBD의 구조적 차별성과 진화 모델",
+                id: "page-87",
+                items: [
+                    { label: "업무지구 패러다임: 단순 적치장 vs 면적 기획", id: "page-88" },
+                    { label: "최초의 운영체제 탑재형 업무지구 SBD", id: "page-89" }
+                ]
             }
         ] 
     }
@@ -394,6 +402,14 @@ export const menuDataKr = [
                     { label: "SBD 성립을 위한 5대 필요충분조건", id: "page-84" },
                     { label: "허드슨야드 요인의 서울형 SBD 전이", id: "page-85" },
                     { label: "SBD 4대 플레이스메이킹 고유 자산", id: "page-86" }
+                ]
+            },
+            {
+                title: "Chapter 5. SBD의 구조적 차별성과 진화 모델",
+                id: "page-87",
+                items: [
+                    { label: "업무지구 패러다임: 단순 적치장 vs 면적 기획", id: "page-88" },
+                    { label: "최초의 운영체제 탑재형 업무지구 SBD", id: "page-89" }
                 ]
             }
         ] 
