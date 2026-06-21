@@ -274,6 +274,15 @@ export const menuDataEn = [
                     { label: "서울역-남산 SBD 검증 운영 모델의 용산국제업무지구 전이 전략", id: "page-115" },
                     { label: "5세대 디지털 BID: 스마트코어(AI·디지털트윈) 기반 통합 관리체제", id: "page-116" }
                 ]
+            },
+            {
+                title: "Chapter 14. 서울형 SBD 단계별 실행 로드맵 및 구축 가이드라인",
+                id: "page-117",
+                items: [
+                    { label: "SBD 단계별 실행 로드맵과 마일스톤", id: "page-118" },
+                    { label: "파일럿 BID 설립 및 다단계 확장 로드맵 (Phase 1~3)", id: "page-119" },
+                    { label: "NYC SBS 기준 BID 핵심 구축 가이드라인 체크리스트", id: "page-120" }
+                ]
             }
         ]
     }
@@ -554,6 +563,15 @@ export const menuDataKr = [
                 items: [
                     { label: "서울역-남산 SBD 검증 운영 모델의 용산국제업무지구 전이 전략", id: "page-115" },
                     { label: "5세대 디지털 BID: 스마트코어(AI·디지털트윈) 기반 통합 관리체제", id: "page-116" }
+                ]
+            },
+            {
+                title: "Chapter 14. 서울형 SBD 단계별 실행 로드맵 및 구축 가이드라인",
+                id: "page-117",
+                items: [
+                    { label: "SBD 단계별 실행 로드맵과 마일스톤", id: "page-118" },
+                    { label: "파일럿 BID 설립 및 다단계 확장 로드맵 (Phase 1~3)", id: "page-119" },
+                    { label: "NYC SBS 기준 BID 핵심 구축 가이드라인 체크리스트", id: "page-120" }
                 ]
             }
         ]

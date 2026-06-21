@@ -89,6 +89,9 @@ import Section75 from './Section75';
 import Section76 from './Section76';
 import Section77 from './Section77';
 import Section78 from './Section78';
+import Section79 from './Section79';
+import Section80 from './Section80';
+import Section81 from './Section81';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -105,7 +108,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 116; 
+    const slidesLength = 120; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -233,7 +236,11 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section76 />, // Page 113
         <ChapterCover chapterNum="13" title="SBD 운영 OS의 용산국제업무지구 전이(Transfer) 전략" />, // Page 114
         <Section77 />, // Page 115
-        <Section78 /> // Page 116
+        <Section78 />, // Page 116
+        <ChapterCover chapterNum="14" title="서울형 SBD 단계별 실행 로드맵 및 구축 가이드라인" />, // Page 117
+        <Section79 />, // Page 118
+        <Section80 />, // Page 119
+        <Section81 /> // Page 120
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
