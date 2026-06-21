@@ -1,18 +1,19 @@
 import os
 import subprocess
+import re
 
 def modify_js_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Update totalSlides to 74
-    content = content.replace('const totalSlides = 142;', 'const totalSlides = 74;')
+    # Update totalSlides to 120
+    content = re.sub(r'const totalSlides\s*=\s*\d+;', 'const totalSlides = 120;', content)
     # Update port 8082 to 8083
     content = content.replace('http://localhost:8082/', 'http://localhost:8083/')
     
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f"Updated {filepath} with totalSlides = 74 and port = 8083.")
+    print(f"Updated {filepath} with totalSlides = 120 and port = 8083.")
 
 def main():
     # 1. Modify the scripts

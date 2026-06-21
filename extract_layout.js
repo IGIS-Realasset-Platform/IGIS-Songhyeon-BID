@@ -12,8 +12,8 @@ async function extractLayoutForLanguage(lang) {
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080 });
   
-  // Full 142 slides for final generation
-  const totalSlides = 74;
+  // Full 120 slides for final generation
+  const totalSlides = 120;
   const slideDataList = [];
   
   // Speed up react state timeouts slightly

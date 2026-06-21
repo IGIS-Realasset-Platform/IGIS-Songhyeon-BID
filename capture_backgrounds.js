@@ -25,7 +25,7 @@ async function captureBackgrounds(lang) {
     };
   });
   
-  const totalSlides = 74;
+  const totalSlides = 120;
   
   for (let s = 1; s <= totalSlides; s++) {
     const url = `http://localhost:8083/?lang=${lang}#page-${s}`;
