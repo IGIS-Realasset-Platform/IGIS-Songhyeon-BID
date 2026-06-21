@@ -61,6 +61,7 @@ import Section47 from './Section47';
 import Section48 from './Section48';
 import Section49 from './Section49';
 import Section50 from './Section50';
+import Section51 from './Section51';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -77,7 +78,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 78; 
+    const slidesLength = 79; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -167,7 +168,8 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="3" title="서울역-남산 SBD화 명분" />, // Page 75
         <Section48 />, // Page 76
         <Section49 />, // Page 77
-        <Section50 /> // Page 78
+        <Section50 />, // Page 78
+        <Section51 /> // Page 79
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
