@@ -76,6 +76,10 @@ import Section62 from './Section62';
 import Section63 from './Section63';
 import Section64 from './Section64';
 import Section65 from './Section65';
+import Section66 from './Section66';
+import Section67 from './Section67';
+import Section68 from './Section68';
+import Section69 from './Section69';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -92,7 +96,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 97; 
+    const slidesLength = 103; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -201,7 +205,13 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="7" title="증거 2. 도시·정부(서울시)에게 무엇이 좋은가" />, // Page 94
         <Section63 />, // Page 95
         <Section64 />, // Page 96
-        <Section65 /> // Page 97
+        <Section65 />, // Page 97
+        <ChapterCover chapterNum="8" title="증거 3. 그 안에서 일하는 사람(직장인)에게 무엇이 좋은가" />, // Page 98
+        <Section66 />, // Page 99
+        <Section67 />, // Page 100
+        <ChapterCover chapterNum="9" title="증거 4. 주변 거주자·지역사회에게 무엇이 좋은가" />, // Page 101
+        <Section68 />, // Page 102
+        <Section69 /> // Page 103
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
