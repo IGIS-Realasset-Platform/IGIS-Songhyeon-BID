@@ -236,6 +236,23 @@ export const menuDataEn = [
                     { label: "주변 거주자 관점의 실질적 혜택과 부동산 가치 상승 효과", id: "page-102" },
                     { label: "지역 리테일 활성화와 주말 공동화 방지 및 지속가능성 확보", id: "page-103" }
                 ]
+            },
+            {
+                title: "Chapter 10. 결정적 비교: 자연발생 CBD vs 오피스집합 GBD·YBD vs 설계·운영형 SBD",
+                id: "page-104",
+                items: [
+                    { label: "한국 3대 업무지구의 구조적 한계와 오피스 집합의 한계", id: "page-105" },
+                    { label: "기존 3대 업무지구 vs 설계·운영형 SBD의 결정적 차이", id: "page-106" }
+                ]
+            },
+            {
+                title: "Chapter 11. 결론: SBD가 되면 무엇이 좋아지는가 — 이오타서울 + 남산이라는 무기",
+                id: "page-107",
+                items: [
+                    { label: "이오타서울 SBD가 가져올 이해관계자별 체감 변화 시나리오", id: "page-108" },
+                    { label: "SBD의 고유 경쟁력(남산·서울역)과 글로벌 매니지먼트 사례", id: "page-109" },
+                    { label: "숫자로 보는 'SBD BID가 있는 서울'과 '없는 서울' 비교 예측", id: "page-110" }
+                ]
             }
         ] 
     }
@@ -478,6 +495,23 @@ export const menuDataKr = [
                 items: [
                     { label: "주변 거주자 관점의 실질적 혜택과 부동산 가치 상승 효과", id: "page-102" },
                     { label: "지역 리테일 활성화와 주말 공동화 방지 및 지속가능성 확보", id: "page-103" }
+                ]
+            },
+            {
+                title: "Chapter 10. 결정적 비교: 자연발생 CBD vs 오피스집합 GBD·YBD vs 설계·운영형 SBD",
+                id: "page-104",
+                items: [
+                    { label: "한국 3대 업무지구의 구조적 한계와 오피스 집합의 한계", id: "page-105" },
+                    { label: "기존 3대 업무지구 vs 설계·운영형 SBD의 결정적 차이", id: "page-106" }
+                ]
+            },
+            {
+                title: "Chapter 11. 결론: SBD가 되면 무엇이 좋아지는가 — 이오타서울 + 남산이라는 무기",
+                id: "page-107",
+                items: [
+                    { label: "이오타서울 SBD가 가져올 이해관계자별 체감 변화 시나리오", id: "page-108" },
+                    { label: "SBD의 고유 경쟁력(남산·서울역)과 글로벌 매니지먼트 사례", id: "page-109" },
+                    { label: "숫자로 보는 'SBD BID가 있는 서울'과 '없는 서울' 비교 예측", id: "page-110" }
                 ]
             }
         ] 

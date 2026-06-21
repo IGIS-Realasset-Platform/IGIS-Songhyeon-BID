@@ -80,6 +80,11 @@ import Section66 from './Section66';
 import Section67 from './Section67';
 import Section68 from './Section68';
 import Section69 from './Section69';
+import Section70 from './Section70';
+import Section71 from './Section71';
+import Section72 from './Section72';
+import Section73 from './Section73';
+import Section74 from './Section74';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -96,7 +101,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 103; 
+    const slidesLength = 110; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -211,7 +216,14 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <Section67 />, // Page 100
         <ChapterCover chapterNum="9" title="증거 4. 주변 거주자·지역사회에게 무엇이 좋은가" />, // Page 101
         <Section68 />, // Page 102
-        <Section69 /> // Page 103
+        <Section69 />, // Page 103
+        <ChapterCover chapterNum="10" title="결정적 비교: 자연발생 CBD vs 오피스집합 GBD·YBD vs 설계·운영형 SBD" />, // Page 104
+        <Section70 />, // Page 105
+        <Section71 />, // Page 106
+        <ChapterCover chapterNum="11" title="결론: SBD가 되면 무엇이 좋아지는가 — 이오타서울 + 남산이라는 무기" />, // Page 107
+        <Section72 />, // Page 108
+        <Section73 />, // Page 109
+        <Section74 /> // Page 110
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);
