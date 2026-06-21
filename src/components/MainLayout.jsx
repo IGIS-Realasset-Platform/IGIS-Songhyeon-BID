@@ -54,6 +54,10 @@ import Section39 from './Section39';
 import Section40 from './Section40';
 import Section41 from './Section41';
 import Section42 from './Section42';
+import Section44 from './Section44';
+import Section45 from './Section45';
+import Section46 from './Section46';
+import Section47 from './Section47';
 import ChapterCover from './ChapterCover';
 
 const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
@@ -70,7 +74,7 @@ const SlideWrapper = React.memo(({ slide, isActive, transformStyle }) => {
 });
 
 export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
-    const slidesLength = 69; 
+    const slidesLength = 74; 
     const [currentSlide, setCurrentSlide] = useState(() => {
         const hash = window.location.hash;
         if (hash && hash.startsWith('#page-')) {
@@ -151,7 +155,12 @@ export default function MainLayout({ isNavOpen, setIsNavOpen, onNavigate }) {
         <ChapterCover chapterNum="1" title="SBD 핵심 자산과 공공 기여" />, // Page 66
         <Section40 />, // Page 67
         <Section41 />, // Page 68
-        <Section42 /> // Page 69
+        <Section42 />, // Page 69
+        <ChapterCover chapterNum="2" title="서울형 BID 커스터마이징 전략" />, // Page 70
+        <Section44 />, // Page 71
+        <Section45 />, // Page 72
+        <Section46 />, // Page 73
+        <Section47 /> // Page 74
     ], []);
 
     const [isActionDone, setIsActionDone] = useState(false);

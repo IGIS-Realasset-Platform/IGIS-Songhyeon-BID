@@ -1,126 +1,111 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Section44({ isActive }) {
     const { lang } = useLanguage();
-    const [step, _setStep] = useState(20);
-    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#f8fafc] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">{lang === 'kr' ? 'SBD 차별화: 입지(Location) vs 운영(OS)' : 'Location vs Operation'}</span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
+                        {lang === 'kr' ? '한국의 현황과 제도적 공백' : 'Institutional Gaps in Korea'}
+                    </span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
-                    자연발생적 집적을 넘어 자산 가치에 운영 성과를 내장시키는 한국 최초의 시도
+                <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6">
+                    {lang === 'kr' ? '통합 법제 부재와 제도적 한계: 서울 도심 BID의 3대 구조적 난제' : 'Integrated Legislation Void & 3 Structural Challenges in Seoul'}
                 </h2>
 
-                {/* 다채로운 인포그래픽 영역 (2차원 비교 분석 테이블 + 네트워크 연계 시각화) */}
-                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] flex flex-col lg:flex-row items-stretch justify-between gap-8 relative z-10">
+                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 맞춤형 인포그래픽 설계 */}
+                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] flex flex-col lg:flex-row gap-6 items-stretch">
                     
-                    {/* 좌측: 비교 분석 매트릭스 테이블 */}
-                    <div className="w-full lg:w-[55%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                    {/* 좌측: 현행 법제의 분산 및 한계 */}
+                    <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
-                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
-                                Paradigm Comparison
+                            <span className="inline-block bg-[#0f172a] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
+                                Current Legal Status
                             </span>
-                            <h3 className="text-[24px] font-black text-gray-900 mb-6 leading-tight">
-                                전통적 '입지' vs 미래형 '운영' 가치
+                            <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-6 leading-snug">
+                                {lang === 'kr' ? '개별 산재된 유사 법령의 한계' : 'Limitations of Scattered Statutes'}
                             </h3>
                             
-                            {/* 비교 테이블 */}
-                            <div className="w-full overflow-hidden border border-gray-300">
-                                <table className="w-full border-collapse text-left">
-                                    <thead>
-                                        <tr className="bg-[#0f172a] text-white text-[14px]">
-                                            <th className="p-3 font-bold border-b border-gray-300 w-[25%]">구분</th>
-                                            <th className="p-3 font-bold border-b border-gray-300 w-[37.5%]">전통적 GBD/YBD (입지 중심)</th>
-                                            <th className="p-3 font-bold border-b border-gray-300 w-[37.5%] text-yellow-400">SBD 미래 비전 (운영 중심)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-[13px] text-gray-700 font-medium">
-                                        <tr className="border-b border-gray-200">
-                                            <td className="p-3 bg-gray-50 font-bold text-gray-900">가치 결정 요인</td>
-                                            <td className="p-3">물리적 위치, 지하철역 인접도</td>
-                                            <td className="p-3 bg-blue-50/30 text-blue-900 font-bold">통합 관리 품질, 가로 활성화 수준</td>
-                                        </tr>
-                                        <tr className="border-b border-gray-200">
-                                            <td className="p-3 bg-gray-50 font-bold text-gray-900">관리 대상 영역</td>
-                                            <td className="p-3">개별 빌딩 내부 (경계선 안쪽)</td>
-                                            <td className="p-3 bg-blue-50/30 text-blue-900 font-bold">가로, 보행광장, 주변 연계 공원</td>
-                                        </tr>
-                                        <tr className="border-b border-gray-200">
-                                            <td className="p-3 bg-gray-50 font-bold text-gray-900">콘텐츠 공급</td>
-                                            <td className="p-3">임차 상인 개별 유치 (수동적)</td>
-                                            <td className="p-3 bg-blue-50/30 text-blue-900 font-bold">문화 이벤트 및 조경 상시 기획</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-3 bg-gray-50 font-bold text-gray-900">임대 프리미엄</td>
-                                            <td className="p-3">시장 평균 추종</td>
-                                            <td className="p-3 bg-blue-50/30 text-blue-900 font-bold">에리어 매니지먼트 할증 수혜 (10~20%)</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div className="space-y-4">
+                                <div className="border border-gray-300 p-3.5 bg-slate-50">
+                                    <div className="text-[14px] font-black text-gray-900">⚖️ 지역상권법 (2022 시행)</div>
+                                    <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed mt-1">
+                                        자율상권구역 지정 및 상생협약을 규정하지만, 쇠퇴 상권 및 임차인 보호(임대료 제한) 중심일 뿐 강제 부담금 징수 조항은 없음.
+                                    </p>
+                                </div>
+                                <div className="border border-gray-300 p-3.5 bg-slate-50">
+                                    <div className="text-[14px] font-black text-gray-900">🧱 도시재생 활성화 특별법</div>
+                                    <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed mt-1">
+                                        도시재생사업 위주로 공공 보조금 재원에만 의존하며, 지구 내부 이해관계자가 지속해서 운영 자금을 충당하는 메커니즘 결여.
+                                    </p>
+                                </div>
+                                <div className="border border-gray-300 p-3.5 bg-slate-50">
+                                    <div className="text-[14px] font-black text-[#1e3a8a]">🚀 신규 에리어매니지먼트의 태동 시도</div>
+                                    <p className="text-[12.5px] text-gray-600 font-bold leading-relaxed mt-1">
+                                        중구 전통시장 발전소(민간 주도 법인 설립), 용산국제업무지구(시 주도 타운매니지먼트) 등의 시도가 있으나 독자적 재원 모델 부재.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* 우측: 분절형 자산 vs 네트워크형 자산의 가치 비교 (SVG) */}
-                    <div className="w-full lg:w-[42%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                    {/* 우측: 핵심 공란과 3대 난제 */}
+                    <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
-                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
-                                Asset Structure Graph
+                            <span className="inline-block bg-[#ef4444] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
+                                The Three Key Gaps
                             </span>
-                            <h3 className="text-[24px] font-black text-gray-900 mb-4 leading-tight">
-                                에리어 매니지먼트 네트워크 효과
+                            <h3 className="text-[20px] md:text-[22px] font-black text-[#ef4444] mb-6 leading-snug">
+                                {lang === 'kr' ? '법적 강제 징수 권한의 3대 핵심 난제' : 'Three Obstacles to Mandatory Assessment'}
                             </h3>
-                            <p className="text-gray-500 text-[12px] font-bold mb-6">
-                                빌딩 경계를 지우고 전체 구역을 하나로 묶어 공간 가치를 극대화하는 원리
-                            </p>
+                            
+                            <div className="space-y-4">
+                                {/* 난제 1 */}
+                                <div className="border border-[#0f172a] p-4 bg-red-50/20">
+                                    <span className="block text-[15px] font-black text-red-600">1. 강제 부담금 징수 법적 근거 부재</span>
+                                    <p className="text-[13px] text-gray-600 font-bold leading-relaxed mt-1">
+                                        현행법상 지구 내 소유주들에게 의무적으로 부담금을 부과·징수할 권한이 전혀 없어 자발적 기부 형태의 불안정한 재원 운영에 봉착.
+                                    </p>
+                                </div>
 
-                            <div className="w-full h-[180px] bg-slate-50 border border-gray-300 relative flex items-center justify-center">
-                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 180">
-                                    {/* 좌측: 분절형 (As-Is) */}
-                                    <rect x="20" y="30" width="30" height="30" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="2" />
-                                    <rect x="70" y="30" width="30" height="30" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="2" />
-                                    <rect x="45" y="80" width="30" height="30" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="2" />
-                                    <text x="60" y="140" textAnchor="middle" fill="#64748b" fontSize="11" fontWeight="bold">As-Is: 분절형 자산</text>
-                                    
-                                    {/* 구분선 */}
-                                    <line x1="140" y1="20" x2="140" y2="150" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3,3" />
-                                    
-                                    {/* 우측: 네트워크 통합형 (To-Be) */}
-                                    <rect x="180" y="30" width="30" height="30" fill="#eff6ff" stroke="#357ae8" strokeWidth="2" />
-                                    <rect x="250" y="30" width="30" height="30" fill="#eff6ff" stroke="#357ae8" strokeWidth="2" />
-                                    <rect x="215" y="80" width="30" height="30" fill="#eff6ff" stroke="#357ae8" strokeWidth="2" />
-                                    
-                                    {/* 네트워크선 */}
-                                    <path d="M 195,60 L 230,95 L 265,60" fill="none" stroke="#2563eb" strokeWidth="2" />
-                                    <line x1="195" y1="45" x2="250" y2="45" stroke="#2563eb" strokeWidth="2" />
-                                    
-                                    {/* 중앙 활성화 오퍼레이션 코어 */}
-                                    <circle cx="230" cy="50" r="12" fill="#ef4444" />
-                                    <text x="230" y="53" textAnchor="middle" fill="white" fontSize="8" fontWeight="black">OS</text>
-                                    
-                                    <text x="230" y="140" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="bold">To-Be: SBD 운영 연계</text>
-                                </svg>
+                                {/* 난제 2 */}
+                                <div className="border border-[#0f172a] p-4 bg-red-50/20">
+                                    <span className="block text-[15px] font-black text-red-600">2. 재산세·종부세 정합성 및 이중과세 논란</span>
+                                    <p className="text-[13px] text-gray-600 font-bold leading-relaxed mt-1">
+                                        이미 고율의 재산세와 종부세를 내는 토지·건물 소유주에게 추가 부담금을 물릴 경우 발생할 이중과세 시비와 정합성 문제 해결이 곤란.
+                                    </p>
+                                </div>
+
+                                {/* 난제 3 */}
+                                <div className="border border-[#0f172a] p-4 bg-red-50/20">
+                                    <span className="block text-[15px] font-black text-red-600">3. 사유재산 강제징수 위헌 시비</span>
+                                    <p className="text-[13px] text-gray-600 font-bold leading-relaxed mt-1">
+                                        조세 법률주의가 강력한 한국 법령 체계상, 비정부 민간 법인이 사유 재산인 분담금을 강제로 거두는 것에 대한 헌법적 정당성 확보 문제.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                {/* 최하단 텍스트 */}
+                {/* 하단 설명글 - 규격 준수 */}
                 <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>지리적 조건에 안주하지 않고, 가로 공간 전체의 케어와 콘텐츠 운영 품질을 자산 가치에 직접 반영시키는 전환</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>
+                                {lang === 'kr'
+                                    ? '통합 법제 없이 개별 법령이 분산된 한국의 현황에서, 부담금 강제 징수 한계와 위헌 시비를 정면으로 돌파할 입법 설계가 시급합니다.'
+                                    : 'Scattered statutes without an integrated BID law face critical obstacles: double taxation, lack of assessment power, and constitutional queries.'}
+                            </span>
                         </li>
                     </ul>
                 </div>

@@ -1,117 +1,94 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Section47({ isActive }) {
     const { lang } = useLanguage();
-    const [step, _setStep] = useState(20);
-    const setStep = () => {};
 
     return (
-        <section className="section w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
+        <section className="section w-full h-full bg-[#f8fafc] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">{lang === 'kr' ? '블록체인 연계 5세대 디지털 BID' : '5G Digital Block Chain BID'}</span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
+                        {lang === 'kr' ? '앵커 연합체 기반의 서울형 SBD 운영체제 설계 원칙' : 'Seoul-Style SBD Operation Rules'}
+                    </span>
                 </div>
 
                 {/* 제목 */}
-                <h2 className="text-[32px] md:text-[46px] lg:text-[52px] font-extrabold leading-[1.3] text-[#1d1d1f] break-keep mb-4">
-                    스마트 코어(AI·디지털 트윈) 및 블록체인 기반의 디지털 분담금 징수 구조
+                <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6">
+                    {lang === 'kr' ? '앵커 연합체와 공공공간 수익 사업화: 서울형 SBD 2대 성공 원칙' : 'Anchor Federation & Space Monetization: Two Rules for Seoul SBD'}
                 </h2>
 
-                {/* 다채로운 인포그래픽 영역 (5세대 디지털 BID 프로세스 플로우 SVG + 세부 내용 카드) */}
-                <div className="w-full max-w-[1200px] mt-[30px] mb-[30px] flex flex-col lg:flex-row items-stretch justify-between gap-8 relative z-10">
+                {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 2대 원칙 대칭 및 순환 매커니즘 */}
+                <div className="w-full max-w-[1250px] mt-[10px] mb-[20px] flex flex-col lg:flex-row gap-8 items-stretch">
                     
-                    {/* 좌측: 4단계 스마트 데이터 순환 플로우 (SVG) */}
-                    <div className="w-full lg:w-[48%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                    {/* 원칙 1: 앵커 디벨로퍼 자본 투입 */}
+                    <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
-                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
-                                Data Cycle Flow
+                            <span className="inline-block bg-[#0f172a] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
+                                RULE 01
                             </span>
-                            <h3 className="text-[24px] font-black text-gray-900 mb-4 leading-tight">
-                                5세대 디지털 운영 체계
+                            <h3 className="text-[20px] md:text-[22px] font-black text-[#0f172a] mb-4 leading-tight">
+                                {lang === 'kr' ? '앵커 디벨로퍼 중심의 초기 기금 조성' : 'Anchor Developer-Led Capital & Fund Setup'}
                             </h3>
-                            <p className="text-gray-500 text-[12px] font-bold mb-6">
-                                아날로그 행정의 한계를 뛰어넘는 AI 관제와 스마트 분담금 연동 라이프사이클
+                            <p className="text-[#1e3a8a] text-[14px] font-black mb-4">
+                                * 파편화된 영세 상권이 아닌, 대형 자산운용사와 글로벌 디벨로퍼 지배 구역에서 시작
                             </p>
-
-                            {/* 프로세스 플로우 SVG */}
-                            <div className="w-full h-[180px] bg-slate-50 border border-gray-300 relative flex items-center justify-center">
-                                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 180">
-                                    {/* 루프 서클 */}
-                                    <circle cx="150" cy="90" r="55" fill="none" stroke="#2563eb" strokeWidth="2" strokeDasharray="5,5" />
-                                    
-                                    {/* 단계 노드 (4개) */}
-                                    {/* 1. 수집 */}
-                                    <circle cx="150" cy="35" r="18" fill="#0f172a" stroke="#2563eb" strokeWidth="2" />
-                                    <text x="150" y="38" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">Sensing</text>
-                                    
-                                    {/* 2. 관제 */}
-                                    <circle cx="205" cy="90" r="18" fill="#0f172a" stroke="#2563eb" strokeWidth="2" />
-                                    <text x="205" y="93" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">Control</text>
-                                    
-                                    {/* 3. 정산 */}
-                                    <circle cx="150" cy="145" r="18" fill="#0f172a" stroke="#2563eb" strokeWidth="2" />
-                                    <text x="150" y="148" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">Billing</text>
-                                    
-                                    {/* 4. 기록 */}
-                                    <circle cx="95" cy="90" r="18" fill="#0f172a" stroke="#2563eb" strokeWidth="2" />
-                                    <text x="95" y="93" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">Ledger</text>
-                                    
-                                    {/* 흐름 화살표 */}
-                                    <path d="M 168,35 Q 190,45 200,72" fill="none" stroke="#ef4444" strokeWidth="2" markerEnd="url(#arrow)" />
-                                    <path d="M 205,108 Q 190,135 168,145" fill="none" stroke="#ef4444" strokeWidth="2" />
-                                    <path d="M 132,145 Q 110,135 98,108" fill="none" stroke="#ef4444" strokeWidth="2" />
-                                    <path d="M 95,72 Q 110,45 132,35" fill="none" stroke="#ef4444" strokeWidth="2" />
-
-                                    {/* 중앙 라벨 */}
-                                    <text x="150" y="94" textAnchor="middle" fill="#0f172a" fontSize="10" fontWeight="black">5G BID OS</text>
-                                </svg>
-                            </div>
+                            <p className="text-[13px] text-gray-600 font-bold leading-relaxed mb-6">
+                                {lang === 'kr'
+                                    ? '초기에는 소상공인 설득이 어려운 파편 상권을 지양하고, 이오타서울(이지스) 및 서울역 북부역세권(한화) 등 거대 신규 개발 구역의 앵커 소유주 연합체부터 출발합니다. 개별 건물 관리비의 일정 비율을 타운 매니지먼트 수수료로 책정하여 막대한 초기 자생 기금을 선제적으로 구축합니다.'
+                                    : 'Avoid fragmented areas initially. Start with mega developments like IOTA Seoul & Seoul Station North. Set a percentage of building management fees as TM fees to build initial funds.'}
+                            </p>
                         </div>
-                        <div className="mt-4 bg-gray-50 p-3 border border-gray-200">
-                            <p className="text-[12px] text-gray-600 font-bold leading-relaxed">
-                                🔗 IoT 센서 기반의 실시간 가로 데이터 수집과 스마트 계약에 의한 분담 정산, 신뢰도 높은 블록체인 장부 기록으로의 연속성 확보.
-                            </p>
+                        
+                        <div className="bg-slate-50 p-4 border border-gray-200">
+                            <span className="block text-[12px] font-black text-gray-400 uppercase">Strategic Focus</span>
+                            <span className="text-[13px] font-bold text-gray-700 mt-1 block">
+                                ➔ 이오타서울 + 북부역세권 앵커 연합의 매니지먼트 수수료 선적립
+                            </span>
                         </div>
                     </div>
 
-                    {/* 우측: 핵심 디지털 고도화 세부 카드 */}
-                    <div className="w-full lg:w-[48%] bg-white border-2 border-[#0f172a] rounded-none p-6 text-left shadow-lg flex flex-col justify-between">
+                    {/* 원칙 2: 공공공간 수익 사업화 */}
+                    <div className="w-full lg:w-[50%] border border-[#0f172a] bg-white p-6 flex flex-col justify-between text-left">
                         <div>
-                            <span className="inline-block bg-[#0f172a] text-white text-[13px] font-black px-3 py-1 uppercase mb-4">
-                                Core Specifications
+                            <span className="inline-block bg-[#3b82f6] text-white text-[12px] font-black px-2.5 py-1 uppercase mb-4">
+                                RULE 02
                             </span>
-                            <h3 className="text-[24px] font-black text-gray-900 mb-6 leading-tight">
-                                스마트 도시 인프라 및 블록체인
+                            <h3 className="text-[20px] md:text-[22px] font-black text-gray-900 mb-4 leading-tight">
+                                {lang === 'kr' ? '공공공간 점유를 통한 수익 사업 합법화' : 'Monetizing Public Space (Hudson Yards Benchmark)'}
                             </h3>
-                            
-                            <div className="space-y-4">
-                                <div className="border border-gray-200 p-4">
-                                    <span className="block text-[#0f172a] font-extrabold text-[15px]">🖥️ 3D 디지털 트윈 기반 실시간 모니터링</span>
-                                    <span className="text-[12px] text-gray-600 block mt-1">공중 보행 스카이 트레일, 지하 하역 인프라 및 지상 도로의 물리적 상태와 혼잡도를 가상 3D 맵에 100% 동기화</span>
-                                </div>
-                                <div className="border border-gray-200 p-4">
-                                    <span className="block text-[#0f172a] font-extrabold text-[15px]">🤖 AI 알고리즘 기반 스마트 자원 배치</span>
-                                    <span className="text-[12px] text-gray-600 block mt-1">보행량 센서 및 쓰레기 적체 예측 기능을 통해 보안 미화 요원을 과밀 구간에 실시간 선배치 및 청결 유지</span>
-                                </div>
-                                <div className="border border-gray-200 p-4">
-                                    <span className="block text-[#0f172a] font-extrabold text-[15px]">🔗 스마트 컨트랙트 실시간 분담 정산 (D-BID)</span>
-                                    <span className="text-[12px] text-gray-600 block mt-1">트래픽, 오염 배출 등 각 자산의 실제 환경 영향 요인을 산정하여 임의 분담 방식이 아닌 알고리즘 기반 자동 과금</span>
-                                </div>
-                            </div>
+                            <p className="text-[#3b82f6] text-[14px] font-black mb-4">
+                                * 단순 유지보수 의무를 넘어 공개공지 및 보행로의 일괄 점용 허가 양도
+                            </p>
+                            <p className="text-[13px] text-gray-600 font-bold leading-relaxed mb-6">
+                                {lang === 'kr'
+                                    ? '뉴욕시가 HYHK BID에 공원 관리권을 위탁한 사례를 벤치마킹하여, 서울시는 건물 주변 공개공지, 도로, 보행통로에 대한 일괄 점용 허가권을 매니지먼트 연합에 부여해야 합니다. 팝업 스토어, 야외 문화 행사 기획 등으로 수익을 창출해 정부 재정 없이도 자생할 수 있는 구조를 만듭니다.'
+                                    : 'Following NYC\'s delegation to HYHK, transfer administrative occupancy rights for open plazas & pedestrian paths to the TM alliance. Enable popups & outdoor event revenues for self-financing.'}
+                            </p>
+                        </div>
+                        
+                        <div className="bg-blue-50/50 p-4 border border-blue-200">
+                            <span className="block text-[12px] font-black text-blue-500 uppercase">Benchmark Reference</span>
+                            <span className="text-[13px] font-bold text-[#1e3a8a] mt-1 block">
+                                ➔ 뉴욕 HYHK 모델을 이식한 공공공간 점용권 이양 및 자주적 수익 모델 확보
+                            </span>
                         </div>
                     </div>
 
                 </div>
 
-                {/* 최하단 텍스트 */}
+                {/* 하단 설명글 - 규격 준수 */}
                 <div className="mt-[10px] max-w-[1000px] text-[15px] md:text-[19px] leading-[1.45] font-medium text-gray-700 break-keep text-center">
                     <ul className="text-left inline-block space-y-2 mx-auto">
                         <li className="flex items-start">
-                            <span className="mr-3 text-[#0f172a]">▪</span>
-                            <span>디지털 트윈, IoT 예측 관제, 블록체인 스마트 컨트랙트를 통한 실시간 분담 정산으로 진화하는 미래형 스마트 관리</span>
+                            <span className="mr-3 text-[#1e3a8a]">▪</span>
+                            <span>
+                                {lang === 'kr'
+                                    ? '앵커 디벨로퍼의 연합비로 초기 동력을 확보하고, 서울시의 공공 공간 점용권 허가로 자주적 자생 구조를 완성하는 2대 설계 축'
+                                    : 'A dual-axis model: setup initial fund via anchor developer fees, and achieve self-sustainability through public occupancy delegation.'}
+                            </span>
                         </li>
                     </ul>
                 </div>

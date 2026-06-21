@@ -162,6 +162,16 @@ export const menuDataEn = [
                     { label: "Large Institutional Blocks & Timing", id: "page-68" },
                     { label: "Value Proposition Matrix", id: "page-69" }
                 ]
+            },
+            {
+                title: "Chapter 2. Seoul-Style BID Customization Strategy",
+                id: "page-70",
+                items: [
+                    { label: "Scattered Legislation & 3 Gaps", id: "page-71" },
+                    { label: "Mugyo-Dong soft TM Case Study", id: "page-72" },
+                    { label: "5 Institutional Localizations", id: "page-73" },
+                    { label: "Federation & Space Monetization Rules", id: "page-74" }
+                ]
             }
         ] 
     }
@@ -330,6 +340,16 @@ export const menuDataKr = [
                     { label: "서울 도심 BID 도입의 한계와 5대 제도적 암초", id: "page-67" },
                     { label: "이오타서울과 서울역 대형 기관 소유주 블록 형성", id: "page-68" },
                     { label: "SBD BID 추진의 주체별 핵심 메시지 매트릭스", id: "page-69" }
+                ]
+            },
+            {
+                title: "Chapter 2. 서울형 BID 커스터마이징 전략",
+                id: "page-70",
+                items: [
+                    { label: "통합 법제 부재와 3대 구조적 난제", id: "page-71" },
+                    { label: "무교·다동 실험의 시사점과 무임승차 교훈", id: "page-72" },
+                    { label: "서울형 BID 5대 제도적 커스터마이징 전략", id: "page-73" },
+                    { label: "서울형 SBD 2대 성공 원칙", id: "page-74" }
                 ]
             }
         ] 
