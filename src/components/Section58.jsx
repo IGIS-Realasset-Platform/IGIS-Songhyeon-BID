@@ -5,16 +5,16 @@ export default function Section58({ isActive }) {
         <section className="section w-full h-full bg-[#fcfdfe] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                {/* 소제목 - 의역하여 맥락 전달 */}
+                {/* 소제목 - 본 슬라이드의 주제 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        점(點)의 방치에서 지구 단위 면(面)의 기획으로 전환하는 개발 패러다임
+                        기존 오피스 지구의 한계와 SBD의 패러다임 비교
                     </span>
                 </div>
 
-                {/* 제목 - 드라이하고 강력함 */}
+                {/* 제목 - 본 슬라이드의 핵심 메시지 */}
                 <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6">
-                    쌓아 올린 빌딩 숲과 설계·운영된 업무지구의 본질적 차이
+                    단순 빌딩 적치를 넘어 에어리어 기획으로 공간 가치를 극대화함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 자유로운 대칭형 비주얼 SVG 다이어그램 설계 */}

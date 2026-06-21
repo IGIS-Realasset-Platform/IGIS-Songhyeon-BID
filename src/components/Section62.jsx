@@ -5,16 +5,16 @@ export default function Section62({ isActive }) {
         <section className="section w-full h-full bg-[#fcfdfe] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                {/* 소제목 */}
+                {/* 소제목 - 본 슬라이드의 주제 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        디벨로퍼 관점의 결론: 자산 가치를 상승시키는 에어리어 운영 엔진
+                        SBD 도입에 따른 디벨로퍼의 재무적·전략적 실익 결론
                     </span>
                 </div>
 
-                {/* 제목 */}
+                {/* 제목 - 본 슬라이드의 핵심 메시지 */}
                 <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6">
-                    비용이 아닌 자산 가치의 엔진: SBD 운영체제(OS)의 결론
+                    지구 운영 분담금은 지출 비용이 아닌 자산가치를 올리는 영구적 동력임
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 맞물려 돌아가는 더블 기어 엔진 커스텀 SVG */}

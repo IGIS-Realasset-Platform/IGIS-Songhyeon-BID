@@ -5,16 +5,16 @@ export default function Section59({ isActive }) {
         <section className="section w-full h-full bg-[#fcfdfe] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                {/* 소제목 - 의역하여 맥락 강화 */}
+                {/* 소제목 - 본 슬라이드의 주제 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        이지스 단일 앵커와 운영체제가 결합한 제4세대 업무지구 SBD의 본질
+                        제4세대 업무지구 SBD의 구조적 정의와 운영 모델
                     </span>
                 </div>
 
-                {/* 제목 - 드라이하고 단호함 */}
+                {/* 제목 - 본 슬라이드의 핵심 메시지 */}
                 <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6">
-                    최초로 운영체제(OS)를 탑재하고 설계되는 지능형 업무지구 SBD
+                    이지스 단일 앵커 자산에 통합 에리어 운영체제(OS)를 선제적으로 결합함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 입체적 3D isometric 레이어 아키텍처 SVG */}

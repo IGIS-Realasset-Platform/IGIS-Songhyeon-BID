@@ -5,16 +5,16 @@ export default function Section61({ isActive }) {
         <section className="section w-full h-full bg-[#fcfdfe] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                {/* 소제목 */}
+                {/* 소제목 - 본 슬라이드의 주제 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        도시 재생과 에어리어 매니지먼트가 입증한 글로벌 3대 성공 실증 사례
+                        도시 재생과 에어리어 매니지먼트의 글로벌 3대 성공 실증 분석
                     </span>
                 </div>
 
-                {/* 제목 */}
+                {/* 제목 - 본 슬라이드의 핵심 메시지 */}
                 <h2 className="text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6">
-                    마약 소굴의 가치 전도부터 빌딩 투자가치 +60% 상승까지의 실증 사례
+                    슬럼가의 가치 회복부터 빌딩 투자가치 60% 상승까지 실질적 상승을 증명함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 쫌생이 핏 배제, 3대 글로벌 랜드마크 비교 카드 SVG 다이어그램 */}

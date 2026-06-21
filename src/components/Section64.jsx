@@ -18,16 +18,16 @@ export default function Section64({ isActive }) {
         <section className="section w-full h-full bg-[#fcfdfe] flex flex-col items-center justify-center relative px-6 md:px-16 overflow-hidden">
             <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center">
                 
-                {/* 소제목 - 자간 배제 */}
+                {/* 소제목 - 본 슬라이드의 주제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        보행광장 전환을 통한 범죄·사고 감소와 시 전체 경제 11% 견인 효과
+                        공공 공간 보행화 및 안전 개선이 도시에 미치는 경제적 파급 효과
                     </span>
                 </div>
 
-                {/* 제목 - 자간 및 밑선 배제 */}
+                {/* 제목 - 본 슬라이드의 핵심 메시지 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    뉴욕 타임스스퀘어 실증: 안전과 세수의 거대 지렛대 효과
+                    보행광장 전환으로 범죄를 줄이고 뉴욕시 전체 세수의 11%를 견인함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (풍부한 그라데이션, 인포그래픽 대시보드) */}
