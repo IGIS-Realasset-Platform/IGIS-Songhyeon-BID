@@ -129,13 +129,13 @@ export default function Section63({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                BID는 민간 소유주들이 자체 조달한 강제 부과금으로 공공 서비스를 대행하는 구조로, 서울시는 예산 추가 투입 없이 도심 가로 청결과 치안 품질을 대폭 강화할 수 있습니다.
+                                BID는 민간 소유주들이 자체 조달한 강제 부과금으로 공공 서비스를 대행하는 구조로, 서울시는 예산 추가 투입 없이 도심 가로 청결과 치안 품질을 대폭 강화할 수 있음.
                             </span>
                         </li>
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                기부채납될 대규모 공공 보행로와 광장들의 유지관리비를 민간 BID가 전적으로 부담하여 예산을 절감하고, 불법 주정차 등 고질적 민원을 민간 차원에서 신속히 해소해 지자체의 행정 효율성을 극대화합니다.
+                                기부채납될 대규모 공공 보행로와 광장들의 유지관리비를 민간 BID가 전적으로 부담하여 예산을 절감하고, 불법 주정차 등 고질적 민원을 민간 차원에서 신속히 해소해 지자체의 행정 효율성을 극대화함.
                             </span>
                         </li>
                     </ul>
