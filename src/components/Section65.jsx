@@ -136,13 +136,7 @@ export default function Section65({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                롯폰기힐즈는 녹지율 31%를 달성하여 도심 표면 온도를 5~15도 낮추고 옥상 논밭 커뮤니티 등 다각적 환경 관리를 제공함으로써 서울시의 기후·탄소중립 목표에 완벽히 기여함.
-                            </span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-3 text-[#1e3a8a]">▪</span>
-                            <span>
-                                서울시는 예산 지출 없이 SBD 모델을 통해 도심 안전, 청결, 녹색 인프라, 세수 확대를 다져 글로벌 LP와 다국적 앵커 기업이 신뢰하고 찾아오는 강력한 서울시 도시 경쟁력 브랜딩을 획득하게 됨.
+                                롯폰기힐즈의 환경 성능 실증을 기반으로, 예산 부담 없는 '안전·녹색·세수' 복합 효과를 통한 서울의 글로벌 도시 경쟁력 브랜딩을 구축함.
                             </span>
                         </li>
                     </ul>
