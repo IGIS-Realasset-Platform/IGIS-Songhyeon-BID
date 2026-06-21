@@ -177,7 +177,9 @@ export const menuDataEn = [
                 title: "Chapter 3. Rationale for Seoul Station-Namsan SBD",
                 id: "page-75",
                 items: [
-                    { label: "SBD Rationale & 4th Gen District", id: "page-76" }
+                    { label: "SBD Rationale & 4th Gen District", id: "page-76" },
+                    { label: "Seoul Station Megas Integration", id: "page-77" },
+                    { label: "IOTA Seoul Project Scale & Ritz-Carlton", id: "page-78" }
                 ]
             }
         ] 
@@ -363,7 +365,9 @@ export const menuDataKr = [
                 title: "Chapter 3. 서울역-남산 SBD화 명분",
                 id: "page-75",
                 items: [
-                    { label: "이오타 서울 중심의 SBD화 명분과 당위성", id: "page-76" }
+                    { label: "이오타 서울 중심의 SBD화 명분과 당위성", id: "page-76" },
+                    { label: "서울역 공간 위계 재편 및 메가 프로젝트 융합", id: "page-77" },
+                    { label: "이오타 서울의 개발 스케일 및 리츠칼튼 유치", id: "page-78" }
                 ]
             }
         ] 

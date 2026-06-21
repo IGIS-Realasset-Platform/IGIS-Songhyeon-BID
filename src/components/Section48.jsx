@@ -11,7 +11,7 @@ export default function Section48({ isActive }) {
                 {/* 소제목 */}
                 <div>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#2563eb] mb-[12px]">
-                        {lang === 'kr' ? '이오타 서울 중심의 서울역-남산 구역의 SBD화 명분은?' : 'Rationale for SBD Center at Seoul Station-Namsan'}
+                        {lang === 'kr' ? '4세대 계획형 업무지구(SBD) 도입의 당위성과 전통 권역 한계 극복' : 'Rationale for 4th Gen District (SBD) & Overcoming Traditional Limits'}
                     </span>
                 </div>
 
