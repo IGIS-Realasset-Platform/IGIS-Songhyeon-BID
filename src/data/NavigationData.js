@@ -180,7 +180,9 @@ export const menuDataEn = [
                     { label: "SBD Rationale & 4th Gen District", id: "page-76" },
                     { label: "Seoul Station Megas Integration", id: "page-77" },
                     { label: "IOTA Seoul Project Scale & Ritz-Carlton", id: "page-78" },
-                    { label: "Bridge Refinancing & Area Management Foundation", id: "page-79" }
+                    { label: "Bridge Refinancing & Area Management Foundation", id: "page-79" },
+                    { label: "Seoul Station-Namsan Management Alliance", id: "page-80" },
+                    { label: "Seoulo 7017 Delegation & Placemaking", id: "page-81" }
                 ]
             }
         ] 
@@ -369,7 +371,9 @@ export const menuDataKr = [
                     { label: "이오타 서울 중심의 SBD화 명분과 당위성", id: "page-76" },
                     { label: "서울역 공간 위계 재편 및 메가 프로젝트 융합", id: "page-77" },
                     { label: "이오타 서울의 개발 스케일 및 리츠칼튼 유치", id: "page-78" },
-                    { label: "본PF 전환 금융 타결 및 에어리어 매니지먼트 기반 확보", id: "page-79" }
+                    { label: "본PF 전환 금융 타결 및 에어리어 매니지먼트 기반 확보", id: "page-79" },
+                    { label: "서울역-남산 매니지먼트 얼라이언스 거버넌스", id: "page-80" },
+                    { label: "서울로 7017 위탁 및 플레이스메이킹 전략", id: "page-81" }
                 ]
             }
         ] 
