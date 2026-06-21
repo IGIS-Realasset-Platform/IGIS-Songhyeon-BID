@@ -10,9 +10,7 @@ export default function Section38_Newschool({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '관리 고도화에 따른 갈등과 형평성 과제' : 'Management Elevation & Equity Challenges'}
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '[거시적 형평성] 공공 재정의 실질 부담과 사적 특혜 분배의 구조적 갈등' : '[Macro Equity] Fiscal Burdens and Structural Distribution Controversies'}</span>
                 </div>
 
                 {/* 제목 */}

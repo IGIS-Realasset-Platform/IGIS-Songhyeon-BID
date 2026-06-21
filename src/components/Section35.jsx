@@ -10,9 +10,7 @@ export default function Section35({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">
-                        {lang === 'kr' ? '플레이스메이킹과 보행 가로 네트워크' : 'Placemaking & Pedestrian Network'}
-                    </span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '[갈등의 전제] 플레이스메이킹을 통한 공간의 철저한 설계와 통제' : '[Premise] Designing and Controlling Spaces via Placemaking'}</span>
                 </div>
 
                 {/* 제목 */}

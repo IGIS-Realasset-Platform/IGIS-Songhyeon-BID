@@ -12,7 +12,7 @@ export default function Section37({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '베셀(Vessel) 자살 사고와 안전 대책' : 'Vessel Security Crisis'}</span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '[디자인의 부작용] 심미성 중심 랜드마크가 놓친 인간적 포용성과 안전의 비극' : '[Side Effect] Landmark Design Lacking Human Inclusivity and Safety'}</span>
                 </div>
 
                 {/* 제목 */}

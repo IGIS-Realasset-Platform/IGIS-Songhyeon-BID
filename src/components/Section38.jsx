@@ -12,7 +12,7 @@ export default function Section38({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '가로수 화단 확장 및 노점상 갈등' : 'Tree Beds Expansion Debate'}</span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '[공간의 배제] 환경 개선 디자인을 도구로 한 영세 노점상의 물리적 축출' : '[Exclusion] Physically Evicting Vendors via Environment Design'}</span>
                 </div>
 
                 {/* 제목 */}

@@ -12,7 +12,7 @@ export default function Section36({ isActive }) {
                 
                 {/* 소제목 */}
                 <div>
-                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '벨라 압죽 공원 소모스 댄스 파티' : 'SOMOS Latin Dance Party'}</span>
+                    <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#1e3a8a] mb-[12px]">{lang === 'kr' ? '[활성화의 성과] 소프트웨어 큐레이션으로 극대화된 공간 가치' : '[Fruit] Maximizing Spatial Value via Software Curation'}</span>
                 </div>
 
                 {/* 제목 */}
