@@ -21,13 +21,13 @@ export default function Section78({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        콘크리트 하드웨어를 넘어 데이터 기반 타운 매니지먼트와 투명한 디지털 분담금 조율 완성
+                        스마트 코어(AI·디지털트윈·블록체인) 기반의 통합 에리어 관리 체제
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    5세대 디지털 BID: 스마트코어(AI·디지털트윈) 기반 통합 관리체제
+                    AI와 디지털 트윈 및 블록체인을 결합하여 투명하고 효율적인 5세대 디지털 BID를 선도함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 디지털 아키텍처) */}
@@ -90,7 +90,7 @@ export default function Section78({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                용산국제업무지구는 단순 물리적 관리를 넘어 AI, 디지털 트윈, 블록체인 분담금 시스템이 통합된 5세대 디지털 BID로 진화하며, 그 시작점이 이오타서울임.
+                                하드웨어 관리를 넘어 실시간 데이터 기반 타운 매니지먼트와 투명한 디지털 분담금 정산을 구현하는 진화 모델
                             </span>
                         </li>
                     </ul>

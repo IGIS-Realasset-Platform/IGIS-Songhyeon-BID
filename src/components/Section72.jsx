@@ -21,13 +21,13 @@ export default function Section72({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        이지스디벨로퍼, 지자체(서울시·중구·용산구) 및 직장인과 시민이 동시에 누리는 상생 가치
+                        이오타서울 SBD가 가져올 이해관계자별 체감 변화 및 시너지 시나리오
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    이오타서울 SBD가 가져올 이해관계자별 체감 변화 시나리오
+                    디벨로퍼의 수익성 개선과 공공의 예산 절감 및 시민의 녹지 향유권을 동시에 충족하는 상생 가치를 창출함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 3열 2행 구조화) */}
@@ -115,7 +115,7 @@ export default function Section72({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                디벨로퍼의 운영 수수료 수익 확보부터 서울시의 예산 절감형 복지, 시민의 녹지 향유권까지 모든 이해관계자가 가치를 공유하는 상생 모델을 구축함.
+                                민간 주도의 에리어 매니지먼트 가동을 통해 예산 투입 없이 공공 서비스를 대행하고 지구 경쟁력을 극대화함
                             </span>
                         </li>
                     </ul>

@@ -21,13 +21,13 @@ export default function Section79({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        즉시(지권자 NPO)에서 시작해 단기 조례 제정, 중기 통합 구역화, 장기 용산 전이로 이어지는 단계적 실행
+                        서울형 SBD 구축 및 법적 기반 마련을 위한 단계별 타임라인
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    서울형 SBD 구축을 위한 단계별 실행 로드맵 및 타임라인
+                    2026년 NPO 설립부터 2030년 용산 연계까지 단계별 실행 로드맵 및 타임라인을 확정함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 외곽 박스를 완전히 배제한 오픈형 인포그래픽 */}
@@ -127,7 +127,7 @@ export default function Section79({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                2026년 이지스자산운용 주도의 파일럿 NPO 설립을 기점으로 조례 입법과 SBD-IBD 연계를 단계적으로 달성하는 실행 로드맵을 구축함.
+                                지권자 NPO 결성, 조례 제정 지원, 통합 구역화 가동 및 용산과의 광역 업무 축 연결 로드맵
                             </span>
                         </li>
                     </ul>

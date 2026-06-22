@@ -21,13 +21,13 @@ export default function Section73({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        압도적 자연자산과 교통결절의 융합, 그리고 뉴욕·도쿄의 에리어 매니지먼트 입증 효과
+                        SBD의 독보적 고유 자산(남산·서울역) 및 글로벌 매니지먼트 입증 사례
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    SBD의 고유 경쟁력(남산·서울역)과 글로벌 매니지먼트 사례
+                    남산의 자연 자산과 서울역의 광역 교통망에 글로벌 에리어 매니지먼트를 융합해 진화형 업무지구를 구축함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 2컬럼 레이아웃) */}
@@ -143,7 +143,7 @@ export default function Section73({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                남산과 서울역이라는 독보적 자연·교통 자산에 에리어 매니지먼트 운영체제를 결합하여, 기존의 단순 입지 위주 오피스 집합을 넘어선 국내 최초의 진화형 업무지구를 구축함.
+                                뉴욕 허드슨야드와 도쿄 마루노우치의 에리어 관리 기획력을 접목하여 국내 최초의 계획형 업무지구 완성
                             </span>
                         </li>
                     </ul>

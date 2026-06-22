@@ -21,13 +21,13 @@ export default function Section70({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        운영주체와 어메니티, 정책 지원이 결여된 단순 오피스 집합의 한계 노출
+                        한국 3대 업무지구(CBD·GBD·YBD)의 구조적 한계와 결핍 요인
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    한국 3대 업무지구(CBD·GBD·YBD)의 구조적 한계와 결핍
+                    운영 주체와 어메니티의 부재로 인해 공급 충격과 주말 공동화 등 구조적 한계에 직면함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 3열 대비 레이아웃) */}
@@ -116,7 +116,7 @@ export default function Section70({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                기존 3대 권역은 거대한 종사자 규모에도 불구하고 운영 주체와 어메니티의 결여로 인해 공급 충격, 양극화, 주말 공동화 등의 구조적 한계를 안고 있음.
+                                거대한 종사자 규모 대비 통합 가로 관리, 기업 어메니티 지원, 정책적 조율 기능이 미비한 단순 빌딩 적치의 결과
                             </span>
                         </li>
                     </ul>

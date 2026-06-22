@@ -21,13 +21,13 @@ export default function Section77({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        이오타서울을 테스트베드로 한 에리어 매니지먼트 패키지(거버넌스·분담금·OS)의 이식 구조
+                        이오타서울 에리어 매니지먼트 패키지의 용산국제업무지구(IBD) 이식 전략
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    서울역-남산 SBD 검증 운영 모델의 용산국제업무지구 전이 전략
+                    SBD 파일럿을 통해 검증된 거버넌스·운영 OS를 용산국제업무지구의 핵심 매뉴얼로 전이함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 아키텍처 다이어그램) */}
@@ -99,7 +99,7 @@ export default function Section77({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                이오타서울 통합개발을 통해 축적된 에리어 매니지먼트의 조율 및 협약 모델은 향후 용산국제업무지구의 초대형 타운 매니지먼트를 가동하는 핵심 실무 매뉴얼로 이전됨.
+                                서울역-남산 구역에서 검증된 민관 협약 및 분담금 조율 모델을 용산 메가 개발의 초기 운영 리스크 방어 도구로 활용
                             </span>
                         </li>
                     </ul>

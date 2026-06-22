@@ -21,13 +21,13 @@ export default function Section74({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        오피스 공실률, 임대료 프리미엄, 치안성능 등 핵심 지표의 극적인 차별화 실증 추정
+                        SBD BID 유무에 따른 핵심 운영 및 가치 지표의 비교 예측
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    숫자로 보는 "SBD BID가 있는 서울"과 "없는 서울" 비교 예측
+                    SBD 완성을 통해 공실률 2~3%대의 안정적 방어 및 10~20%의 자산가치 프리미엄을 조기 실현함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 데이터 그리드) */}
@@ -161,7 +161,7 @@ export default function Section74({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                현재 서울 CBD는 입지 집적 효과만 보유하여 공급에 취약하나, SBD 완성을 통해 공실률 2~3%대 방어 및 10~20%의 자산가치 프리미엄을 안정적으로 확보하게 됨.
+                                자산 관리 수준 향상 및 에리어 매니지먼트 기여로 인한 임대료 상승과 공실 해소 등 실질적인 재무 데이터 추정
                             </span>
                         </li>
                     </ul>

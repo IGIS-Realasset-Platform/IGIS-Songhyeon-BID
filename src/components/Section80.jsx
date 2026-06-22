@@ -21,13 +21,13 @@ export default function Section80({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        양동-봉래 구역의 기부채납 공간 위탁 관리에서 시작해 서울역-남산 통합 SBD와 용산 연계 축 완성
+                        단계별 파일럿 BID 설립 거점 및 권역 확장 확장 모델 (Phase 1~3)
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    파일럿 BID 설립 및 권역 확장 로드맵 (Phase 1~3)
+                    양동 파일럿에서 시작해 서울역-남산 통합을 거쳐 용산 연계축까지 중심 업무축을 확장함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 외곽 박스 및 그림자를 완전히 제거한 오픈형 인포그래픽 */}
@@ -102,7 +102,7 @@ export default function Section80({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                양동 파일럿 BID의 기부공간 위탁 운영 경험을 토대로 서울역-남산 전체를 하나로 묶고, 최종적으로 용산국제업무지구까지 연결해 서울의 중심 업무 축을 재편함.
+                                양동 정비구역의 위탁 관리 경험을 바탕으로 봉래, 남산, 용산까지의 광역적 벨트를 순차적으로 활성화
                             </span>
                         </li>
                     </ul>

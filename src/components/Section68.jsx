@@ -21,13 +21,13 @@ export default function Section68({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        이오타서울 공개 녹지 관리, 보행 네트워크 연결 및 치안 개선을 통한 주거 환경 혁신
+                        이오타서울 공개 녹지 및 보행·치안 인프라를 통한 주거 환경 혁신
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    주변 거주자 관점의 실질적 혜택과 부동산 가치 상승 효과
+                    공개녹지 관리와 남산 보행로 구축으로 정주 여건을 개선하고 부동산 가치 상승을 견인함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 2컬럼 비교 다이어그램) */}
@@ -119,7 +119,7 @@ export default function Section68({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                축구장 1개 크기의 이오타서울 녹지 관리와 남산 연결 보행로 및 치안 인프라 구축을 통해 인접 주거지의 정주 여건을 개선하고 부동산 가치의 초과 상승을 견인함.
+                                축구장 1개 크기의 이오타서울 녹지 관리와 남산 연결 보행로 및 치안 공동화 방지 인프라 구축의 실질적 혜택
                             </span>
                         </li>
                     </ul>

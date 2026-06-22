@@ -21,13 +21,13 @@ export default function Section69({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        광장 보행화에 따른 유동인구 유입, 지구 단위 마케팅 및 반(反)젠트리피케이션 장치 내장
+                        지역 리테일 활성화와 주말 공동화 방지 및 지속가능성 확보 전략
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    지역 리테일 활성화와 주말 공동화 방지 및 지속가능성 확보
+                    보행 광장 활성화와 젠트리피케이션 방지 설계로 주말 공동화 없는 지속가능 상생 생태계를 구축함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 2분할 정보 구조화) */}
@@ -106,7 +106,7 @@ export default function Section69({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                보행자 친화 환경 정비와 지구 단위 마케팅으로 소상공인 매출 증대를 이끌고, 주말 활성화와 함께 반(反)젠트리피케이션 설계를 내장하여 상생 생태계를 구축함.
+                                보행자 친화 환경 정비와 지구 단위 공동 마케팅 가동 및 소상공인 보호를 위한 상생 장치 내장
                             </span>
                         </li>
                     </ul>

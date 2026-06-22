@@ -21,13 +21,13 @@ export default function Section67({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        점심시간 안마의자 카페의 쪽잠 vs 마루노우치·브라이언트파크 잔디밭의 일상 어메니티
+                        한국 업무지구의 결핍과 글로벌 어메니티 격차
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    한국 업무지구의 결핍과 글로벌 어메니티 격차
+                    글로벌 녹지 어메니티는 복지가 아닌 인재 유치와 기업 경쟁력의 핵심 무기임
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 대조 대시보드) */}
@@ -107,7 +107,7 @@ export default function Section67({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                안마의자 쪽잠에 의존하는 한국 도심과 달리 글로벌 지구는 녹지 어메니티를 복지가 아닌 핵심 인재 유치의 무기이자 기업 경쟁력으로 활용함.
+                                안마의자 카페의 쪽잠에 의존하는 한국 도심 환경과 마루노우치·브라이언트파크의 잔디밭 등 글로벌 어메니티의 격차 실태
                             </span>
                         </li>
                     </ul>

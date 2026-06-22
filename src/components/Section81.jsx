@@ -21,13 +21,13 @@ export default function Section81({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        사전 준비부터 입법, 최종 DMA 설립 및 스타트업까지의 법적·실무적 단계 분석
+                        뉴욕시 SBS 설립 기준에 근거한 법적·실무적 단계별 체크리스트
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    뉴욕시(NYC) SBS 기준 BID 구축 가이드라인 체크리스트
+                    NYC 가이드라인 기준 BID 설립에 최소 3~6년이 소요되므로 마스터플랜 기획 단계부터 선제적 준비가 필수적임
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 외곽 상자 및 그림자 제거한 오픈형 데이터 그리드 */}
@@ -104,7 +104,7 @@ export default function Section81({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                뉴욕시 비즈니스 개선지구(BID) 설립 기준은 사전 동의 확보와 정교한 입법 절차를 거치므로 기획부터 개시까지 최소 3~6년이 소요되며 SBD 계획 시 선제적 대응이 필요함.
+                                주민·소유주 사전 동의 확보, 의회 입법 심의, NPO 거버넌스 수립 등 정교한 법적 타임라인 분석
                             </span>
                         </li>
                     </ul>

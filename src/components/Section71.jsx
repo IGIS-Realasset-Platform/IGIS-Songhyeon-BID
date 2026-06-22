@@ -21,13 +21,13 @@ export default function Section71({ isActive }) {
                 {/* 소제목 - 자간 배제 */}
                 <div className={`transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <span className="inline-block text-[20px] md:text-[24px] font-bold text-[#0f172a] mb-[12px]">
-                        입지적 집적을 넘어 운영체제(OS)와 기획 효과를 자산가치에 내장하는 비즈니스 혁신
+                        기존 3대 업무지구 vs 설계·운영형 SBD의 핵심 차별성 대조
                     </span>
                 </div>
 
                 {/* 제목 - 자간 및 밑선 배제 */}
                 <h2 className={`text-[32px] md:text-[46px] lg:text-[50px] font-extrabold leading-[1.3] text-[#0f172a] break-keep mb-6 transition-all duration-[689ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    기존 3대 업무지구 vs 설계·운영형 SBD의 결정적 차이
+                    단순한 입지적 집적을 넘어 타운 매니지먼트 운영 효과를 자산 가치에 영구적으로 내재화함
                 </h2>
 
                 {/* 중앙 컨텐츠 영역: 제약 없는 자유로운 비주얼 기획 (무배경, 정밀 그리드 비교표) */}
@@ -208,7 +208,7 @@ export default function Section71({ isActive }) {
                         <li className="flex items-start">
                             <span className="mr-3 text-[#1e3a8a]">▪</span>
                             <span>
-                                기존 3대 업무지구의 가치는 입지(자연발생적 집적)에서만 유도되는 반면, 서울형 SBD는 타운 매니지먼트 운영 효과를 자산 자체에 영구 내재화함.
+                                건물(하드웨어)과 에리어 매니지먼트(소프트웨어 운영체제)를 결합하여 자산 가치를 극대화하는 비즈니스 혁신 모델
                             </span>
                         </li>
                     </ul>
