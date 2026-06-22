@@ -36,63 +36,63 @@ export default function Section81({ isActive }) {
                         {/* Table Header Row */}
                         <g transform="translate(30, 10)">
                             <rect x="0" y="0" width="140" height="32" fill="#1e293b" />
-                            <text x="70" y="20" textAnchor="middle" fill="#ffffff" fontSize="11" fontWeight="bold">단계</text>
+                            <text x="70" y="20" textAnchor="middle" fill="#ffffff" fontSize="15" fontWeight="bold">단계</text>
 
                             <rect x="150" y="0" width="530" height="32" fill="#475569" />
-                            <text x="415" y="20" textAnchor="middle" fill="#ffffff" fontSize="11" fontWeight="bold">필수 실무 요건 및 세부 내용</text>
+                            <text x="415" y="20" textAnchor="middle" fill="#ffffff" fontSize="15" fontWeight="bold">필수 실무 요건 및 세부 내용</text>
 
                             <rect x="690" y="0" width="190" height="32" fill="#1e3a8a" />
-                            <text x="785" y="20" textAnchor="middle" fill="#ffffff" fontSize="11" fontWeight="bold">소요 기간 (평균)</text>
+                            <text x="785" y="20" textAnchor="middle" fill="#ffffff" fontSize="15" fontWeight="bold">소요 기간 (평균)</text>
                             
                             <line x1="0" y1="32" x2="880" y2="32" stroke="#cbd5e1" strokeWidth="1.5" />
                         </g>
 
                         {/* Row 1: 사전 준비 */}
                         <g transform="translate(30, 42)">
-                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">사전 준비</text>
-                            <text x="170" y="25" fill="#334155" fontSize="10.5">Steering Committee 구성 (지권자·재산소유자·상인·주민 대표자 회의 소집)</text>
-                            <text x="785" y="25" textAnchor="middle" fill="#64748b" fontSize="11" fontWeight="bold">—</text>
+                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="bold">사전 준비</text>
+                            <text x="170" y="25" fill="#334155" fontSize="14.5">Steering Committee 구성 (지권자·재산소유자·상인·주민 대표자 회의 소집)</text>
+                            <text x="785" y="25" textAnchor="middle" fill="#64748b" fontSize="15" fontWeight="bold">—</text>
                             <line x1="0" y1="38" x2="880" y2="38" stroke="#e2e8f0" strokeWidth="1" />
                         </g>
 
                         {/* Row 2: 계획 수립 */}
                         <g transform="translate(30, 80)">
-                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">계획 수립</text>
-                            <text x="170" y="25" fill="#334155" fontSize="10.5">지역 요구조사(Needs Assessment) 완료, 공식 경계 확정, 서비스 예산 및 부과율 합의</text>
-                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="bold">6 ~ 12개월</text>
+                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="bold">계획 수립</text>
+                            <text x="170" y="25" fill="#334155" fontSize="14.5">지역 요구조사(Needs Assessment) 완료, 공식 경계 확정, 서비스 예산 및 부과율 합의</text>
+                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="15" fontWeight="bold">6 ~ 12개월</text>
                             <line x1="0" y1="38" x2="880" y2="38" stroke="#e2e8f0" strokeWidth="1" />
                         </g>
 
                         {/* Row 3: 아웃리치 */}
                         <g transform="translate(30, 118)">
-                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">아웃리치</text>
-                            <text x="170" y="25" fill="#334155" fontSize="10.5">모든 건물주/임차인 대상 지원투표(Support Ballot) 발송, 지역공청회 개최, 지권자 동의서 확보</text>
-                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="bold">6 ~ 12개월</text>
+                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="bold">아웃리치</text>
+                            <text x="170" y="25" fill="#334155" fontSize="14.5">모든 건물주/임차인 대상 지원투표(Support Ballot) 발송, 지역공청회 개최, 지권자 동의서 확보</text>
+                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="15" fontWeight="bold">6 ~ 12개월</text>
                             <line x1="0" y1="38" x2="880" y2="38" stroke="#e2e8f0" strokeWidth="1" />
                         </g>
 
                         {/* Row 4: 입법화 */}
                         <g transform="translate(30, 156)">
-                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">입법화</text>
-                            <text x="170" y="25" fill="#334155" fontSize="10.5">Community Board 심의 ➔ 구청장 동의 ➔ 도시계획위원회 승인 ➔ 시의회 통과 및 시장 서명</text>
-                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="bold">9 ~ 12개월</text>
+                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="bold">입법화</text>
+                            <text x="170" y="25" fill="#334155" fontSize="14.5">Community Board 심의 ➔ 구청장 동의 ➔ 도시계획위원회 승인 ➔ 시의회 통과 및 시장 서명</text>
+                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="15" fontWeight="bold">9 ~ 12개월</text>
                             <line x1="0" y1="38" x2="880" y2="38" stroke="#e2e8f0" strokeWidth="1" />
                         </g>
 
                         {/* Row 5: 스타트업 */}
                         <g transform="translate(30, 194)">
-                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="bold">스타트업</text>
-                            <text x="170" y="25" fill="#334155" fontSize="10.5">DMA(지구관리협회) 비영리법인 설립등기, 부과금 징수 계좌 개설, 최초 가로 관리 서비스 개시</text>
-                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="bold">3 ~ 6개월</text>
+                            <text x="70" y="25" textAnchor="middle" fill="#0f172a" fontSize="15" fontWeight="bold">스타트업</text>
+                            <text x="170" y="25" fill="#334155" fontSize="14.5">DMA(지구관리협회) 비영리법인 설립등기, 부과금 징수 계좌 개설, 최초 가로 관리 서비스 개시</text>
+                            <text x="785" y="25" textAnchor="middle" fill="#334155" fontSize="15" fontWeight="bold">3 ~ 6개월</text>
                             <line x1="0" y1="38" x2="880" y2="38" stroke="#cbd5e1" strokeWidth="1.5" />
                         </g>
 
                         {/* Row 6: 총 소요 기간 */}
                         <g transform="translate(30, 232)">
                             <rect x="0" y="0" width="880" height="38" fill="#f8fafc" />
-                            <text x="70" y="25" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="black">총 소요 기간</text>
-                            <text x="170" y="25" fill="#1e3a8a" fontSize="11" fontWeight="bold">사전 공론화 및 동의서 확보, 다단계 행정 입법 절차를 거치는 실무 총괄 기간</text>
-                            <text x="785" y="25" textAnchor="middle" fill="#1e3a8a" fontSize="11.5" fontWeight="black">3 ~ 6년 이상</text>
+                            <text x="70" y="25" textAnchor="middle" fill="#1e3a8a" fontSize="15" fontWeight="black">총 소요 기간</text>
+                            <text x="170" y="25" fill="#1e3a8a" fontSize="15" fontWeight="bold">사전 공론화 및 동의서 확보, 다단계 행정 입법 절차를 거치는 실무 총괄 기간</text>
+                            <text x="785" y="25" textAnchor="middle" fill="#1e3a8a" fontSize="15.5" fontWeight="black">3 ~ 6년 이상</text>
                             <line x1="0" y1="38" x2="880" y2="38" stroke="#cbd5e1" strokeWidth="1.5" />
                         </g>
                     </svg>

@@ -41,41 +41,41 @@ export default function Section79({ isActive }) {
                             {/* 1단계 */}
                             <g transform="translate(10, 0)">
                                 <circle cx="80" cy="40" r="8" fill="#1e3a8a" />
-                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="black">즉시 (0~12개월)</text>
-                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="10.5" fontWeight="bold">이지스 주도 NPO 설립</text>
-                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="9.5" fontWeight="medium">일본 大丸有 벤치마크</text>
+                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="15" fontWeight="black">즉시 (0~12개월)</text>
+                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="14.5" fontWeight="bold">이지스 주도 NPO 설립</text>
+                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="13.5" fontWeight="medium">일본 大丸유 벤치마크</text>
                             </g>
 
                             {/* 2단계 */}
                             <g transform="translate(195, 0)">
                                 <circle cx="80" cy="40" r="8" fill="#1e3a8a" />
-                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="black">단기 (1~3년)</text>
-                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="10.5" fontWeight="bold">SBD 분담금 조례 공동 설계</text>
-                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="9.5" fontWeight="medium">수익자 2/3 동의 명문화</text>
+                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="15" fontWeight="black">단기 (1~3년)</text>
+                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="14.5" fontWeight="bold">SBD 분담금 조례 공동 설계</text>
+                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="13.5" fontWeight="medium">수익자 2/3 동의 명문화</text>
                             </g>
 
                             {/* 3단계 */}
                             <g transform="translate(380, 0)">
                                 <circle cx="80" cy="40" r="8" fill="#1e3a8a" />
-                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="black">중기 (3~5년)</text>
-                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="10.5" fontWeight="bold">단일 SBD 구역 통합</text>
-                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="9.5" fontWeight="medium">남산 연결 보행·녹지 구축</text>
+                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="15" fontWeight="black">중기 (3~5년)</text>
+                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="14.5" fontWeight="bold">단일 SBD 구역 통합</text>
+                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="13.5" fontWeight="medium">남산 연결 보행·녹지 구축</text>
                             </g>
 
                             {/* 4단계 */}
                             <g transform="translate(565, 0)">
                                 <circle cx="80" cy="40" r="8" fill="#1e3a8a" />
-                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="11" fontWeight="black">장기 (5년+)</text>
-                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="10.5" fontWeight="bold">용산 IBD 운영체제 전이</text>
-                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="9.5" fontWeight="medium">서울역-용산 SYBD 축 완성</text>
+                                <text x="80" y="20" textAnchor="middle" fill="#1e3a8a" fontSize="15" fontWeight="black">장기 (5년+)</text>
+                                <text x="80" y="65" textAnchor="middle" fill="#0f172a" fontSize="14.5" fontWeight="bold">용산 IBD 운영체제 전이</text>
+                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="13.5" fontWeight="medium">서울역-용산 SYBD 축 완성</text>
                             </g>
 
                             {/* 5단계 */}
                             <g transform="translate(750, 0)">
                                 <circle cx="80" cy="40" r="8" fill="#e11d48" />
-                                <text x="80" y="20" textAnchor="middle" fill="#e11d48" fontSize="11" fontWeight="black">리스크 관리</text>
-                                <text x="80" y="65" textAnchor="middle" fill="#b91c1c" fontSize="10.5" fontWeight="bold">공공성 균형 장치</text>
-                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="9.5" fontWeight="medium">Hudson Yards 사례 반면교사</text>
+                                <text x="80" y="20" textAnchor="middle" fill="#e11d48" fontSize="15" fontWeight="black">리스크 관리</text>
+                                <text x="80" y="65" textAnchor="middle" fill="#b91c1c" fontSize="14.5" fontWeight="bold">공공성 균형 장치</text>
+                                <text x="80" y="82" textAnchor="middle" fill="#475569" fontSize="13.5" fontWeight="medium">Hudson Yards 사례 반면교사</text>
                             </g>
                         </g>
 
@@ -83,39 +83,39 @@ export default function Section79({ isActive }) {
                         <g transform="translate(20, 130)">
                             {/* 헤더 행 */}
                             <rect x="0" y="0" width="900" height="28" fill="#f1f5f9" />
-                            <text x="30" y="18" fill="#1e293b" fontSize="11" fontWeight="bold">시기</text>
-                            <text x="180" y="18" fill="#1e293b" fontSize="11" fontWeight="bold">주요 액션</text>
-                            <text x="620" y="18" fill="#1e293b" fontSize="11" fontWeight="bold">주요 주체</text>
+                            <text x="30" y="18" fill="#1e293b" fontSize="15" fontWeight="bold">시기</text>
+                            <text x="180" y="18" fill="#1e293b" fontSize="15" fontWeight="bold">주요 액션</text>
+                            <text x="620" y="18" fill="#1e293b" fontSize="15" fontWeight="bold">주요 주체</text>
                             <line x1="0" y1="28" x2="900" y2="28" stroke="#cbd5e1" strokeWidth="1.5" />
 
                             {/* 행 1: 2026 (즉시) */}
-                            <text x="30" y="48" fill="#0f172a" fontSize="10.5" fontWeight="bold">2026 (즉시)</text>
-                            <text x="180" y="48" fill="#334155" fontSize="10.5">SBD BID 개념 연구·공론화, 법적 근거 검토 및 이지스/한화/코레일 협의 개시</text>
-                            <text x="620" y="48" fill="#334155" fontSize="10.5">이지스자산운용, 서울특별시</text>
+                            <text x="30" y="48" fill="#0f172a" fontSize="14.5" fontWeight="bold">2026 (즉시)</text>
+                            <text x="180" y="48" fill="#334155" fontSize="14.5">SBD BID 개념 연구·공론화, 법적 근거 검토 및 이지스/한화/코레일 협의 개시</text>
+                            <text x="620" y="48" fill="#334155" fontSize="14.5">이지스자산운용, 서울특별시</text>
                             <line x1="0" y1="58" x2="900" y2="58" stroke="#e2e8f0" strokeWidth="1" />
 
                             {/* 행 2: 2027 */}
-                            <text x="30" y="78" fill="#0f172a" fontSize="10.5" fontWeight="bold">2027</text>
-                            <text x="180" y="78" fill="#334155" fontSize="10.5">도시재생법 기반 특례법 추진 및 추진위원회(Steering Committee) 구성</text>
-                            <text x="620" y="78" fill="#334155" fontSize="10.5">국토교통부, 서울특별시, 민간 컨소시엄</text>
+                            <text x="30" y="78" fill="#0f172a" fontSize="14.5" fontWeight="bold">2027</text>
+                            <text x="180" y="78" fill="#334155" fontSize="14.5">도시재생법 기반 특례법 추진 및 추진위원회(Steering Committee) 구성</text>
+                            <text x="620" y="78" fill="#334155" fontSize="14.5">국토교통부, 서울특별시, 민간 컨소시엄</text>
                             <line x1="0" y1="88" x2="900" y2="88" stroke="#e2e8f0" strokeWidth="1" />
 
                             {/* 행 3: 2028 */}
-                            <text x="30" y="108" fill="#0f172a" fontSize="10.5" fontWeight="bold">2028</text>
-                            <text x="180" y="108" fill="#334155" fontSize="10.5">이오타서울 공개 녹지 준공에 맞춘 파일럿 BID 공식 출범, 북부역세권 연계</text>
-                            <text x="620" y="108" fill="#334155" fontSize="10.5">파일럿 BID DMA 법인, SH공사</text>
+                            <text x="30" y="108" fill="#0f172a" fontSize="14.5" fontWeight="bold">2028</text>
+                            <text x="180" y="108" fill="#334155" fontSize="14.5">이오타서울 공개 녹지 준공에 맞춘 파일럿 BID 공식 출범, 북부역세권 연계</text>
+                            <text x="620" y="108" fill="#334155" fontSize="14.5">파일럿 BID DMA 법인, SH공사</text>
                             <line x1="0" y1="118" x2="900" y2="118" stroke="#e2e8f0" strokeWidth="1" />
 
                             {/* 행 4: 2029-2030 */}
-                            <text x="30" y="138" fill="#0f172a" fontSize="10.5" fontWeight="bold">2029 ~ 2030</text>
-                            <text x="180" y="138" fill="#334155" fontSize="10.5">이오타서울 완공에 따른 확장 BID 기동 및 SBD 공식 브랜드 선언</text>
-                            <text x="620" y="138" fill="#334155" fontSize="10.5">서울특별시, SBD BID 연합</text>
+                            <text x="30" y="138" fill="#0f172a" fontSize="14.5" fontWeight="bold">2029 ~ 2030</text>
+                            <text x="180" y="138" fill="#334155" fontSize="14.5">이오타서울 완공에 따른 확장 BID 기동 및 SBD 공식 브랜드 선언</text>
+                            <text x="620" y="138" fill="#334155" fontSize="14.5">서울특별시, SBD BID 연합</text>
                             <line x1="0" y1="148" x2="900" y2="148" stroke="#e2e8f0" strokeWidth="1" />
 
                             {/* 행 5: 2030+ */}
-                            <text x="30" y="168" fill="#0f172a" fontSize="10.5" fontWeight="bold">2030 ~</text>
-                            <text x="180" y="168" fill="#1e3a8a" fontSize="10.5" fontWeight="bold">용산 IBD 초기 입주 연계 ➔ SBD-IBD 연계 업무 벨트 통합 거버넌스 출범</text>
-                            <text x="620" y="168" fill="#1e3a8a" fontSize="10.5" fontWeight="bold">서울특별시, KORAIL, SH공사, 민간 디벨로퍼</text>
+                            <text x="30" y="168" fill="#0f172a" fontSize="14.5" fontWeight="bold">2030 ~</text>
+                            <text x="180" y="168" fill="#1e3a8a" fontSize="14.5" fontWeight="bold">용산 IBD 초기 입주 연계 ➔ SBD-IBD 연계 업무 벨트 통합 거버넌스 출범</text>
+                            <text x="620" y="168" fill="#1e3a8a" fontSize="14.5" fontWeight="bold">서울특별시, KORAIL, SH공사, 민간 디벨로퍼</text>
                             <line x1="0" y1="178" x2="900" y2="178" stroke="#cbd5e1" strokeWidth="1.5" />
                         </g>
                     </svg>

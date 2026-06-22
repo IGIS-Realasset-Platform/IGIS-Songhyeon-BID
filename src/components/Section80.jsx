@@ -39,58 +39,58 @@ export default function Section80({ isActive }) {
 
                         {/* 1. Phase 1: 파일럿 양동-봉래 BID (2026~2028) */}
                         <g transform="translate(10, 10)">
-                            <text x="0" y="20" fill="#1e3a8a" fontSize="13.5" fontWeight="black">Phase 1. 파일럿 BID (2026~2028)</text>
+                            <text x="0" y="20" fill="#1e3a8a" fontSize="17.5" fontWeight="black">Phase 1. 파일럿 BID (2026~2028)</text>
                             
                             <g transform="translate(0, 45)">
-                                <text x="0" y="15" fill="#0f172a" fontSize="11" fontWeight="bold">■ 구역 설정 및 핵심 발의 주체</text>
-                                <text x="10" y="32" fill="#475569" fontSize="10">• 이오타 1·2 + 봉래 2·3지구 + 서울역 광장 일부</text>
-                                <text x="10" y="48" fill="#475569" fontSize="10">• 이지스(앵커), 한화(북부), 삼성물산, 코레일 참여</text>
+                                <text x="0" y="15" fill="#0f172a" fontSize="15" fontWeight="bold">■ 구역 설정 및 핵심 발의 주체</text>
+                                <text x="10" y="34" fill="#475569" fontSize="14">• 이오타 1·2 + 봉래 2·3지구 + 서울역 광장 일부</text>
+                                <text x="10" y="52" fill="#475569" fontSize="14">• 이지스(앵커), 한화(북부), 삼성물산, 코레일 참여</text>
 
-                                <text x="0" y="80" fill="#0f172a" fontSize="11" fontWeight="bold">■ 재원 조달 방식</text>
-                                <text x="10" y="97" fill="#475569" fontSize="10">• 이오타서울 기부채납 공공공간 위탁 관리 수수료</text>
-                                <text x="10" y="113" fill="#475569" fontSize="10">• 소유자 분담금 (추정 ₩2,000~3,000/㎡/년)</text>
+                                <text x="0" y="85" fill="#0f172a" fontSize="15" fontWeight="bold">■ 재원 조달 방식</text>
+                                <text x="10" y="104" fill="#475569" fontSize="14">• 이오타서울 기부채납 공공공간 위탁 관리 수수료</text>
+                                <text x="10" y="122" fill="#475569" fontSize="14">• 소유자 분담금 (추정 ₩2,000~3,000/㎡/년)</text>
 
-                                <text x="0" y="145" fill="#0f172a" fontSize="11" fontWeight="bold">■ 제공 서비스 내역</text>
-                                <text x="10" y="162" fill="#475569" fontSize="10">• 서울역-이오타-남산 보행로 통합 및 상시 청소/방범</text>
-                                <text x="10" y="178" fill="#475569" fontSize="10">• 공개녹지 내 공연·전시/중소상공인 연계 마케팅</text>
+                                <text x="0" y="155" fill="#0f172a" fontSize="15" fontWeight="bold">■ 제공 서비스 내역</text>
+                                <text x="10" y="174" fill="#475569" fontSize="14">• 서울역-이오타-남산 보행로 통합 및 상시 청소/방범</text>
+                                <text x="10" y="192" fill="#475569" fontSize="14">• 공개녹지 내 공연·전시/중소상공인 연계 마케팅</text>
                             </g>
                         </g>
 
                         {/* 2. Phase 2: 서울역-남산 통합 SBD BID (2028~2030) */}
                         <g transform="translate(325, 10)">
-                            <text x="0" y="20" fill="#4f46e5" fontSize="13.5" fontWeight="black">Phase 2. SBD BID 확장 (2028~2030)</text>
+                            <text x="0" y="20" fill="#4f46e5" fontSize="17.5" fontWeight="black">Phase 2. SBD BID 확장 (2028~2030)</text>
                             
                             <g transform="translate(0, 45)">
-                                <text x="0" y="15" fill="#0f172a" fontSize="11" fontWeight="bold">■ 관리 구역 광역 통합</text>
-                                <text x="10" y="32" fill="#475569" fontSize="10">• 서울역북부역세권 및 서대문(서소문 빌딩) 공식 편입</text>
-                                <text x="10" y="48" fill="#475569" fontSize="10">• 개별 빌딩 단위를 넘어선 광역 통합 운영구역화</text>
+                                <text x="0" y="15" fill="#0f172a" fontSize="15" fontWeight="bold">■ 관리 구역 광역 통합</text>
+                                <text x="10" y="34" fill="#475569" fontSize="14">• 서울역북부역세권 및 서대문(서소문 빌딩) 공식 편입</text>
+                                <text x="10" y="52" fill="#475569" fontSize="14">• 개별 빌딩 단위를 넘어선 광역 통합 운영구역화</text>
 
-                                <text x="0" y="80" fill="#0f172a" fontSize="11" fontWeight="bold">■ 공공 보행 네트워크 인수</text>
-                                <text x="10" y="97" fill="#475569" fontSize="10">• 서울로 7017 에리어의 BID 핵심 보행 인프라로의</text>
-                                <text x="10" y="113" fill="#475569" fontSize="10">  위탁 및 통합 유지관리 개시</text>
+                                <text x="0" y="85" fill="#0f172a" fontSize="15" fontWeight="bold">■ 공공 보행 네트워크 인수</text>
+                                <text x="10" y="104" fill="#475569" fontSize="14">• 서울로 7017 에리어의 BID 핵심 보행 인프라로의</text>
+                                <text x="10" y="122" fill="#475569" fontSize="14">  위탁 및 통합 유지관리 개시</text>
 
-                                <text x="0" y="145" fill="#0f172a" fontSize="11" fontWeight="bold">■ 통합 에리어 브랜딩</text>
-                                <text x="10" y="162" fill="#475569" fontSize="10">• 북부역세권 MICE 기능과 통합 플레이스메이킹 연계</text>
-                                <text x="10" y="178" fill="#475569" fontSize="10">• 글로벌 비즈니스 목적지로서의 위상 정립</text>
+                                <text x="0" y="155" fill="#0f172a" fontSize="15" fontWeight="bold">■ 통합 에리어 브랜딩</text>
+                                <text x="10" y="174" fill="#475569" fontSize="14">• 북부역세권 MICE 기능과 통합 플레이스메이킹 연계</text>
+                                <text x="10" y="192" fill="#475569" fontSize="14">• 글로벌 비즈니스 목적지로서의 위상 정립</text>
                             </g>
                         </g>
 
                         {/* 3. Phase 3: SBD-YBD 브릿지 연계 BID (2030~) */}
                         <g transform="translate(635, 10)">
-                            <text x="0" y="20" fill="#047857" fontSize="13.5" fontWeight="black">Phase 3. 용산 IBD 연계 (2030~)</text>
+                            <text x="0" y="20" fill="#047857" fontSize="17.5" fontWeight="black">Phase 3. 용산 IBD 연계 (2030~)</text>
                             
                             <g transform="translate(0, 45)">
-                                <text x="0" y="15" fill="#0f172a" fontSize="11" fontWeight="bold">■ 용산국제업무지구 OS 전이</text>
-                                <text x="10" y="32" fill="#475569" fontSize="10">• 용산 IBD 초기 입주 연계 ➔ SBD-용산 3km 결합</text>
-                                <text x="10" y="48" fill="#475569" fontSize="10">• 서울역-용산역 구간 '업무 벨트 BID' 통합 구상</text>
+                                <text x="0" y="15" fill="#0f172a" fontSize="15" fontWeight="bold">■ 용산국제업무지구 OS 전이</text>
+                                <text x="10" y="34" fill="#475569" fontSize="14">• 용산 IBD 초기 입주 연계 ➔ SBD-용산 3km 결합</text>
+                                <text x="10" y="52" fill="#475569" fontSize="14">• 서울역-용산역 구간 '업무 벨트 BID' 통합 구상</text>
 
-                                <text x="0" y="80" fill="#0f172a" fontSize="11" fontWeight="bold">■ 초광역 보행·녹지 축 운영</text>
-                                <text x="10" y="97" fill="#475569" fontSize="10">• 서울역 광장-한강로-용산역-한강 축 통합 네트워크</text>
-                                <text x="10" y="113" fill="#475569" fontSize="10">• 보행자 및 자전거 친화 에리어 매니지먼트 구축</text>
+                                <text x="0" y="85" fill="#0f172a" fontSize="15" fontWeight="bold">■ 초광역 보행·녹지 축 운영</text>
+                                <text x="10" y="104" fill="#475569" fontSize="14">• 서울역 광장-한강로-용산역-한강 축 통합 네트워크</text>
+                                <text x="10" y="122" fill="#475569" fontSize="14">• 보행자 및 자전거 친화 에리어 매니지먼트 구축</text>
 
-                                <text x="0" y="145" fill="#0f172a" fontSize="11" fontWeight="bold">■ 서울 4대 개발 축의 완성</text>
-                                <text x="10" y="162" fill="#047857" fontSize="10" fontWeight="bold">• 총면적 합계 100만㎡+ 초대형 메가 비즈니스 벨트 구축</text>
-                                <text x="10" y="178" fill="#047857" fontSize="10" fontWeight="bold">• 기존 CBD·GBD·YBD 축을 'SBD-IBD 연계축'으로 재편</text>
+                                <text x="0" y="155" fill="#0f172a" fontSize="15" fontWeight="bold">■ 서울 4대 개발 축의 완성</text>
+                                <text x="10" y="174" fill="#047857" fontSize="14" fontWeight="bold">• 총면적 합계 100만㎡+ 초대형 메가 비즈니스 벨트 구축</text>
+                                <text x="10" y="192" fill="#047857" fontSize="14" fontWeight="bold">• 기존 CBD·GBD·YBD 축을 'SBD-IBD 연계축'으로 재편</text>
                             </g>
                         </g>
                     </svg>
