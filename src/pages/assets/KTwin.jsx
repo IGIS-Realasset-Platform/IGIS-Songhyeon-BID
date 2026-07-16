@@ -1,8 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function KTwin() {
   const [isImageOpen, setIsImageOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [
+    '/k_twin_stacking.png',
+    '/k_twin_view.png',
+    '/cbd_asset_map.png',
+    '/ktwin_gallery_1.webp',
+    '/ktwin_gallery_2.webp',
+    '/ktwin_gallery_3.webp',
+    '/ktwin_gallery_4.webp'
+  ];
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!isImageOpen) return;
+      if (e.key === 'ArrowLeft') {
+        setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+      } else if (e.key === 'ArrowRight') {
+        setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      } else if (e.key === 'Escape') {
+        setIsImageOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isImageOpen]);
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
   const data = [
     { year: '2025', noi: 240, premium: 0 },
@@ -15,10 +51,10 @@ export default function KTwin() {
 
   return (
     <>
-      <div className="animate-fade-in pb-16">
-        {/* Header Area */}
+    <div className="animate-fade-in pb-16">
+      {/* Header Area */}
       <div className="mb-6">
-        <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">더케이트윈타워</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-3">더케이트윈타워</h1>
         <p className="text-[14px] text-gray-500 max-w-3xl leading-relaxed">
           IGIS 보유 핵심 프라임 오피스 자산. 송현 BID 및 THE QUAD(트윈트리 연계) 밸류애드 전략 실행을 위한 기준 데이터 및 운영 스펙.
         </p>
@@ -31,7 +67,7 @@ export default function KTwin() {
         
         {/* Left Column: Physical Specs */}
         <div>
-          <h2 className="text-[13px] font-bold text-gray-400 uppercase tracking-widest mb-4">Physical Specs.</h2>
+          <h2 className="text-[17px] font-bold text-gray-900 uppercase mb-4">Physical Specs.</h2>
           <div className="space-y-3">
             <div className="flex justify-between items-baseline border-b border-gray-100 pb-2">
               <span className="text-[14px] text-gray-500 font-medium">위치</span>
@@ -62,11 +98,11 @@ export default function KTwin() {
 
         {/* Right Column: Physical & Regulatory Constraints */}
         <div>
-          <h2 className="text-[13px] font-bold text-gray-400 uppercase tracking-widest mb-4">Operating & Regulatory Specs</h2>
+          <h2 className="text-[17px] font-bold text-gray-900 uppercase mb-4">Operating & Regulatory Specs</h2>
           <div className="space-y-3">
             <div className="flex justify-between items-baseline border-b border-gray-100 pb-2">
               <span className="text-[14px] text-gray-500 font-medium">용도지역</span>
-              <span className="text-[14px] text-gray-900 font-semibold text-right">일반상업지역 / 방화지구 / 중심지미관지구</span>
+              <span className="text-[14px] text-gray-900 font-semibold text-right">일반상업지역 / 방화지구 / 미관지구</span>
             </div>
             <div className="flex justify-between items-baseline border-b border-gray-100 pb-2">
               <span className="text-[14px] text-gray-500 font-medium">지구단위계획</span>
@@ -80,11 +116,20 @@ export default function KTwin() {
               <span className="text-[14px] text-gray-500 font-medium">용적률 / 법정 한도</span>
               <span className="text-[14px] text-gray-900 font-semibold text-right">763.53% / 800.00%</span>
             </div>
+            
+            {/* View Corridor & Public Infrastructure */}
             <div className="flex flex-col gap-1.5 border-b border-gray-100 pb-3 mt-2">
-              <span className="text-[14px] text-gray-500 font-medium">공개공지 및 BID 점용 잠재력</span>
-              <span className="text-[13px] text-gray-800 leading-relaxed mt-1">
-                전면부(종로1길) 및 후면부 넓은 공개공지 확보. 트윈트리 빌딩과의 연계를 위한 'Courtyard' 조성 시, 보행자 전용 공간 전환 및 팝업/리테일 점용 허가 타진 가능 구역.
-              </span>
+              <span className="text-[14px] text-gray-900 font-bold">영구 조망권 및 BID 점용 잠재력</span>
+              <div className="text-[13px] text-gray-600 leading-relaxed mt-1 space-y-2">
+                <p>
+                  <strong className="text-gray-800">조망 프리미엄:</strong> 광화문·경복궁·북한산으로 이어지는 파노라마 뷰 확보. 
+                  전면 부지(구 중학동 111) 철거 및 서울시의 공원화(역사유적광장 조성) 확정으로 영구적인 시야 통경축 보장.
+                </p>
+                <p>
+                  <strong className="text-gray-800">공공공간 점용:</strong> 전/후면 공개공지와 인접 공원을 연계한 Courtyard 조성. 
+                  영구 조망과 맞물린 야외 팝업/리테일 활성화로 최상급 임대 프리미엄 획득 가능.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -93,38 +138,82 @@ export default function KTwin() {
 
       {/* Financial & Tenant Specs Row */}
       <div className="mb-8">
-        <h2 className="text-[13px] font-bold text-gray-400 uppercase tracking-widest mb-3">Financial & Rent Roll</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="border border-gray-100 rounded-lg p-4 bg-white shadow-sm">
+        <h2 className="text-[17px] font-bold text-gray-900 uppercase mb-3">Financial & Rent Roll</h2>
+        
+        {/* Top KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="border border-gray-200 p-4 bg-white">
             <span className="block text-[12px] text-gray-500 font-medium mb-1">현재 임대율</span>
             <span className="block text-2xl font-bold text-gray-900">100.0%</span>
-            <span className="block text-[11px] text-green-600 font-semibold mt-1">공실률 0%</span>
+            <span className="block text-[11px] text-green-600 font-semibold mt-1">공실률 0% (완전 임차)</span>
           </div>
-          <div className="border border-gray-100 rounded-lg p-4 bg-white shadow-sm col-span-2">
-            <span className="block text-[12px] text-gray-500 font-medium mb-2">핵심 앵커 테넌트 (Anchor Tenants)</span>
-            <div className="flex flex-wrap gap-1.5 mt-1">
-              <span className="px-2.5 py-1 bg-blue-50 text-blue-700 text-[12px] font-semibold rounded-md">Microsoft Korea (13%)</span>
-              <span className="px-2.5 py-1 bg-gray-100 text-gray-800 text-[12px] font-semibold rounded-md">우리카드</span>
-              <span className="px-2.5 py-1 bg-gray-100 text-gray-800 text-[12px] font-semibold rounded-md">종로구청</span>
-            </div>
+          <div className="border border-gray-200 p-4 bg-white">
+            <span className="block text-[12px] text-gray-500 font-medium mb-1">15년 이상 장기 임대 비중</span>
+            <span className="block text-2xl font-bold text-gray-900">48.0%</span>
+            <span className="block text-[11px] text-blue-600 font-semibold mt-1">MS, 우리카드, 매일유업 등 장기 락인</span>
           </div>
-          <div className="border border-gray-100 rounded-lg p-4 bg-white shadow-sm">
-            <span className="block text-[12px] text-gray-500 font-medium mb-1">임차 리스크 모니터링</span>
-            <span className="block text-[14px] font-bold text-gray-900 mt-1">2029년 / 2033년</span>
-            <span className="block text-[11px] text-[#e11d48] font-semibold mt-1">우리카드 / MS 대규모 만기</span>
+          <div className="border border-gray-200 p-4 bg-white">
+            <span className="block text-[12px] text-gray-500 font-medium mb-1">임차 리스크 모니터링 (WALE)</span>
+            <span className="block text-[15px] font-bold text-gray-900 mt-1">2029년 / 2033년 집중</span>
+            <span className="block text-[11px] text-[#e11d48] font-semibold mt-1">우리카드 및 MS 대규모 만기 도래</span>
           </div>
+        </div>
+
+        {/* High-Credit Tenant Table */}
+        <div className="border border-gray-200 bg-white overflow-hidden">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-[#fafafa] border-b border-gray-200 text-[12px] text-gray-500 font-semibold">
+                <th className="px-4 py-3 font-medium">임차인 (Tenant)</th>
+                <th className="px-4 py-3 font-medium">업종 (Industry)</th>
+                <th className="px-4 py-3 font-medium">신용등급</th>
+                <th className="px-4 py-3 font-medium">영업이익 (23년 기준)</th>
+                <th className="px-4 py-3 font-medium">임대면적 (NLA)</th>
+              </tr>
+            </thead>
+            <tbody className="text-[13px] text-gray-900 divide-y divide-gray-100">
+              <tr className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-3 font-bold">우리카드</td>
+                <td className="px-4 py-3 text-gray-600">신용카드 및 금융</td>
+                <td className="px-4 py-3 font-semibold">AA0</td>
+                <td className="px-4 py-3 text-gray-500">207.4 십억원</td>
+                <td className="px-4 py-3 font-semibold text-[#111]">4,606 py</td>
+              </tr>
+              <tr className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-3 font-bold">종로구청</td>
+                <td className="px-4 py-3 text-gray-600">공공기관</td>
+                <td className="px-4 py-3 font-semibold">-</td>
+                <td className="px-4 py-3 text-gray-500">-</td>
+                <td className="px-4 py-3 font-semibold text-[#111]">4,320 py</td>
+              </tr>
+              <tr className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-3 font-bold">Microsoft</td>
+                <td className="px-4 py-3 text-gray-600">IT / 소프트웨어</td>
+                <td className="px-4 py-3 font-semibold">A0</td>
+                <td className="px-4 py-3 text-gray-500">80.4 십억원</td>
+                <td className="px-4 py-3 font-semibold text-[#111]">3,250 py</td>
+              </tr>
+              <tr className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-3 font-bold">매일유업 (Maeil)</td>
+                <td className="px-4 py-3 text-gray-600">유제품 제조 및 유통</td>
+                <td className="px-4 py-3 font-semibold">AA-</td>
+                <td className="px-4 py-3 text-gray-500">64.0 십억원</td>
+                <td className="px-4 py-3 font-semibold text-[#111]">1,692 py</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       {/* Stacking Plan & Lease Expiry Section */}
-      <div className="border border-gray-200 rounded-xl p-5 bg-white mb-8">
+      <div className="border border-gray-200 p-5 bg-white mb-8">
         <div className="flex justify-between items-baseline mb-4">
-          <h2 className="text-[16px] font-bold text-gray-900">Stacking Plan & Lease Expiration</h2>
+          <h2 className="text-[17px] font-bold text-gray-900">Stacking Plan & Lease Expiration</h2>
           <span className="text-[12px] font-semibold text-gray-400 uppercase">Tenant Mix</span>
         </div>
         <div 
-          className="w-full bg-[#f8f9fa] rounded-lg overflow-hidden border border-gray-100 flex items-center justify-center p-4 cursor-pointer hover:bg-gray-50 transition-colors group relative"
-          onClick={() => setIsImageOpen(true)}
+          className="w-full bg-[#f8f9fa] overflow-hidden border border-gray-100 flex items-center justify-center p-4 cursor-pointer hover:bg-gray-50 transition-colors group relative"
+          onClick={() => { setIsImageOpen(true); setCurrentImageIndex(0); }}
         >
           <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
             <svg className="w-8 h-8 text-gray-600 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,9 +232,141 @@ export default function KTwin() {
         </p>
       </div>
 
+      {/* Permanent View Corridor Section */}
+      <div className="border border-gray-200 p-5 bg-white mb-8">
+        <div className="flex justify-between items-baseline mb-4">
+          <h2 className="text-[17px] font-bold text-gray-900">Permanent Panoramic Views</h2>
+          <span className="text-[12px] font-semibold text-gray-400 uppercase">View Corridor</span>
+        </div>
+        <div 
+          className="w-full bg-[#f8f9fa] overflow-hidden border border-gray-100 flex items-center justify-center p-4 cursor-pointer hover:bg-gray-50 transition-colors group relative"
+          onClick={() => { setIsImageOpen(true); setCurrentImageIndex(1); }}
+        >
+          <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+            <svg className="w-8 h-8 text-gray-600 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+          </div>
+          <img 
+            src="/k_twin_view.png" 
+            alt="더케이트윈타워 영구 조망권 (경복궁, 광화문)" 
+            className="w-full max-w-[1000px] h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        </div>
+        <p className="text-[12px] text-gray-400 mt-3 leading-relaxed">
+          * 광화문·경복궁·북한산으로 이어지는 파노라마 뷰 확보. 전면 부지(구 중학동 111) 철거 및 서울시의 공원화(역사유적광장 조성) 확정으로 영구적인 시야 통경축 보장.
+        </p>
+      </div>
+
+      {/* CBD Asset Positioning Map */}
+      <div className="border border-gray-200 p-5 bg-white mb-8">
+        <div className="flex justify-between items-baseline mb-4">
+          <h2 className="text-[17px] font-bold text-gray-900">Core CBD Prime Office Positioning</h2>
+          <span className="text-[12px] font-semibold text-gray-400 uppercase">Location Map</span>
+        </div>
+        <div 
+          className="w-full bg-[#f8f9fa] overflow-hidden border border-gray-100 flex items-center justify-center p-4 cursor-pointer hover:bg-gray-50 transition-colors group relative"
+          onClick={() => { setIsImageOpen(true); setCurrentImageIndex(2); }}
+        >
+          <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+            <svg className="w-8 h-8 text-gray-600 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+          </div>
+          <img 
+            src="/cbd_asset_map.png" 
+            alt="Core CBD Asset Map" 
+            className="w-full max-w-[1000px] h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        </div>
+        <div className="mt-4 bg-gray-50 p-4 rounded-md border border-gray-100">
+          <ul className="text-[12px] text-gray-600 space-y-2 list-disc pl-4">
+            <li><strong className="text-gray-900">CBD 최북단 지배력:</strong> 종각·을지로 축(그랑서울, D타워, 센트로폴리스 등)에 밀집된 타 2.5만평 이상 프라임 오피스와 달리, 유일하게 광화문 광장과 경복궁에 맞닿은 최북단 코어에 위치.</li>
+            <li><strong className="text-gray-900">송현 Art Triangle의 지정학적 앵커:</strong> CBD 20대 프라임 자산 중 송현광장, 북촌, 인사동 문화축과 가장 가까운 유일한 거점으로서 THE QUAD 및 쌈지길 연계 밸류애드의 지리적 당위성 제공.</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Asset Visual Data Gallery */}
+      <div className="border border-gray-200 p-5 bg-white mb-8">
+        <div className="flex justify-between items-baseline mb-4">
+          <h2 className="text-[17px] font-bold text-gray-900">Asset Visual Data Gallery</h2>
+          <span className="text-[12px] font-semibold text-gray-400 uppercase">Archive</span>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* Gallery Item 1 */}
+          <div 
+            className="w-full aspect-[4/3] bg-[#f8f9fa] overflow-hidden border border-gray-100 cursor-pointer group relative"
+            onClick={() => { setIsImageOpen(true); setCurrentImageIndex(3); }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              <svg className="w-8 h-8 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+              </svg>
+            </div>
+            <img 
+              src="/ktwin_gallery_1.webp" 
+              alt="더케이트윈타워 전경 1" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            />
+          </div>
+
+          {/* Gallery Item 2 */}
+          <div 
+            className="w-full aspect-[4/3] bg-[#f8f9fa] overflow-hidden border border-gray-100 cursor-pointer group relative"
+            onClick={() => { setIsImageOpen(true); setCurrentImageIndex(4); }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              <svg className="w-8 h-8 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+              </svg>
+            </div>
+            <img 
+              src="/ktwin_gallery_2.webp" 
+              alt="더케이트윈타워 전경 2" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            />
+          </div>
+
+          {/* Gallery Item 3 */}
+          <div 
+            className="w-full aspect-[4/3] bg-[#f8f9fa] overflow-hidden border border-gray-100 cursor-pointer group relative"
+            onClick={() => { setIsImageOpen(true); setCurrentImageIndex(5); }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              <svg className="w-8 h-8 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+              </svg>
+            </div>
+            <img 
+              src="/ktwin_gallery_3.webp" 
+              alt="더케이트윈타워 전경 3" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            />
+          </div>
+
+          {/* Gallery Item 4 */}
+          <div 
+            className="w-full aspect-[4/3] bg-[#f8f9fa] overflow-hidden border border-gray-100 cursor-pointer group relative"
+            onClick={() => { setIsImageOpen(true); setCurrentImageIndex(6); }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              <svg className="w-8 h-8 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+              </svg>
+            </div>
+            <img 
+              src="/ktwin_gallery_4.webp" 
+              alt="더케이트윈타워 전경 4" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            />
+          </div>
+        </div>
+      </div>
+
       {/* The QUAD Value-Add Strategy Section */}
-      <div className="border border-gray-200 rounded-xl p-6 bg-[#fafafa] mb-8">
-        <h2 className="text-[15px] font-bold tracking-tight mb-4 text-gray-900">Value-add Execution Focus : THE QUAD</h2>
+      <div className="border border-gray-200 p-6 bg-[#fafafa] mb-8">
+        <h2 className="text-[17px] font-bold mb-4 text-gray-900">Value-add Execution Focus : THE QUAD</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div>
@@ -173,8 +394,8 @@ export default function KTwin() {
       </div>
 
       {/* NOI Simulation Chart (Dummy Data Example) */}
-      <div className="border border-gray-200 rounded-xl p-6 bg-white">
-        <h2 className="text-[16px] font-bold text-gray-900 mb-5">송현 BID 연계 시 예측 NOI 상승 시나리오 (예시)</h2>
+      <div className="border border-gray-200 p-6 bg-white">
+        <h2 className="text-[17px] font-bold text-gray-900 mb-5">송현 BID 연계 시 예측 NOI 상승 시나리오 (예시)</h2>
         <div className="w-full h-[260px]">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
@@ -218,15 +439,15 @@ export default function KTwin() {
               </svg>
             </button>
             <img 
-              src="/k_twin_stacking.png" 
-              alt="더케이트윈타워 Stacking Plan Full" 
+              src={images[currentImageIndex]}
+              alt="더케이트윈타워 Full Image" 
               className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
           </div>
         </div>
       )}
-
+      </div>
     </>
   );
 }
