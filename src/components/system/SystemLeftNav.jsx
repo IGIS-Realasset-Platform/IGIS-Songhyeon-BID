@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { useTheme } from '../../context/ThemeContext';
 
 export default function SystemLeftNav({ isCore, isPlatform = false }) {
  const navigate = (path) => {
@@ -170,8 +169,6 @@ export default function SystemLeftNav({ isCore, isPlatform = false }) {
  </div>
  </div>
  </div>
- </div>
-
  </div>
  </div>
  );
