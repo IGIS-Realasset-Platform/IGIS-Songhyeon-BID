@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-    // Default to dark mode as requested, true = light, false = dark
+    // Default to the established IOTA CFT dark operating profile.
     const [isLightMode, setIsLightMode] = useState(false);
 
     useEffect(() => {
@@ -13,6 +13,7 @@ export function ThemeProvider({ children }) {
         } else {
             root.classList.add('dark');
         }
+        root.style.colorScheme = isLightMode ? 'light' : 'dark';
     }, [isLightMode]);
 
     const toggleTheme = () => setIsLightMode(!isLightMode);

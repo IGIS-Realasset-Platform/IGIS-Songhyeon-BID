@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => ({
+export default defineConfig(() => ({
   base: '/',
   plugins: [
     react(),
@@ -20,6 +20,7 @@ export default defineConfig(({ command }) => ({
     watch: {
       usePolling: true, // Mac OS 환경에서 파일 변경 이벤트를 100% 감지하도록 강제
       interval: 100,
+      ignored: ['**/dist/**', '**/dist-backup-*/**'],
     },
     hmr: {
       overlay: true,

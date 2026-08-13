@@ -4,10 +4,13 @@ import './index.css'
 import App from './App.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
+import { SonghyeonAuthProvider } from './context/SonghyeonAuthContext.jsx'
 createRoot(document.getElementById('root')).render(
     <LanguageProvider>
       <ThemeProvider>
-        <App />
+        <SonghyeonAuthProvider>
+          <App />
+        </SonghyeonAuthProvider>
       </ThemeProvider>
     </LanguageProvider>
 )

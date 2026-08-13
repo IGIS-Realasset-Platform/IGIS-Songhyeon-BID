@@ -11,6 +11,11 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.songhyeon.example
+dist-backup-*/
+dist.fs-error-backup-*/
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +28,8 @@ dist-ssr
 *.sln
 *.sw?
 sjlee-branch-test/
+# Local isolated Supabase and protected exports
+.local/
+.songhyeon-local-supabase.json
+.songhyeon-local-login
+.songhyeon-first-access-code

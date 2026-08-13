@@ -1,99 +1,140 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowRight, Database, Network, ScanSearch } from 'lucide-react';
+import ProjectContext from '../components/tf/ProjectContext';
+import EvidenceStatus from '../components/tf/EvidenceStatus';
+import ImmediateBacklog from '../components/tf/ImmediateBacklog';
+import StageRoadmap from '../components/tf/StageRoadmap';
+import EcosystemPreview from '../components/tf/EcosystemPreview';
+import OrganizationRoles from '../components/tf/OrganizationRoles';
+import DecisionBoundary from '../components/tf/DecisionBoundary';
+import AssetBaseline from '../components/tf/AssetBaseline';
+import GlobalCaseInsights from '../components/tf/GlobalCaseInsights';
+import StageExitCriteria from '../components/tf/StageExitCriteria';
+import SonghyeonTaskBoard from '../components/iota-songhyeon/task-board/SonghyeonTaskBoard';
+import {
+  projectContext,
+  stages,
+  evidenceCategories,
+  assetBaseline,
+  immediateBacklog,
+  ecosystemGroups,
+  organizationRoles,
+  caseInsights,
+  decisionBoundaries,
+  stageZeroExitCriteria,
+} from '../data/songhyeonTfData';
 
-export default function Dashboard() {
-  const assets = [
-    { 
-      name: '더케이트윈타워', 
-      desc: 'CBD 내 최상의 입지, 코어 오피스', 
-      path: '/assets/k-twin'
-    },
-    { 
-      name: '트윈트리 빌딩', 
-      desc: '리테일 특화 및 미쉐린 다이닝 밸류애드', 
-      path: '/assets/twin-tree'
-    },
-    { 
-      name: '쌈지길', 
-      desc: '인사동의 상징적 로컬 크래프트 리테일', 
-      path: '/assets/ssamzigil'
-    },
-    { 
-      name: '안녕인사동', 
-      desc: '복합 문화 공간 및 전시 리테일 거점', 
-      path: '/assets/annyeong'
-    },
-    { 
-      name: '신규 매입 중소자산 2개', 
-      desc: '도화서길 블록 및 주변 추가 매집 타겟', 
-      path: '/assets/new-assets'
-    },
-  ];
+const sectionLinks = [
+  { href: '#evidence', label: '근거 현황' },
+  { href: '#assets', label: '자산 기준선' },
+  { href: '#backlog', label: '즉시 실행업무' },
+  { href: '#ecosystem', label: '참여·운영 생태계' },
+  { href: '#roles', label: '조직별 기여' },
+  { href: '#roadmap', label: '실행순서' },
+  { href: '#boundary', label: '결정 경계' },
+  { href: '#task-board', label: '통합업무보드' },
+];
 
-  return (
-    <div className="p-10">
-      <header className="mb-10 pb-6 border-b border-gray-300">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
-          Songhyeon BID Asset Network
-        </h1>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          인사동 권역 핵심 자산을 연결하여 거대한 문화·상업 생태계 구축 목표. SBD(Seoul Business District) BID의 핵심 작동 메커니즘을 기반으로 실제 구동되는 통합 타운 매니지먼트 실행안임.
-        </p>
-      </header>
+const axisIcons = [Database, Network];
 
-      {/* 5 Core Assets */}
-      <section className="mb-12">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">Core Assets</h2>
-        <div className="divide-y divide-gray-300 bg-gray-50">
-          {assets.map((asset) => (
-            <Link to={asset.path} key={asset.name} className="block hover:bg-gray-100 transition-colors">
-              <div className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-2">
+const Dashboard = () => (
+  <div className="tf-dashboard pb-12 tracking-normal text-slate-900">
+    <header className="mb-6 border-b-2 border-slate-950 pb-5">
+      <div className="flex items-end justify-between gap-10">
+        <div>
+          <h1 className="text-3xl font-black text-slate-950">송현 BID 프로젝트</h1>
+          <p className="mt-2 max-w-4xl text-base font-semibold leading-7 text-slate-600">
+            자산·공간·입주사·파트너를 연결해 플레이스메이킹과 에리어매니지먼트가 작동할 환경 구축
+          </p>
+        </div>
+
+        <dl className="grid min-w-[400px] grid-cols-2 border border-slate-300 bg-white">
+          <div className="border-r border-slate-300 p-3">
+            <dt className="text-[9px] font-black text-slate-400">현재 단계</dt>
+            <dd className="mt-1 text-xs font-black text-[#0057b8]">0단계 · 근거기반 구축</dd>
+          </div>
+          <div className="p-3">
+            <dt className="text-[9px] font-black text-slate-400">다음 단계</dt>
+            <dd className="mt-1 text-xs font-black text-slate-900">현장기회 정의</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <nav className="sticky top-0 z-40 mb-6 overflow-x-auto border-y border-slate-300 bg-white" aria-label="홈 섹션 바로가기">
+      <div className="flex w-max min-w-full">
+        {sectionLinks.map((link, index) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className={`flex items-center gap-2 px-4 py-3 text-[11px] font-black text-slate-600 hover:bg-white hover:text-[#0057b8] ${index < sectionLinks.length - 1 ? 'border-r border-slate-300' : ''}`}
+          >
+            {link.label}
+            <ArrowRight size={12} />
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    <div className="space-y-6">
+      <ProjectContext context={projectContext} />
+
+      <section className="grid grid-cols-2 border-l border-t border-slate-300">
+        {projectContext.axes.map((axis, index) => {
+          const Icon = axisIcons[index] || ScanSearch;
+          return (
+            <article key={axis.id} className="border-b border-r border-slate-300 bg-white p-5">
+              <div className="flex items-start gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center border border-slate-300 bg-slate-50 text-[#0057b8]">
+                  <Icon size={18} />
+                </span>
                 <div>
-                  <h3 className="text-base font-semibold text-gray-900">{asset.name}</h3>
-                  <p className="text-sm text-gray-600">{asset.desc}</p>
-                </div>
-                <div className="text-sm font-medium text-blue-600">
-                  자세히 보기 &rarr;
+                  <p className="text-[10px] font-black text-[#0057b8]">{axis.label}</p>
+                  <h2 className="mt-1 text-base font-black text-slate-950">{axis.title}</h2>
+                  <p className="mt-2 text-xs font-medium leading-6 text-slate-600">{axis.description}</p>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
+            </article>
+          );
+        })}
       </section>
 
-      {/* SBD Execution Mechanism Summary */}
-      <section>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-gray-900">SBD BID Execution Mechanism</h2>
-          <Link to="/execution" className="text-sm font-medium text-blue-600 hover:underline">
-            실행 계획 상세 &rarr;
-          </Link>
-        </div>
+      <div id="evidence" className="scroll-mt-4">
+        <EvidenceStatus categories={evidenceCategories} />
+      </div>
 
-        <div className="divide-y md:divide-y-0 md:divide-x divide-gray-300 flex flex-col md:flex-row bg-gray-50">
-          <div className="flex-1 p-6">
-            <span className="text-2xl font-bold text-gray-300 mb-4 block">01</span>
-            <h4 className="text-base font-bold text-gray-900 mb-2">System Plan & Financing</h4>
-            <p className="text-sm text-gray-700 leading-relaxed">
-              이지스 자체 고유자금 투입 및 외부 금융 구조화. 4개동 자산에 대한 단계별 매집 및 Value-add 펀드 기획 완료.
-            </p>
-          </div>
-          <div className="flex-1 p-6">
-            <span className="text-2xl font-bold text-gray-300 mb-4 block">02</span>
-            <h4 className="text-base font-bold text-gray-900 mb-2">Development & Asset Repositioning</h4>
-            <p className="text-sm text-gray-700 leading-relaxed">
-              유휴 공간 리뉴얼, 프리미엄 리테일 유치. 도화서길 등 신규 자산 블록 리모델링 및 부티크 호텔/갤러리 신규 조성 계획.
-            </p>
-          </div>
-          <div className="flex-1 p-6">
-            <span className="text-2xl font-bold text-gray-300 mb-4 block">03</span>
-            <h4 className="text-base font-bold text-gray-900 mb-2">Town Management (DMO)</h4>
-            <p className="text-sm text-gray-700 leading-relaxed">
-              디지털 트윈 기반 AI PM 도입. 전담 조직(DMO) 주도의 멤버십 플랫폼 및 아트 위크 등 문화 이벤트 운영.
-            </p>
-          </div>
-        </div>
-      </section>
+      <div id="assets" className="scroll-mt-4">
+        <AssetBaseline assets={assetBaseline} />
+      </div>
+
+      <div id="backlog" className="scroll-mt-4">
+        <ImmediateBacklog groups={immediateBacklog} />
+      </div>
+
+      <div id="ecosystem" className="scroll-mt-4">
+        <EcosystemPreview groups={ecosystemGroups} />
+      </div>
+
+      <div id="roles" className="scroll-mt-4">
+        <OrganizationRoles roles={organizationRoles} cityCollaboration={projectContext.cityCollaboration} />
+      </div>
+
+      <div id="roadmap" className="scroll-mt-4">
+        <StageRoadmap stages={stages} />
+      </div>
+
+      <GlobalCaseInsights insights={caseInsights} />
+
+      <div id="boundary" className="scroll-mt-4">
+        <DecisionBoundary items={decisionBoundaries} />
+      </div>
+
+      <StageExitCriteria criteria={stageZeroExitCriteria} />
+
+      <div id="task-board" className="scroll-mt-4 pt-6">
+        <SonghyeonTaskBoard showWorkspaceHeader={false} />
+      </div>
     </div>
-  );
-}
+  </div>
+);
+
+export default Dashboard;
