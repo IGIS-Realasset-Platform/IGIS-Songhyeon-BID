@@ -1,0 +1,757 @@
+{
+  "datasets": [
+    {
+      "containerFields": [],
+      "fields": [
+        "checked_at",
+        "date",
+        "group",
+        "id",
+        "lat",
+        "lon",
+        "organization",
+        "place",
+        "published_at",
+        "relevance",
+        "scale",
+        "source_url",
+        "summary",
+        "title",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/activities.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 21,
+          "uniqueCount": 21
+        }
+      ],
+      "name": "activities",
+      "recordCount": 21,
+      "recordPath": "$",
+      "sha256": "d256b6d4ba07bb3ac447640f5483db5bcabbd4d47f64a60eb740f93674a95d8b",
+      "sizeBytes": 16956,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "checked_at",
+        "date",
+        "group",
+        "id",
+        "lat",
+        "lon",
+        "organization",
+        "place",
+        "published_at",
+        "relevance",
+        "scale",
+        "source_url",
+        "summary",
+        "title",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/activity_markers.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 21,
+          "uniqueCount": 21
+        }
+      ],
+      "name": "activity_markers",
+      "recordCount": 21,
+      "recordPath": "$",
+      "sha256": "d256b6d4ba07bb3ac447640f5483db5bcabbd4d47f64a60eb740f93674a95d8b",
+      "sizeBytes": 16956,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "asset_id",
+        "lat",
+        "lon",
+        "name",
+        "status"
+      ],
+      "file": "references/map-activities/datasets/asset_markers.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 1,
+          "duplicateRecordCount": 2,
+          "duplicateValueCount": 1,
+          "duplicates": [
+            {
+              "count": 2,
+              "value": "AST-DOHWASEO"
+            }
+          ],
+          "missingCount": 0,
+          "path": "asset_id",
+          "populatedCount": 6,
+          "uniqueCount": 5
+        }
+      ],
+      "name": "asset_markers",
+      "recordCount": 6,
+      "recordPath": "$",
+      "sha256": "7325b4709992b27fbf4af2243624df71c03d48380b3f8278436ac3d72e6963e7",
+      "sizeBytes": 964,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "address",
+        "buildings",
+        "current",
+        "floor_scale",
+        "gfa_sqm",
+        "id",
+        "leases",
+        "name",
+        "primary_use",
+        "role",
+        "site_area_sqm",
+        "stacking_layouts",
+        "status",
+        "tenant_industries",
+        "tenant_places",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/assets.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 5,
+          "uniqueCount": 5
+        }
+      ],
+      "name": "assets",
+      "recordCount": 5,
+      "recordPath": "$",
+      "sha256": "c43735d7cc6601ee4cb06acc9b17652fa3e4c82d6c6567f70116c1e30595e497",
+      "sizeBytes": 247431,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "area_ha",
+        "arts",
+        "character",
+        "food",
+        "foreign_long",
+        "foreign_short",
+        "full_name",
+        "id",
+        "local",
+        "lodging",
+        "name",
+        "recommended",
+        "restriction",
+        "retail",
+        "science",
+        "semi_recommended",
+        "stores"
+      ],
+      "file": "references/map-activities/datasets/boundaries.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 3,
+          "uniqueCount": 3
+        }
+      ],
+      "name": "boundaries",
+      "recordCount": 3,
+      "recordPath": "$",
+      "sha256": "9e50052479f17c9fedaec20e98ed3550ee7e1f6ebc7ac9bb6a3d8422a4ce7776",
+      "sizeBytes": 1528,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [
+        "arterial_edges",
+        "excluded_offices",
+        "increments",
+        "living_grid",
+        "microzones",
+        "walk_edges"
+      ],
+      "fields": [
+        "crs",
+        "features",
+        "name",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/boundary_analysis.json",
+      "idFields": [],
+      "name": "boundary_analysis",
+      "recordCount": 6,
+      "recordPath": "$.*",
+      "sha256": "00c42190efe9386de5847d150d8398a4ab6e35031055191319488ada56e2ba0d",
+      "sizeBytes": 2645284,
+      "valueType": "object"
+    },
+    {
+      "containerFields": [
+        "crs",
+        "features",
+        "name",
+        "type"
+      ],
+      "fields": [
+        "geometry",
+        "properties",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/boundary_geojson.json",
+      "idFields": [],
+      "name": "boundary_geojson",
+      "recordCount": 3,
+      "recordPath": "$.features",
+      "sha256": "4c82d22a0d2614d9f385e001692aad2003cad49432ed6151067da94ac2b8b297",
+      "sizeBytes": 525547,
+      "valueType": "object"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "alternative",
+        "area_ha",
+        "area_pyeong",
+        "area_sqm",
+        "boundary_id",
+        "boundary_logic",
+        "checked_at",
+        "difference",
+        "estimated_foreign_long_population",
+        "estimated_foreign_short_population",
+        "estimated_local_population",
+        "increment_note",
+        "name",
+        "population_note",
+        "recommended_use",
+        "selection_question",
+        "source_id",
+        "store_count"
+      ],
+      "file": "references/map-activities/datasets/boundary_narratives.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "boundary_id",
+          "populatedCount": 3,
+          "uniqueCount": 3
+        },
+        {
+          "duplicateExcessCount": 2,
+          "duplicateRecordCount": 3,
+          "duplicateValueCount": 1,
+          "duplicates": [
+            {
+              "count": 3,
+              "value": "SRC-BND-V5-GEOJSON|SRC-REC-051|SRC-BND-LIVINGPOP"
+            }
+          ],
+          "missingCount": 0,
+          "path": "source_id",
+          "populatedCount": 3,
+          "uniqueCount": 1
+        }
+      ],
+      "name": "boundary_narratives",
+      "recordCount": 3,
+      "recordPath": "$",
+      "sha256": "8aafdd729ccf613638348c1371c3cdbbd72e76758e8799ba779c551f39266823",
+      "sizeBytes": 4279,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "canonical_tables",
+        "checked_at",
+        "dashboard",
+        "excel",
+        "notion",
+        "record_count",
+        "research_area",
+        "source_date_link_required"
+      ],
+      "file": "references/map-activities/datasets/delivery_parity.json",
+      "idFields": [],
+      "name": "delivery_parity",
+      "recordCount": 6,
+      "recordPath": "$",
+      "sha256": "b0a9c723a9d0d0ba49e4febb087a86c03e29da2d2ca0aef3b552d71447b81349",
+      "sizeBytes": 1721,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [
+        "asset_order",
+        "map_assets",
+        "metadata",
+        "records"
+      ],
+      "fields": [
+        "normalized",
+        "raw_values",
+        "source_row"
+      ],
+      "file": "references/map-activities/datasets/igis_retail.json",
+      "idFields": [],
+      "name": "igis_retail",
+      "recordCount": 147,
+      "recordPath": "$.records",
+      "sha256": "ec485fb40b5344e6e8cce009f83f3b1e1ec67adaf945e5e5638edc7786258f1b",
+      "sizeBytes": 108436,
+      "valueType": "object"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "confidence",
+        "evidence_ids",
+        "id",
+        "text",
+        "title"
+      ],
+      "file": "references/map-activities/datasets/insights.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 6,
+          "uniqueCount": 6
+        }
+      ],
+      "name": "insights",
+      "recordCount": 6,
+      "recordPath": "$",
+      "sha256": "4f210a4ab3faf7fc213de3501d6f91338e215e2548153592d307d158348ff16e",
+      "sizeBytes": 4054,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "address",
+        "context",
+        "id",
+        "lat",
+        "lon",
+        "name",
+        "program",
+        "role",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/landmarks.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 4,
+          "uniqueCount": 4
+        }
+      ],
+      "name": "landmarks",
+      "recordCount": 4,
+      "recordPath": "$",
+      "sha256": "618ceade2ef27bb2e25725c0f5ccffa248eb196045f443a9567ad8af4ad2449d",
+      "sizeBytes": 2079,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "activities",
+        "activity_summary",
+        "checked_at",
+        "group",
+        "id",
+        "identity",
+        "name",
+        "relevance",
+        "scope",
+        "source_url"
+      ],
+      "file": "references/map-activities/datasets/organizations.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 22,
+          "uniqueCount": 22
+        }
+      ],
+      "name": "organizations",
+      "recordCount": 22,
+      "recordPath": "$",
+      "sha256": "bca4d3368e5f0816b9cde7112dfbc59a03c4e3c94a3f88dffa77b816aec6b7f2",
+      "sizeBytes": 22285,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [
+        "culture",
+        "district",
+        "dohwaseo",
+        "songhyeon"
+      ],
+      "fields": [
+        "dashboard_title",
+        "features",
+        "geometry",
+        "properties",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/plan_geojson.json",
+      "idFields": [],
+      "name": "plan_geojson",
+      "recordCount": 4,
+      "recordPath": "$.*",
+      "sha256": "0ceedbba8c059a1a5c669ad4d04435921dc3e9f5fee9111c52666222095a84c7",
+      "sizeBytes": 27212,
+      "valueType": "object"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "candidate_relevance",
+        "checked_at",
+        "content",
+        "effective_from",
+        "effective_year",
+        "feature",
+        "id",
+        "impact",
+        "open_issue",
+        "published_at",
+        "scope",
+        "source_url",
+        "status",
+        "title",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/plans.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 27,
+          "uniqueCount": 27
+        }
+      ],
+      "name": "plans",
+      "recordCount": 27,
+      "recordPath": "$",
+      "sha256": "b462fd5e5cb6decb3287fd0554e4b785cf578af4b2aa17ac8c0fe936acf76fc4",
+      "sizeBytes": 48606,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "bid_relevance",
+        "checked_at",
+        "content_and_scale",
+        "end_date",
+        "group",
+        "lat",
+        "latitude",
+        "lon",
+        "longitude",
+        "operator",
+        "place_name",
+        "program_id",
+        "program_type",
+        "published_at",
+        "source_url",
+        "start_date",
+        "title",
+        "visitor_or_participant_note"
+      ],
+      "file": "references/map-activities/datasets/program_operations.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "program_id",
+          "populatedCount": 21,
+          "uniqueCount": 21
+        }
+      ],
+      "name": "program_operations",
+      "recordCount": 21,
+      "recordPath": "$",
+      "sha256": "e0e69a11d7d344b787162445a1956f272c6ad710c590ec1bb7b98d68fb6567e1",
+      "sizeBytes": 20038,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "address",
+        "bukchon",
+        "checked_at",
+        "compact",
+        "coordinate_source",
+        "east",
+        "entity_id",
+        "inside_bukchon",
+        "inside_compact",
+        "inside_east",
+        "lat",
+        "latitude",
+        "lon",
+        "longitude",
+        "name",
+        "operation_relevance",
+        "operator",
+        "public_space_id",
+        "published_at",
+        "source_url",
+        "space_type"
+      ],
+      "file": "references/map-activities/datasets/public_spaces.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 4,
+          "path": "entity_id",
+          "populatedCount": 9,
+          "uniqueCount": 9
+        },
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "public_space_id",
+          "populatedCount": 13,
+          "uniqueCount": 13
+        }
+      ],
+      "name": "public_spaces",
+      "recordCount": 13,
+      "recordPath": "$",
+      "sha256": "c8e0e69b87691a8beacc219144a85d2c385eac0b94447a1838f84e6a08ccbe5b",
+      "sizeBytes": 10583,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "base_share_pct",
+        "base_store_count",
+        "category_level",
+        "category_name",
+        "checked_at",
+        "comparison_base",
+        "location_quotient",
+        "method_note",
+        "published_at",
+        "scope",
+        "share_pct",
+        "source_id",
+        "source_url",
+        "specialization_flag",
+        "store_count"
+      ],
+      "file": "references/map-activities/datasets/retail_statistics.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 1201,
+          "duplicateRecordCount": 1202,
+          "duplicateValueCount": 1,
+          "duplicates": [
+            {
+              "count": 1202,
+              "value": "SRC-SBIZ-STORE"
+            }
+          ],
+          "missingCount": 0,
+          "path": "source_id",
+          "populatedCount": 1202,
+          "uniqueCount": 1
+        }
+      ],
+      "name": "retail_statistics",
+      "recordCount": 1202,
+      "recordPath": "$",
+      "sha256": "abcb23c2720e0679e917b702b35bb2f3286cf1ba7c3440f52e76010874925eb3",
+      "sizeBytes": 802238,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [
+        "bukchon_location_count",
+        "bukchon_store_count",
+        "compact_location_count",
+        "compact_store_count",
+        "east_location_count",
+        "east_store_count",
+        "total_store_count"
+      ],
+      "fields": [],
+      "file": "references/map-activities/datasets/store_display_audit.json",
+      "idFields": [],
+      "name": "store_display_audit",
+      "recordCount": 7,
+      "recordPath": "$.*",
+      "sha256": "557022332ae0a30dcf66f4327a9fa2e47429c1426d3d1c9496229f8a9d586f46",
+      "sizeBytes": 219,
+      "valueType": "object"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "address",
+        "branch",
+        "building",
+        "bukchon",
+        "category1",
+        "category2",
+        "category3",
+        "checked_at",
+        "compact",
+        "distance",
+        "east",
+        "id",
+        "lat",
+        "lon",
+        "name",
+        "nearest",
+        "promotion",
+        "published_at",
+        "restriction",
+        "segment",
+        "source500m",
+        "source_url"
+      ],
+      "file": "references/map-activities/datasets/stores.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 10571,
+          "uniqueCount": 10571
+        }
+      ],
+      "name": "stores",
+      "recordCount": 10571,
+      "recordPath": "$",
+      "sha256": "1423862df91f338afd38330363d38b79db0128430186926ab380b60ae203d9fb",
+      "sizeBytes": 7390633,
+      "valueType": "array"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "basis_insight_ids",
+        "id",
+        "text",
+        "title",
+        "type"
+      ],
+      "file": "references/map-activities/datasets/strategies.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 4,
+          "uniqueCount": 4
+        }
+      ],
+      "name": "strategies",
+      "recordCount": 4,
+      "recordPath": "$",
+      "sha256": "05ac033384fd6352dd6498c83b4a29d710e580b9f00e7c9eb4d664f118441814",
+      "sizeBytes": 1674,
+      "valueType": "array"
+    }
+  ],
+  "extraction": {
+    "datasetDirectory": "references/map-activities/datasets",
+    "deterministic": true,
+    "script": "scripts/extract-songhyeon-map-activities.mjs"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "embeddedJson": {
+      "elementId": "dashboard-data",
+      "sha256": "920fdf050a4d7fd8dd0c2badad8eecc386573d605d67425064fd2d337a7ac8d1",
+      "sizeBytes": 8332857
+    },
+    "fileName": "260804_songhyeon_bid_dashboard_v1.1.html",
+    "modifiedAt": "2026-08-04T07:59:32.559Z",
+    "sha256": "ab022062d28812bbc39fa34bd81dd894450ffebfb4c61eaf6e05d39c0c7f8b02",
+    "sizeBytes": 11352690
+  },
+  "summary": {
+    "datasetCount": 21,
+    "sumOfDatasetRecordCounts": 12102,
+    "totalDatasetBytes": 11898723
+  }
+}

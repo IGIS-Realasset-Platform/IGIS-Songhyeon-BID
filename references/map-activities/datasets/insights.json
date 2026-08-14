@@ -1,0 +1,71 @@
+[
+  {
+    "confidence": "high",
+    "evidence_ids": [
+      "BND-V5-COMPACT",
+      "BND-V5-BUKCHON",
+      "BND-V5-EAST"
+    ],
+    "id": "INS-BOUNDARY-NESTED-CHOICE",
+    "text": "핵심 압축형 438,862㎡·132,756평·1,852개 점포에서 북촌 북측 확장형 705,857㎡·213,522평·2,370개 점포까지 단계적으로 확장된다. 각 단계는 이전 단계를 전부 포함하며, 범위를 넓힐 때 추가되는 점포와 문화거점을 비교할 수 있다.",
+    "title": "세 경계는 이전 범위를 포함하며 문화권을 넓혀가는 누적형 선택지다"
+  },
+  {
+    "confidence": "high",
+    "evidence_ids": [
+      "SRC-BND-V5-GEOJSON",
+      "15_BOUNDARY_V5_DECISION_20260731"
+    ],
+    "id": "INS-HERITAGE-NOT-CBD",
+    "text": "사용자 승인 기준에 따라 세 후보는 조계사앞사거리 이남 CBD 오피스권과 세종대로 서측을 배제하고 인사동·송현·북촌의 보행·문화 맥락을 우선했다.",
+    "title": "문화·헤리티지 연속성은 승인된 운영경계 설계 원칙이다"
+  },
+  {
+    "confidence": "high",
+    "evidence_ids": [
+      "REG-SONGHYEON-CULTURAL-PARK-PROJECT-2026",
+      "LMK-SONGHYEON"
+    ],
+    "id": "INS-SONGHYEON-TRANSITION",
+    "text": "확인된 송현문화공원·주차장 조성사업 기간은 2022년 10월부터 2029년 12월까지다. 광장 한 곳의 상시 사용을 전제로 하기보다 사업 진행에 따라 주변 자산·박물관·인사동 거리의 역할을 함께 조정할 필요가 있다.",
+    "title": "송현은 고정된 행사장이 아니라 2029년까지 변하는 중심공간이다"
+  },
+  {
+    "confidence": "medium_high",
+    "evidence_ids": [
+      "SRC-REC-051",
+      "REG-INSADONG-CULTURAL-DISTRICT-MGMT-2014",
+      "REG-INSADONG-DISTRICT-PLAN-2026"
+    ],
+    "id": "INS-REGULATION-AS-CURATION",
+    "text": "대안 3 안에는 규제 검토 후보 260개, 권장시설 후보 143개, 준권장시설 후보 220개가 1차 선별됐다. 이는 공식 판정이 아니라 점포명과 업종분류를 이용한 분석상 후보이므로 실제 협업 전 공식 업태와 적용 규정을 확인해야 한다.",
+    "title": "인사동 규제는 제한 목록이면서 동시에 콘텐츠 선별 언어다"
+  },
+  {
+    "confidence": "high",
+    "evidence_ids": [
+      "ORG-INSADONG-TRADITIONAL-CULTURE-ASSOC",
+      "ORG-KOREA-ANTIQUES-ASSOCIATION",
+      "ORG-SAMCHEONG-JEONGDOK-MERCHANTS",
+      "ORG-BUKCHON-GYEDONG-MERCHANTS"
+    ],
+    "id": "INS-COMMUNITY-PARTICIPATION-GAP",
+    "text": "인사전통문화보존회·한국고미술협회·삼청정독길 상인회·북촌계동길 상인회 등은 최근 활동이 확인되지만, 정본에 수록한 22개 기관·조직 모두 송현 BID 참여 의사는 확인되지 않았다. 존재·공식 역할·최근 활동·BID 참여 의사를 각각 분리해 협업 가능성을 판단해야 한다.",
+    "title": "지역조직의 활동성과 송현 BID 참여의사는 별개의 정보다"
+  },
+  {
+    "confidence": "high",
+    "evidence_ids": [
+      "ORG-INSADONG-TRADITIONAL-CULTURE-ASSOC",
+      "ORG-INSADONG-FOOD-TEA-MERCHANTS",
+      "ORG-KOREA-ANTIQUES-ASSOCIATION",
+      "ORG-NAKWON-MERCHANTS",
+      "ORG-SAMCHEONG-JEONGDOK-MERCHANTS",
+      "ORG-BUKCHON-GYEDONG-MERCHANTS",
+      "ORG-JONGNO-TOURISM-COUNCIL"
+    ],
+    "id": "INS-COMMUNITY-NETWORK-LAYERED",
+    "text": "인사동 전체를 대표하는 별도 등록 상인회는 확인되지 않았고, 사단법인 인사전통문화보존회·인사동식구들(차음식)번영회·한국고미술협회·낙원악기상가 번영회가 목적과 업종별로 병존한다. 북측에는 공식 골목형상점가 상인회가 있으나 삼청정독길은 대안 2·3 내부, 북촌계동길은 승인경계 밖 인접권이다. 종로구 관광협의회는 조례상 근거가 남아 있어도 2025년 기준 미운영이다.",
+    "title": "인사동·북촌 상권의 대표체계는 하나의 상인회가 아니라 여러 층의 조직으로 나뉜다"
+  }
+]

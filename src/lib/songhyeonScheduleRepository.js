@@ -1,6 +1,8 @@
 import { songhyeonSupabase } from './songhyeonSupabase';
 import { createTask, loadTasks, updateTask } from './songhyeonTaskRepository';
 import { milestoneWeeks } from '../data/songhyeonMilestones';
+import { normalizeSonghyeonTaskStatus } from '../data/songhyeonTaskStatuses.js';
+import { hasAuthenticatedSonghyeonSession } from './songhyeonReadSession.js';
 
 const requireClient = () => {
   if (!songhyeonSupabase) throw new Error('송현 Supabase 연결이 설정되지 않았습니다.');
@@ -15,15 +17,18 @@ const run = async (promise, message) => {
   return data;
 };
 
-export const taskStatusToScheduleStatus = (status) => ({ 미착수: 'not_started', 진행중: 'in_progress', 완료: 'completed', 보류: 'on_hold', 지연: 'delayed', 중단: 'cancelled' }[status] || status || 'not_started');
-export const scheduleStatusToTaskStatus = (status) => ({ not_started: '미착수', in_progress: '진행중', completed: '완료', on_hold: '보류', delayed: '지연', cancelled: '중단' }[status] || status || '미착수');
+export const taskStatusToScheduleStatus = (status) => ({ 미착수: 'not_started', 진행중: 'in_progress', 완료: 'completed', 중단: 'cancelled' }[normalizeSonghyeonTaskStatus(status)] || 'not_started');
+export const scheduleStatusToTaskStatus = (status) => normalizeSonghyeonTaskStatus(({ not_started: '미착수', in_progress: '진행중', completed: '완료', on_hold: '중단', delayed: '진행중', cancelled: '중단' }[status] || status));
 
 export async function loadScheduleWorkspace(scheduleItems) {
   const client = requireClient();
+  const authenticated = await hasAuthenticatedSonghyeonSession(client);
+  const linksTable = authenticated ? 'songhyeon_schedule_task_links' : 'songhyeon_public_schedule_task_links';
+  const overridesTable = authenticated ? 'songhyeon_schedule_overrides' : 'songhyeon_public_schedule_overrides';
   const [tasks, links, overrides] = await Promise.all([
     loadTasks(),
-    run(client.from('songhyeon_schedule_task_links').select('*'), '업무 연결정보를 불러오지 못했습니다.'),
-    run(client.from('songhyeon_schedule_overrides').select('*'), '일정 수정정보를 불러오지 못했습니다.'),
+    run(client.from(linksTable).select('*'), '업무 연결정보를 불러오지 못했습니다.'),
+    run(client.from(overridesTable).select('*'), '일정 수정정보를 불러오지 못했습니다.'),
   ]);
   const overrideMap = new Map(overrides.map((row) => [row.schedule_source_key, row.payload || {}]));
   return {
@@ -37,7 +42,9 @@ export async function loadScheduleWorkspace(scheduleItems) {
         ...override,
         startDate: override.startDate || item.startDate || milestoneWeeks[item.startIndex]?.startDate,
         endDate: primaryTask?.dueDate || override.endDate || item.endDate || milestoneWeeks[item.endIndex]?.endDate,
-        status: primaryTask ? taskStatusToScheduleStatus(primaryTask?.status) : (override.status || item.status),
+        status: primaryTask
+          ? taskStatusToScheduleStatus(primaryTask.status)
+          : taskStatusToScheduleStatus(scheduleStatusToTaskStatus(override.status || item.status)),
       };
     }),
   };
@@ -70,7 +77,10 @@ export async function updateScheduleItem(scheduleSourceKey, patch, actor) {
   assertActor(actor);
   if (!patch.startDate || !patch.endDate) throw new Error('시작일과 종료일을 모두 입력해 주세요.');
   if (patch.startDate > patch.endDate) throw new Error('종료일은 시작일보다 빠를 수 없습니다.');
-  await updateTask(scheduleSourceKey, { dueDate: patch.endDate, status: scheduleStatusToTaskStatus(patch.status) }, actor);
-  const row = await run(requireClient().from('songhyeon_schedule_overrides').upsert({ schedule_source_key: scheduleSourceKey, payload: patch, updated_by: actor.userId, updated_at: new Date().toISOString() }, { onConflict: 'schedule_source_key' }).select('*').single(), '마일스톤 일정을 저장하지 못했습니다.');
+  // 상태는 완료 내용·중단 사유와 이력을 보장하는 업무 workflow에서만 바꾼다.
+  await updateTask(scheduleSourceKey, { dueDate: patch.endDate }, actor);
+  const schedulePatch = { ...patch };
+  delete schedulePatch.status;
+  const row = await run(requireClient().from('songhyeon_schedule_overrides').upsert({ schedule_source_key: scheduleSourceKey, payload: schedulePatch, updated_by: actor.userId, updated_at: new Date().toISOString() }, { onConflict: 'schedule_source_key' }).select('*').single(), '마일스톤 일정을 저장하지 못했습니다.');
   return { scheduleSourceKey: row.schedule_source_key, ...(row.payload || {}) };
 }

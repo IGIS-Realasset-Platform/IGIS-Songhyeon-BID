@@ -13,7 +13,7 @@ import {
   decisionBoundaries,
 } from '../src/data/songhyeonTfData.js';
 
-test('홈은 0단계 근거기반 구축을 현재 단계로 정의한다', () => {
+test('TF 프로젝트 데이터는 0단계 근거기반 구축을 현재 단계로 정의한다', () => {
   assert.equal(projectContext.currentStage.id, 0);
   assert.match(projectContext.currentStage.name, /근거기반 구축/);
   assert.match(projectContext.definition, /자산·공간·관계/);
@@ -22,6 +22,7 @@ test('홈은 0단계 근거기반 구축을 현재 단계로 정의한다', () =
 
 test('TF 공동가치는 플레이스메이킹·에리어매니지먼트 환경 구축이며 서울시 협업은 기획추진 업무로 분리한다', () => {
   assert.match(projectContext.coreValue, /플레이스메이킹·에리어매니지먼트/);
+  assert.equal(projectContext.coreValue, '자산·공간·입주사·파트너가 지속적으로 연결되는\n플레이스메이킹·에리어매니지먼트 환경 구축');
   assert.equal(projectContext.cityCollaboration.owner, '기획추진실');
   assert.equal(projectContext.cityCollaboration.scope, '전담 업무흐름');
   assert.ok(organizationRoles.length >= 3);

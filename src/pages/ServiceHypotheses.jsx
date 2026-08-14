@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle2, CircleDashed, FileSearch2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { WorkspacePageFrame, WorkspacePageHeader } from '../components/workspace/WorkspacePageLayout';
 import {
   hypothesisDecisionBoundaries,
   hypothesisInputs,
@@ -28,18 +29,15 @@ const SectionTitle = ({ title, description, action }) => (
 
 export default function ServiceHypotheses() {
   return (
-    <div className="w-full min-w-0 flex-1 pb-[100px] pt-[28px] text-[#E5E5E5]">
-      <div className="w-[1200px] mx-auto">
-      <header className="mb-[12px] flex h-[37px] w-full items-end justify-between">
-        <div className="flex items-baseline gap-[16px]">
-          <h1 className="font-['Inter'] text-[32px] font-bold leading-none tracking-tight text-[#E5E5E5]">서비스·운영 가설</h1>
-          <p className="text-[15px] leading-none text-[#86868B]">장소 문제와 참여수요를 실행 가능한 가설로 전환하고 검증합니다.</p>
-        </div>
-      </header>
+    <WorkspacePageFrame>
+      <WorkspacePageHeader
+        title="서비스·운영 가설"
+        description="장소 문제와 참여수요를 실행 가능한 가설로 전환하고 검증합니다."
+      />
 
       <section className="grid grid-cols-4 overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#272726]">
         {metricCards.map((metric, index) => (
-          <article key={metric.label} className={`${index < metricCards.length - 1 ? 'border-r border-[#3c3c3c]' : ''} ${metric.accent ? 'bg-[#263b52]' : 'bg-[#272726]'} px-[20px] py-[18px]`}>
+          <article key={metric.label} className={`${index < metricCards.length - 1 ? 'border-r border-[#3c3c3c]' : ''} ${metric.accent ? 'bg-[#202a36]' : 'bg-[#272726]'} px-[20px] py-[18px]`}>
             <p className={`text-[11px] font-bold ${metric.accent ? 'text-[#8fc7ff]' : 'text-[#86868B]'}`}>{metric.label}</p>
             <p className="mt-[8px] text-[26px] font-bold leading-none text-[#E5E5E5]">{metric.value}</p>
             <p className={`mt-[8px] text-[12px] font-semibold ${metric.accent ? 'text-[#b8d8f7]' : 'text-[#86868B]'}`}>{metric.detail}</p>
@@ -51,7 +49,7 @@ export default function ServiceHypotheses() {
         <SectionTitle title="가설 전환 흐름" description="근거 → 기회 → 가설 → 실행성 → 실증" />
         <div className="grid grid-cols-5 overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#272726]">
           {hypothesisPipeline.map((stage, index) => (
-            <article key={stage.id} className={`${index < hypothesisPipeline.length - 1 ? 'border-r border-[#3c3c3c]' : ''} ${stage.status === '현재' ? 'bg-[#2c3440]' : 'bg-[#272726]'} flex min-h-[238px] flex-col p-[18px] transition-colors hover:bg-[#30302F]`}>
+            <article key={stage.id} className={`${index < hypothesisPipeline.length - 1 ? 'border-r border-[#3c3c3c]' : ''} ${stage.status === '현재' ? 'bg-[#202a36]' : 'bg-[#272726]'} flex min-h-[238px] flex-col p-[18px] transition-colors hover:bg-[#30302F]`}>
               <div className="flex items-center justify-between">
                 <span className="text-[12px] font-bold text-[#2997FF]">{stage.step}</span>
                 <span className={`${stage.status === '현재' ? 'border-[#3b4f68] bg-[#3b4f68] text-[#E5E5E5]' : 'border-[#3c3c3c] bg-[#1F1F1E] text-[#86868B]'} rounded-[7px] border px-[8px] py-[4px] text-[10px] font-bold`}>
@@ -190,7 +188,6 @@ export default function ServiceHypotheses() {
           </div>
         </div>
       </section>
-      </div>
-    </div>
+    </WorkspacePageFrame>
   );
 }

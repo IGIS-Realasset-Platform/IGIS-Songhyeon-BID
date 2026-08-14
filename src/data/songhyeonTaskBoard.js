@@ -4,6 +4,9 @@ import { categoryForSonghyeonTask } from './songhyeonTaskCategories.js';
 import { deliverableForSonghyeonTask } from './songhyeonTaskDeliverables.js';
 import { nextActionForSonghyeonTask } from './songhyeonTaskNextActions.js';
 import { normalizeSonghyeonGateStage } from './songhyeonGateStages.js';
+import { normalizeSonghyeonTaskImportance } from './songhyeonTaskImportance.js';
+import { normalizeSonghyeonTaskLead } from './songhyeonTaskLeads.js';
+import { normalizeSonghyeonTaskStatus } from './songhyeonTaskStatuses.js';
 
 
 export const SONGHYEON_TASK_BOARD_BUILD_SOURCE_KEY = 'G4-WS02-T04';
@@ -11,9 +14,9 @@ export const SONGHYEON_TASK_BOARD_BUILD_SOURCE_KEY = 'G4-WS02-T04';
 const statusMap = {
   in_progress: '진행중',
   not_started: '미착수',
-  delayed: '지연',
+  delayed: '진행중',
   completed: '완료',
-  on_hold: '보류',
+  on_hold: '중단',
 };
 
 const getWeek = (index) => milestoneWeeks[index] || milestoneWeeks.at(-1);
@@ -36,15 +39,15 @@ export function createInitialSonghyeonTasks() {
       taskPurpose: item.sourceText,
       deliverables: deliverableForSonghyeonTask(item.sourceKey),
       nextAction: nextActionForSonghyeonTask(item.sourceKey),
-      leadDept: item.leadLabel,
+      leadDept: normalizeSonghyeonTaskLead(item.leadLabel),
       assignee: '미정',
       coopDepts: [],
       externalParty: '',
       supportNeeded: '',
       stage: normalizeSonghyeonGateStage(item.stage),
       gateStage: normalizeSonghyeonGateStage(item.stage),
-      status: statusMap[item.status] || '미착수',
-      importanceLevel: '일반',
+      status: normalizeSonghyeonTaskStatus(statusMap[item.status]),
+      importanceLevel: normalizeSonghyeonTaskImportance('낮음'),
       taskType: '정규',
       dueDate: getWeek(item.endIndex).endDate,
       startDate: getWeek(item.startIndex).startDate,

@@ -19,9 +19,12 @@ test('IOTA 기준 컴포넌트는 바이트 단위 원본 사본으로 보존된
 test('송현 어댑터는 IOTA 화면 계약을 유지하고 외부 시스템 의존성을 포함하지 않는다', async () => {
   const gate = await readFile('src/components/iota-songhyeon/pmo/SonghyeonScheduleGate.jsx', 'utf8');
   const detail = await readFile('src/components/iota-songhyeon/pmo/SonghyeonDetailedSchedule.jsx', 'utf8');
+  const workspaceLayout = await readFile('src/components/workspace/WorkspacePageLayout.jsx', 'utf8');
   const combined = `${gate}\n${detail}`;
 
-  for (const contract of ['w-[1200px] mx-auto', 'rounded-[32px]', 'bg-[#272726]', 'timeline-scrollbar', 'w-[1198px]', 'w-[430px]', 'w-[48px]']) {
+  assert.match(gate, /<WorkspacePageFrame\b/);
+  assert.match(workspaceLayout, /mx-auto w-\[1200px\] max-w-full/);
+  for (const contract of ['rounded-[32px]', 'bg-[#272726]', 'timeline-scrollbar', 'w-[1198px]', 'w-[430px]', 'w-[48px]']) {
     assert.match(combined, new RegExp(contract.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), contract);
   }
   for (const forbidden of ['supabase', 'useAuth', 'notificationHelpers', 'PmoTaskBoardStaging']) assert.doesNotMatch(combined, new RegExp(forbidden));

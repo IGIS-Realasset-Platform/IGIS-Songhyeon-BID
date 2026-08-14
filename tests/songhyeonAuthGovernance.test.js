@@ -83,7 +83,8 @@ test('송현 전용 스키마는 멤버십·로그인이력·감사로그와 RLS
 
 test('송현 멤버 화면은 DB 연결과 송현 TF fallback을 제공한다', async () => {
   const page = await read('src/pages/governance/SonghyeonInternal.jsx');
-  assert.match(page, /songhyeon_members/);
+  assert.match(page, /songhyeon_public_profiles/);
+  assert.doesNotMatch(page, /\.select\([^\n]*email/);
   assert.match(page, /송현 BID Member/);
   assert.match(page, /송현 BID TF/);
   assert.doesNotMatch(page, /송현 전용 DB/);

@@ -624,3 +624,20 @@ div.bg-\[\#fdfdfd\],
     font-size: 18px !important;
     line-height: 1.6 !important;
 }
+
+/* Map & Activities layer controls: keep dense labels readable without wrapping excessively. */
+.workspace-shell .map-layer-panel-title,
+.workspace-shell .map-layer-group-title {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+}
+
+.workspace-shell .map-layer-toggle-all,
+.workspace-shell .map-layer-item {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+}
+
+.workspace-shell .map-layer-item.map-boundary-option {
+    font-size: 10px !important;
+}

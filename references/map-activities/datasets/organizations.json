@@ -1,0 +1,412 @@
+[
+  {
+    "activities": [
+      {
+        "date": "2026-06-11",
+        "source_url": "https://www.seoul.go.kr/news/news_report.do?nttNo=459768",
+        "summary": "16년 만의 인사동 지구단위계획 재정비 고시와 담당부서를 확인",
+        "title": "인사동 지구단위계획 재정비 고시"
+      }
+    ],
+    "activity_summary": "현행 조직 페이지와 2026 인사동 지구단위계획 업무로 존재·역할·최근활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "서울시·종로구 행정기관",
+    "id": "ORG-SEOUL-HANOK-ASSET-DIV",
+    "identity": "인사동·조계사·북촌 지구단위계획과 한옥·건축자산·공공한옥 관련 업무",
+    "name": "서울특별시 한옥건축자산과",
+    "relevance": "인사동·조계사·북촌 계획과 한옥·건축자산 관련 협의에서 직접 확인해야 하는 서울시 담당부서입니다.",
+    "scope": "서울특별시",
+    "source_url": "https://hanok.seoul.go.kr/front/kor/intro.do?tab=2"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-07-08",
+        "source_url": "https://www.seoul.go.kr/news/news_notice.do?nttNo=461174",
+        "summary": "2029-12까지의 사업기간과 보상계획을 공고",
+        "title": "송현문화공원·주차장 조성사업 보상계획 공고"
+      }
+    ],
+    "activity_summary": "2026년 보상계획 공고의 담당부서로 확인",
+    "checked_at": "2026-07-31",
+    "group": "서울시·종로구 행정기관",
+    "id": "ORG-SEOUL-PUBLIC-DEVELOPMENT-DIV",
+    "identity": "송현문화공원·주차장 조성사업 시행 및 보상계획 담당",
+    "name": "서울특별시 공공개발담당관",
+    "relevance": "송현문화공원의 공사·보상·주차장 조성 일정과 주변 공간운영 조건을 확인해야 하는 서울시 담당부서입니다.",
+    "scope": "송현동",
+    "source_url": "https://www.seoul.go.kr/news/news_notice.do?nttNo=461174"
+  },
+  {
+    "activities": [],
+    "activity_summary": "북촌 관광객 방문시간 제한 정책 담당조직으로 확인",
+    "checked_at": "2026-07-31",
+    "group": "서울시·종로구 행정기관",
+    "id": "ORG-SEOUL-TOURISM-POLICY-DIV",
+    "identity": "북촌 특별관리지역 관광정책 담당",
+    "name": "서울특별시 관광정책과",
+    "relevance": "북촌 관광관리와 인사동 관광편의·차없는거리 운영이 송현권역의 방문동선과 운영시간에 영향을 줍니다.",
+    "scope": "북촌",
+    "source_url": "https://news.seoul.go.kr/culture/archives/526017?listPage=1"
+  },
+  {
+    "activities": [
+      {
+        "date": "2025-05-01",
+        "source_url": "https://bookcouncil.jongno.go.kr/record/recordView.do?key=b641dca222f3a7f8552cb87a65628359172bf748504a827c534c727423a454a61146849484d7908f",
+        "summary": "2025년 중간보고와 주민설명회로 이어진 관리계획 변경 검토를 확인",
+        "title": "인사동 문화지구 관리계획 변경 연구·중간보고"
+      }
+    ],
+    "activity_summary": "2025~2026 종로구의회 공식 회의록으로 담당업무와 최근활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "서울시·종로구 행정기관",
+    "id": "ORG-JONGNO-CULTURE-DIV",
+    "identity": "인사동 문화지구 관리계획·문화지구육성기금·종로문화재단 관련 업무",
+    "name": "종로구 문화과",
+    "relevance": "인사동 문화지구 관리계획과 문화지구육성기금을 담당하므로 업종·프로그램·지역협력 검토와 직접 연결됩니다.",
+    "scope": "종로구·인사동",
+    "source_url": "https://bookcouncil.jongno.go.kr/record/recordView.do?key=b641dca222f3a7f8552cb87a65628359172bf748504a827c534c727423a454a61146849484d7908f"
+  },
+  {
+    "activities": [
+      {
+        "date": "2025-09-02",
+        "source_url": "https://bookcouncil.jongno.go.kr/cast/viewer/record.do?key=88f8f6ce278656ec717cbf480ccc08eef720355244f4487ad19f256b920a2575973d643115c2e949",
+        "summary": "2026~2028 위탁대상과 기간을 확인하되 수탁자는 확인되지 않음",
+        "title": "인사동 관광편의시설·차없는거리 민간위탁 동의안"
+      }
+    ],
+    "activity_summary": "북촌 특별관리와 인사동 관광편의시설 위탁업무로 역할 확인",
+    "checked_at": "2026-07-31",
+    "group": "서울시·종로구 행정기관",
+    "id": "ORG-JONGNO-TOURISM-SPORTS-DIV",
+    "identity": "북촌 특별관리지역 현장관리·관광정책과 인사동 관광편의시설 업무",
+    "name": "종로구 관광체육과",
+    "relevance": "북촌 관광관리와 인사동 관광편의·차없는거리 운영이 송현권역의 방문동선과 운영시간에 영향을 줍니다.",
+    "scope": "종로구·북촌·인사동",
+    "source_url": "https://news.seoul.go.kr/culture/archives/526017?listPage=1"
+  },
+  {
+    "activities": [
+      {
+        "date": "2024-01-19",
+        "source_url": "https://bookcouncil.jongno.go.kr/attach/record/JONGNO/appendix/a09/A0010721.pdf",
+        "summary": "2024년 존재만 확인하며 최근 활동으로 해석하지 않음",
+        "title": "종로구 공식 관련단체 현황 등재"
+      },
+      {
+        "date": "2026-06-15",
+        "source_url": "https://www.yna.co.kr/view/AKR20260612104900005",
+        "summary": "인사동 일대 38개 갤러리가 참여한 회화·조각·공예 복합문화예술축제를 주관",
+        "title": "2026 인사아트위크"
+      }
+    ],
+    "activity_summary": "2026년 정기총회·지역발전 공모와 인사아트위크 38개 갤러리 참여로 현재 활동을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-INSADONG-TRADITIONAL-CULTURE-ASSOC",
+    "identity": "인사동 전통문화·상권의 지역 단체로서 인사동 홍보관·남인사관광안내소 운영과 지역 문화사업·회원 네트워크 활동을 수행",
+    "name": "사단법인 인사전통문화보존회",
+    "relevance": "2026년 지역발전 공모와 38개 갤러리 참여 인사아트위크가 확인되는 인사동의 핵심 전통문화·상권 네트워크입니다.",
+    "scope": "인사동",
+    "source_url": "https://www.hiinsa.com/"
+  },
+  {
+    "activities": [
+      {
+        "date": "2025-08-25",
+        "source_url": "https://www.jongno.go.kr/mayor/bbs/selectBoardArticle.do?bbsId=BBSMSTR_000000001618&menuId=388338&menuNo=388338&nttId=250303",
+        "summary": "14개 전통공예·주민 프로그램을 협의회가 주관",
+        "title": "북촌 칠석 주민행사"
+      }
+    ],
+    "activity_summary": "2024 공식 단체현황과 2025-08 주민행사 주관으로 존재·역할·최근활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-BUKCHON-TRADITIONAL-CRAFTS-COUNCIL",
+    "identity": "북촌 전통공예 프로그램·주민행사 주관단체",
+    "name": "북촌전통공예협의회",
+    "relevance": "북촌 공예 프로그램과 주민행사의 실제 운영경험을 가진 지역 파트너 후보입니다.",
+    "scope": "북촌",
+    "source_url": "https://bookcouncil.jongno.go.kr/attach/record/JONGNO/appendix/a09/A0010721.pdf"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-07-09",
+        "source_url": "https://www.jfac.or.kr/site/main/home",
+        "summary": "종로·중구·용산 도심권 시민 대상 프로그램을 운영 중",
+        "title": "2026 도심의 세포들"
+      }
+    ],
+    "activity_summary": "공식 설립목적과 2026년 7월 프로그램·공지로 역할·최근활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "공공 문화·교육기관",
+    "id": "ORG-JONGNO-CULTURAL-FOUNDATION",
+    "identity": "지역문화예술 진흥·문화시설 운영·지역문화사업·위탁사업",
+    "name": "종로문화재단",
+    "relevance": "종로구 문화시설·지역문화사업 운영경험을 송현권역 프로그램과 연결해 검토할 수 있습니다.",
+    "scope": "종로구",
+    "source_url": "https://www.jfac.or.kr/site/main/content/purpose"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-01-01",
+        "source_url": "https://craftmuseum.seoul.go.kr/introduce/report_view/NTT_0000000387",
+        "summary": "2026년 전시·공예문화 프로그램 운영계획을 공식 발표",
+        "title": "2026 전시 로드맵 및 공예 프로그램"
+      }
+    ],
+    "activity_summary": "현행 조직·2026 전시 및 프로그램으로 공식 역할과 최근활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "공공 문화·교육기관",
+    "id": "ORG-SEOUL-CRAFT-MUSEUM",
+    "identity": "공예자료 수집·연구·전시·교육과 공예문화 확산",
+    "name": "서울공예박물관",
+    "relevance": "송현 인접 공공문화거점으로 공예 전시·교육·아카이브와 인사동 공예상권을 연결할 수 있습니다.",
+    "scope": "안국동·송현 일대",
+    "source_url": "https://craftmuseum.seoul.go.kr/main"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-05-16",
+        "source_url": "https://culture.seoul.go.kr/night/sub/program/view.do?pageIndex=2&pgmId=6043",
+        "summary": "조계사와 인사동을 포함하는 연등회 행사구간·기간 확인",
+        "title": "2026 연등회 조계사·인사동 거점 프로그램"
+      }
+    ],
+    "activity_summary": "공식 홈페이지와 2026 연등회 거점 정보로 존재·역할·활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "종교·역사문화기관",
+    "id": "ORG-JOGYESA",
+    "identity": "대한불교조계종 총본산 사찰·종교 및 전통문화 행사 거점",
+    "name": "대한불교조계종 조계사",
+    "relevance": "조계사와 인사동을 잇는 전통문화 행사와 대규모 방문동선의 핵심 거점입니다.",
+    "scope": "견지동·조계사",
+    "source_url": "https://www.jogyesa.kr/"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-05-22",
+        "source_url": "https://hanok.seoul.go.kr/home/data/scw/bbs/BBS_202605110108586971.pdf",
+        "summary": "북촌·서촌 공공한옥 16곳에서 34개 프로그램을 운영한 공식 사례",
+        "title": "2026 서울 공공한옥 야간개방"
+      }
+    ],
+    "activity_summary": "서울시 공식 2026 공공한옥 야간개방 자료에 북촌사업팀으로 명시",
+    "checked_at": "2026-07-31",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-CULTURE-DAUM-BUKCHON",
+    "identity": "서울 공공한옥·북촌 문화프로그램 협력 운영",
+    "name": "사단법인 문화다움 북촌사업팀",
+    "relevance": "북촌 공공한옥과 야간 프로그램 운영경험을 가진 민간 문화운영 주체입니다.",
+    "scope": "북촌",
+    "source_url": "https://hanok.seoul.go.kr/home/data/scw/bbs/BBS_202605110108586971.pdf"
+  },
+  {
+    "activities": [],
+    "activity_summary": "공식 홈페이지로 기관과 서울관 운영 확인",
+    "checked_at": "2026-07-31",
+    "group": "공공 문화·교육기관",
+    "id": "ORG-MMCA",
+    "identity": "국립 현대미술관 운영·전시·연구·교육",
+    "name": "국립현대미술관",
+    "relevance": "북촌 문화유산형에서 추가되는 국가 문화거점으로 전시·교육 동선 연계를 검토할 수 있습니다.",
+    "scope": "국립현대미술관 서울",
+    "source_url": "https://www.mmca.go.kr/"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-07-01",
+        "source_url": "https://jdlib.sen.go.kr/jdlib/index.do",
+        "summary": "공식 홈페이지의 2026년 7월 공지·프로그램 운영 확인",
+        "title": "정독도서관 2026년 7월 독서·교육 운영"
+      }
+    ],
+    "activity_summary": "공식 홈페이지의 2026년 7월 운영·공지로 확인",
+    "checked_at": "2026-07-31",
+    "group": "공공 문화·교육기관",
+    "id": "ORG-JEONGDOK-LIBRARY",
+    "identity": "공공도서관·독서문화·교육 프로그램 운영",
+    "name": "서울특별시교육청 정독도서관",
+    "relevance": "북촌 문화유산형의 공공 독서·교육 거점으로 주민·가족 프로그램과 연결됩니다.",
+    "scope": "화동·북촌",
+    "source_url": "https://jdlib.sen.go.kr/jdlib/index.do"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-04-05",
+        "source_url": "https://main2.chondogyo.com/",
+        "summary": "공식 홈페이지에서 중앙대교당 2026년 4월 행사를 확인",
+        "title": "천도교 중앙대교당 2026년 기념행사"
+      }
+    ],
+    "activity_summary": "공식 홈페이지의 2026년 중앙대교당 행사로 존재·역할·최근활동 확인",
+    "checked_at": "2026-07-31",
+    "group": "종교·역사문화기관",
+    "id": "ORG-CHEONDOGYO-CENTRAL",
+    "identity": "천도교 중앙조직과 중앙대교당 종교·문화행사 운영",
+    "name": "천도교 중앙총부",
+    "relevance": "동측문화형에서 추가되는 역사·종교문화 거점으로 인사동 동측의 문화행사 연계 가능성을 보여줍니다.",
+    "scope": "경운동·천도교 중앙대교당",
+    "source_url": "https://main2.chondogyo.com/"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-07-07",
+        "source_url": "https://jachi.jongno.go.kr/Center/Minutes.aspx?areaSeq=0&contents=&insertUserName=&pageNo=2&title=",
+        "summary": "자치회관 운영상황과 적립금·프로그램 운영을 심의한 최신 공식 회의 기록",
+        "title": "2026년 7월 주민자치위원회 월례회의"
+      }
+    ],
+    "activity_summary": "2026~2027 위원 현황과 2026년 1·6·7월 회의 기록으로 실제 운영을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-JONGNO-1234-RESIDENT-COMMITTEE",
+    "identity": "자치회관 운영과 지역문제·주민편익·문화 프로그램을 심의하는 주민대표기구",
+    "name": "종로1·2·3·4가동 주민자치위원회",
+    "relevance": "종로1·2·3·4가동·인사동에서 자치회관 운영과 지역문제·주민편익·문화 프로그램을 심의하는 주민대표기구을 담당하므로 송현 BID 관련 협의 시 역할을 확인해야 합니다.",
+    "scope": "종로1·2·3·4가동·인사동",
+    "source_url": "https://jachi.jongno.go.kr/Center/Members.aspx?seq=57"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-06-24",
+        "source_url": "https://jachi.jongno.go.kr/Center/Minutes.aspx?areaSeq=0&contents=&insertUserName=&pageNo=2&title=",
+        "summary": "위원 25명 중 20명이 참석한 가회동 주민자치위원회 공식 월례회의 기록",
+        "title": "2026년 6월 가회동 주민자치위원회 월례회의"
+      }
+    ],
+    "activity_summary": "2026년 위원회 구성과 6월 월례회의 20명 참석 기록으로 실제 운영을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-GAHOE-RESIDENT-COMMITTEE",
+    "identity": "자치회관 운영과 지역문제·주민편익·문화 프로그램을 심의하는 주민대표기구",
+    "name": "가회동 주민자치위원회",
+    "relevance": "가회동·북촌에서 자치회관 운영과 지역문제·주민편익·문화 프로그램을 심의하는 주민대표기구을 담당하므로 송현 BID 관련 협의 시 역할을 확인해야 합니다.",
+    "scope": "가회동·북촌",
+    "source_url": "https://jachi.jongno.go.kr/Common/File.aspx?seq=3931"
+  },
+  {
+    "activities": [
+      {
+        "date": "2024-08-09",
+        "source_url": "https://blog.naver.com/globalnews7942/223542436952",
+        "summary": "인사동·청와대권 관광객 공동마케팅과 지역 특산물 연계 사업을 추진하기로 한 협약 활동을 확인",
+        "title": "인사동식구들(차음식)번영회·K관광협의회 업무협약"
+      }
+    ],
+    "activity_summary": "2024년 K관광협의회와 인사동·청와대권 관광 및 특산물 공동사업 업무협약을 체결한 활동을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-INSADONG-FOOD-TEA-MERCHANTS",
+    "identity": "인사동 차·음식 업종 상인 간 협력과 지역 활성화 활동",
+    "name": "인사동식구들(차음식)번영회",
+    "relevance": "2024년 활동이 확인된 인사동 차·음식 업종의 소규모 번영회이며 인사동 전체 공식 상인회로 보지 않습니다.",
+    "scope": "인사동",
+    "source_url": "https://blog.naver.com/globalnews7942/223542436952"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-06-11",
+        "source_url": "https://www.kculture.or.kr/brd/board/399/L/menu/498?bbIdx=15820&brdType=R",
+        "summary": "인사동 한국미술관에서 전국 8개 지회와 17개 부스가 참여한 고미술 전문행사를 주최",
+        "title": "제4회 한국고미술페어"
+      }
+    ],
+    "activity_summary": "인사동7길 소재 협회와 2026년 인사동 한국미술관에서 17개 부스·8개 지회가 참여한 고미술페어를 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-KOREA-ANTIQUES-ASSOCIATION",
+    "identity": "고미술 업계 회원·지회 조직과 전시·유통 활성화",
+    "name": "사단법인 한국고미술협회",
+    "relevance": "인사동 고미술 업종 네트워크로 2026년 한국고미술페어 운영경험이 확인됩니다.",
+    "scope": "인사동·전국 고미술 업계",
+    "source_url": "https://www.hkoms.or.kr/member/?type1=%EC%84%9C%EC%9A%B8%EC%A2%85%EB%A1%9C"
+  },
+  {
+    "activities": [
+      {
+        "date": "2026-04-15",
+        "source_url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=03735926645416448",
+        "summary": "삼청정독길 골목형상점가 상인회장이 상권 현안과 상인 의견을 전달한 최근 활동",
+        "title": "삼청정독길 상인회 지역현안 의견 전달"
+      }
+    ],
+    "activity_summary": "2023년 지정된 공식 골목형상점가이며 2026년 상인회장의 지역현안 활동을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-SAMCHEONG-JEONGDOK-MERCHANTS",
+    "identity": "삼청정독길 골목형상점가의 상인 대표와 공동사업 운영",
+    "name": "삼청정독길 골목형상점가 상인회",
+    "relevance": "대안 2·3 내부 삼청정독길의 공식 골목형상점가 상인회입니다.",
+    "scope": "삼청정독길·대안 2·3 북측",
+    "source_url": "https://www.jongno.go.kr/mayor/bbs/selectBoardArticle.do?bbsId=BBSMSTR_000000001618&menuId=388338&menuNo=388338&nttId=250410"
+  },
+  {
+    "activities": [
+      {
+        "date": "2025-04-21",
+        "source_url": "https://app.jongno.go.kr/main/news/BBSMSTR_000000000201/254930",
+        "summary": "상인회 공동사업과 행정·마케팅을 지원하는 시장매니저 운영 기록을 확인",
+        "title": "북촌계동길 골목형상점가 시장매니저 운영"
+      }
+    ],
+    "activity_summary": "2024년 약 100개 점포의 공식 골목형상점가 상인회와 카카오·소상공인시장진흥공단 협약 및 2025년 시장매니저 운영을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-BUKCHON-GYEDONG-MERCHANTS",
+    "identity": "북촌계동길 골목형상점가의 상인 대표와 디지털 전환·공동마케팅 운영",
+    "name": "북촌계동길 골목형상점가 상인회",
+    "relevance": "세 승인경계 밖 북촌 인접권의 공식 골목형상점가 상인회이며 디지털 전환·시장매니저 운영경험이 있습니다.",
+    "scope": "북촌계동길·승인경계 인접",
+    "source_url": "https://www.jongno.go.kr/mayor/bbs/selectBoardArticle.do?bbsId=BBSMSTR_000000001618&menuId=388338&menuNo=388338&nttId=249962"
+  },
+  {
+    "activities": [
+      {
+        "date": "2022-01-06",
+        "source_url": "https://www.newswire.co.kr/newsRead.php?no=936810",
+        "summary": "번영회·협동조합의 악기 기부와 문화나눔 활동을 확인",
+        "title": "낙원악기상가 악기 나눔 기부"
+      }
+    ],
+    "activity_summary": "번영회·협동조합이 악기 기부와 상가 문화행사를 운영한 기록을 확인",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-NAKWON-MERCHANTS",
+    "identity": "낙원악기상가 상인 공동사업·문화나눔·상가 활성화",
+    "name": "낙원악기상가 번영회·우리들의 낙원상가",
+    "relevance": "세 운영경계 내부 낙원악기상가의 번영회이지만 2023년 이후 현재 활동은 추가 확인이 필요합니다.",
+    "scope": "낙원악기상가·세 운영경계 내부",
+    "source_url": "https://www.newswire.co.kr/newsRead.php?no=936810"
+  },
+  {
+    "activities": [
+      {
+        "date": "2025-06-24",
+        "source_url": "https://bookcouncil.jongno.go.kr/record/recordView.do?key=153afeef02d46a7badcec5683f008c056436dc739e82b4327d9536a314a9ab40ed91682b156d1ed9",
+        "summary": "행정사무감사에서 종로구 관광체육과장이 현재 운영하지 않는다고 답변",
+        "title": "종로구 관광협의회 미운영 공식 확인"
+      }
+    ],
+    "activity_summary": "조례상 설립·지원 근거는 있으나 2025년 종로구 관광체육과가 현재 운영하지 않는다고 공식 답변",
+    "checked_at": "2026-08-04",
+    "group": "지역 기반 공동체·운영조직",
+    "id": "ORG-JONGNO-TOURISM-COUNCIL",
+    "identity": "관광사업자·관련단체·주민이 참여하는 지역관광 민관협력기구",
+    "name": "종로구 관광협의회",
+    "relevance": "조례상 민관협력기구이나 2025년 종로구 공식 답변 기준 미운영 상태입니다.",
+    "scope": "종로구",
+    "source_url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1374349"
+  }
+]

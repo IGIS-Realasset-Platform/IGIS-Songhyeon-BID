@@ -167,6 +167,7 @@ test('월말 굵은선은 헤더와 본문에서 동일한 4주 경계를 사용
 
 test('Task 제목은 핵심 주제만 표시하고 행 전체 클릭으로 상세와 연결키를 제공한다', async () => {
   const page = await readFile(new URL('../src/components/iota-songhyeon/pmo/SonghyeonDetailedSchedule.jsx', import.meta.url), 'utf8');
+  const modal = await readFile(new URL('../src/components/iota-songhyeon/pmo/SonghyeonScheduleTaskLinkModal.jsx', import.meta.url), 'utf8');
   const tasks = songhyeonDetailedScheduleItems.filter((item) => item.itemType === 'task');
   const facilities = tasks.find((item) => item.sourceText.startsWith('공용공간·공개공간'));
   assert.equal(facilities.displayName, '공용·공개공간·리테일 운영 확인');
@@ -177,8 +178,10 @@ test('Task 제목은 핵심 주제만 표시하고 행 전체 클릭으로 상�
   assert.match(page, /data-task-key=\{item\.itemType === 'task' \? item\.sourceKey : undefined\}/);
   assert.match(page, /item\.itemType === 'task' \? 'cursor-pointer'/);
   assert.doesNotMatch(page, /<button[^>]*data-task-key=\{item\.sourceKey\}/);
-  assert.match(page, /selectedItem\.sourceText/);
-  assert.match(page, /통합업무 상세 열기/);
+  assert.match(page, /item=\{selectedItem\}/);
+  assert.match(modal, /taskPurpose: item\.sourceText \|\| ''/);
+  assert.match(modal, /onOpenTask\(task\.sourceKey\)/);
+  assert.match(modal, /상세보기 →/);
 });
 
 test('일정은 8월 2주에 시작해 주제별로 병렬 진행하고 11월 말까지 종료한다', () => {
@@ -210,8 +213,10 @@ test('일정은 8월 2주에 시작해 주제별로 병렬 진행하고 11월 �
 test('마일스톤 페이지는 1200px 고정폭으로 타 페이지와 동일하게 중앙정렬한다', async () => {
   const page = await readFile(new URL('../src/components/iota-songhyeon/pmo/SonghyeonScheduleGate.jsx', import.meta.url), 'utf8');
   const detail = await readFile(new URL('../src/components/iota-songhyeon/pmo/SonghyeonDetailedSchedule.jsx', import.meta.url), 'utf8');
+  const workspaceLayout = await readFile(new URL('../src/components/workspace/WorkspacePageLayout.jsx', import.meta.url), 'utf8');
 
-  assert.match(page, /w-\[1200px\] mx-auto/);
+  assert.match(page, /<WorkspacePageFrame\b/);
+  assert.match(workspaceLayout, /mx-auto w-\[1200px\] max-w-full/);
   assert.match(page, /w-\[1198px\] min-w-\[1198px\] max-w-\[1198px\]/);
   assert.doesNotMatch(page, /w-\[1290px\]/);
   assert.doesNotMatch(page, /w-\[1375px\]/);

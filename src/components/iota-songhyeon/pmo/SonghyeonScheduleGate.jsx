@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { milestoneStages, milestoneWeeks, responsibilityMatrix } from '../../../data/songhyeonMilestones';
+import { WorkspacePageFrame, WorkspacePageHeader } from '../../workspace/WorkspacePageLayout';
 import SonghyeonDetailedSchedule from './SonghyeonDetailedSchedule';
 
 // Adapted from the exact vendored IOTA PmoScheduleGate DOM and Tailwind contract.
@@ -63,7 +64,7 @@ export default function SonghyeonScheduleGate() {
     };
 
     return (
-        <div className="w-full min-w-0 flex-1 select-text bg-transparent pt-[28px] pb-[200px] text-left text-[#E5E5E5]">
+        <WorkspacePageFrame className="select-text bg-transparent text-left">
             <style>{`
                 .timeline-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
                 .timeline-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,.02); border-radius: 10px; }
@@ -72,18 +73,17 @@ export default function SonghyeonScheduleGate() {
                 .timeline-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.12) rgba(255,255,255,.02); }
             `}</style>
 
-            <div className="w-[1200px] mx-auto">
-            <div className="mb-[12px] flex w-full items-end justify-between">
-                <div className="flex items-center gap-[16px]">
-                    <h1 className="text-[32px] font-bold leading-none tracking-tight text-[#E5E5E5]">마일스톤</h1>
+            <WorkspacePageHeader
+                title="마일스톤"
+                controls={(
                     <div className="flex h-[30px] items-center rounded-[9px] border border-[#343e4d] bg-[#2A2A2A]">
                         {[['detail', '상세 일정'], ['summary', 'Gate 요약']].map(([value, label]) => (
                             <button type="button" key={value} onClick={() => setTimelineView(value)} className={`h-[28px] cursor-pointer rounded-[7px] border px-3 text-[11px] font-bold transition-colors ${timelineView === value ? 'border-[#263b52] bg-[#3b4f68] text-[#E5E5E5] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.035)]' : 'border-transparent text-[#86868B] hover:text-[#E5E5E5]'}`}>{label}</button>
                         ))}
                     </div>
-                </div>
-                <div className="text-right"><p className="text-[12px] font-bold text-[#bdbba7]">표준 실행기간 16주 · 4개월</p><p className="mt-1 text-[10px] text-[#86868B]">TF 착수 승인 후 실제 날짜 확정</p></div>
-            </div>
+                )}
+                actions={<div className="text-right"><p className="text-[12px] font-bold text-[#bdbba7]">표준 실행기간 16주 · 4개월</p><p className="mt-1 text-[10px] text-[#86868B]">TF 착수 승인 후 실제 날짜 확정</p></div>}
+            />
 
             {timelineView === 'detail' ? <SonghyeonDetailedSchedule /> : (
                 <div className="timeline-scrollbar w-full overflow-x-auto pb-1">
@@ -142,8 +142,6 @@ export default function SonghyeonScheduleGate() {
                     </tbody>
                 </table>
             </div>
-            </div>
-        </div>
+        </WorkspacePageFrame>
     );
 }
-

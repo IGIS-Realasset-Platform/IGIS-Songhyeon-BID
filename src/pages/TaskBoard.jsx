@@ -1,11 +1,12 @@
 import SonghyeonTaskBoard from '../components/iota-songhyeon/task-board/SonghyeonTaskBoard';
 import SonghyeonIntegratedExecutionPlan from '../components/iota-songhyeon/task-board/SonghyeonIntegratedExecutionPlan';
+import { WorkspacePageFrame } from '../components/workspace/WorkspacePageLayout';
 
 export default function TaskBoard() {
   return (
-    <div className="workspace-content box-border flex min-h-full w-full flex-col px-[60px] pb-[60px] pt-[29px] text-[#E5E5E5]">
+    <WorkspacePageFrame fluidContent className="workspace-content box-border px-[60px]" contentClassName="flex flex-col">
       <SonghyeonTaskBoard />
       <SonghyeonIntegratedExecutionPlan />
-    </div>
+    </WorkspacePageFrame>
   );
 }

@@ -1,0 +1,62 @@
+[
+  {
+    "canonical_tables": "asset.csv, building.csv, lease_snapshot.csv",
+    "checked_at": "2026-08-04",
+    "dashboard": "수록",
+    "excel": "수록",
+    "notion": "수록",
+    "record_count": "5",
+    "research_area": "이지스 자산정보",
+    "source_date_link_required": "예"
+  },
+  {
+    "canonical_tables": "public_space.csv",
+    "checked_at": "2026-08-04",
+    "dashboard": "수록",
+    "excel": "수록",
+    "notion": "수록",
+    "record_count": "13",
+    "research_area": "인접 공공공간",
+    "source_date_link_required": "예"
+  },
+  {
+    "canonical_tables": "plan_regulation.csv",
+    "checked_at": "2026-08-04",
+    "dashboard": "수록",
+    "excel": "수록",
+    "notion": "수록",
+    "record_count": "27",
+    "research_area": "서울시·종로구 계획",
+    "source_date_link_required": "예"
+  },
+  {
+    "canonical_tables": "store_complete.csv, retail_statistics.csv",
+    "checked_at": "2026-08-04",
+    "dashboard": "수록",
+    "excel": "수록",
+    "notion": "수록",
+    "record_count": "2370",
+    "research_area": "리테일 상점",
+    "source_date_link_required": "예"
+  },
+  {
+    "canonical_tables": "program_operation.csv",
+    "checked_at": "2026-08-04",
+    "dashboard": "수록",
+    "excel": "수록",
+    "notion": "수록",
+    "record_count": "21",
+    "research_area": "행사·문화·상권·운영자료",
+    "source_date_link_required": "예"
+  },
+  {
+    "canonical_tables": "organization.csv, organization_activity.csv",
+    "checked_at": "2026-08-04",
+    "dashboard": "수록",
+    "excel": "수록",
+    "notion": "수록",
+    "record_count": "22",
+    "research_area": "기존 공동체",
+    "source_date_link_required": "예"
+  }
+]

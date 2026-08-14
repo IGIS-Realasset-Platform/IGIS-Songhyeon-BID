@@ -45,13 +45,12 @@ const GROUP_META = {
 };
 
 const normalize = (row) => ({
-  id: row.id || `${row.group}-${row.name}`,
+  id: row.profile_id || row.id || `${row.group}-${row.name}`,
   group: row.group_name || row.group,
   name: row.staff_name || row.name,
   title: DISPLAY_TITLES[row.staff_name || row.name] || row.title || '',
   roles: row.roles || [],
   responsibility: row.responsibility || '',
-  email: row.email || '',
   photoPath: row.photo_path || row.photoPath || `/songhyeon-members/${row.staff_name || row.name}.webp`,
   gateScope: row.gate_scope || row.gateScope || [],
   order: row.display_order ?? row.order ?? 999,
@@ -87,7 +86,7 @@ export default function SonghyeonInternal() {
   useEffect(() => {
     if (!songhyeonSupabase) return;
     let active = true;
-    songhyeonSupabase.from('songhyeon_members').select('id,group_name,staff_name,title,roles,responsibility,email,photo_path,gate_scope,display_order').eq('is_active', true).order('display_order')
+    songhyeonSupabase.from('songhyeon_public_profiles').select('profile_id,group_name,staff_name,title,roles,responsibility,photo_path,gate_scope,display_order').order('display_order')
       .then(({ data, error }) => {
         if (active && !error && data?.length) {
           setMembers(data.map(normalize));
@@ -99,7 +98,7 @@ export default function SonghyeonInternal() {
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     if (!needle) return members;
-    return members.filter((member) => [member.group, member.name, member.title, member.responsibility, member.email, ...member.roles, ...member.gateScope].join(' ').toLowerCase().includes(needle));
+    return members.filter((member) => [member.group, member.name, member.title, member.responsibility, ...member.roles, ...member.gateScope].join(' ').toLowerCase().includes(needle));
   }, [members, query]);
 
   const rows = useMemo(() => GROUP_ORDER.map((group) => ({

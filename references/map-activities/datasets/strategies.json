@@ -1,0 +1,39 @@
+[
+  {
+    "basis_insight_ids": [
+      "INS-BOUNDARY-NESTED-CHOICE",
+      "INS-HERITAGE-NOT-CBD"
+    ],
+    "id": "STG-THREE-SCALE-MODEL",
+    "text": "핵심 압축형은 자산과 핵심거점 중심, 북촌 문화유산형은 정독도서관과 북촌 남측의 공공문화 연계, 북촌 북측 확장형은 계동·가회 남측의 한옥·생활문화권까지 포함하는 선택지로 비교한다.",
+    "title": "운영경계 선택 기준",
+    "type": "spatial"
+  },
+  {
+    "basis_insight_ids": [
+      "INS-SONGHYEON-TRANSITION"
+    ],
+    "id": "STG-DISTRIBUTED-CULTURE-LOOP",
+    "text": "송현을 단일 무대로 고정하지 않고 자산·서울공예박물관·조계사·인사동 거리의 역할을 사업 진행과 공간 사용 가능성에 맞춰 분산한다.",
+    "title": "분산 거점 운영",
+    "type": "content"
+  },
+  {
+    "basis_insight_ids": [
+      "INS-REGULATION-AS-CURATION"
+    ],
+    "id": "STG-REGULATION-AWARE-CURATION",
+    "text": "권장·준권장·규제 검토후보는 1차 선별에만 사용하고, 협업 전 점포별 공식 업태·층·체인 여부와 지구단위계획 적용내용을 확인한다.",
+    "title": "공식 용도 확인을 전제로 한 협업점포 선정",
+    "type": "regulation"
+  },
+  {
+    "basis_insight_ids": [
+      "INS-COMMUNITY-PARTICIPATION-GAP"
+    ],
+    "id": "STG-EVIDENCE-FIRST-PARTNERSHIP",
+    "text": "조직의 존재와 최근 활동은 협업 의사와 다르므로, 직접 협의로 참여 의사를 확인하기 전에는 후보 관계로만 표현한다.",
+    "title": "참여 의사 확인 전 파트너로 단정하지 않기",
+    "type": "governance"
+  }
+]

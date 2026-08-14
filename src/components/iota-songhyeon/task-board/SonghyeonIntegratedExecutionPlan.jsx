@@ -42,7 +42,7 @@ const roleTone = {
 
 function SectionHeading({ title, description }) {
   return (
-    <div className="mb-[12px] flex items-end justify-between gap-8">
+    <div className="mb-[10px] flex items-end justify-between gap-8">
       <h2 className="text-[20px] font-bold text-[#E5E5E5]">{title}</h2>
       {description && <p className="max-w-[660px] text-right text-[12px] leading-5 text-[#86868B]">{description}</p>}
     </div>
@@ -57,8 +57,8 @@ export default function SonghyeonIntegratedExecutionPlan() {
           <div>
             <h1 className="text-[28px] font-bold leading-tight">송현 BID 종합실행계획</h1>
             <p className="mt-3 max-w-[780px] text-[14px] leading-6 text-[#bbb9af]">
-              통합업무보드의 개별 업무가 어떤 목적과 순서 안에서 움직이는지 설명합니다. 위에서 업무를 수행하고,
-              아래에서 현재 단계의 질문·수행업무·결과물·단계전환 기준을 함께 확인합니다.
+              통합업무보드의 개별 업무가 어떤 목적과 순서 안에서 움직이는지 설명합니다.<br />
+              위에서 업무를 수행하고, 아래에서 현재 단계의 질문·수행업무·결과물·단계전환 기준을 함께 확인합니다.
             </p>
           </div>
           <div className="grid min-w-[330px] grid-cols-2 overflow-hidden rounded-[12px] border border-[#3c3c3c] bg-[#272726]">
@@ -78,7 +78,7 @@ export default function SonghyeonIntegratedExecutionPlan() {
       <section className="mb-[44px]">
         <SectionHeading title="현재 위치와 공동 목표" description="현재의 근거 구축이 궁극적인 장소·운영환경과 어떻게 연결되는지 먼저 확인합니다." />
         <div className="grid grid-cols-[0.82fr_64px_1.18fr] items-stretch overflow-hidden rounded-[18px] border border-[#3c3c3c] bg-[#272726]">
-          <div className="p-6">
+          <div className="bg-[#202a36] p-6">
             <div className="mb-5 flex items-center gap-2 text-[#2997FF]"><CircleDot size={16} /><span className="text-[12px] font-bold">현재</span></div>
             <p className="text-[13px] font-bold text-[#86868B]">{projectContext.currentStage.code}</p>
             <h3 className="mt-2 text-[22px] font-bold">{projectContext.currentStage.name}</h3>
@@ -87,17 +87,9 @@ export default function SonghyeonIntegratedExecutionPlan() {
           <div className="flex items-center justify-center border-x border-[#3c3c3c] bg-[#242423] text-[#686868]"><ArrowRight size={24} /></div>
           <div className="p-6">
             <div className="mb-5 flex items-center gap-2 text-[#bdbba7]"><Route size={16} /><span className="text-[12px] font-bold">공동 목표</span></div>
-            <h3 className="max-w-[620px] text-[22px] font-bold leading-8">{projectContext.coreValue}</h3>
+            <h3 className="max-w-[620px] whitespace-pre-line text-[22px] font-bold leading-8">{projectContext.coreValue}</h3>
             <p className="mt-4 text-[14px] leading-6 text-[#bbb9af]">{projectContext.definition}</p>
           </div>
-        </div>
-        <div className="mt-3 grid grid-cols-3 gap-3">
-          {projectContext.operatingPrinciples.map((principle, index) => (
-            <div key={principle} className="flex min-h-[84px] gap-3 rounded-[12px] border border-[#3c3c3c] bg-[#272726] p-4">
-              <span className="font-mono text-[11px] font-bold text-[#686868]">0{index + 1}</span>
-              <p className="text-[13px] leading-6 text-[#bbb9af]">{principle}</p>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -105,7 +97,7 @@ export default function SonghyeonIntegratedExecutionPlan() {
         <SectionHeading title="전체 실행 흐름" description="근거에서 시작해 현장기회·가설·운영환경을 거쳐 실증과 학습으로 이어지는 7단계입니다." />
         <div className="grid grid-cols-7 overflow-hidden rounded-[18px] border border-[#3c3c3c] bg-[#272726]">
           {stages.map((stage, index) => (
-            <article key={stage.id} className={`relative min-h-[190px] p-4 ${index < stages.length - 1 ? 'border-r border-[#3c3c3c]' : ''} ${stage.status === '현재' ? 'bg-[#263b52]' : ''}`}>
+            <article key={stage.id} className={`relative min-h-[190px] p-4 ${index < stages.length - 1 ? 'border-r border-[#3c3c3c]' : ''} ${stage.status === '현재' ? 'bg-[#202a36]' : ''}`}>
               <div className="flex items-start justify-between">
                 <span className={`font-mono text-[11px] font-bold ${stage.status === '현재' ? 'text-[#67b7ff]' : 'text-[#686868]'}`}>0{stage.id + 1}</span>
                 {stage.status === '현재' && <span className="rounded-[6px] border border-[#2997FF]/35 bg-[#2997FF]/10 px-2 py-0.5 text-[10px] font-bold text-[#67b7ff]">현재</span>}
@@ -127,7 +119,7 @@ export default function SonghyeonIntegratedExecutionPlan() {
         <div className="space-y-3">
           {sharedPhases.map((phase, index) => (
             <article key={phase.id} className="grid grid-cols-[156px_1fr_280px] overflow-hidden rounded-[16px] border border-[#3c3c3c] bg-[#272726]">
-              <div className={`relative p-5 ${phase.status === '진행' ? 'bg-[#263b52]' : 'bg-[#242423]'}`}>
+              <div className={`relative p-5 ${phase.status === '진행' ? 'bg-[#202a36]' : 'bg-[#242423]'}`}>
                 <p className={`font-mono text-[11px] font-bold ${phase.status === '진행' ? 'text-[#67b7ff]' : 'text-[#686868]'}`}>{phase.id}</p>
                 <p className="mt-3 text-[13px] font-bold text-[#bbb9af]">{phase.stage}</p>
                 <h3 className="mt-2 break-keep text-[17px] font-bold leading-6">{phase.title}</h3>
@@ -192,7 +184,7 @@ export default function SonghyeonIntegratedExecutionPlan() {
       <section className="mb-[44px]">
         <SectionHeading title="기획추진 전담 지원축" description="공동 실행과 병렬로 움직이며, 장소·운영 실증에 필요한 BID·서울시·대외조건을 정합화합니다." />
         <div className="grid grid-cols-[230px_1fr_300px] overflow-hidden rounded-[16px] border border-[#3c3c3c] bg-[#272726]">
-          <div className="bg-[#2c3440] p-5">
+          <div className="bg-[#202a36] p-5">
             <p className="font-mono text-[11px] font-bold text-[#86868B]">{planningTrack.id} · {planningTrack.stage}</p>
             <h3 className="mt-3 text-[19px] font-bold leading-7">{planningTrack.title}</h3>
             <p className="mt-4 text-[12px] font-bold text-[#bdbba7]">{planningTrack.owner}</p>
@@ -227,7 +219,7 @@ export default function SonghyeonIntegratedExecutionPlan() {
               </div>
             ))}
           </div>
-          <div className="overflow-hidden rounded-[16px] border border-[#2997FF]/30 bg-[#263b52]">
+          <div className="overflow-hidden rounded-[16px] border border-[#2997FF]/30 bg-[#202a36]">
             <div className="border-b border-[#2997FF]/25 p-4">
               <p className="text-[11px] font-bold text-[#67b7ff]">현재 GATE</p>
               <h3 className="mt-2 text-[17px] font-bold">0단계 종료 판단</h3>

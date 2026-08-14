@@ -1,0 +1,4841 @@
+{
+  "asset_order": [
+    "쌈지길",
+    "안녕인사동",
+    "케이트윈타워",
+    "트윈트리타워"
+  ],
+  "map_assets": [
+    {
+      "asset": "트윈트리타워",
+      "data_state": "available",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              [
+                126.9800481,
+                37.5754907
+              ],
+              [
+                126.9797128,
+                37.5752622
+              ],
+              [
+                126.9795921,
+                37.5753536
+              ],
+              [
+                126.9795023,
+                37.5754121
+              ],
+              [
+                126.9796024,
+                37.5754862
+              ],
+              [
+                126.97964129999998,
+                37.5754751
+              ],
+              [
+                126.979654,
+                37.5754769
+              ],
+              [
+                126.97966139999998,
+                37.5754841
+              ],
+              [
+                126.9796573,
+                37.5755136
+              ],
+              [
+                126.9798253,
+                37.5755938
+              ],
+              [
+                126.9798951,
+                37.5756199
+              ],
+              [
+                126.97990880000002,
+                37.5756191
+              ],
+              [
+                126.9799234,
+                37.5756034
+              ],
+              [
+                126.9800481,
+                37.5754907
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                126.98015849999999,
+                37.5755238
+              ],
+              [
+                126.9801594,
+                37.5755612
+              ],
+              [
+                126.9802387,
+                37.57558740000001
+              ],
+              [
+                126.9803638,
+                37.575614
+              ],
+              [
+                126.9808823,
+                37.5755481
+              ],
+              [
+                126.9808964,
+                37.5755044
+              ],
+              [
+                126.9807146,
+                37.5753663
+              ],
+              [
+                126.9806999,
+                37.5753504
+              ],
+              [
+                126.980661,
+                37.5753334
+              ],
+              [
+                126.9802861,
+                37.5754003
+              ],
+              [
+                126.98015849999999,
+                37.5755238
+              ]
+            ]
+          ]
+        ],
+        "type": "MultiPolygon"
+      },
+      "id": "AST-TWINTREE",
+      "label": "트윈트리타워",
+      "lat": 37.575469565180214,
+      "lon": 126.98021630203985,
+      "retail_count": 7,
+      "source_id": "SRC-BND-V5-ANCHORS",
+      "source_note": "원자료 율곡로 6 대조; OSM way 446597148·446597149 형상",
+      "status": "보유"
+    },
+    {
+      "asset": "안녕인사동",
+      "data_state": "available",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              126.9830566,
+              37.5747684
+            ],
+            [
+              126.9830781,
+              37.5743411
+            ],
+            [
+              126.9834,
+              37.5744219
+            ],
+            [
+              126.9834912,
+              37.5741498
+            ],
+            [
+              126.9837379,
+              37.5741753
+            ],
+            [
+              126.9838157,
+              37.5742582
+            ],
+            [
+              126.98421,
+              37.5743921
+            ],
+            [
+              126.9840827,
+              37.5745129
+            ],
+            [
+              126.9837352,
+              37.5743921
+            ],
+            [
+              126.983713,
+              37.5744295
+            ],
+            [
+              126.9836521,
+              37.5745324
+            ],
+            [
+              126.98371649999999,
+              37.5745494
+            ],
+            [
+              126.9837513,
+              37.574492
+            ],
+            [
+              126.98388009999998,
+              37.5745367
+            ],
+            [
+              126.98367890000002,
+              37.5747599
+            ],
+            [
+              126.98331680000001,
+              37.5746578
+            ],
+            [
+              126.98327390000001,
+              37.574762
+            ],
+            [
+              126.9830566,
+              37.5747684
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "AST-ANNYEONG",
+      "label": "안녕인사동",
+      "lat": 37.57447773157411,
+      "lon": 126.98353726133054,
+      "retail_count": 37,
+      "source_id": "SRC-BND-V5-ANCHORS",
+      "source_note": "원자료 관훈동 155-2 외 4 대조; OSM 복합건물 way 772209894",
+      "status": "보유"
+    },
+    {
+      "asset": "쌈지길",
+      "data_state": "available",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              126.98500809999999,
+              37.5741226
+            ],
+            [
+              126.98499390000002,
+              37.5741145
+            ],
+            [
+              126.985046,
+              37.574071
+            ],
+            [
+              126.98495259999999,
+              37.574019
+            ],
+            [
+              126.98488290000002,
+              37.5740652
+            ],
+            [
+              126.9848241,
+              37.5741041
+            ],
+            [
+              126.98465920000001,
+              37.5742134
+            ],
+            [
+              126.98453490000001,
+              37.5743102
+            ],
+            [
+              126.9845697,
+              37.57433360000001
+            ],
+            [
+              126.9845898,
+              37.5743245
+            ],
+            [
+              126.9846787,
+              37.5743596
+            ],
+            [
+              126.9848561,
+              37.5744298
+            ],
+            [
+              126.98502819999999,
+              37.5742628
+            ],
+            [
+              126.9850334,
+              37.5742578
+            ],
+            [
+              126.98511150000002,
+              37.57419139999998
+            ],
+            [
+              126.98500809999999,
+              37.5741226
+            ]
+          ],
+          [
+            [
+              126.9847052,
+              37.5742544
+            ],
+            [
+              126.9847333,
+              37.5742321
+            ],
+            [
+              126.98477160000002,
+              37.5742491
+            ],
+            [
+              126.9849452,
+              37.5741316
+            ],
+            [
+              126.9849716,
+              37.5741496
+            ],
+            [
+              126.985011,
+              37.5741763
+            ],
+            [
+              126.9849736,
+              37.5742085
+            ],
+            [
+              126.9848486,
+              37.5743159
+            ],
+            [
+              126.9848292,
+              37.5743325
+            ],
+            [
+              126.98477610000002,
+              37.5743084
+            ],
+            [
+              126.98468040000002,
+              37.5742741
+            ],
+            [
+              126.9847052,
+              37.5742544
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "AST-SSAMZIGIL",
+      "label": "쌈지길",
+      "lat": 37.574235400825884,
+      "lon": 126.9848436201426,
+      "retail_count": 85,
+      "source_id": "SRC-BND-V5-ANCHORS",
+      "source_note": "원자료 인사동길 44 대조; OSM relation 14280713",
+      "status": "보유"
+    },
+    {
+      "asset": "케이트윈타워",
+      "data_state": "available",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              [
+                126.979001,
+                37.5750019
+              ],
+              [
+                126.9793138,
+                37.57486990000001
+              ],
+              [
+                126.97917380000001,
+                37.5746614
+              ],
+              [
+                126.97919750000001,
+                37.5746514
+              ],
+              [
+                126.97904480000001,
+                37.574424
+              ],
+              [
+                126.97870819999999,
+                37.574566
+              ],
+              [
+                126.979001,
+                37.5750019
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                126.9795012,
+                37.5744873
+              ],
+              [
+                126.9792604,
+                37.5746934
+              ],
+              [
+                126.979479,
+                37.5748539
+              ],
+              [
+                126.9794608,
+                37.5748695
+              ],
+              [
+                126.97969919999998,
+                37.5750445
+              ],
+              [
+                126.97995830000002,
+                37.5748229
+              ],
+              [
+                126.9795012,
+                37.5744873
+              ]
+            ]
+          ]
+        ],
+        "type": "MultiPolygon"
+      },
+      "id": "AST-KTWIN",
+      "label": "케이트윈타워 A·B",
+      "lat": 37.5747383270376,
+      "lon": 126.97931163495218,
+      "retail_count": 18,
+      "source_id": "SRC-BND-V5-ANCHORS",
+      "source_note": "원자료 종로1길 50 대조; OSM way 223158453·554305325",
+      "status": "투자 검토"
+    },
+    {
+      "asset": "도화서길",
+      "data_state": "not_provided",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              126.9814333,
+              37.5753444
+            ],
+            [
+              126.9815828,
+              37.5751991
+            ],
+            [
+              126.98172649999998,
+              37.5752798
+            ],
+            [
+              126.9817482,
+              37.5753245
+            ],
+            [
+              126.98178940000001,
+              37.575351
+            ],
+            [
+              126.9817722,
+              37.5753682
+            ],
+            [
+              126.98171220000002,
+              37.5754275
+            ],
+            [
+              126.9815466,
+              37.5754549
+            ],
+            [
+              126.9814865,
+              37.5754165
+            ],
+            [
+              126.9814333,
+              37.5753444
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "BLD-DOHWASEO-D1",
+      "label": "도화서길 D1",
+      "lat": 37.575340667120315,
+      "lon": 126.9816059156612,
+      "retail_count": 0,
+      "source_id": "SRC-BND-V5-ANCHORS",
+      "source_note": "원자료 율곡로 18·수송동 30 대조; OSM node·건물 way 1279049505",
+      "status": "투자 검토"
+    },
+    {
+      "asset": "도화서길",
+      "data_state": "not_provided",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              126.9821093,
+              37.57532
+            ],
+            [
+              126.9820806,
+              37.575331
+            ],
+            [
+              126.98210740000002,
+              37.5754377
+            ],
+            [
+              126.9823242,
+              37.5753953
+            ],
+            [
+              126.98232680000001,
+              37.5753361
+            ],
+            [
+              126.9821676,
+              37.5752638
+            ],
+            [
+              126.9821093,
+              37.57532
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "BLD-DOHWASEO-D2",
+      "label": "도화서길 D2",
+      "lat": 37.575356412316935,
+      "lon": 126.98219756973843,
+      "retail_count": 0,
+      "source_id": "SRC-BND-V5-ANCHORS",
+      "source_note": "원자료 율곡로 26·수송동 9-2 대조; OSM node·건물 way 555212631",
+      "status": "투자 검토"
+    }
+  ],
+  "metadata": {
+    "archived_source_path": "03. 통합 리서치\\data\\retail_source\\20260804_2b329a2637a5_20260803_2b329a2637a5_송현BID_리테일_리서치_지원_1.xlsx",
+    "columns": [
+      "위치",
+      "자산명",
+      "소유",
+      "상점수",
+      "위치 층",
+      "대분류(Category)",
+      "중분류(Category)",
+      "브랜드명",
+      "모회사",
+      "Origin",
+      "Price Point",
+      "비고"
+    ],
+    "data_end_row": 151,
+    "data_start_row": 5,
+    "extracted_at": "2026-08-04T09:42:17+09:00",
+    "header_row": 4,
+    "large_corporate_parent_excluded_brands": [
+      "메가커피",
+      "GDR 아카데미"
+    ],
+    "reconciliation_note": "본 [리테일] 시트는 업데이트 중인 별도 자료이며 자산별 IM·렌트롤·스태킹플랜과 값이 다를 수 있어 향후 조정 예정입니다.",
+    "row_count": 147,
+    "sheet_name": "리테일",
+    "source_filename": "20260803_2b329a2637a5_송현BID_리테일_리서치_지원_1.xlsx",
+    "source_sha256": "2b329a2637a5e42d4a95a0a680109c242eb0b0c4130720851e8125cc0ebe8363"
+  },
+  "records": [
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "동서화랑",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        "쌈지길",
+        "이지스자산운용",
+        "85개",
+        "1F",
+        "Retail",
+        "Craft",
+        "동서화랑",
+        null,
+        "local",
+        null,
+        "출처 : https://property.yido.com/voc/map"
+      ],
+      "source_row": 5
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "세령",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "세령",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 6
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "수설화",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "수설화",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 7
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "거안",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "거안",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 8
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "색상",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Lifestyle",
+        "색상",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 9
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "로죽2",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "로죽2",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 10
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "사보당",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Stationery & Gift",
+        "사보당",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 11
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "도담",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "도담",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 12
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "경남화랑",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "경남화랑",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 13
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "손길",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Stationery & Gift",
+        "손길",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 14
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "정원표구",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "정원표구",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 15
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "갤러리우갱",
+        "category": "Culture",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Exhibition & Gallery"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Culture",
+        "Exhibition & Gallery",
+        "갤러리우갱",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 16
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "묘한상점",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Stationery & Gift",
+        "묘한상점",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 17
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "수인",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "수인",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 18
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "성냥갑",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "성냥갑",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 19
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "우리세상",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "우리세상",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 20
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "사이아트플랜",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Craft",
+        "사이아트플랜",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 21
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "유월수련",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Lifestyle",
+        "유월수련",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 22
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "타로&사주",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Experience",
+        "Entertainment",
+        "타로&사주",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 23
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "행아웃",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "행아웃",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 24
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "커퍼솝",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Lifestyle",
+        "커퍼솝",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 25
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "라라몬드",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "라라몬드",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 26
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "위드티아이지",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Lifestyle",
+        "위드티아이지",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 27
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "인센스월드",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Lifestyle",
+        "인센스월드",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 28
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "무늬오르골",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Experience",
+        "DIY",
+        "무늬오르골",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 29
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "싸리공방",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Experience",
+        "DIY",
+        "싸리공방",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 30
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "리소",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "리소",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 31
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "이남설 한과",
+        "category": "F&B",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "이남설 한과",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 32
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "티미드테일스",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "티미드테일스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 33
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "두순",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Stationery & Gift",
+        "두순",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 34
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "제로퍼센트",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Fashion",
+        "제로퍼센트",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 35
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "이라도예",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Craft",
+        "이라도예",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 36
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "뷰티풀캐리커쳐",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Experience",
+        "Entertainment",
+        "뷰티풀캐리커쳐",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 37
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "웰바스",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Lifestyle",
+        "웰바스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 38
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "아로파",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Craft",
+        "아로파",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 39
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "시프트아이",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Lifestyle",
+        "시프트아이",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 40
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "휘향찬란",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Craft",
+        "휘향찬란",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 41
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "리진",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Stationery & Gift",
+        "리진",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 42
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "로죽",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Fashion",
+        "로죽",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 43
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "하오의 아뜰리에",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Fashion",
+        "하오의 아뜰리에",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 44
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "와펜빌리지",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Experience",
+        "DIY",
+        "와펜빌리지",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 45
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "포토콤마",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Experience",
+        "Entertainment",
+        "포토콤마",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 46
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "소리하나",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Craft",
+        "소리하나",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 47
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "스튜디오디",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Fashion",
+        "스튜디오디",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 48
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "뉴모스백",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Fashion",
+        "뉴모스백",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 49
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "나현디자인연구소",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Lifestyle",
+        "나현디자인연구소",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 50
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "꼼지락",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Lifestyle",
+        "꼼지락",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 51
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "가배",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Craft",
+        "가배",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 52
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "블라썸바이에이이치",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Lifestyle",
+        "블라썸바이에이이치",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 53
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "힘센도장꾼",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Retail",
+        "Craft",
+        "힘센도장꾼",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 54
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "상상을담다",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Lifestyle",
+        "상상을담다",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 55
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "수인(팝업운영)",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Fashion",
+        "수인(팝업운영)",
+        null,
+        "local",
+        null,
+        "시기별 임차 정보 확인 필요"
+      ],
+      "source_row": 56
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "제카스토어",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Stationery & Gift",
+        "제카스토어",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 57
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "마리앤마리",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Craft"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Craft",
+        "마리앤마리",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 58
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "미정(오픈 준비중)",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "미분류"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        null,
+        "미정(오픈 준비중)",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 59
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "홋컬렉션",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Lifestyle",
+        "홋컬렉션",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 60
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "오예쁘다",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Fashion",
+        "오예쁘다",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 61
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "드로잉어스",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Stationery & Gift",
+        "드로잉어스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 62
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "수연재",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Fashion",
+        "수연재",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 63
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "으뜸서울",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Fashion",
+        "으뜸서울",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 64
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "커들쏘머취",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Experience",
+        "DIY",
+        "커들쏘머취",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 65
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "소소공방",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Fashion",
+        "소소공방",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 66
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "라고스토어",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Stationery & Gift",
+        "라고스토어",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 67
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "롱플레잉",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Stationery & Gift",
+        "롱플레잉",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 68
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "망도라블",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Experience",
+        "DIY",
+        "망도라블",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 69
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "녹챠방",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Experience",
+        "Entertainment",
+        "녹챠방",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 70
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "*길매점",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Grocery"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Grocery",
+        "*길매점",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 71
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "*레드박스",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Experience",
+        "Entertainment",
+        "*레드박스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 72
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "*픽스팟",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Experience",
+        "DIY",
+        "*픽스팟",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 73
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "그분이 오신 집",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Experience",
+        "Entertainment",
+        "그분이 오신 집",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 74
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "뿌뽀",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Experience",
+        "DIY",
+        "뿌뽀",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 75
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "웜스토리캔들(팝업운영)",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Retail",
+        "Lifestyle",
+        "웜스토리캔들(팝업운영)",
+        null,
+        "local",
+        null,
+        "26.8월까지 운영"
+      ],
+      "source_row": 76
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "손길갤러리",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Retail",
+        "Stationery & Gift",
+        "손길갤러리",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 77
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "크레이지진",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Retail",
+        "Fashion",
+        "크레이지진",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 78
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "묘약",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Lifestyle"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Retail",
+        "Lifestyle",
+        "묘약",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 79
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "쉐어라운지",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Experience",
+        "DIY",
+        "쉐어라운지",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 80
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "하이말똥",
+        "category": "F&B",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "F&B",
+        "café",
+        "하이말똥",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 81
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "WOW EXCHANGE",
+        "category": "Service",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Business & Convenience"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "Service",
+        "Business & Convenience",
+        "WOW EXCHANGE",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 82
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "Tax Refund",
+        "category": "Service",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Business & Convenience"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "Service",
+        "Business & Convenience",
+        "Tax Refund",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 83
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "*KPOP굿즈 자판기(오픈 준비중)",
+        "category": "Retail",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "Retail",
+        "Stationery & Gift",
+        "*KPOP굿즈 자판기(오픈 준비중)",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 84
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "뿌뽀랜드",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "Experience",
+        "DIY",
+        "뿌뽀랜드",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 85
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "하이드앤시크",
+        "category": "Experience",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B2",
+        "Experience",
+        "Entertainment",
+        "하이드앤시크",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 86
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "미정(오픈 준비중)",
+        "category": "미분류",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "미분류"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "별관1F",
+        null,
+        null,
+        "미정(오픈 준비중)",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 87
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "미정(오픈 준비중)",
+        "category": "미분류",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "미분류"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "별관2F",
+        null,
+        null,
+        "미정(오픈 준비중)",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 88
+    },
+    {
+      "normalized": {
+        "asset": "쌈지길",
+        "brand": "미정(오픈 준비중)",
+        "category": "미분류",
+        "declared_store_count": 85,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "미분류"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "별관3F",
+        null,
+        null,
+        "미정(오픈 준비중)",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 89
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "설레는마중",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        "안녕인사동\n(1-6F 상업시설\n5-14F 나인트리 프리미어 호텔)",
+        "이지스자산운용",
+        "37개",
+        "1F",
+        "F&B",
+        "café",
+        "설레는마중",
+        null,
+        "local",
+        null,
+        "<정보>\nGS리테일 ~'2029.10 책임운영위탁계약\n스윗스팟 LM : 리테일 임대용역사\n<출처>\n네이버 플레이스,인스타('23년 기준)\nhttps://www.sweetspot.co.kr/news/?bmode=view&idx=164565245&utm_source=google&utm_medium=owned&utm_campaign=google_search"
+      ],
+      "source_row": 90
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "타이거슈가",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Global",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "타이거슈가",
+        null,
+        "global",
+        null,
+        null
+      ],
+      "source_row": 91
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "티로아",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "티로아",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 92
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "한과미의식",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "dessert"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "dessert",
+        "한과미의식",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 93
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "금옥당",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "dessert"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "dessert",
+        "금옥당",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 94
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "오근내닭갈비",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "F&B",
+        "Food",
+        "오근내닭갈비",
+        null,
+        "local",
+        "1~2만",
+        null
+      ],
+      "source_row": 95
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "한남북엇국",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "F&B",
+        "Food",
+        "한남북엇국",
+        null,
+        "local",
+        "1~2만",
+        null
+      ],
+      "source_row": 96
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "스페이스오",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "호텔 12F",
+        "F&B",
+        "Food",
+        "스페이스오",
+        null,
+        "local",
+        "디너 89000\n런치 49000/69000",
+        null
+      ],
+      "source_row": 97
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "쿠크봉",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "dessert"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "F&B",
+        "dessert",
+        "쿠크봉",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 98
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "크레이지후라이",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "F&B",
+        "Food",
+        "크레이지후라이",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 99
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "바치링",
+        "category": "Retail",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Retail",
+        "Stationery & Gift",
+        "바치링",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 100
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "담장옆에국화꽃",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "담장옆에국화꽃",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 101
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "차이들",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "F&B",
+        "Food",
+        "차이들",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 102
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "안녕 브릭샌드",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "dessert"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F (M층)",
+        "F&B",
+        "dessert",
+        "안녕 브릭샌드",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 103
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "신사동인동",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "F&B",
+        "Food",
+        "신사동인동",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 104
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "사리원불고기",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "F&B",
+        "Food",
+        "사리원불고기",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 105
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "소진담",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "5F",
+        "F&B",
+        "café",
+        "소진담",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 106
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "뮤직컴플렉스서울",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "5F",
+        "F&B",
+        "café",
+        "뮤직컴플렉스서울",
+        null,
+        "local",
+        "성인 22000 (음료1포함)\n어린이 15400 (주스1포함)",
+        null
+      ],
+      "source_row": 107
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "이안초밥",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "M층",
+        "F&B",
+        "Food",
+        "이안초밥",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 108
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "인사동제면소",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "F&B",
+        "Food",
+        "인사동제면소",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 109
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "아우어베이커리",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "F&B",
+        "café",
+        "아우어베이커리",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 110
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "101번지남산돈까스",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "F&B",
+        "Food",
+        "101번지남산돈까스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 111
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "이태리부대찌개",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "F&B",
+        "Food",
+        "이태리부대찌개",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 112
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "안녕오늘통닭",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "F&B",
+        "Food",
+        "안녕오늘통닭",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 113
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "한식주점 사색",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Bar & Pub"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "F&B",
+        "Bar & Pub",
+        "한식주점 사색",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 114
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "삼청동샤브",
+        "category": "F&B",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "F&B",
+        "Food",
+        "삼청동샤브",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 115
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "준오헤어",
+        "category": "Service",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Beauty & Wellness"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Service",
+        "Beauty & Wellness",
+        "준오헤어",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 116
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "GS25 뉴안녕인사동점",
+        "category": "Service",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": true,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "GS리테일",
+        "subcategory": "Business & Convenience"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "2F",
+        "Service",
+        "Business & Convenience",
+        "GS25 뉴안녕인사동점",
+        "GS리테일",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 117
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "오르골하우스",
+        "category": "Experience",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Experience",
+        "DIY",
+        "오르골하우스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 118
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "은나무",
+        "category": "Retail",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Retail",
+        "Fashion",
+        "은나무",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 119
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "인생네컷",
+        "category": "Experience",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Experience",
+        "Entertainment",
+        "인생네컷",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 120
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "*PCCM",
+        "category": "Experience",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "DIY"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "Experience",
+        "DIY",
+        "*PCCM",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 121
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "플러스나인갤러리",
+        "category": "Culture",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Exhibition & Gallery"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Culture",
+        "Exhibition & Gallery",
+        "플러스나인갤러리",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 122
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "케이타운포유",
+        "category": "Retail",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Stationery & Gift",
+        "케이타운포유",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 123
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "인생네컷",
+        "category": "Experience",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Experience",
+        "Entertainment",
+        "인생네컷",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 124
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "VACHI",
+        "category": "Retail",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Fashion"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "4F",
+        "Retail",
+        "Fashion",
+        "VACHI",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 125
+    },
+    {
+      "normalized": {
+        "asset": "안녕인사동",
+        "brand": "더세임",
+        "category": "Retail",
+        "declared_store_count": 37,
+        "has_large_corporate_parent": true,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "YG플러스",
+        "subcategory": "Stationery & Gift"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "3F",
+        "Retail",
+        "Stationery & Gift",
+        "더세임",
+        "YG플러스",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 126
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "한일관",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        "케이트윈",
+        "이지스자산운용",
+        "18개",
+        "B1",
+        "F&B",
+        "Food",
+        "한일관",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 127
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "계도",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "계도",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 128
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "진가와",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Global",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "진가와",
+        null,
+        "global",
+        null,
+        null
+      ],
+      "source_row": 129
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "우아라",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "우아라",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 130
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "스시산원 궁",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "스시산원 궁",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 131
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "크레이지후라이",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "크레이지후라이",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 132
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "리김밥",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "리김밥",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 133
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "솔솥",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "솔솥",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 134
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "메가커피",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "운영: MGC글로벌\n소유: ㈜우윤",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "café",
+        "메가커피",
+        "운영: MGC글로벌\n소유: ㈜우윤",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 135
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "프로간장게장",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "프로간장게장",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 136
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "오드그린컴퍼니",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "오드그린컴퍼니",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 137
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "스윗샐러드",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "스윗샐러드",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 138
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "봉추찜닭",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1",
+        "F&B",
+        "Food",
+        "봉추찜닭",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 139
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "폴&밀도(폴 바셋)",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": true,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "매일홀딩스(엠즈씨드)",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        "케이트윈(A동)",
+        "이지스자산운용",
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "폴&밀도(폴 바셋)",
+        "매일홀딩스(엠즈씨드)",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 140
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "카페마마스",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "Food",
+        "카페마마스",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 141
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "팀홀튼",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": true,
+        "has_parent_company": true,
+        "origin": "Global",
+        "owner": "이지스자산운용",
+        "parent_company": "브랜드 본사: RBI(캐나다/미국)\n국내 운영사: BKR(PE소유)",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        "케이트윈(B동)",
+        "이지스자산운용",
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "팀홀튼",
+        "브랜드 본사: RBI(캐나다/미국)\n국내 운영사: BKR(PE소유)",
+        "global",
+        null,
+        null
+      ],
+      "source_row": 142
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "테라로사",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "café",
+        "테라로사",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 143
+    },
+    {
+      "normalized": {
+        "asset": "케이트윈타워",
+        "brand": "플러스카페 종로구청점",
+        "category": "F&B",
+        "declared_store_count": 18,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "5F",
+        "F&B",
+        "café",
+        "플러스카페 종로구청점",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 144
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "전주밥차",
+        "category": "F&B",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        "트윈트리(A동)",
+        "이지스자산운용",
+        "7개",
+        "B1",
+        "F&B",
+        "Food",
+        "전주밥차",
+        null,
+        "local",
+        null,
+        "2026.05 rentroll 기준"
+      ],
+      "source_row": 145
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "GDR 아카데미",
+        "category": "Experience",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": false,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "㈜ 골프존",
+        "subcategory": "Entertainment"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "B1,B2",
+        "Experience",
+        "Entertainment",
+        "GDR 아카데미",
+        "㈜ 골프존",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 146
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "CU편의점",
+        "category": "Service",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": true,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "BGF리테일",
+        "subcategory": "Business & Convenience"
+      },
+      "raw_values": [
+        null,
+        "트윈트리(B동)",
+        "이지스자산운용",
+        null,
+        "1F",
+        "Service",
+        "Business & Convenience",
+        "CU편의점",
+        "BGF리테일",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 147
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "스타벅스 코리아",
+        "category": "F&B",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": true,
+        "has_parent_company": true,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "운영: SCK컴퍼니\n소유: 신세계(이마트)",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "Food",
+        "스타벅스 코리아",
+        "운영: SCK컴퍼니\n소유: 신세계(이마트)",
+        "local",
+        null,
+        null
+      ],
+      "source_row": 148
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "심퍼티쿠시",
+        "category": "F&B",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "1F",
+        "F&B",
+        "Food",
+        "심퍼티쿠시",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 149
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "모도우",
+        "category": "F&B",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "Food"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "M층",
+        "F&B",
+        "Food",
+        "모도우",
+        null,
+        "local",
+        null,
+        null
+      ],
+      "source_row": 150
+    },
+    {
+      "normalized": {
+        "asset": "트윈트리타워",
+        "brand": "아이엔유(사내카페)",
+        "category": "F&B",
+        "declared_store_count": 7,
+        "has_large_corporate_parent": false,
+        "has_parent_company": false,
+        "origin": "Local",
+        "owner": "이지스자산운용",
+        "parent_company": "",
+        "subcategory": "café"
+      },
+      "raw_values": [
+        null,
+        null,
+        null,
+        null,
+        "14F",
+        "F&B",
+        "café",
+        "아이엔유(사내카페)",
+        null,
+        "local",
+        "외부인O",
+        null
+      ],
+      "source_row": 151
+    }
+  ]
+}

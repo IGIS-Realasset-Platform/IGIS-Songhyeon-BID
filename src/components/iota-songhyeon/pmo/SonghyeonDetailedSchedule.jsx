@@ -3,7 +3,7 @@ import { getSonghyeonTodayMarker, milestoneStages, milestoneWeeks } from '../../
 import { songhyeonDetailedScheduleItems } from '../../../data/songhyeonDetailedSchedule';
 import { categoryForSonghyeonTask } from '../../../data/songhyeonTaskCategories';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
-import { createAndLinkScheduleTask, linkScheduleTask, loadScheduleWorkspace, scheduleStatusToTaskStatus, taskStatusToScheduleStatus, unlinkScheduleTask, updateScheduleItem } from '../../../lib/songhyeonScheduleRepository';
+import { createAndLinkScheduleTask, linkScheduleTask, loadScheduleWorkspace, taskStatusToScheduleStatus, unlinkScheduleTask, updateScheduleItem } from '../../../lib/songhyeonScheduleRepository';
 import SonghyeonScheduleTaskLinkModal from './SonghyeonScheduleTaskLinkModal';
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
 
@@ -66,15 +66,15 @@ const statusStyles = {
     not_started: 'border-[#505050]/60 bg-white/[0.04] text-[#86868B]',
     in_progress: 'border-[#2997ff]/35 bg-[#2997ff]/10 text-[#60a5fa]',
     completed: 'border-[#30d158]/35 bg-[#30d158]/10 text-[#4ade80]',
-    on_hold: 'border-[#f59e0b]/35 bg-[#f59e0b]/10 text-[#fbbf24]',
     delayed: 'border-[#ff453a]/35 bg-[#ff453a]/10 text-[#ff7169]',
     cancelled: 'border-[#8e8e93]/35 bg-[#8e8e93]/10 text-[#a1a1aa]',
 };
-const statusLabels = { not_started: '미착수', in_progress: '진행중', completed: '완료', on_hold: '보류', delayed: '지연', cancelled: '중단' };
+const statusLabels = { not_started: '미착수', in_progress: '진행중', completed: '완료', delayed: '지연', cancelled: '중단' };
 
 export default function SonghyeonDetailedSchedule() {
-    const { user, member } = useSonghyeonAuth();
+    const { user, member, isReadOnly } = useSonghyeonAuth();
     const actor = { userId: user?.id, email: user?.email, name: member?.staff_name || user?.email || '송현 BID TF' };
+    const canCreateTask = !isReadOnly && member?.staff_name === '전기영' && user?.email?.toLowerCase() === 'jk.jeon@igisam.com';
     const [scheduleItems, setScheduleItems] = useState(() => songhyeonDetailedScheduleItems.map((item) => (
         item.itemType === 'task'
             ? { ...item, categoryMain: categoryForSonghyeonTask(item.sourceKey, item.categoryMain) }
@@ -144,7 +144,7 @@ export default function SonghyeonDetailedSchedule() {
         if (parent && !expandedGroups.has(parent.sourceKey)) return false;
         if (parent?.parentSourceKey && !expandedGroups.has(parent.parentSourceKey)) return false;
         return true;
-    }), [expandedGroups, matchedKeys]);
+    }), [expandedGroups, matchedKeys, scheduleItemMap, scheduleItems]);
 
     const toggleGroup = (sourceKey) => setExpandedGroups((current) => {
         const next = new Set(current);
@@ -162,6 +162,7 @@ export default function SonghyeonDetailedSchedule() {
         milestones: scheduleItems.filter((item) => item.itemType === 'lv1').length,
     };
     const runMutation = async (operation) => {
+        if (isReadOnly) return;
         setBusy(true);
         setWorkspaceError('');
         try { await operation(); }
@@ -294,12 +295,14 @@ export default function SonghyeonDetailedSchedule() {
                 links={links}
                 busy={busy}
                 errorMessage={workspaceError}
+                canCreateTask={canCreateTask}
+                readOnly={isReadOnly}
                 onClose={() => setSelectedItem(null)}
                 onOpenTask={(sourceKey) => { const task = tasks.find((entry) => entry.sourceKey === sourceKey); if (task) { setSelectedItem(null); setEmbeddedTask(task); } }}
                 onLink={(taskSourceKey) => runMutation(async () => { const link = await linkScheduleTask(selectedItem.sourceKey, taskSourceKey, actor); if (!link.implicit) setLinks((current) => current.some((entry) => entry.id === link.id) ? current : [...current, link]); })}
                 onUnlink={(linkId) => runMutation(async () => { await unlinkScheduleTask(linkId, actor); setLinks((current) => current.filter((entry) => entry.id !== linkId)); })}
                 onCreateTask={(task) => runMutation(async () => { const created = await createAndLinkScheduleTask(selectedItem.sourceKey, task, actor); setTasks((current) => [...current, created]); const workspace = await loadScheduleWorkspace(scheduleItems); setLinks(workspace.links); })}
-                onEditSchedule={(patch) => runMutation(async () => { const updated = await updateScheduleItem(selectedItem.sourceKey, patch, actor); setScheduleItems((current) => current.map((item) => item.sourceKey === selectedItem.sourceKey ? { ...item, ...updated } : item)); setTasks((current) => current.map((task) => task.sourceKey === selectedItem.sourceKey ? { ...task, dueDate: patch.endDate, status: scheduleStatusToTaskStatus(patch.status) } : task)); setSelectedItem((current) => ({ ...current, ...updated })); })}
+                onEditSchedule={(patch) => runMutation(async () => { const updated = await updateScheduleItem(selectedItem.sourceKey, patch, actor); setScheduleItems((current) => current.map((item) => item.sourceKey === selectedItem.sourceKey ? { ...item, ...updated } : item)); setTasks((current) => current.map((task) => task.sourceKey === selectedItem.sourceKey ? { ...task, dueDate: patch.endDate } : task)); setSelectedItem((current) => ({ ...current, ...updated })); })}
             />}
             {embeddedTask && <SonghyeonTaskDetailDrawer
                 task={embeddedTask}
@@ -313,4 +316,3 @@ export default function SonghyeonDetailedSchedule() {
         </section>
     );
 }
-

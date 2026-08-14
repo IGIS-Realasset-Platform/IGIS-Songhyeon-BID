@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "artifact": "public/map-activities/songhyeon-map-overview-v1.json",
+  "artifactSha256": "addd0ef20cfa0da995c0629b0337c06eeba0e0fd5a9383101c954931759f6088",
+  "artifactSizeBytes": 149297,
+  "sourceSha256": "ab022062d28812bbc39fa34bd81dd894450ffebfb4c61eaf6e05d39c0c7f8b02",
+  "inputDatasets": [
+    {
+      "name": "boundary_geojson",
+      "recordCount": 3,
+      "sha256": "4c82d22a0d2614d9f385e001692aad2003cad49432ed6151067da94ac2b8b297"
+    },
+    {
+      "name": "asset_markers",
+      "recordCount": 6,
+      "sha256": "7325b4709992b27fbf4af2243624df71c03d48380b3f8278436ac3d72e6963e7"
+    },
+    {
+      "name": "assets",
+      "recordCount": 5,
+      "sha256": "c43735d7cc6601ee4cb06acc9b17652fa3e4c82d6c6567f70116c1e30595e497"
+    },
+    {
+      "name": "public_spaces",
+      "recordCount": 13,
+      "sha256": "c8e0e69b87691a8beacc219144a85d2c385eac0b94447a1838f84e6a08ccbe5b"
+    },
+    {
+      "name": "activities",
+      "recordCount": 21,
+      "sha256": "d256b6d4ba07bb3ac447640f5483db5bcabbd4d47f64a60eb740f93674a95d8b"
+    },
+    {
+      "name": "boundary_narratives",
+      "recordCount": 3,
+      "sha256": "8aafdd729ccf613638348c1371c3cdbbd72e76758e8799ba779c551f39266823"
+    },
+    {
+      "name": "retail_statistics",
+      "recordCount": 1202,
+      "sha256": "abcb23c2720e0679e917b702b35bb2f3286cf1ba7c3440f52e76010874925eb3"
+    },
+    {
+      "name": "plans",
+      "recordCount": 27,
+      "sha256": "b462fd5e5cb6decb3287fd0554e4b785cf578af4b2aa17ac8c0fe936acf76fc4"
+    },
+    {
+      "name": "organizations",
+      "recordCount": 22,
+      "sha256": "bca4d3368e5f0816b9cde7112dfbc59a03c4e3c94a3f88dffa77b816aec6b7f2"
+    },
+    {
+      "name": "insights",
+      "recordCount": 6,
+      "sha256": "4f210a4ab3faf7fc213de3501d6f91338e215e2548153592d307d158348ff16e"
+    },
+    {
+      "name": "strategies",
+      "recordCount": 4,
+      "sha256": "05ac033384fd6352dd6498c83b4a29d710e580b9f00e7c9eb4d664f118441814"
+    }
+  ],
+  "counts": {
+    "boundaries": 3,
+    "boundaryOriginalPoints": 5502,
+    "boundarySimplifiedPoints": 256,
+    "assets": 6,
+    "publicSpaces": 10,
+    "activities": 17,
+    "unlocated": 7,
+    "assetSummaries": 5,
+    "boundaryNarratives": 3,
+    "retailCategories": 60,
+    "plans": 27,
+    "organizations": 22,
+    "insights": 6,
+    "strategies": 4
+  },
+  "simplificationTolerance": 0.00002
+}

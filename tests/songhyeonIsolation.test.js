@@ -35,7 +35,7 @@ test('송현 저장소의 실행 스크립트는 원본 IOTA 작업폴더를 직
     const { stdout } = await exec('git', [
       'grep', '-n', '-F',
       '/Users/jkjeon2025/Documents/GitHub/IGIS Fund Production DP',
-      '--', '*.js', '*.jsx', '*.mjs', '*.cjs',
+      '--', 'src', 'scripts', 'supabase',
     ]);
     assert.equal(stdout.trim(), '');
   } catch (error) {

@@ -37,32 +37,37 @@ test('서비스·운영 가설 페이지는 실행 객체와 마일스톤 연결
 test('서비스·운영 가설은 IOTA 블랙 워크스페이스의 표면·경계·hover 계약을 사용한다', async () => {
   const page = await readFile('src/pages/ServiceHypotheses.jsx', 'utf8');
   const layout = await readFile('src/components/Layout.jsx', 'utf8');
+  const workspaceLayout = await readFile('src/components/workspace/WorkspacePageLayout.jsx', 'utf8');
 
-  for (const token of ['w-[1200px] mx-auto', 'text-[#E5E5E5]', 'bg-[#272726]', 'border-[#3c3c3c]', 'hover:bg-[#30302F]', 'rounded-[24px]']) {
+  assert.match(page, /<WorkspacePageFrame\b/);
+  assert.match(workspaceLayout, /mx-auto w-\[1200px\] max-w-full/);
+  for (const token of ['text-[#E5E5E5]', 'bg-[#272726]', 'border-[#3c3c3c]', 'hover:bg-[#30302F]', 'rounded-[24px]']) {
     assert.match(page, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), token);
   }
   assert.match(layout, /pathname === '\/hypotheses'/);
   assert.doesNotMatch(page, /bg-white|bg-slate-50|text-slate-950|border-slate-300|shadow-/);
 });
 
-test('자료실과 서비스·운영 가설은 마일스톤의 상단 폭·여백·제목행 계약을 공유한다', async () => {
+test('Data Room과 서비스·운영 가설은 마일스톤의 상단 폭·여백·제목행 계약을 공유한다', async () => {
   const milestones = await readFile('src/components/iota-songhyeon/pmo/SonghyeonScheduleGate.jsx', 'utf8');
   const dataRoom = await readFile('src/pages/DataRoom.jsx', 'utf8');
   const hypotheses = await readFile('src/pages/ServiceHypotheses.jsx', 'utf8');
+  const workspaceLayout = await readFile('src/components/workspace/WorkspacePageLayout.jsx', 'utf8');
 
-  for (const contract of ['pt-[28px]', 'w-[1200px] mx-auto', 'text-[32px] font-bold leading-none tracking-tight']) {
-    const pattern = new RegExp(contract.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    assert.match(milestones, pattern, contract);
-    assert.match(dataRoom, pattern, contract);
-    assert.match(hypotheses, pattern, contract);
+  assert.match(workspaceLayout, /WorkspacePageFrame[\s\S]*pt-\[28px\]/);
+  assert.match(workspaceLayout, /mx-auto w-\[1200px\] max-w-full/);
+  assert.match(workspaceLayout, /WorkspacePageHeader[\s\S]*text-\[32px\] font-bold leading-none tracking-tight/);
+  for (const source of [milestones, dataRoom, hypotheses]) {
+    assert.match(source, /<WorkspacePageFrame\b/);
+    assert.match(source, /<WorkspacePageHeader\b/);
   }
 });
 
 test('서비스·운영 가설 상단은 마일스톤과 같은 제목행 직후 첫 패널 구조를 사용한다', async () => {
   const page = await readFile('src/pages/ServiceHypotheses.jsx', 'utf8');
   assert.doesNotMatch(page, /현재 운영 원칙/);
-  assert.match(page, /<div className="w-\[1200px\] mx-auto">\s*<header className="mb-\[12px\] flex h-\[37px\] w-full items-end justify-between">\s*<div className="flex items-baseline gap-\[16px\]">[\s\S]*?<\/header>\s*<section className="grid grid-cols-4/);
-  assert.doesNotMatch(page, /<\/header>\s*<p className="mb-/);
+  assert.match(page, /<WorkspacePageFrame>\s*<WorkspacePageHeader[\s\S]*?\/>\s*<section className="grid grid-cols-4/);
+  assert.doesNotMatch(page, /<WorkspacePageHeader[\s\S]*?\/>\s*<p className="mb-/);
   assert.doesNotMatch(page, /<section className="mb-\[48px\] grid grid-cols-4/);
 });
 
@@ -80,16 +85,17 @@ test('서비스·운영 가설의 주요 컴포넌트 간격은 36px 리듬으�
   assert.doesNotMatch(page, /<section className="(?:mt-\[48px\] )?mb-\[48px\]">/);
 });
 
-test('서비스·운영 가설은 실행계획 다음의 핵심 메뉴이며 구 Membership 주소를 호환한다', async () => {
+test('서비스·운영 가설은 핵심 메뉴이며 구 Membership 주소를 호환한다', async () => {
   const layout = await readFile('src/components/Layout.jsx', 'utf8');
   const app = await readFile('src/App.jsx', 'utf8');
-  const executionIndex = layout.indexOf("path: '/execution'");
   const hypothesisIndex = layout.indexOf("path: '/hypotheses'");
   const dataIndex = layout.indexOf("path: '/data'");
 
-  assert.ok(executionIndex < hypothesisIndex && hypothesisIndex < dataIndex);
+  assert.ok(hypothesisIndex < dataIndex);
   assert.match(layout, /name: '서비스·운영 가설', path: '\/hypotheses'/);
-  assert.equal((layout.match(/name: '자료실'/g) || []).length, 1);
+  assert.doesNotMatch(layout, /\/execution|업무실행계획/);
+  assert.equal((layout.match(/name: 'Data Room'/g) || []).length, 1);
   assert.match(app, /path="hypotheses"/);
+  assert.doesNotMatch(app, /ExecutionPlan|path="execution"/);
   assert.match(app, /path="membership" element=\{<Navigate replace to="\/hypotheses"/);
 });

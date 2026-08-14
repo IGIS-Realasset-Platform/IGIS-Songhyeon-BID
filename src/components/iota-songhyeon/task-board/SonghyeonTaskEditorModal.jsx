@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
 import { createTask, loadTaskEditorOptions, updateTask } from '../../../lib/songhyeonTaskRepository';
 import { SONGHYEON_GATE_STAGES } from '../../../data/songhyeonGateStages.js';
+import { normalizeSonghyeonAssignee } from '../../../lib/songhyeonTaskFields.js';
+import { SONGHYEON_TASK_IMPORTANCE_LEVELS } from '../../../data/songhyeonTaskImportance.js';
+import SonghyeonTaskWorkflowModal from './SonghyeonTaskWorkflowModal.jsx';
 
-
-const departments = ['기획추진실', '공간솔루션센터', '기업마케팅센터', '자산·운영 담당조직', '송현 BID TF'];
 const gates = SONGHYEON_GATE_STAGES;
-const statuses = ['미착수', '진행중', '지연', '완료', '보류', '중단'];
-const importanceLevels = ['핵심', '주요', '일반'];
+const importanceLevels = SONGHYEON_TASK_IMPORTANCE_LEVELS;
 
 const initialForm = {
   projectCode: 'SONGHYEON_BID', projectName: '송현 BID', categoryMain: '', taskName: '',
-  taskPurpose: '', sourceText: '', deliverables: '', gateStage: 'G0 근거기반 구축', stage: 'G0 근거기반 구축',
+  taskPurpose: '', sourceText: '', deliverables: '', gateStage: 'G0 기준선', stage: 'G0 기준선',
   leadDept: '', coopDepts: [], assignee: '', externalParty: '', supportNeeded: '', isBlocker: false,
-  needsDecision: false, dueDate: '', status: '미착수', importanceLevel: '일반',
+  needsDecision: false, dueDate: '', status: '미착수', importanceLevel: '낮음',
   nextAction: '', meetingAgenda: false, agendaReason: '',
 };
 
@@ -22,8 +22,8 @@ const inputClass = 'w-full bg-[#2c2c2b] border border-[#3c3c3c] rounded-[6px] px
 const requiredClass = `${inputClass} border-red-500/30 focus:border-red-500 font-bold`;
 const FieldLabel = ({ children }) => <span className="text-[#86868B] text-[11px] block">{children}</span>;
 
-export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreated, onSaved }) {
-  const { user, member } = useSonghyeonAuth();
+export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreated, onSaved, onWorkflowSaved }) {
+  const { user, member, isReadOnly } = useSonghyeonAuth();
   const isEditing = Boolean(task);
   const [form, setForm] = useState(() => task ? {
     ...initialForm,
@@ -33,19 +33,23 @@ export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreat
   } : initialForm);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [options, setOptions] = useState({ categories: [], assignees: [], supportOptions: [], stakeholders: [], departments: [] });
+  const [options, setOptions] = useState({ categories: [], assignees: [], supportOptions: [], stakeholders: [], leadDepartments: [], departments: [] });
   const [showAssigneeSuggestions, setShowAssigneeSuggestions] = useState(false);
   const [showSupportSuggestions, setShowSupportSuggestions] = useState(false);
   const [showStakeholderSuggestions, setShowStakeholderSuggestions] = useState(false);
+  const [workflowOpen, setWorkflowOpen] = useState(false);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
   const handleCoopDeptToggle = (dept) => set('coopDepts', form.coopDepts.includes(dept) ? form.coopDepts.filter((item) => item !== dept) : [...form.coopDepts, dept]);
 
 
   useEffect(() => {
+    if (isReadOnly) return undefined;
     let active = true;
     loadTaskEditorOptions().then((loaded) => active && setOptions(loaded)).catch((cause) => active && setError(cause.message || '자동완성 후보를 불러오지 못했습니다.'));
     return () => { active = false; };
-  }, []);
+  }, [isReadOnly]);
+
+  if (isReadOnly) return null;
 
   const filtered = (items, query) => items.filter((item) => !query || item.toLowerCase().includes(query.toLowerCase()));
   const suggestionList = (items, field, close) => (
@@ -57,6 +61,23 @@ export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreat
     </div>
   );
 
+  const saveWorkflowResult = async (updated) => {
+    setForm((current) => ({
+      ...current,
+      status: updated.status,
+      version: updated.version,
+      startedAt: updated.startedAt,
+      startedBy: updated.startedBy,
+      completedAt: updated.completedAt,
+      completedBy: updated.completedBy,
+      completionSummary: updated.completionSummary,
+      completionEvidenceUrl: updated.completionEvidenceUrl,
+      updatedAt: updated.updatedAt,
+    }));
+    setWorkflowOpen(false);
+    await onWorkflowSaved?.(updated);
+  };
+
   const submit = async (event) => {
     event.preventDefault();
     if (!form.taskName.trim() || !form.categoryMain || !form.leadDept || !form.dueDate || !form.taskPurpose.trim()) {
@@ -66,7 +87,7 @@ export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreat
     setSaving(true); setError('');
     try {
       const actor = { userId: user?.id, email: user?.email, name: member?.staff_name || user?.email || '송현 BID TF' };
-      const payload = { ...form, sourceText: form.taskPurpose };
+      const payload = { ...form, assignee: normalizeSonghyeonAssignee(form.assignee), sourceText: form.taskPurpose };
       if (isEditing) {
         const updated = await updateTask(task.sourceKey, payload, actor);
         onSaved(updated);
@@ -95,7 +116,7 @@ export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreat
             <div className="space-y-1"><FieldLabel>업무명</FieldLabel><textarea value={form.taskName} onChange={(e) => set('taskName', e.target.value)} className="w-full bg-[#2c2c2b] border border-red-500/30 focus:border-red-500 rounded-[6px] px-3 py-2 text-[15px] text-[#bdbba7] font-bold outline-none h-16 resize-y" required /></div>
 
             <div className="flex flex-wrap gap-4 text-[12px] font-bold">
-              <div className="flex items-center gap-1.5"><span className="text-gray-400">상태:</span><select value={form.status} onChange={(e) => set('status', e.target.value)} className={selectClass}>{statuses.map((item) => <option key={item}>{item}</option>)}</select></div>
+              <div className="flex items-center gap-1.5"><span className="text-gray-400">상태:</span><span className="rounded border border-[#636366]/25 bg-[#636366]/10 px-2.5 py-1 text-[12px] text-[#A1A1AA]">{isEditing ? form.status : '미착수'}</span>{isEditing ? <button type="button" disabled={saving} onClick={() => setWorkflowOpen(true)} className="cursor-pointer rounded-[6px] border border-[#4f8fca]/30 bg-[#4f8fca]/10 px-2.5 py-1 text-[10px] font-bold text-[#82add0] transition-colors hover:bg-[#4f8fca]/15 disabled:cursor-not-allowed disabled:opacity-50">상태 변경</button> : <span className="text-[10px] font-normal text-[#686868]">신규 업무는 미착수로 등록됩니다.</span>}</div>
               <div className="flex items-center gap-1.5"><span className="text-gray-400">중요도:</span><select value={form.importanceLevel} onChange={(e) => set('importanceLevel', e.target.value)} className={selectClass}>{importanceLevels.map((item) => <option key={item}>{item}</option>)}</select></div>
 
               <label className="flex items-center gap-1.5 text-[11px] font-bold text-red-400 border border-[#3c3c3c] bg-red-500/10 rounded px-2.5 py-0.5 cursor-pointer"><input type="checkbox" checked={form.isBlocker} onChange={(e) => set('isBlocker', e.target.checked)} />병목(Blocker) 상황 설정하기</label>
@@ -103,9 +124,9 @@ export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreat
 
             <div className="p-5 rounded-[16px] bg-white/[0.02] border border-[#2c2c2e] space-y-4 text-[13px]">
               <div className="grid grid-cols-4 gap-4 items-start">
-                <div className="space-y-1"><FieldLabel>실행주관</FieldLabel><select value={form.leadDept} onChange={(e) => set('leadDept', e.target.value)} className={`${requiredClass} cursor-pointer`} required><option value="">실행주관 선택</option>{departments.map((item) => <option key={item}>{item}</option>)}</select></div>
+                <div className="space-y-1"><FieldLabel>실행주관</FieldLabel><select value={form.leadDept} onChange={(e) => set('leadDept', e.target.value)} className={`${requiredClass} cursor-pointer`} required><option value="">실행주관 선택</option>{options.leadDepartments.map((item) => <option key={item}>{item}</option>)}</select></div>
                 <div className="space-y-1 relative"><FieldLabel>담당자</FieldLabel><input value={form.assignee} onChange={(e) => { set('assignee', e.target.value); setShowAssigneeSuggestions(true); }} onFocus={() => setShowAssigneeSuggestions(true)} onBlur={() => setTimeout(() => setShowAssigneeSuggestions(false), 200)} placeholder="담당자명 검색/입력" className={inputClass} />{showAssigneeSuggestions && suggestionList(options.assignees, 'assignee', setShowAssigneeSuggestions)}</div>
-                <div className="space-y-1 col-span-2"><FieldLabel>협조 부서 (다중 선택 가능)</FieldLabel><div className="flex flex-wrap gap-1.5 bg-[#2c2c2b] p-3 rounded-[8px] border border-red-500/30 max-h-[120px] overflow-y-auto">{departments.map((dept) => { const selected = form.coopDepts.includes(dept); return <button key={dept} type="button" onClick={() => handleCoopDeptToggle(dept)} className={`px-2 py-1 rounded-[4px] text-[10px] font-bold cursor-pointer border ${selected ? 'bg-[#2997ff] text-white border-[#2997ff]' : 'bg-[#1a1a1a] text-[#86868B] border-[#444] hover:border-[#666] hover:text-white'}`}>{dept}</button>; })}</div></div>
+                <div className="space-y-1 col-span-2"><FieldLabel>협조 부서 (다중 선택 가능)</FieldLabel><div className="flex flex-wrap gap-1.5 bg-[#2c2c2b] p-3 rounded-[8px] border border-red-500/30 max-h-[120px] overflow-y-auto">{options.departments.map((dept) => { const selected = form.coopDepts.includes(dept); return <button key={dept} type="button" onClick={() => handleCoopDeptToggle(dept)} className={`px-2 py-1 rounded-[4px] text-[10px] font-bold cursor-pointer border ${selected ? 'bg-[#2997ff] text-white border-[#2997ff]' : 'bg-[#1a1a1a] text-[#86868B] border-[#444] hover:border-[#666] hover:text-white'}`}>{dept}</button>; })}</div></div>
               </div>
               <div className="grid grid-cols-4 gap-4 items-end">
                 <div className="space-y-1 relative"><FieldLabel>지원필요</FieldLabel><input value={form.supportNeeded} onChange={(e) => { set('supportNeeded', e.target.value); setShowSupportSuggestions(true); }} onFocus={() => setShowSupportSuggestions(true)} onBlur={() => setTimeout(() => setShowSupportSuggestions(false), 200)} className={inputClass} placeholder="검색/입력" />{showSupportSuggestions && suggestionList(options.supportOptions, 'supportNeeded', setShowSupportSuggestions)}</div>
@@ -132,6 +153,7 @@ export default function SonghyeonTaskEditorModal({ task = null, onClose, onCreat
           <div className="pt-4 border-t border-[#3c3c3c] flex items-center justify-between mt-4"><span className="text-red-400 text-[11.5px] font-bold">* 붉은 박스는 필수입력</span><div className="flex gap-3"><button type="button" onClick={onClose} className="px-4 py-2 rounded-[8px] bg-white/5 hover:bg-white/10 text-white border border-[#3c3c3c] text-[13px] font-bold cursor-pointer">취소</button><button type="submit" disabled={saving} className="px-5 py-2 rounded-[8px] bg-[#2997ff] text-[13px] font-bold text-white cursor-pointer disabled:opacity-50">{saving ? '저장 중...' : isEditing ? '수정 완료' : '저장'}</button></div></div>
         </form>
       </div>
+      {workflowOpen && isEditing && <SonghyeonTaskWorkflowModal task={{ ...task, ...form }} onClose={() => setWorkflowOpen(false)} onSaved={saveWorkflowResult} />}
     </div>
   );
 }

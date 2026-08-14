@@ -1,0 +1,163 @@
+{
+  "datasets": [
+    {
+      "containerFields": [
+        "bukchon",
+        "compact",
+        "east",
+        "official_grade_east",
+        "official_grade_total",
+        "total"
+      ],
+      "fields": [],
+      "file": "references/map-activities/hotel/datasets/hotel_display_audit.json",
+      "idFields": [],
+      "name": "hotel_display_audit",
+      "recordCount": 6,
+      "recordPath": "$.*",
+      "sha256": "9445fbe461eeb1e5a08d74044fc756eace68bafe6d33595d697a358d6d5f3410",
+      "sizeBytes": 125,
+      "valueType": "object"
+    },
+    {
+      "containerFields": [],
+      "fields": [
+        "address",
+        "building",
+        "bukchon",
+        "classification_basis",
+        "compact",
+        "east",
+        "facility_id",
+        "grade",
+        "grade_checked_at",
+        "grade_source_url",
+        "grade_status",
+        "homepage",
+        "id",
+        "lat",
+        "lodging_style",
+        "lodging_type",
+        "lon",
+        "name",
+        "official_business_type",
+        "official_hotel_name",
+        "official_record_id",
+        "operator_name",
+        "rating_decision_date",
+        "rating_match_method",
+        "room_count",
+        "segment",
+        "source_category2",
+        "source_lodging_type",
+        "store_checked_at",
+        "store_id",
+        "store_published_at",
+        "store_source_url"
+      ],
+      "file": "references/map-activities/hotel/datasets/hotels.json",
+      "idFields": [
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "facility_id",
+          "populatedCount": 266,
+          "uniqueCount": 266
+        },
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 0,
+          "path": "id",
+          "populatedCount": 266,
+          "uniqueCount": 266
+        },
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 253,
+          "path": "official_record_id",
+          "populatedCount": 13,
+          "uniqueCount": 13
+        },
+        {
+          "duplicateExcessCount": 0,
+          "duplicateRecordCount": 0,
+          "duplicateValueCount": 0,
+          "duplicates": [],
+          "missingCount": 3,
+          "path": "store_id",
+          "populatedCount": 263,
+          "uniqueCount": 263
+        }
+      ],
+      "name": "hotels",
+      "recordCount": 266,
+      "recordPath": "$",
+      "sha256": "0a98263dc39a82e623cb0eaf165ae6ec52494b1bb12204680abf91df80d6d3bb",
+      "sizeBytes": 305629,
+      "valueType": "array"
+    }
+  ],
+  "extraction": {
+    "datasetDirectory": "references/map-activities/hotel/datasets",
+    "deterministic": true,
+    "script": "scripts/build-songhyeon-hotel-data.mjs",
+    "selectedDatasetNames": [
+      "hotel_display_audit",
+      "hotels"
+    ]
+  },
+  "isolation": {
+    "baseSourceManifest": "references/map-activities/manifest.json",
+    "baseSourceManifestSha256": "0fb667be7ee3e2deebdd3f56caab873f431b490abc8dac144a3c0a7ea6e312c9",
+    "resolvedStoreReferenceCount": 269,
+    "verifiedUnchangedDatasetCount": 21,
+    "verifiedUnchangedDatasetNames": [
+      "activities",
+      "activity_markers",
+      "asset_markers",
+      "assets",
+      "boundaries",
+      "boundary_analysis",
+      "boundary_geojson",
+      "boundary_narratives",
+      "delivery_parity",
+      "igis_retail",
+      "insights",
+      "landmarks",
+      "organizations",
+      "plan_geojson",
+      "plans",
+      "program_operations",
+      "public_spaces",
+      "retail_statistics",
+      "store_display_audit",
+      "stores",
+      "strategies"
+    ]
+  },
+  "schemaVersion": 1,
+  "source": {
+    "embeddedJson": {
+      "elementId": "dashboard-data",
+      "sha256": "a6ed92b84e1cf287ed565d4223f7d385e711e4ea980fbb30b20fac33002124c3",
+      "sizeBytes": 8585948
+    },
+    "fileName": "260814_songhyeon_bid_dashboard_v1.2.html",
+    "sha256": "a6ff259e03467eb9eef544c9eac43c15867fa54a2b1136160e386a7ab0772f8e",
+    "sizeBytes": 11630873
+  },
+  "summary": {
+    "datasetCount": 2,
+    "sumOfDatasetRecordCounts": 272,
+    "totalDatasetBytes": 305754
+  }
+}
