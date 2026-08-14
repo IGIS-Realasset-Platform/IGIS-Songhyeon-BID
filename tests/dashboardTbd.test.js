@@ -33,3 +33,24 @@ test('홈은 기존 대시보드 콘텐츠 없이 화면 중앙에 TBD만 표시
   assert.doesNotMatch(dashboard, /<(?:header|nav|section)\b/u, '홈에 기존 헤더·바로가기·콘텐츠 섹션이 남으면 안 됩니다.');
   assert.match(dashboard, /export default Dashboard/);
 });
+
+test('루트는 통합업무보드로 이동하고 홈은 독립된 어두운 /home 경로로 유지한다', async () => {
+  const [app, layout] = await Promise.all([
+    readFile('src/App.jsx', 'utf8'),
+    readFile('src/components/Layout.jsx', 'utf8'),
+  ]);
+
+  assert.match(
+    app,
+    /<Route\s+index\s+element=\{<Navigate\s+replace\s+to=["']\/tasks["']\s*\/>\}\s*\/>/u,
+    '사이트 루트(/)는 replace 방식으로 /tasks에 진입해야 합니다.',
+  );
+  assert.match(
+    app,
+    /<Route\s+path=["']home["']\s+element=\{<Dashboard\s*\/>\}\s*\/>/u,
+    'TBD 홈 화면은 /home 경로에서 계속 접근할 수 있어야 합니다.',
+  );
+  assert.match(layout, /name:\s*['"]홈['"],\s*path:\s*['"]\/home['"]/u, '좌측 홈 메뉴는 /home을 열어야 합니다.');
+  assert.doesNotMatch(layout, /name:\s*['"]홈['"],\s*path:\s*['"]\/['"]/u, '홈 메뉴가 redirect 전용 루트(/)를 가리키면 안 됩니다.');
+  assert.match(layout, /pathname\s*===\s*['"]\/home['"]/u, '/home은 Layout의 어두운 워크스페이스 경로여야 합니다.');
+});

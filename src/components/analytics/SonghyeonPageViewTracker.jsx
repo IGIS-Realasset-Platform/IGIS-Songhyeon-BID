@@ -6,7 +6,7 @@ export default function SonghyeonPageViewTracker() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    void recordSonghyeonPageView(pathname);
+    void recordSonghyeonPageView(pathname === '/home' ? '/' : pathname);
   }, [pathname]);
 
   return null;

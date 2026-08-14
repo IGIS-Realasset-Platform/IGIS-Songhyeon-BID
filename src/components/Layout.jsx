@@ -8,7 +8,7 @@ import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import SonghyeonPageViewTracker from './analytics/SonghyeonPageViewTracker';
 
 const primaryItems = [
-  { name: '홈', path: '/', icon: Home },
+  { name: '홈', path: '/home', icon: Home },
   { name: '통합업무보드', path: '/tasks', icon: ListChecks },
   {
     name: 'Map & Activities',
@@ -141,7 +141,7 @@ function Section({ label, items, open, setOpen, collapsed }) {
 export default function Layout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isDarkWorkspace = pathname === '/' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/data' || pathname.startsWith('/governance') || pathname.startsWith('/admin');
+  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/data' || pathname.startsWith('/governance') || pathname.startsWith('/admin');
   const { user, member, isGuest, isAdmin, exitGuestMode, signOut } = useSonghyeonAuth();
   const mainRef = useRef(null);
   const [collapsed, setCollapsed] = useState(false);
@@ -214,7 +214,7 @@ export default function Layout() {
         {isDarkWorkspace ? (
           <div className={`${mapActivitiesActive ? 'h-full min-h-0' : 'min-h-full'} min-w-0 w-full ${pathname.startsWith('/governance') ? 'workspace-content px-[60px] pt-[8px]' : ''}`}><Outlet /></div>
         ) : (
-          <div className={`min-h-full w-full p-10 text-gray-900 ${pathname === '/' ? 'bg-[#F3F4F6]' : 'bg-white'}`}>
+          <div className="min-h-full w-full bg-white p-10 text-gray-900">
             <div className="mx-auto min-h-full w-full max-w-[1400px]"><Outlet /></div>
           </div>
         )}

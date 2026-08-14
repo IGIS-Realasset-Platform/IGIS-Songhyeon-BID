@@ -23,7 +23,7 @@ test('송현 앱은 로그인 라우트와 인증 보호 경계를 가진다', a
   assert.match(main, /SonghyeonAuthProvider/);
 });
 
-test('송현 멤버 로그인과 인증된 login 재진입의 기본 목적지는 통합업무보드다', async () => {
+test('송현 멤버·게스트 로그인과 인증된 login 재진입의 기본 목적지는 통합업무보드다', async () => {
   const login = await read('src/pages/Login.jsx');
 
   assert.match(
@@ -45,6 +45,11 @@ test('송현 멤버 로그인과 인증된 login 재진입의 기본 목적지�
     login,
     /const proceedLogin[\s\S]{0,640}window\.location\.assign\(postLoginPath\)/u,
     '정상 로그인 성공 후 첫 진입 페이지는 /tasks여야 합니다.',
+  );
+  assert.match(
+    login,
+    /const browseAsGuest[\s\S]{0,320}await enterGuestMode\(\)[\s\S]{0,120}navigate\(postLoginPath,\s*\{ replace: true \}\)/u,
+    '게스트도 직접 로그인 화면이나 루트에서 /tasks로 이동하고, 보호된 상세 경로의 from은 보존해야 합니다.',
   );
 });
 

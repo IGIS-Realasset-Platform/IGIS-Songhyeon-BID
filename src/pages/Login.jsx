@@ -71,7 +71,7 @@ export default function Login() {
     setBusy(true);
     try {
       await enterGuestMode();
-      navigate(location.state?.from || '/', { replace: true });
+      navigate(postLoginPath, { replace: true });
     } catch (error) {
       fail(error.message || '게스트 모드로 전환하지 못했습니다.');
     }

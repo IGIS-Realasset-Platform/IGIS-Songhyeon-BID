@@ -38,10 +38,10 @@ test('관리자 화면은 전기영 exact 계정에만 노출되고 페이지뷰
   assert.match(context, /user\.email\?\.toLowerCase\(\) === 'jk\.jeon@igisam\.com'/);
   assert.doesNotMatch(context, /platform_role\?\.toLowerCase\(\) === 'admin'/);
   assert.match(app, /path="admin\/analytics"[\s\S]*<AdminRoute>/);
-  assert.match(adminRoute, /if \(!isAdmin\) return <Navigate to="\/" replace/);
+  assert.match(adminRoute, /if \(!isAdmin\) return <Navigate to="\/tasks" replace/);
   assert.match(layout, /isAdmin &&[\s\S]*이용 현황/);
   assert.match(layout, /<SonghyeonPageViewTracker/);
-  assert.match(tracker, /recordSonghyeonPageView\(pathname\)/);
+  assert.match(tracker, /recordSonghyeonPageView\(pathname === '\/home' \? '\/' : pathname\)/);
   for (const text of ['전체 조회', '오늘 조회', '방문자', '세션', '게스트 조회', '회원 조회', '일별 이용 추이', '페이지 순위']) {
     assert.match(page, new RegExp(text));
   }
@@ -67,7 +67,7 @@ test('이용 현황 메뉴는 exact 전기영에게만 사이드바 최하단 �
   );
   assert.doesNotMatch(context, /platform_role[^\n]*admin/i);
   assert.match(adminRoute, /const \{ isAdmin, loading \} = useSonghyeonAuth\(\)/);
-  assert.match(adminRoute, /if \(!isAdmin\) return <Navigate to="\/" replace/);
+  assert.match(adminRoute, /if \(!isAdmin\) return <Navigate to="\/tasks" replace/);
 
   const navEnd = layout.indexOf('</nav>');
   const analyticsLink = layout.indexOf("name: '이용 현황'");

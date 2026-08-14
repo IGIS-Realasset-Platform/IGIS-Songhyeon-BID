@@ -31,7 +31,8 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-          <Route index element={<Dashboard />} />
+          <Route index element={<Navigate replace to="/tasks" />} />
+          <Route path="home" element={<Dashboard />} />
           <Route path="tasks" element={<TaskBoard />} />
           <Route path="map-activities">
             <Route index element={<Navigate replace to="integrated-map" />} />
