@@ -328,6 +328,89 @@ test('Map & Activities 각 화면 상단은 메뉴명과 한글 페이지명만 
   assert.doesNotMatch(institutionsHeader, /INSTITUTIONS & COMMUNITY|인사이트|전략|활동 좌표|위치 미확인|data-governance-map|<button\b/, '제도·공동체 상단에는 한글 제목만 남아야 합니다.');
 });
 
+test('제도·공동체의 계획과 기관 영역은 패널·그룹·카드 계층을 서로 다른 색과 간격으로 구분한다', async () => {
+  const governance = await read('src/components/map-activities/SonghyeonMarketGovernanceViews.jsx');
+  const workspace = governance.match(/export function InstitutionsCommunityWorkspace\b[\s\S]*$/)?.[0] || '';
+  const planAccordion = governance.match(/function PlanAccordion\b[\s\S]*?(?=\nfunction OrganizationAccordion\b)/)?.[0] || '';
+  const organizationAccordion = governance.match(/function OrganizationAccordion\b[\s\S]*?(?=\nfunction planAnchor\b)/)?.[0] || '';
+
+  const plansPanel = workspace.match(/<section\b(?=[^>]*data-governance-plans-panel)[^>]*>/)?.[0] || '';
+  const organizationsPanel = workspace.match(/<section\b(?=[^>]*data-governance-organizations-panel)[^>]*>/)?.[0] || '';
+  assert.ok(plansPanel, '계획·제도 패널의 안정적인 식별자가 필요합니다.');
+  assert.ok(organizationsPanel, '기관·공동체 패널의 안정적인 식별자가 필요합니다.');
+  assert.match(plansPanel, /border-\[#40515d\]/, '계획 패널은 청회색 경계를 사용해야 합니다.');
+  assert.match(plansPanel, /bg-\[#20272b\]/, '계획 패널은 청회색 바탕을 사용해야 합니다.');
+  assert.match(organizationsPanel, /border-\[#51475a\]/, '기관 패널은 자주색 경계를 사용해야 합니다.');
+  assert.match(organizationsPanel, /bg-\[#272329\]/, '기관 패널은 자주색 바탕을 사용해야 합니다.');
+  assert.notEqual(plansPanel, organizationsPanel, '좌우 패널을 같은 시각 토큰으로 되돌리면 안 됩니다.');
+
+  const plansHeader = workspace.match(/<section\b(?=[^>]*data-governance-plans-panel)[^>]*>\s*(<header\b[^>]*>)/)?.[1] || '';
+  const organizationsHeader = workspace.match(/<section\b(?=[^>]*data-governance-organizations-panel)[^>]*>\s*(<header\b[^>]*>)/)?.[1] || '';
+  assert.match(plansHeader, /border-t-\[#6f98b2\]/, '계획 패널 머리에는 청회색 상단 accent가 필요합니다.');
+  assert.match(organizationsHeader, /border-t-\[#a486b3\]/, '기관 패널 머리에는 자주색 상단 accent가 필요합니다.');
+  assert.match(plansHeader, /\bpx-5\b/, '패널 머리의 좌우 여백을 확보해야 합니다.');
+  assert.match(organizationsHeader, /\bpx-5\b/, '패널 머리의 좌우 여백을 확보해야 합니다.');
+
+  const planGroupHeader = workspace.match(/data-governance-plan-group><div className="([^"]+)"/)?.[1] || '';
+  const organizationGroupHeader = workspace.match(/data-governance-organization-group><div className="([^"]+)"/)?.[1] || '';
+  for (const [label, groupHeader] of [['계획 연도', planGroupHeader], ['기관 유형', organizationGroupHeader]]) {
+    assert.ok(groupHeader, `${label} 그룹 머리를 찾을 수 없습니다.`);
+    assert.match(groupHeader, /\bmb-3\b/, `${label} 그룹과 카드 사이 간격이 필요합니다.`);
+    assert.match(groupHeader, /rounded-\[8px\]/, `${label} 그룹 머리는 카드와 구별되는 막대여야 합니다.`);
+    assert.match(groupHeader, /\bborder\b/, `${label} 그룹 머리에 경계가 필요합니다.`);
+    assert.match(groupHeader, /bg-\[#[a-fA-F0-9]{6}\]/, `${label} 그룹 머리에 별도 배경이 필요합니다.`);
+    assert.match(groupHeader, /\bpx-3\b[\s\S]*\bpy-2\b/, `${label} 그룹 머리의 내부 여백을 유지해야 합니다.`);
+  }
+  assert.notEqual(planGroupHeader, organizationGroupHeader, '계획 연도와 기관 유형 그룹 바의 색 체계가 같으면 안 됩니다.');
+  assert.match(workspace, /data-governance-plans-panel[\s\S]{0,700}?className="space-y-6 p-4"[\s\S]{0,900}?data-governance-plan-group[\s\S]{0,700}?className="space-y-3"/, '계획 그룹과 카드 사이에 6/3단계 수직 간격이 필요합니다.');
+  assert.match(workspace, /data-governance-organizations-panel[\s\S]{0,700}?className="space-y-6 p-4"[\s\S]{0,900}?data-governance-organization-group[\s\S]{0,700}?className="space-y-3"/, '기관 그룹과 카드 사이에 6/3단계 수직 간격이 필요합니다.');
+
+  assert.match(planAccordion, /data-governance-card="plan"/, '계획 카드 식별자가 필요합니다.');
+  assert.match(organizationAccordion, /data-governance-card="organization"/, '기관 카드 식별자가 필요합니다.');
+  for (const [label, accordion] of [['계획', planAccordion], ['기관', organizationAccordion]]) {
+    assert.match(accordion, /border-l-\[3px\]/, `${label} 카드에 패널 색을 잇는 3px accent가 필요합니다.`);
+    assert.match(accordion, /shadow-\[/, `${label} 카드는 패널 바탕에서 분리되는 그림자가 필요합니다.`);
+    assert.match(accordion, /\bp-3\.5\b/, `${label} 카드 제목부의 내부 여백을 유지해야 합니다.`);
+  }
+  assert.match(planAccordion, /border-l-\[#5f8299\]/, '계획 카드 accent는 청회색이어야 합니다.');
+  assert.match(organizationAccordion, /border-l-\[#9b7eaa\]/, '기관 카드 accent는 자주색이어야 합니다.');
+  assert.doesNotMatch(`${planAccordion}\n${organizationAccordion}`, /text-\[#7e8084\]|text-\[#77797d\]/, '카드 핵심 요약을 기존의 지나치게 흐린 회색으로 되돌리면 안 됩니다.');
+});
+
+test('제도·공동체 가독성 개선은 계획·기관 원문과 상세 상호작용을 전량 유지한다', async () => {
+  const [governance, plans, organizations] = await Promise.all([
+    read('src/components/map-activities/SonghyeonMarketGovernanceViews.jsx'),
+    read('references/map-activities/datasets/plans.json').then(JSON.parse),
+    read('references/map-activities/datasets/organizations.json').then(JSON.parse),
+  ]);
+  const workspace = governance.match(/export function InstitutionsCommunityWorkspace\b[\s\S]*$/)?.[0] || '';
+  const planAccordion = governance.match(/function PlanAccordion\b[\s\S]*?(?=\nfunction OrganizationAccordion\b)/)?.[0] || '';
+  const organizationAccordion = governance.match(/function OrganizationAccordion\b[\s\S]*?(?=\nfunction planAnchor\b)/)?.[0] || '';
+
+  assert.equal(plans.length, 27, '계획·제도 원본 27건을 유지해야 합니다.');
+  assert.equal(organizations.length, 22, '기관·공동체 원본 22곳을 유지해야 합니다.');
+  assert.equal(new Set(plans.map((plan) => plan.id)).size, plans.length, '계획 원본 ID가 누락·중복되면 안 됩니다.');
+  assert.equal(new Set(organizations.map((organization) => organization.id)).size, organizations.length, '기관 원본 ID가 누락·중복되면 안 됩니다.');
+
+  assert.match(workspace, /const plans = rowsOf\(institutionData, ['"]plans['"]\)/);
+  assert.match(workspace, /const organizations = rowsOf\(institutionData, ['"]organizations['"]\)/);
+  assert.match(workspace, /plans\.forEach\(\(plan\) =>/, '계획 그룹은 원본 계획을 전량 순회해야 합니다.');
+  assert.match(workspace, /planGroups\.map\([\s\S]{0,900}?rows\.map\(\(plan\) => <PlanAccordion\b/, '그룹 안의 모든 계획을 카드로 렌더해야 합니다.');
+  assert.match(workspace, /organizationGroups\.map\([\s\S]{0,900}?rows\.map\(\(organization\) => <OrganizationAccordion\b/, '그룹 안의 모든 기관을 카드로 렌더해야 합니다.');
+  assert.match(workspace, /계획·제도 \{plans\.length\}건/);
+  assert.match(workspace, /공동체·활동 기록 · \{organizations\.length\}곳/);
+
+  for (const label of ['공간범위', '시행일', '상태', '적용 후보', '확인일', '핵심 내용', '송현 영향', '추가 확인', '관련 공간 지도']) {
+    assert.ok(planAccordion.includes(label), `계획 원문 상세 항목을 유지해야 합니다: ${label}`);
+  }
+  for (const label of ['확인 역할', '연결 가능성', '활동 요약', '확인일', '근거', '확인된 활동', '활동 원문']) {
+    assert.ok(organizationAccordion.includes(label), `기관 원문 상세 항목을 유지해야 합니다: ${label}`);
+  }
+  assert.match(workspace, /insights\.map\(\(insight\) => <article\b/, '판단 인사이트 원문을 계속 전량 렌더해야 합니다.');
+  assert.match(workspace, /strategies\.map\(\(strategy\) => <article\b/, '권역 전략 원문을 계속 전량 렌더해야 합니다.');
+  assert.match(workspace, /\{mapPlan && <RelatedSpaceDialog\b/, '관련 공간 지도 상호작용을 유지해야 합니다.');
+});
+
 test('계획 카드 요약은 위치·면적·구역을 제목 아래에 표시하고 기존 최하단 설명은 숨긴다', async () => {
   const governance = await read('src/components/map-activities/SonghyeonMarketGovernanceViews.jsx');
   const planAccordion = governance.match(/function PlanAccordion\b[\s\S]*?(?=\nfunction OrganizationAccordion\b)/)?.[0] || '';

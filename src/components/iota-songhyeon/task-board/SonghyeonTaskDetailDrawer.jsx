@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
 import {
   addComment,
@@ -95,7 +95,7 @@ function InlineDiscussionEditor({ label, value, originalValue, onChange, onSave,
   );
 }
 
-export default function SonghyeonTaskDetailDrawer({ task, onClose, onSaved, canArchive = false, onArchiveRequest }) {
+export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropClick, onSaved, canArchive = false, onArchiveRequest }) {
   const { user, member, isReadOnly } = useSonghyeonAuth();
   const [editorOpen, setEditorOpen] = useState(false);
   const [workflowTargetStatus, setWorkflowTargetStatus] = useState('');
@@ -110,6 +110,8 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onSaved, canA
   const [discussionEdit, setDiscussionEdit] = useState(null);
   const [editText, setEditText] = useState('');
   const [pendingEdit, setPendingEdit] = useState('');
+  const contentRef = useRef(null);
+  const taskSourceKey = task?.sourceKey;
 
   const [repositoryError, setRepositoryError] = useState('');
   const actor = { userId: user?.id, email: user?.email, name: member?.staff_name || user?.email || '송현 BID TF' };
@@ -117,14 +119,29 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onSaved, canA
 
 
   useEffect(() => {
-    if (!task) return;
+    if (!taskSourceKey) return undefined;
+    let active = true;
+    setComments([]);
+    setActivity([]);
+    setCommentText('');
+    setExpandedComments({});
+    setReplyText({});
+    setRepositoryError('');
     setDiscussionEdit(null);
     setEditText('');
     setPendingEdit('');
-    Promise.all([loadComments(task.sourceKey), loadActivity(task.sourceKey)])
-      .then(([nextComments, nextActivity]) => { setComments(nextComments); setActivity(nextActivity); })
-      .catch((error) => setRepositoryError(error.message || '협업 기록을 불러오지 못했습니다.'));
-  }, [task]);
+    contentRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+    Promise.all([loadComments(taskSourceKey), loadActivity(taskSourceKey)])
+      .then(([nextComments, nextActivity]) => {
+        if (!active) return;
+        setComments(nextComments);
+        setActivity(nextActivity);
+      })
+      .catch((error) => {
+        if (active) setRepositoryError(error.message || '협업 기록을 불러오지 못했습니다.');
+      });
+    return () => { active = false; };
+  }, [taskSourceKey]);
   useEffect(() => {
     if (!task || isReadOnly) return undefined;
     let refreshTimer;
@@ -265,7 +282,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onSaved, canA
 
   return (
     <div className="fixed inset-0 z-[100000] overflow-hidden pointer-events-none" data-task-detail-overlay data-pmo-task-detail-overlay>
-      <button type="button" aria-label="업무 상세 닫기" onClick={onClose} className="absolute inset-0 bg-black/10 pointer-events-auto" />
+      <button type="button" aria-label="업무 상세 닫기" onClick={onBackdropClick || onClose} className="absolute inset-0 bg-black/10 pointer-events-auto" />
       <aside data-task-detail-drawer data-pmo-task-detail-drawer className="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-auto">
         <div className="w-screen max-w-[550px] transform transition-transform duration-300 ease-in-out flex h-full flex-col border-l border-[#3c3c3c]/80 bg-[#1c1c1e]/95 text-white shadow-2xl backdrop-blur-xl">
           <header className="sticky top-0 z-20 flex items-center justify-between border-b border-[#3c3c3c]/80 bg-[#1c1c1e]/90 px-[10px] py-[7px]">
@@ -273,7 +290,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onSaved, canA
             <button type="button" onClick={onClose} aria-label="업무 상세 닫기" className="grid h-9 w-9 cursor-pointer place-items-center rounded-full text-[20px] font-bold text-[#86868B] hover:bg-white/5 hover:text-white">✕</button>
           </header>
 
-          <div className="timeline-scrollbar flex-1 space-y-[10px] overflow-y-auto px-[10px] py-6">
+          <div ref={contentRef} className="timeline-scrollbar flex-1 space-y-[10px] overflow-y-auto px-[10px] py-6">
             {repositoryError && <div role="alert" className="rounded-[10px] border border-[#ff453a]/25 bg-[#ff453a]/10 px-3 py-2 text-[12px] text-[#ff8a82]">{repositoryError}</div>}
             <div className="relative top-[-6px] space-y-1 pl-[16px]">
               <h2 className="text-[22px] font-bold leading-snug text-[#bdbba7]">{task.taskName}</h2>

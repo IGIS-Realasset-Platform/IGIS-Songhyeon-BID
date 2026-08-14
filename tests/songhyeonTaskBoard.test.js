@@ -330,6 +330,37 @@ test('독립 통합업무보드는 IOTA 원본의 행 클릭·550px 상세 drawe
   assert.match(drawer, /commentText/);
 });
 
+test('상세 drawer가 열린 동안 다른 업무 행은 상세를 즉시 교체하고 일반 backdrop은 기존처럼 닫는다', async () => {
+  const board = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskBoard.jsx', 'utf8');
+  const drawer = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskDetailDrawer.jsx', 'utf8');
+
+  const openTaskStart = board.indexOf('const openTask =');
+  const openTaskEnd = board.indexOf('\n  const closeTask =', openTaskStart);
+  assert.ok(openTaskStart >= 0 && openTaskEnd > openTaskStart, '업무 상세 열기 handler를 찾을 수 없습니다.');
+  const openTaskBlock = board.slice(openTaskStart, openTaskEnd);
+  assert.match(openTaskBlock, /setSelectedTask\(task\)/, '다른 행을 클릭하면 selectedTask를 해당 업무로 즉시 교체해야 합니다.');
+
+  const backdropHandlerStart = board.indexOf('const handleTaskDetailBackdropClick =');
+  const backdropHandlerEnd = board.indexOf('\n  }, [closeTask, openTask, tasks]);', backdropHandlerStart);
+  assert.ok(backdropHandlerStart >= 0 && backdropHandlerEnd > backdropHandlerStart, '상세 backdrop 클릭 handler를 찾을 수 없습니다.');
+  const backdropHandler = board.slice(backdropHandlerStart, backdropHandlerEnd);
+
+  assert.match(backdropHandler, /document\.elementsFromPoint\(event\.clientX,\s*event\.clientY\)/, 'backdrop 뒤의 실제 클릭 위치를 조회해야 합니다.');
+  assert.match(backdropHandler, /\.closest\??\.\(\s*['"]\[data-task-board-row\]['"]\s*\)/, '클릭 좌표 아래의 통합업무 행을 찾아야 합니다.');
+  assert.match(backdropHandler, /\.dataset\.taskKey/, '행의 data-task-key로 교체할 업무를 식별해야 합니다.');
+  assert.match(backdropHandler, /tasks\.find\(\(task\) => task\.sourceKey === (?:taskKey|row\.dataset\.taskKey)\)/, 'data-task-key와 일치하는 업무를 현재 원장에서 찾아야 합니다.');
+  assert.match(backdropHandler, /if \(nextTask\) \{[\s\S]*?openTask\(nextTask\);[\s\S]*?return;[\s\S]*?\}[\s\S]*?closeTask\(\)/, '업무 행이면 drawer를 닫지 않고 해당 상세로 교체하며, 일반 backdrop일 때만 닫아야 합니다.');
+
+  assert.match(board, /data-task-board-row[^\n]*data-task-key=\{task\.sourceKey\}[^\n]*onClick=\{\(\) => openTask\(task\)\}/, '기본 행 클릭도 openTask 경로를 유지해야 합니다.');
+  const drawerMount = board.match(/\{selectedTask && <SonghyeonTaskDetailDrawer\b[^>]*\/>\}/)?.[0] || '';
+  assert.ok(drawerMount, '선택된 업무 상세 drawer 렌더를 찾을 수 없습니다.');
+  assert.match(drawerMount, /\btask=\{selectedTask\}/, '교체된 selectedTask를 drawer에 바로 렌더해야 합니다.');
+  assert.match(drawerMount, /\bkey=\{selectedTask\.sourceKey\}/, '교체된 sourceKey로 drawer를 재생성해 이전 업무의 비동기 상태가 새 상세를 덮지 않게 해야 합니다.');
+  assert.match(drawerMount, /\bonBackdropClick=\{handleTaskDetailBackdropClick\}/, '보드의 backdrop 분기를 drawer에 연결해야 합니다.');
+  assert.match(drawer, /onBackdropClick/);
+  assert.match(drawer, /aria-label="업무 상세 닫기"[^>]*onClick=\{onBackdropClick \|\| onClose\}/, '일반 backdrop 클릭은 기존 onClose를 fallback으로 유지해야 합니다.');
+});
+
 test('상세 댓글은 IOTA WorkspaceActivityLog 카드·작성창 UI를 이식하고 데이터는 송현 원장만 사용한다', async () => {
   const drawer = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskDetailDrawer.jsx', 'utf8');
   const repository = await readFile('src/lib/songhyeonTaskRepository.js', 'utf8');

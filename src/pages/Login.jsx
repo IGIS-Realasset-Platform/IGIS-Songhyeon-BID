@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import { songhyeonSupabase } from '../lib/songhyeonSupabase';
 
@@ -27,8 +27,7 @@ export default function Login() {
   const [mounted, setMounted] = useState(false);
   const passwordInputRef = useRef(null);
   const navigate = useNavigate();
-  const location = useLocation();
-  const postLoginPath = location.state?.from && location.state.from !== '/' ? location.state.from : '/tasks';
+  const postLoginPath = '/tasks';
 
   useEffect(() => { const timer = setTimeout(() => setMounted(true), 100); return () => clearTimeout(timer); }, []);
   useEffect(() => { if (step === 2) passwordInputRef.current?.focus(); }, [step]);

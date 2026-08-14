@@ -23,33 +23,48 @@ test('송현 앱은 로그인 라우트와 인증 보호 경계를 가진다', a
   assert.match(main, /SonghyeonAuthProvider/);
 });
 
-test('송현 멤버·게스트 로그인과 인증된 login 재진입의 기본 목적지는 통합업무보드다', async () => {
+test('송현 로그인·재로그인·게스트·인증된 login 재진입은 이전 경로를 복원하지 않고 항상 통합업무보드로 간다', async () => {
   const login = await read('src/pages/Login.jsx');
 
+  assert.doesNotMatch(
+    login,
+    /location\.state\??\.?(?:from|returnTo)|(?:local|session)Storage[\s\S]{0,160}(?:last|path|route|redirect)/iu,
+    '로그인 화면은 location.state.from이나 저장된 마지막 경로를 로그인 목적지로 복원하면 안 됩니다.',
+  );
   assert.match(
     login,
-    /const\s+postLoginPath\s*=\s*location\.state\?\.from\s*&&\s*location\.state\.from\s*!==\s*['"]\/['"]\s*\?\s*location\.state\.from\s*:\s*['"]\/tasks['"]/u,
-    '기본 로그인 목적지는 /tasks이고, 보호된 상세 경로로부터 온 경우만 그 경로를 복원해야 합니다.',
+    /const\s+postLoginPath\s*=\s*['"]\/tasks['"]/u,
+    '모든 로그인 흐름의 공통 목적지는 /tasks로 고정해야 합니다.',
   );
   assert.match(
     login,
     /useEffect\([\s\S]{0,240}if \(user && member\) navigate\(postLoginPath,\s*\{ replace: true \}\)/u,
-    '이미 인증된 멤버가 /login에 진입하면 postLoginPath로 이동해야 합니다.',
+    '이미 인증된 멤버가 /login에 진입하면 항상 /tasks로 이동해야 합니다.',
   );
   assert.match(
     login,
     /if \(user && member\) return <Navigate\s+to=\{postLoginPath\}\s+replace\s*\/>/u,
-    '인증 상태의 즉시 redirect도 postLoginPath를 써야 합니다.',
+    '인증 상태의 즉시 redirect도 항상 /tasks를 써야 합니다.',
   );
   assert.match(
     login,
     /const proceedLogin[\s\S]{0,640}window\.location\.assign\(postLoginPath\)/u,
-    '정상 로그인 성공 후 첫 진입 페이지는 /tasks여야 합니다.',
+    '로그인과 로그아웃 후 재로그인 성공 목적지는 항상 /tasks여야 합니다.',
   );
   assert.match(
     login,
     /const browseAsGuest[\s\S]{0,320}await enterGuestMode\(\)[\s\S]{0,120}navigate\(postLoginPath,\s*\{ replace: true \}\)/u,
-    '게스트도 직접 로그인 화면이나 루트에서 /tasks로 이동하고, 보호된 상세 경로의 from은 보존해야 합니다.',
+    '게스트 진입도 이전 경로와 무관하게 항상 /tasks로 이동해야 합니다.',
+  );
+  assert.match(
+    login,
+    /const handleChangePasswordSubmit[\s\S]{0,960}window\.location\.assign\(['"]\/tasks['"]\)/u,
+    '패스워드 변경 후 재접속도 항상 /tasks로 이동해야 합니다.',
+  );
+  assert.match(
+    login,
+    /const handleRecoveryPasswordSubmit[\s\S]{0,640}window\.location\.assign\(['"]\/tasks['"]\)/u,
+    '패스워드 복구 후 재접속도 항상 /tasks로 이동해야 합니다.',
   );
 });
 

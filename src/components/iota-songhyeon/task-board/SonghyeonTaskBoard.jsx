@@ -166,6 +166,19 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
     url.searchParams.delete('task');
     window.history.replaceState({}, '', `${url.pathname}${url.search}`);
   }, []);
+  const handleTaskDetailBackdropClick = useCallback((event) => {
+    const row = document.elementsFromPoint(event.clientX, event.clientY)
+      .map((element) => element.closest?.('[data-task-board-row]'))
+      .find(Boolean);
+    const nextTask = row?.dataset.taskKey
+      ? tasks.find((task) => task.sourceKey === row.dataset.taskKey)
+      : null;
+    if (nextTask) {
+      openTask(nextTask);
+      return;
+    }
+    closeTask();
+  }, [closeTask, openTask, tasks]);
 
   useEffect(() => {
     let active = true;
@@ -410,7 +423,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
         </div>
         {totalPages > 1 && <div className="flex h-[46px] w-full select-none items-center justify-center rounded-b-[24px] border-t border-[#3c3c3c]/50 bg-[#272726]"><div className="flex items-center gap-1"><button type="button" disabled={visiblePage === 1} onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))} className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] border border-[#3c3c3c] text-[#86868B] hover:bg-white/5 hover:text-white disabled:cursor-not-allowed disabled:opacity-30">‹</button>{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => setCurrentPage(page)} className={`h-7 w-7 cursor-pointer rounded-[6px] text-[12px] font-bold ${page === visiblePage ? 'bg-[#bdbba7] text-black shadow-sm' : 'border border-transparent text-[#86868B] hover:border-[#3c3c3c] hover:bg-white/5 hover:text-white'}`}>{page}</button>)}<button type="button" disabled={visiblePage === totalPages} onClick={() => setCurrentPage((page) => Math.min(page + 1, totalPages))} className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] border border-[#3c3c3c] text-[#86868B] hover:bg-white/5 hover:text-white disabled:cursor-not-allowed disabled:opacity-30">›</button></div></div>}
       </div>
-      {selectedTask && <SonghyeonTaskDetailDrawer task={selectedTask} onClose={closeTask} onSaved={replaceTask} canArchive={canCreateAndArchive} onArchiveRequest={requestArchive} />}
+      {selectedTask && <SonghyeonTaskDetailDrawer key={selectedTask.sourceKey} task={selectedTask} onClose={closeTask} onBackdropClick={handleTaskDetailBackdropClick} onSaved={replaceTask} canArchive={canCreateAndArchive} onArchiveRequest={requestArchive} />}
       {isEditorOpen && canCreateAndArchive && <SonghyeonTaskEditorModal onClose={() => setIsEditorOpen(false)} onCreated={(created) => { setTasks((current) => [...current, created]); setIsEditorOpen(false); openTask(created); }} />}
       {workflowTask && !isReadOnly && <SonghyeonTaskWorkflowModal task={workflowTask} onClose={() => setWorkflowTask(null)} onSaved={async (updated) => { replaceTask(updated); setWorkflowTask(null); }} />}
       {archiveTarget && canCreateAndArchive && (
