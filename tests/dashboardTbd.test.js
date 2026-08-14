@@ -10,6 +10,8 @@ test('홈은 기존 대시보드 콘텐츠 없이 화면 중앙에 TBD만 표시
     /(?:\bgrid\b[^"'\n]*\bplace-items-center\b|\bflex\b[^"'\n]*\bitems-center\b[^"'\n]*\bjustify-center\b|\bflex\b[^"'\n]*\bjustify-center\b[^"'\n]*\bitems-center\b)/u.test(dashboard),
     '홈의 TBD는 가로·세로 중앙 정렬돼야 합니다.',
   );
+  assert.match(dashboard, /\bbg-\[#1F1F1E\]/u, '홈은 송현 워크스페이스 배경색을 직접 사용해야 합니다.');
+  assert.doesNotMatch(dashboard, /\bbg-(?:white\b|\[#F3F4F6\]|\[#FDFDFD\])/u, '홈에 흰색·밝은 회색 배경을 사용하면 안 됩니다.');
 
   for (const removedContent of [
     'ProjectContext',

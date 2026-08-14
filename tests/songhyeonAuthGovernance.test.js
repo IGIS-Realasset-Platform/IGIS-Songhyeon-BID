@@ -23,6 +23,31 @@ test('송현 앱은 로그인 라우트와 인증 보호 경계를 가진다', a
   assert.match(main, /SonghyeonAuthProvider/);
 });
 
+test('송현 멤버 로그인과 인증된 login 재진입의 기본 목적지는 통합업무보드다', async () => {
+  const login = await read('src/pages/Login.jsx');
+
+  assert.match(
+    login,
+    /const\s+postLoginPath\s*=\s*location\.state\?\.from\s*&&\s*location\.state\.from\s*!==\s*['"]\/['"]\s*\?\s*location\.state\.from\s*:\s*['"]\/tasks['"]/u,
+    '기본 로그인 목적지는 /tasks이고, 보호된 상세 경로로부터 온 경우만 그 경로를 복원해야 합니다.',
+  );
+  assert.match(
+    login,
+    /useEffect\([\s\S]{0,240}if \(user && member\) navigate\(postLoginPath,\s*\{ replace: true \}\)/u,
+    '이미 인증된 멤버가 /login에 진입하면 postLoginPath로 이동해야 합니다.',
+  );
+  assert.match(
+    login,
+    /if \(user && member\) return <Navigate\s+to=\{postLoginPath\}\s+replace\s*\/>/u,
+    '인증 상태의 즉시 redirect도 postLoginPath를 써야 합니다.',
+  );
+  assert.match(
+    login,
+    /const proceedLogin[\s\S]{0,640}window\.location\.assign\(postLoginPath\)/u,
+    '정상 로그인 성공 후 첫 진입 페이지는 /tasks여야 합니다.',
+  );
+});
+
 test('로그인 첫 화면은 IOTA AuthSetup 원문과 단계형 UI를 그대로 사용한다', async () => {
   const login = await read('src/pages/Login.jsx');
   assert.match(login, /IFPDP 소개/);

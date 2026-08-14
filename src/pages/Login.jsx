@@ -28,12 +28,13 @@ export default function Login() {
   const passwordInputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const postLoginPath = location.state?.from && location.state.from !== '/' ? location.state.from : '/tasks';
 
   useEffect(() => { const timer = setTimeout(() => setMounted(true), 100); return () => clearTimeout(timer); }, []);
   useEffect(() => { if (step === 2) passwordInputRef.current?.focus(); }, [step]);
 
-  useEffect(() => { if (user && member) navigate(location.state?.from || '/', { replace: true }); }, [user, member, navigate, location.state]);
-  if (user && member) return <Navigate to={location.state?.from || '/'} replace />;
+  useEffect(() => { if (user && member) navigate(postLoginPath, { replace: true }); }, [user, member, navigate, postLoginPath]);
+  if (user && member) return <Navigate to={postLoginPath} replace />;
 
   const clearMessages = () => { setErrorMessage(''); setNoticeMessage(''); };
   const fail = (message) => { setErrorMessage(message); setBusy(false); };
@@ -62,7 +63,7 @@ export default function Login() {
     if (error) return fail('로그인 실패: 패스워드를 확인해주세요.');
     await recordLogin(data.user);
     setBusy(false);
-    window.location.assign(location.state?.from || '/');
+    window.location.assign(postLoginPath);
   };
 
   const browseAsGuest = async () => {
@@ -94,7 +95,7 @@ export default function Login() {
     if (updateError) return fail('패스워드 변경 실패: ' + updateError.message);
     await recordLogin(data.user);
     setBusy(false); setNoticeMessage('패스워드가 성공적으로 변경되었습니다.');
-    setTimeout(() => window.location.assign('/'), 700);
+    setTimeout(() => window.location.assign('/tasks'), 700);
   };
 
   const handleResetEmailSubmit = async (event) => {
@@ -114,7 +115,7 @@ export default function Login() {
     setBusy(false);
     if (error) return fail('패스워드 변경 실패: ' + error.message);
     setRecoveryMode(false); setNoticeMessage('패스워드가 성공적으로 변경되었습니다.');
-    setTimeout(() => window.location.assign('/'), 700);
+    setTimeout(() => window.location.assign('/tasks'), 700);
   };
 
   const inputClass = 'w-full bg-white dark:bg-[#262626] text-[#111] dark:text-white placeholder-gray-400 dark:placeholder-[#737373] text-[15px] px-4 py-3.5 rounded-[16px] border border-black/10 dark:border-[#3A3A3A] focus:outline-none focus:border-[#111] dark:focus:border-[#666] transition-colors duration-300';
