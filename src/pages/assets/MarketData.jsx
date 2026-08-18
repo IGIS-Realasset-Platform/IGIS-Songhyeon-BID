@@ -78,7 +78,7 @@ export default function MarketData() {
   ];
 
   return (
-    <div className="animate-fade-in pb-16">
+    <div className="songhyeon-reference-dark animate-fade-in pb-16">
       {/* Header Area */}
       <div className="mb-8">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-4">입지분석 및 시장 데이터</h1>
@@ -311,4 +311,3 @@ export default function MarketData() {
     </div>
   );
 }
-

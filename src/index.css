@@ -641,3 +641,103 @@ div.bg-\[\#fdfdfd\],
 .workspace-shell .map-layer-item.map-boundary-option {
     font-size: 10px !important;
 }
+
+.songhyeon-reference-dark {
+    min-height: 100%;
+    background-color: #1F1F1E;
+    color: #E5E5E5;
+}
+
+/* Assets and BID reference pages: translate their legacy light utilities into
+   the Songhyeon black workspace palette without affecting other routes. */
+.songhyeon-reference-dark .bg-white {
+    background-color: #272726 !important;
+}
+
+.songhyeon-reference-dark .bg-gray-50,
+.songhyeon-reference-dark .bg-\[\#f8f9fa\],
+.songhyeon-reference-dark .bg-\[\#fafafa\] {
+    background-color: #242424 !important;
+}
+
+.songhyeon-reference-dark .bg-gray-100,
+.songhyeon-reference-dark .bg-gray-200,
+.songhyeon-reference-dark .bg-\[\#f3f4f6\] {
+    background-color: #2C2C2E !important;
+}
+
+.songhyeon-reference-dark .bg-\[\#eff6ff\],
+.songhyeon-reference-dark .hover\:bg-\[\#dbeafe\]:hover,
+.songhyeon-reference-dark .hover\:bg-blue-50:hover {
+    background-color: #202A36 !important;
+}
+
+.songhyeon-reference-dark .hover\:bg-\[\#e5e7eb\]:hover,
+.songhyeon-reference-dark .hover\:bg-gray-100:hover,
+.songhyeon-reference-dark .hover\:bg-gray-50:hover {
+    background-color: #30302F !important;
+}
+
+.songhyeon-reference-dark .bg-green-100 {
+    background-color: rgba(48, 209, 88, 0.14) !important;
+}
+
+.songhyeon-reference-dark .bg-orange-100,
+.songhyeon-reference-dark .bg-yellow-50 {
+    background-color: rgba(255, 159, 10, 0.14) !important;
+}
+
+.songhyeon-reference-dark .bg-purple-100 {
+    background-color: rgba(191, 90, 242, 0.14) !important;
+}
+
+.songhyeon-reference-dark .text-black,
+.songhyeon-reference-dark .text-gray-900,
+.songhyeon-reference-dark .text-gray-800,
+.songhyeon-reference-dark .text-\[\#111\],
+.songhyeon-reference-dark .text-\[\#172033\],
+.songhyeon-reference-dark .text-\[\#172033\]\/80 {
+    color: #E5E5E5 !important;
+}
+
+.songhyeon-reference-dark .text-gray-700 {
+    color: #BBB9AF !important;
+}
+
+.songhyeon-reference-dark .text-gray-600,
+.songhyeon-reference-dark .text-gray-500 {
+    color: #86868B !important;
+}
+
+.songhyeon-reference-dark .text-blue-600,
+.songhyeon-reference-dark .text-\[\#1d4ed8\],
+.songhyeon-reference-dark .text-\[\#1e3a8a\] {
+    color: #9CC4E6 !important;
+}
+
+.songhyeon-reference-dark .text-green-800 {
+    color: #74D891 !important;
+}
+
+.songhyeon-reference-dark .text-orange-800 {
+    color: #FFB65A !important;
+}
+
+.songhyeon-reference-dark .text-purple-800 {
+    color: #D79AFF !important;
+}
+
+.songhyeon-reference-dark .border-gray-100,
+.songhyeon-reference-dark .border-gray-200,
+.songhyeon-reference-dark .border-gray-300,
+.songhyeon-reference-dark .border-gray-400,
+.songhyeon-reference-dark .border-\[\#bfdbfe\],
+.songhyeon-reference-dark .border-yellow-300,
+.songhyeon-reference-dark .group-hover\:border-gray-200:hover {
+    border-color: #3C3C3C !important;
+}
+
+.songhyeon-reference-dark .divide-gray-100 > :not(:last-child),
+.songhyeon-reference-dark .divide-gray-200 > :not(:last-child) {
+    border-color: #3C3C3C !important;
+}

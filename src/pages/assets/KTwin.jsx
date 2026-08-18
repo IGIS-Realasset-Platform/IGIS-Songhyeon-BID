@@ -37,7 +37,7 @@ export default function KTwin() {
 
   return (
     <>
-    <div className="animate-fade-in pb-16">
+    <div className="songhyeon-reference-dark animate-fade-in pb-16">
       {/* Header Area */}
       <div className="mb-6 flex justify-between items-end">
         <div>
@@ -873,4 +873,3 @@ export default function KTwin() {
     </>
   );
 }
-

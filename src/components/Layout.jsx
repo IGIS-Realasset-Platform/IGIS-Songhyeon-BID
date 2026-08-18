@@ -144,7 +144,8 @@ function Section({ label, items, open, setOpen, collapsed }) {
 export default function Layout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname.startsWith('/feed/') || pathname === '/data' || pathname.startsWith('/data/') || pathname.startsWith('/governance') || pathname.startsWith('/admin');
+  const isReferenceDarkWorkspace = pathname.startsWith('/assets') || pathname.startsWith('/cases');
+  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname.startsWith('/feed/') || pathname === '/data' || pathname.startsWith('/data/') || pathname.startsWith('/governance') || pathname.startsWith('/admin') || pathname.startsWith('/assets') || pathname.startsWith('/cases');
   const { user, member, isGuest, isAdmin, exitGuestMode, signOut, updatePassword } = useSonghyeonAuth();
   const mainRef = useRef(null);
   const [collapsed, setCollapsed] = useState(false);
@@ -317,7 +318,7 @@ export default function Layout() {
 
       <main ref={mainRef} className={`min-w-0 flex-1 overflow-x-hidden ${mapActivitiesActive ? 'overflow-hidden' : 'overflow-y-auto'} ${isDarkWorkspace ? 'bg-[#1F1F1E]' : 'bg-[#F3F4F6]'}`}>
         {isDarkWorkspace ? (
-          <div className={`${mapActivitiesActive ? 'h-full min-h-0' : 'min-h-full'} min-w-0 w-full ${pathname.startsWith('/governance') ? 'workspace-content px-[60px] pt-[8px]' : ''}`}><Outlet /></div>
+          <div className={`${mapActivitiesActive ? 'h-full min-h-0' : 'min-h-full'} min-w-0 w-full ${pathname.startsWith('/governance') ? 'workspace-content px-[60px] pt-[8px]' : ''} ${isReferenceDarkWorkspace ? 'mx-auto max-w-[1400px] px-10 py-10' : ''}`}><Outlet /></div>
         ) : (
           <div className="min-h-full w-full bg-white p-10 text-gray-900">
             <div className="mx-auto min-h-full w-full max-w-[1400px]"><Outlet /></div>

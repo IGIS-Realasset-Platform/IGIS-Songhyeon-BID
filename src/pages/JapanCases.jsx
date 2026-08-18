@@ -3,7 +3,7 @@ import { Map, TrendingUp, Building2, Repeat } from 'lucide-react';
 
 export default function JapanCases() {
   return (
-    <div className="animate-fade-in pb-16">
+    <div className="songhyeon-reference-dark animate-fade-in pb-16">
       {/* Header */}
       <div className="mb-10 border-b border-gray-900 pb-4">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-3">일본 (Tokyo Area Mgt) 핵심 사례 심층 분석</h1>
@@ -93,4 +93,3 @@ export default function JapanCases() {
     </div>
   );
 }
-

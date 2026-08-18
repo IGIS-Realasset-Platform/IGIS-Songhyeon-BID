@@ -3,7 +3,7 @@ import { ArrowRight, Landmark, TrendingUp, ShieldAlert, Building } from 'lucide-
 
 export default function UsCases() {
   return (
-    <div className="animate-fade-in pb-16">
+    <div className="songhyeon-reference-dark animate-fade-in pb-16">
       {/* Header */}
       <div className="mb-10 border-b border-gray-900 pb-4">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-3">미국 (New York BID) 핵심 사례 심층 분석</h1>
@@ -127,4 +127,3 @@ export default function UsCases() {
     </div>
   );
 }
-

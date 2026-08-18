@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function TwinTree() {
   return (
-    <div className="p-10">
+    <div className="songhyeon-reference-dark p-10">
       <header className="mb-10 pb-6 border-b border-gray-300">
         <div className="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-bold uppercase mb-4 rounded-sm">
           Core Asset & Amenity Hub

@@ -11,7 +11,7 @@ export default function AssetPortfolio() {
   ];
 
   return (
-    <div className="p-10">
+    <div className="songhyeon-reference-dark p-10">
       <header className="mb-10 pb-6 border-b border-gray-300">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Asset Portfolio</h1>
         <p className="text-sm text-gray-700 leading-relaxed">
