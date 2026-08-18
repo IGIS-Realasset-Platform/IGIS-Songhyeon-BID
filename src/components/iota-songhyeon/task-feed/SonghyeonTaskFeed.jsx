@@ -21,6 +21,7 @@ import {
 } from '../../../lib/songhyeonTaskFeedRepository';
 import SonghyeonReactionAvatarStack from '../task-board/SonghyeonReactionAvatarStack';
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
+import SonghyeonMemberAvatar from '../SonghyeonMemberAvatar';
 import SonghyeonTaskFeedWriteBox from './SonghyeonTaskFeedWriteBox';
 
 const SUMMARY_PAGE_SIZE = 5;
@@ -119,12 +120,12 @@ const priorityClass = (priority) => ({
 function Avatar({ profile, size = 'h-8 w-8' }) {
   const name = profile?.name || profile?.authorName || '사용자';
   const photo = profile?.photoPath || profile?.authorPhotoPath;
-  const baseUrl = import.meta.env.BASE_URL || '/';
-  const source = photo ? (/^(?:https?:|data:|blob:)/i.test(photo) ? photo : `${baseUrl}${String(photo).replace(/^\//, '')}`) : `${baseUrl}songhyeon-members/${encodeURIComponent(name)}.webp`;
   return (
-    <span className={`${size} grid shrink-0 place-items-center overflow-hidden rounded-full border border-[#444] bg-[#333] text-[11px] font-bold text-white`}>
-      <img src={source} alt="" className="h-full w-full rounded-full object-cover" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = `${baseUrl}default_avatar.svg`; }} />
-    </span>
+    <SonghyeonMemberAvatar
+      name={name}
+      photoPath={photo}
+      className={`${size} border border-[#444]`}
+    />
   );
 }
 

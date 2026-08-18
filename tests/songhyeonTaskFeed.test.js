@@ -15,6 +15,7 @@ const read = (path) => readFile(path, 'utf8');
 const PAGE_PATH = 'src/pages/TaskFeed.jsx';
 const FEED_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFeed.jsx';
 const WRITE_BOX_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFeedWriteBox.jsx';
+const MEMBER_AVATAR_PATH = 'src/components/iota-songhyeon/SonghyeonMemberAvatar.jsx';
 const REPOSITORY_PATH = 'src/lib/songhyeonTaskFeedRepository.js';
 const MIGRATION_PATH = 'supabase/migrations/202608180001_songhyeon_task_feed.sql';
 
@@ -165,6 +166,44 @@ test('좋아요·확인은 게시글과 댓글에서 사용자별 토글되고 �
   assert.match(`${feed}\n${repository}\n${migration}`, /post[\s\S]{0,500}comment|comment[\s\S]{0,500}post/i);
   assert.match(feed, /ReactionAvatarStack|reactionProfiles|reactors/);
   assert.match(migration, /unique[\s\S]{0,240}(?:reaction|kind)|unique[\s\S]{0,240}reactor/i);
+});
+
+test('피드 작성자·댓글·반응 프로필은 member photoPath를 잃지 않고 공용 송현 아바타를 사용한다', async () => {
+  const [feed, writeBox, repository, memberAvatar] = await Promise.all([
+    read(FEED_PATH),
+    read(WRITE_BOX_PATH),
+    read(REPOSITORY_PATH),
+    read(MEMBER_AVATAR_PATH),
+  ]);
+
+  assert.match(memberAvatar, /export\s+(?:const|function)\s+songhyeonMemberPhotoSource\b/);
+  assert.match(memberAvatar, /export\s+default\s+(?:function\s+)?SonghyeonMemberAvatar\b|export\s+default\s+SonghyeonMemberAvatar\b/);
+  assert.match(memberAvatar, /photoPath|photo_path/);
+  assert.match(memberAvatar, /songhyeon-members/);
+  assert.match(memberAvatar, /encodeURIComponent/);
+  const storedPhotoBranch = memberAvatar.search(/if\s*\(\s*(?:storedPath|photoPath)\s*\)/);
+  const namePhotoFallback = memberAvatar.indexOf('songhyeon-members');
+  assert.ok(storedPhotoBranch >= 0 && namePhotoFallback > storedPhotoBranch,
+    'DB photoPath를 이름 기반 public 이미지보다 먼저 선택해야 합니다.');
+  assert.match(memberAvatar, /onError/);
+  assert.match(memberAvatar, /set[A-Za-z]*(?:Failed|Error)|currentTarget\.style\.display\s*=\s*['"]none['"]/i);
+  assert.match(memberAvatar, /slice|substring/, '이미지 오류 시 표시할 이름 이니셜을 계산해야 합니다.');
+
+  for (const [source, label] of [[feed, '피드'], [writeBox, '작성창']]) {
+    assert.match(source, /import\s+SonghyeonMemberAvatar\s+from\s+['"][^'"]*SonghyeonMemberAvatar(?:\.jsx)?['"]/,
+      `${label}가 공용 아바타 컴포넌트를 가져와야 합니다.`);
+    assert.match(source, /<SonghyeonMemberAvatar\b/, `${label}가 공용 아바타 컴포넌트를 렌더링해야 합니다.`);
+  }
+
+  assert.match(repository, /photoPath:\s*row\[`\$\{prefix\}_photo_path`\]\s*\|\|\s*['"]{2}/,
+    '게시글·댓글·반응 공통 프로필 매핑에서 DB photo_path를 보존해야 합니다.');
+  assert.match(repository, /photoPath:\s*row\.photo_path/,
+    '작성폼 멤버 선택값에서도 DB photo_path를 보존해야 합니다.');
+  assert.match(feed, /authorPhotoPath:\s*valueOf\(post\.author\?\.photoPath/);
+  assert.match(feed, /photoPath:\s*entry\?\.photoPath\s*\|\|\s*entry\?\.photo_path/);
+  assert.match(feed, /comment\.author\?\.photoPath\s*\|\|\s*comment\.authorPhotoPath\s*\|\|\s*comment\.author_photo_path/);
+  assert.match(feed, /photoPath:\s*member\?\.photo_path\s*\|\|\s*['"]{2}/,
+    '현재 로그인 멤버의 실제 photo_path를 작성자 프로필에 전달해야 합니다.');
 });
 
 test('첨부파일은 게시글에만 연결하고 private bucket의 60초 signed URL로 내려받는다', async () => {

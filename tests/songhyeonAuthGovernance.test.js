@@ -106,6 +106,41 @@ test('송현 로그인은 IOTA 공통계정의 로그인·변경·분실·복구
   assert.doesNotMatch(login, /IOTA2026|SONGHYEON2026/);
 });
 
+test('좌측 하단 계정 카드는 프로필 사진·이름·이메일과 비밀번호 변경·문의·로그아웃을 제공한다', async () => {
+  const [layout, context, memberAvatar] = await Promise.all([
+    read('src/components/Layout.jsx'),
+    read('src/context/SonghyeonAuthContext.jsx'),
+    read('src/components/iota-songhyeon/SonghyeonMemberAvatar.jsx'),
+  ]);
+
+  assert.match(layout, /import\s+SonghyeonMemberAvatar\s+from\s+['"][^'"]*SonghyeonMemberAvatar(?:\.jsx)?['"]/);
+  assert.match(layout, /<SonghyeonMemberAvatar\b/);
+  assert.match(layout, /member\?\.staff_name/);
+  assert.match(layout, /user\?\.email/);
+  assert.match(layout, /member\?\.photo_path|member=\{member\}|profile=\{member\}/,
+    '로그인 멤버의 DB photo_path가 공용 아바타에 전달되어야 합니다.');
+  assert.match(memberAvatar, /songhyeonMemberPhotoSource/);
+  assert.match(memberAvatar, /photoPath|photo_path/);
+
+  for (const label of ['비밀번호 변경', '플랫폼 이용 문의', '로그아웃']) {
+    assert.match(layout, new RegExp(label), `계정 카드 액션 누락: ${label}`);
+  }
+  assert.match(layout, /showProfileMenu|profileMenuOpen/);
+  assert.match(layout, /setShowPasswordModal\(true\)|setPasswordModalOpen\(true\)/);
+  assert.match(layout, /setShowContactModal\(true\)|setContactModalOpen\(true\)/);
+  assert.match(layout, /setShowLogoutModal\(true\)|setLogoutModalOpen\(true\)/);
+  assert.match(layout, /updatePassword/);
+  assert.match(context, /updatePassword:\s*\(password\)\s*=>\s*songhyeonSupabase\.auth\.updateUser\(\{\s*password\s*\}\)/);
+  assert.match(layout, /await\s+updatePassword\(/);
+  assert.match(layout, /정말 로그아웃 하시겠습니까\?/);
+  assert.match(layout, /await\s+signOut\(\)/);
+  assert.match(layout, /jk\.jeon@igisam\.com/);
+  assert.match(layout, /010-9076-5369/);
+  assert.match(layout, /\{isGuest\s*\?\s*\(/);
+  assert.match(layout, /onClick=\{leaveGuestMode\}/);
+  assert.match(layout, />로그인<\/button>/);
+});
+
 test('송현 11명 전체 이메일이 승인 roster로 seed된다', async () => {
   const seed = await read('supabase/seed.sql');
   const emails = ['sjlee@igisam.com', 'kylee@igisam.com', 'jk.jeon@igisam.com', 'minjik@igisam.com', 'argoh@igisam.com', 'hyunsoo.kim@igisam.com', 'ghlee@igisam.com', 'smchung@igisam.com', 'subin.yim@igisam.com', 'chaemi.bang@igisam.com', 'jiwon.lee@igisam.com'];

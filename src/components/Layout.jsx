@@ -3,9 +3,11 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home, CalendarDays, Map, MapPinned, ListChecks, BarChart3,
   FolderOpen, MessageSquareText, ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen,
+  KeyRound, Mail, LogOut,
 } from 'lucide-react';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import SonghyeonPageViewTracker from './analytics/SonghyeonPageViewTracker';
+import SonghyeonMemberAvatar from './iota-songhyeon/SonghyeonMemberAvatar';
 
 const primaryItems = [
   { name: '홈', path: '/home', icon: Home },
@@ -143,12 +145,17 @@ export default function Layout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname === '/data' || pathname.startsWith('/governance') || pathname.startsWith('/admin');
-  const { user, member, isGuest, isAdmin, exitGuestMode, signOut } = useSonghyeonAuth();
+  const { user, member, isGuest, isAdmin, exitGuestMode, signOut, updatePassword } = useSonghyeonAuth();
   const mainRef = useRef(null);
   const [collapsed, setCollapsed] = useState(false);
   const [assetsOpen, setAssetsOpen] = useState(pathname.startsWith('/assets'));
   const [casesOpen, setCasesOpen] = useState(pathname.startsWith('/cases'));
   const [governanceOpen, setGovernanceOpen] = useState(pathname.startsWith('/milestones') || pathname.startsWith('/governance'));
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
   const mapActivitiesActive = pathname.startsWith('/map-activities');
 
   useLayoutEffect(() => {
@@ -161,6 +168,22 @@ export default function Layout() {
     exitGuestMode();
     navigate('/login');
   };
+
+  const handlePasswordChange = async () => {
+    try {
+      const { error } = await updatePassword(newPassword);
+      if (error) throw error;
+      window.alert('비밀번호가 성공적으로 변경되었습니다.');
+      setShowPasswordModal(false);
+      setNewPassword('');
+    } catch (error) {
+      window.alert(`비밀번호 변경 실패: ${error?.message || '다시 시도해 주세요.'}`);
+    }
+  };
+
+  const profileTitle = member?.staff_name
+    ? `${member.staff_name}${member.title ? ` ${member.title}` : ''}`
+    : '로그인 필요';
 
   return (
     <div className={`${mapActivitiesActive ? 'min-w-0' : 'min-w-[1280px]'} flex h-screen overflow-hidden bg-[#1F1F1E] font-sans text-[#E5E5E5]`}>
@@ -202,13 +225,94 @@ export default function Layout() {
           </div>
         )}
 
-        <div className={`border-t border-[#3A3A3C] ${collapsed ? 'p-2' : 'px-[15px] py-3'}`}>
-          <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-3'} rounded-lg p-1.5 hover:bg-white/5`}>
-            <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border text-[11px] font-bold ${isGuest ? 'border-[#6f9fc7]/35 bg-[#6f9fc7]/10 text-[#9cc4e6]' : 'border-[#3A3A3C] bg-[#2C2C2E] text-white'}`}>{isGuest ? 'G' : member?.staff_name?.slice(-2) || 'BID'}</span>
-            {!collapsed && <div className="min-w-0 flex-1"><div className="flex items-center gap-1.5"><div className="truncate text-[13px] font-semibold text-white">{isGuest ? '게스트' : member?.staff_name || '송현 BID TF'}</div>{isGuest && <span className="shrink-0 rounded-[4px] border border-[#6f9fc7]/30 bg-[#6f9fc7]/10 px-1.5 py-0.5 text-[9px] font-bold text-[#9cc4e6]">읽기 전용</span>}</div><div className="mt-0.5 truncate text-[11px] text-[#86868B]">{isGuest ? '로그인 없이 둘러보는 중' : user?.email || '실행관리 Data Room'}</div></div>}
-            {!collapsed && (isGuest ? <button type="button" onClick={leaveGuestMode} className="cursor-pointer text-[11px] font-bold text-[#9cc4e6] hover:text-white">로그인</button> : <button type="button" onClick={signOut} className="cursor-pointer text-[11px] text-[#86868B] hover:text-[#FF453A]">로그아웃</button>)}
+        {isGuest ? (
+          <div className={`border-t border-[#3A3A3C] ${collapsed ? 'p-2' : 'px-[15px] py-3'}`}>
+            <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-3'} rounded-lg p-1.5 hover:bg-white/5`}>
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[#6f9fc7]/35 bg-[#6f9fc7]/10 text-[11px] font-bold text-[#9cc4e6]">G</span>
+              {!collapsed && <div className="min-w-0 flex-1"><div className="flex items-center gap-1.5"><div className="truncate text-[13px] font-semibold text-white">게스트</div><span className="shrink-0 rounded-[4px] border border-[#6f9fc7]/30 bg-[#6f9fc7]/10 px-1.5 py-0.5 text-[9px] font-bold text-[#9cc4e6]">읽기 전용</span></div><div className="mt-0.5 truncate text-[11px] text-[#86868B]">로그인 없이 둘러보는 중</div></div>}
+              {!collapsed && <button type="button" onClick={leaveGuestMode} className="cursor-pointer text-[11px] font-bold text-[#9cc4e6] hover:text-white">로그인</button>}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="relative mt-auto shrink-0">
+            {showProfileMenu && (
+              <>
+                <button type="button" aria-label="프로필 메뉴 닫기" className="fixed inset-0 z-40 cursor-default" onClick={() => setShowProfileMenu(false)} />
+                <div className={`absolute bottom-full z-50 mb-2 w-[258px] rounded-[16px] border border-[#3A3A3C] bg-[#2C2C2E] py-2 shadow-lg ${collapsed ? 'left-[8px]' : 'left-1/2 -translate-x-1/2'}`}>
+                  <button type="button" onClick={() => { setShowProfileMenu(false); setShowPasswordModal(true); }} className="flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left text-[14px] font-medium text-[#E5E5E5] transition-colors hover:bg-[#3A3A3C]">
+                    <KeyRound size={16} className="text-[#A1A1AA]" />비밀번호 변경
+                  </button>
+                  <button type="button" onClick={() => { setShowProfileMenu(false); setShowContactModal(true); }} className="flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left text-[14px] font-medium text-[#E5E5E5] transition-colors hover:bg-[#3A3A3C]">
+                    <Mail size={16} className="text-[#A1A1AA]" />플랫폼 이용 문의
+                  </button>
+                  <div className="my-1 border-t border-white/5" />
+                  <button type="button" onClick={() => { setShowProfileMenu(false); setShowLogoutModal(true); }} className="flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left text-[14px] font-medium text-[#FF453A] transition-colors hover:bg-red-500/10">
+                    <LogOut size={16} />로그아웃
+                  </button>
+                </div>
+              </>
+            )}
+
+            <div className={`relative transition-[height] duration-300 ease-out ${collapsed ? 'h-[64px]' : 'h-[74px]'}`}>
+              {collapsed ? (
+                <button type="button" onClick={() => setShowProfileMenu(!showProfileMenu)} aria-label="프로필 메뉴 열기" title={profileTitle} className="absolute inset-x-0 bottom-0 flex w-full cursor-pointer items-center justify-center border-t border-[#3A3A3C] py-3 transition-colors hover:bg-white/5">
+                  <SonghyeonMemberAvatar name={member?.staff_name} photoPath={member?.photo_path} className="h-10 w-10 border border-white/10" />
+                </button>
+              ) : (
+                <button type="button" onClick={() => setShowProfileMenu(!showProfileMenu)} className="absolute bottom-0 left-0 flex w-[275px] cursor-pointer items-center justify-between border-t border-[#3A3A3C] py-3 pl-[15px] pr-[17px] text-left transition-colors hover:bg-white/5">
+                  <span className="flex min-w-0 items-center gap-3 rounded-lg p-1.5 -ml-1.5">
+                    <SonghyeonMemberAvatar name={member?.staff_name} photoPath={member?.photo_path} className="h-10 w-10 border border-white/10" />
+                    <span className="flex min-w-0 max-w-[160px] flex-col">
+                      <span className="mb-0.5 truncate text-[14px] font-semibold leading-tight tracking-tight text-white">{profileTitle}</span>
+                      <span className="truncate text-[12px] font-normal leading-none text-[#86868B]">{user?.email || '권한 없음'}</span>
+                    </span>
+                  </span>
+                  <ChevronRight size={18} className="shrink-0 text-[#86868B]" />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {showContactModal && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="flex w-[400px] flex-col items-center rounded-[24px] bg-[#1C1C1E] p-8 shadow-2xl">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#2C2C2E]"><Mail size={24} className="text-white" /></div>
+              <h3 className="mb-2 text-[22px] font-bold tracking-tight text-white">플랫폼 이용 문의</h3>
+              <p className="mb-8 text-center text-[15px] font-medium leading-relaxed text-[#A1A1AA]">jk.jeon@igisam.com<br />010-9076-5369<br />전기영 매니저에게 연락해주세요.</p>
+              <button type="button" onClick={() => setShowContactModal(false)} className="w-full cursor-pointer rounded-[16px] bg-[#2C2C2E] py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#3A3A3C]">닫기</button>
+            </div>
+          </div>
+        )}
+
+        {showPasswordModal && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="flex w-[400px] flex-col items-center rounded-[24px] bg-[#1C1C1E] p-8 shadow-2xl">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#2C2C2E]"><KeyRound size={24} className="text-white" /></div>
+              <h3 className="mb-2 text-[22px] font-bold tracking-tight text-white">비밀번호 변경</h3>
+              <p className="mb-6 text-center text-[15px] font-medium leading-relaxed text-[#A1A1AA]">새로운 비밀번호를 입력해주세요.</p>
+              <input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} placeholder="새 비밀번호" className="mb-4 h-[52px] w-full rounded-[16px] border border-[#333333] bg-[#1C1C1E] px-5 text-[17px] text-white outline-none transition-all placeholder:text-[#86868B] focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3]" />
+              <div className="flex w-full gap-3">
+                <button type="button" onClick={() => setShowPasswordModal(false)} className="flex-1 cursor-pointer rounded-[16px] bg-[#2C2C2E] py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#3A3A3C]">취소</button>
+                <button type="button" onClick={handlePasswordChange} disabled={!newPassword} className="flex-1 cursor-pointer rounded-[16px] bg-[#0071E3] py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#0077ED] disabled:cursor-not-allowed disabled:opacity-50">변경하기</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showLogoutModal && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="flex w-[400px] flex-col items-center rounded-[24px] bg-[#1C1C1E] p-8 shadow-2xl">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10"><LogOut size={24} className="text-[#FF453A]" /></div>
+              <h3 className="mb-2 text-[22px] font-bold tracking-tight text-white">로그아웃</h3>
+              <p className="mb-6 text-center text-[15px] font-medium leading-relaxed text-[#A1A1AA]">정말 로그아웃 하시겠습니까?</p>
+              <div className="flex w-full gap-3">
+                <button type="button" onClick={() => setShowLogoutModal(false)} className="flex-1 cursor-pointer rounded-[16px] bg-[#2C2C2E] py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#3A3A3C]">취소</button>
+                <button type="button" onClick={async () => { setShowLogoutModal(false); await signOut(); }} className="flex-1 cursor-pointer rounded-[16px] bg-[#FF453A] py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#FF3B30]">확인</button>
+              </div>
+            </div>
+          </div>
+        )}
       </aside>
 
       <main ref={mainRef} className={`min-w-0 flex-1 overflow-x-hidden ${mapActivitiesActive ? 'overflow-hidden' : 'overflow-y-auto'} ${isDarkWorkspace ? 'bg-[#1F1F1E]' : 'bg-[#F3F4F6]'}`}>

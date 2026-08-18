@@ -27,6 +27,7 @@ import {
   SONGHYEON_FEED_PURPOSES,
   SONGHYEON_FEED_STATUSES,
 } from '../../../data/songhyeonTaskFeedOptions.js';
+import SonghyeonMemberAvatar from '../SonghyeonMemberAvatar.jsx';
 
 // IOTA WorkspaceActivityLog/LogWriteBox를 송현 데이터 계약에 맞춰 이식한 작성 폼입니다.
 // 댓글·반응은 목록 상세에서 다루며, 첨부파일은 게시글에만 연결합니다.
@@ -119,18 +120,12 @@ const formatDate = (value) => {
 };
 
 function Avatar({ actor }) {
-  const initials = text(actor?.name || actor?.email || '송현').slice(-2);
   return (
-    <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full border border-white/10 bg-[#353535] text-[12px] font-black text-white">
-      {actor?.photoPath ? (
-        <img
-          src={actor.photoPath}
-          alt=""
-          className="h-full w-full object-cover"
-          onError={(event) => { event.currentTarget.style.display = 'none'; }}
-        />
-      ) : initials}
-    </span>
+    <SonghyeonMemberAvatar
+      name={text(actor?.name || actor?.email || '송현')}
+      photoPath={actor?.photoPath}
+      className="h-10 w-10 border border-white/10"
+    />
   );
 }
 
