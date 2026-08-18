@@ -29,6 +29,8 @@ const SUMMARY_PAGE_SIZE = 5;
 const FULL_PAGE_SIZE = 20;
 const NEW_MARKER_EPOCH = new Date('2026-07-13T09:02:39Z').getTime();
 const NEW_MARKER_WINDOW = 48 * 60 * 60 * 1000;
+const URL_CANDIDATE_PATTERN = /https?:\/\/[^\s<>"']+/giu;
+const URL_TRAILING_PUNCTUATION = /[.,!?;:。！？；：]/u;
 
 const valueOf = (value, fallback = '') => value ?? fallback;
 const postIdOf = (post) => post?.id || post?.postId || post?.post_id || '';
@@ -40,6 +42,69 @@ const stakeholderText = (stakeholder) => {
   return [stakeholder.companyName || stakeholder.company_name || stakeholder.name, stakeholder.contactName || stakeholder.contact_name]
     .map((value) => String(value || '').trim()).filter(Boolean).join(' - ') || stakeholder.category || '';
 };
+
+const trimUrlPunctuation = (candidate) => {
+  let url = candidate;
+  let trailing = '';
+  while (url) {
+    const lastCharacter = url.at(-1);
+    const pair = lastCharacter === ')' ? ['(', ')']
+      : lastCharacter === ']' ? ['[', ']']
+        : lastCharacter === '}' ? ['{', '}']
+          : null;
+    if (URL_TRAILING_PUNCTUATION.test(lastCharacter)) {
+      trailing = lastCharacter + trailing;
+      url = url.slice(0, -1);
+      continue;
+    }
+    if (pair) {
+      const openingCount = [...url].filter((character) => character === pair[0]).length;
+      const closingCount = [...url].filter((character) => character === pair[1]).length;
+      if (closingCount > openingCount) {
+        trailing = lastCharacter + trailing;
+        url = url.slice(0, -1);
+        continue;
+      }
+    }
+    break;
+  }
+  return { url, trailing };
+};
+
+function LinkifiedText({ text }) {
+  const source = String(text || '');
+  const nodes = [];
+  let cursor = 0;
+  for (const [index, match] of [...source.matchAll(URL_CANDIDATE_PATTERN)].entries()) {
+    const start = match.index ?? 0;
+    if (start > cursor) nodes.push(source.slice(cursor, start));
+    const { url, trailing } = trimUrlPunctuation(match[0]);
+    let isSafeExternalUrl = false;
+    try {
+      const parsed = new URL(url);
+      isSafeExternalUrl = parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch {
+      isSafeExternalUrl = false;
+    }
+    nodes.push(isSafeExternalUrl ? (
+      <a
+        key={`${start}-${index}`}
+        data-feed-external-link
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(event) => event.stopPropagation()}
+        className="cursor-pointer break-all text-[#78add6] underline decoration-[#78add6]/55 underline-offset-2 hover:text-[#a5c9e5]"
+      >
+        {url}
+      </a>
+    ) : match[0]);
+    if (trailing) nodes.push(trailing);
+    cursor = start + match[0].length;
+  }
+  if (cursor < source.length) nodes.push(source.slice(cursor));
+  return <>{nodes}</>;
+}
 
 const normalizePost = (post) => ({
   ...post,
@@ -469,7 +534,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                     </div>
                     <div data-feed-detail-content className="w-full min-w-0">
                       <h3 className="mt-5 text-[18px] font-bold leading-7 text-white">{post.title || '업무 메시지'}</h3>
-                      <div className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-7 text-[#D1D1D6]">{post.content}</div>
+                      <div className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-7 text-[#D1D1D6]"><LinkifiedText text={post.content} /></div>
                       {post.mentions?.length ? <div className="mt-4 flex flex-wrap gap-1.5" aria-label="멘션"><Users size={14} className="mt-1 text-[#7fa6c8]" />{post.mentions.map((mention) => <span key={mention.id || mention.memberId || mention.member_id || mention.name || mention} className="rounded-[6px] bg-[#6f9fc7]/10 px-2 py-1 text-[12px] text-[#9cc4e6]">@{mention.name || mention.label || mention}</span>)}</div> : null}
                     </div>
 
@@ -490,7 +555,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                         const commentAuthorName = comment.author?.name || comment.authorName || comment.author_name || (typeof comment.author === 'string' ? comment.author : '') || '사용자';
                         const commentContent = comment.content || comment.body || comment.text || '';
                         const isCommentAuthor = Boolean(actor.userId && actor.userId === commentAuthorId);
-                        return <div key={commentId} className="rounded-[10px] border border-[#333] bg-white/[0.02] p-3"><div className="flex items-start gap-3"><Avatar profile={{ name: commentAuthorName, photoPath: comment.author?.photoPath || comment.authorPhotoPath || comment.author_photo_path }} size="h-7 w-7" /><div className="min-w-0 flex-1"><div className="flex items-center gap-2"><strong className="text-[12px] text-white">{commentAuthorName}</strong>{isRecent(comment.createdAt || comment.created_at, comment.updatedAt || comment.updated_at) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="text-[11px] text-[#86868B]">{displayDateTime(comment.createdAt || comment.created_at)}</span>{isCommentAuthor && !isReadOnly ? <button type="button" onClick={() => setDeleteTarget({ type: 'comment', postId: post.id, commentId })} className="ml-auto text-[11px] text-[#bd716d] hover:text-[#dd8b86]">삭제</button> : null}</div><p className="mt-1 whitespace-pre-wrap break-words text-[13px] leading-6 text-[#B8B8BD]">{commentContent}</p><div className="mt-2 flex gap-3"><ReactionButton compact type="like" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'like', commentId)} /><ReactionButton compact type="check" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'check', commentId)} /></div></div></div></div>;
+                        return <div key={commentId} className="rounded-[10px] border border-[#333] bg-white/[0.02] p-3"><div className="flex items-start gap-3"><Avatar profile={{ name: commentAuthorName, photoPath: comment.author?.photoPath || comment.authorPhotoPath || comment.author_photo_path }} size="h-7 w-7" /><div className="min-w-0 flex-1"><div className="flex items-center gap-2"><strong className="text-[12px] text-white">{commentAuthorName}</strong>{isRecent(comment.createdAt || comment.created_at, comment.updatedAt || comment.updated_at) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="text-[11px] text-[#86868B]">{displayDateTime(comment.createdAt || comment.created_at)}</span>{isCommentAuthor && !isReadOnly ? <button type="button" onClick={() => setDeleteTarget({ type: 'comment', postId: post.id, commentId })} className="ml-auto text-[11px] text-[#bd716d] hover:text-[#dd8b86]">삭제</button> : null}</div><p className="mt-1 whitespace-pre-wrap break-words text-[13px] leading-6 text-[#B8B8BD]"><LinkifiedText text={commentContent} /></p><div className="mt-2 flex gap-3"><ReactionButton compact type="like" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'like', commentId)} /><ReactionButton compact type="check" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'check', commentId)} /></div></div></div></div>;
                       })}
                     </div>
 

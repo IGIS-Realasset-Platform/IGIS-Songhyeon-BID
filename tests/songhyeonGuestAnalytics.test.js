@@ -41,7 +41,7 @@ test('관리자 화면은 전기영 exact 계정에만 노출되고 페이지뷰
   assert.match(adminRoute, /if \(!isAdmin\) return <Navigate to="\/tasks" replace/);
   assert.match(layout, /isAdmin &&[\s\S]*이용 현황/);
   assert.match(layout, /<SonghyeonPageViewTracker/);
-  assert.match(tracker, /recordSonghyeonPageView\(pathname === '\/home' \? '\/' : pathname\)/);
+  assert.match(tracker, /recordSonghyeonPageView\(normalizeSonghyeonAnalyticsPath\(pathname\)\)/);
   for (const text of ['전체 조회', '오늘 조회', '방문자', '세션', '게스트 조회', '회원 조회', '일별 이용 추이', '페이지 순위']) {
     assert.match(page, new RegExp(text));
   }
@@ -192,12 +192,14 @@ test('공개 DB 경계는 raw 원장 쓰기를 막고 이메일·auth UUID를 �
   assert.doesNotMatch(lower, /iota_/);
 });
 
-test('페이지뷰 원장은 익명 최소정보만 저장하고 전기영에게 집계만 제공한다', async () => {
+test('페이지뷰 원장은 최소정보만 저장하고 전기영에게 집계만 제공한다', async () => {
   const sql = await read('supabase/migrations/202608140004_songhyeon_guest_readonly_analytics.sql');
   const table = sql.match(/create table if not exists public\.songhyeon_page_views[\s\S]*?\n\);/)?.[0] || '';
   assert.ok(table);
   for (const field of ['anonymous_visitor_id', 'anonymous_session_id', 'page_path', 'viewer_type', 'viewed_at']) assert.match(table, new RegExp(field));
-  for (const privateField of ['email', 'ip_address', 'user_agent', 'referrer', 'auth_id', 'member_id']) assert.doesNotMatch(table, new RegExp(privateField));
+  // Member attribution is added later as a nullable internal FK for authenticated
+  // TF analytics. The original event never stores direct identity or request data.
+  for (const privateField of ['email', 'ip_address', 'user_agent', 'referrer', 'auth_id']) assert.doesNotMatch(table, new RegExp(privateField));
   assert.match(sql, /viewer_type in \('guest', 'member'\)/);
   assert.match(sql, /clean_path <> all \(array\[/);
   assert.match(sql, /pg_advisory_xact_lock/);

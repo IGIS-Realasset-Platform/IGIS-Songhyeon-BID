@@ -144,7 +144,7 @@ test('펼쳐진 업무 피드 본문은 관리 버튼 열과 분리되어 행 �
   const detailContent = expanded.slice(contentPosition);
   assert.match(detailContent, /\{post\.title\s*\|\|\s*['"](?:업무 메시지|제목 없음)['"]\}/,
     '제목은 전체 폭 본문 구간 안에 있어야 합니다.');
-  assert.match(detailContent, /className="[^"]*whitespace-pre-wrap[^"]*break-words[^"]*"[^>]*>\{post\.content\}<\/div>/,
+  assert.match(detailContent, /className="[^"]*whitespace-pre-wrap[^"]*break-words[^"]*"[^>]*>\s*<LinkifiedText\s+text=\{post\.content\}\s*\/>\s*<\/div>/,
     '본문은 작성자가 넣은 단락은 보존하고 긴 문장은 사용 가능한 전체 폭에서만 자연스럽게 줄바꿈되어야 합니다.');
   assert.doesNotMatch(expanded.slice(headerPosition, contentPosition), /post\.content/,
     '본문을 수정·삭제 버튼이 폭을 차지하는 header flex 안에 두면 안 됩니다.');
@@ -778,6 +778,108 @@ test('원본처럼 명시적 재조회로 동기화하며 존재하지 않는 Su
   assert.match(feed, /useEffect\([\s\S]{0,500}(?:loadTaskFeedPosts|refresh)/);
   assert.match(feed, /(?:createTaskFeedPost|updateTaskFeedPost|deleteTaskFeedPost|addTaskFeedComment|deleteTaskFeedComment|toggleTaskFeedReaction)[\s\S]{0,800}(?:loadTaskFeedPosts|refresh)/);
   assert.doesNotMatch(combined, /\.channel\(|postgres_changes|subscribeToTaskFeed|\.subscribe\(/);
+});
+
+test('업무 피드 본문·댓글의 http/https URL만 안전한 새 탭 링크로 렌더링한다', async () => {
+  const feed = await read(FEED_PATH);
+  const componentStart = feed.search(/function\s+LinkifiedText\s*\(\{\s*text\s*\}\)/);
+  const nextComponent = componentStart >= 0
+    ? feed.slice(componentStart + 1).search(/\n(?:function|const)\s+[A-Z][A-Za-z0-9]*\s*(?:=\s*)?\(/)
+    : -1;
+  const componentEnd = nextComponent >= 0 ? componentStart + 1 + nextComponent : feed.length;
+  const linkifiedText = componentStart >= 0 ? feed.slice(componentStart, componentEnd) : '';
+
+  assert.ok(componentStart >= 0, 'URL을 표시 전용으로 변환하는 LinkifiedText 컴포넌트가 필요합니다.');
+  assert.ok(feed.includes('const URL_CANDIDATE_PATTERN = /https?:\\/\\/'),
+    '링크 판별은 프로토콜이 명시된 http/https URL로만 제한해야 합니다.');
+  assert.doesNotMatch(feed.match(/const URL_CANDIDATE_PATTERN\s*=\s*\/[^\n]+/)?.[0] || '', /(?:mailto|ftp|javascript|data):/i,
+    '메일·FTP·스크립트·data 문자열을 자동 링크로 승격하면 안 됩니다.');
+  assert.match(linkifiedText, /\.(?:split|matchAll)\(/,
+    'URL과 일반 텍스트를 분리해 React text node와 링크로 렌더링해야 합니다.');
+  assert.match(linkifiedText, /parsed\.protocol\s*===\s*['"]http:['"][\s\S]{0,100}parsed\.protocol\s*===\s*['"]https:['"]/,
+    '파싱된 URL도 http/https 프로토콜인지 다시 확인해야 합니다.');
+  assert.match(linkifiedText, /nodes\.push\(source\.slice\(cursor,\s*start\)\)/,
+    'URL 앞의 일반 텍스트는 내용 변경 없이 그대로 보존해야 합니다.');
+  assert.match(linkifiedText, /nodes\.push\(source\.slice\(cursor\)\)/,
+    '마지막 URL 뒤의 일반 텍스트도 내용 변경 없이 그대로 보존해야 합니다.');
+
+  assert.match(linkifiedText, /data-feed-external-link/);
+  assert.match(linkifiedText, /target=['"]_blank['"]/);
+  assert.match(linkifiedText, /rel=['"]noopener noreferrer['"]/,
+    '새 탭 링크는 opener와 referrer 접근을 모두 차단해야 합니다.');
+  assert.match(linkifiedText, /onClick=\{\s*\(?(?:event|e)\)?\s*=>\s*(?:\{\s*)?(?:event|e)\.stopPropagation\(\)/,
+    '외부 링크 클릭이 게시글 행 열기·닫기 이벤트로 전파되면 안 됩니다.');
+  assert.doesNotMatch(linkifiedText, /dangerouslySetInnerHTML/,
+    '사용자 입력을 HTML 문자열로 주입하지 말고 React node로 렌더링해야 합니다.');
+});
+
+test('URL 뒤 문장부호는 링크에서 분리하고 본문·댓글의 줄바꿈과 일반 텍스트를 유지한다', async () => {
+  const feed = await read(FEED_PATH);
+  const componentStart = feed.indexOf('LinkifiedText');
+  const linkDefinitionsStart = feed.indexOf('const URL_TRAILING_PUNCTUATION');
+  const detailStart = feed.indexOf('data-feed-detail-content');
+  const commentsStart = feed.indexOf('{post.comments.map', detailStart);
+  assert.ok(linkDefinitionsStart >= 0 && componentStart > linkDefinitionsStart && detailStart > componentStart && commentsStart > detailStart,
+    '링크 변환 컴포넌트와 상세 본문·댓글 렌더링 구간이 필요합니다.');
+
+  const componentRegion = feed.slice(linkDefinitionsStart, detailStart);
+  assert.match(componentRegion, /(?:trailing|punctuation|suffix)/i,
+    'URL 끝의 문장부호를 별도 일반 텍스트로 보존해야 합니다.');
+  assert.match(feed, /const URL_TRAILING_PUNCTUATION\s*=\s*\/[^\n]*[.,!?;:]/,
+    '마침표·쉼표·괄호 같은 URL 뒤 문장부호를 판별해야 합니다.');
+  assert.match(componentRegion, /URL_TRAILING_PUNCTUATION\.test\(/,
+    '후행 문장부호 판별식은 URL 본체와 suffix를 분리할 때 사용해야 합니다.');
+  for (const closer of [')', ']', '}']) {
+    assert.ok(componentRegion.includes(`lastCharacter === '${closer}'`),
+      `${closer}는 URL 내부의 짝이 맞는 괄호인지 확인한 뒤 후행 문자로 분리해야 합니다.`);
+  }
+  assert.match(componentRegion, /closingCount\s*>\s*openingCount/,
+    'URL 안의 정상적인 괄호까지 잘라내지 않도록 여닫는 괄호 수를 비교해야 합니다.');
+  assert.match(componentRegion, /\.slice\(/,
+    'URL 본체에서 뒤 문장부호만 잘라 href를 만들어야 합니다.');
+  assert.match(componentRegion, /(?:nodes\.push|\{)\(?\s*(?:trailing|punctuation|suffix)\s*\)?/i,
+    '분리한 문장부호는 링크 밖의 원래 위치에 다시 렌더링해야 합니다.');
+
+  const detailRegion = feed.slice(detailStart, commentsStart);
+  assert.match(detailRegion,
+    /className=['"][^'"]*whitespace-pre-wrap[^'"]*break-words[^'"]*['"][^>]*>[\s\S]{0,180}<LinkifiedText\s+text=\{post\.content\}\s*\/>/,
+    '게시글 본문은 기존 줄바꿈·일반 텍스트 스타일 안에서 URL만 링크로 바꿔야 합니다.');
+  const commentRegion = feed.slice(commentsStart, feed.indexOf('</article>', commentsStart));
+  assert.match(commentRegion,
+    /className=['"][^'"]*whitespace-pre-wrap[^'"]*break-words[^'"]*['"][^>]*>[\s\S]{0,180}<LinkifiedText\s+text=\{commentContent\}\s*\/>/,
+    '댓글도 줄바꿈을 유지하면서 본문과 같은 링크 변환을 사용해야 합니다.');
+});
+
+test('링크화는 표시 단계에만 적용하고 게시글 작성·수정과 댓글 원문은 그대로 저장한다', async () => {
+  const [feed, writeBox, repository] = await Promise.all([
+    read(FEED_PATH),
+    read(WRITE_BOX_PATH),
+    read(REPOSITORY_PATH),
+  ]);
+
+  assert.doesNotMatch(`${feed}\n${writeBox}\n${repository}`, /dangerouslySetInnerHTML/,
+    '피드 원문을 HTML로 변환하거나 저장하는 경로를 만들면 안 됩니다.');
+  assert.doesNotMatch(`${writeBox}\n${repository}`, /LinkifiedText|data-feed-external-link|<a\b/,
+    '자동 링크는 작성·수정·DB payload가 아닌 읽기 화면에서만 만들어야 합니다.');
+
+  const formPayloadStart = writeBox.indexOf('const payload = {');
+  const formPayloadEnd = writeBox.indexOf('const savedPost =', formPayloadStart);
+  const formPayload = writeBox.slice(formPayloadStart, formPayloadEnd);
+  assert.match(formPayload, /content:\s*content\.trim\(\)/,
+    '작성·수정 payload는 링크 JSX나 HTML이 아닌 사용자가 입력한 문자열을 전달해야 합니다.');
+
+  const saveStart = writeBox.indexOf('const savedPost =', formPayloadEnd);
+  const saveEnd = writeBox.indexOf("setTitle('')", saveStart);
+  const saveCalls = writeBox.slice(saveStart, saveEnd);
+  assert.match(saveCalls, /updateTaskFeedPost\(initialPost\.id,\s*payload,\s*actor\)/,
+    '수정도 작성과 같은 원문 payload를 사용해야 합니다.');
+  assert.match(saveCalls, /createTaskFeedPost\(payload,\s*actor\)/,
+    '작성은 원문 payload를 그대로 repository에 전달해야 합니다.');
+
+  assert.match(repository, /post_body:\s*valid\.content/,
+    '게시글 RPC에는 링크로 변환되지 않은 원문 content를 저장해야 합니다.');
+  assert.match(repository, /comment_body:\s*text\(body\)/,
+    '댓글 RPC에도 링크로 변환되지 않은 원문 문자열을 저장해야 합니다.');
 });
 
 test('피드 DB는 송현 전용 원장·guest-safe 공개뷰·active-member 쓰기와 작성자 권한을 서버에서 강제한다', async () => {

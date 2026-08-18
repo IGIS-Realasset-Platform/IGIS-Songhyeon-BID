@@ -73,11 +73,19 @@ const cleanPath = (value) => {
   return withoutQuery;
 };
 
+export const normalizeSonghyeonAnalyticsPath = (value) => {
+  const pathname = cleanPath(value);
+  if (pathname === '/home') return '/';
+  if (pathname === '/feed' || pathname.startsWith('/feed/')) return '/feed';
+  if (pathname === '/data' || pathname.startsWith('/data/')) return '/data';
+  return pathname;
+};
+
 export async function recordSonghyeonPageView(path) {
   if (!songhyeonSupabase) return false;
   try {
     const identifiers = anonymousIdentifiers();
-    const pagePath = cleanPath(path ?? (typeof window !== 'undefined' ? window.location.pathname : ''));
+    const pagePath = normalizeSonghyeonAnalyticsPath(path ?? (typeof window !== 'undefined' ? window.location.pathname : ''));
     if (!identifiers || !pagePath) return false;
     const { error } = await songhyeonSupabase.rpc('track_songhyeon_page_view', {
       anonymous_visitor_id: identifiers.visitorId,
@@ -110,6 +118,47 @@ export async function loadSonghyeonAnalytics(days = 30) {
 
   const payload = (Array.isArray(data) ? data[0] : data) || EMPTY_ANALYTICS;
   return {
+    summary: payload.summary || {},
+    daily: Array.isArray(payload.daily) ? payload.daily : [],
+    pages: Array.isArray(payload.pages) ? payload.pages : [],
+    recent: Array.isArray(payload.recent) ? payload.recent : [],
+  };
+}
+
+const safeLookbackDays = (days) => Math.max(1, Math.min(Number.parseInt(days, 10) || 30, 365));
+
+export async function loadSonghyeonTfMemberAnalytics(days = 30) {
+  if (!songhyeonSupabase) {
+    throw new SonghyeonAnalyticsRepositoryError('송현 Supabase 연결이 설정되지 않았습니다.');
+  }
+  const { data, error } = await songhyeonSupabase.rpc('get_songhyeon_tf_member_analytics', {
+    lookback_days: safeLookbackDays(days),
+  });
+  if (error) throw new SonghyeonAnalyticsRepositoryError('TF 인원별 이용 현황을 불러오지 못했습니다.', error);
+  const payload = (Array.isArray(data) ? data[0] : data) || {};
+  return {
+    periodDays: Number(payload.periodDays) || safeLookbackDays(days),
+    trackingStartedAt: payload.trackingStartedAt || null,
+    unattributedMemberViews: Number(payload.unattributedMemberViews) || 0,
+    members: Array.isArray(payload.members) ? payload.members : [],
+  };
+}
+
+export async function loadSonghyeonTfMemberDetail(memberId, days = 30) {
+  if (!songhyeonSupabase) {
+    throw new SonghyeonAnalyticsRepositoryError('송현 Supabase 연결이 설정되지 않았습니다.');
+  }
+  const targetMemberId = String(memberId || '').trim();
+  if (!targetMemberId) throw new SonghyeonAnalyticsRepositoryError('조회할 TF 인원을 선택해주세요.');
+  const { data, error } = await songhyeonSupabase.rpc('get_songhyeon_tf_member_detail', {
+    target_member_id: targetMemberId,
+    lookback_days: safeLookbackDays(days),
+  });
+  if (error) throw new SonghyeonAnalyticsRepositoryError('TF 인원 상세 트래킹을 불러오지 못했습니다.', error);
+  const payload = (Array.isArray(data) ? data[0] : data) || {};
+  return {
+    periodDays: Number(payload.periodDays) || safeLookbackDays(days),
+    member: payload.member || null,
     summary: payload.summary || {},
     daily: Array.isArray(payload.daily) ? payload.daily : [],
     pages: Array.isArray(payload.pages) ? payload.pages : [],
