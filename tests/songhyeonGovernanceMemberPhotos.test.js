@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { access, readFile } from 'node:fs/promises';
+import { access, readFile, readdir } from 'node:fs/promises';
 
 const INTERNAL_PAGE = 'src/pages/governance/SonghyeonInternal.jsx';
 const MEMBER_AVATAR = 'src/components/iota-songhyeon/SonghyeonMemberAvatar.jsx';
+const MEMBER_PORTRAIT_DIRECTORY = 'public/songhyeon-members';
+const NEW_MEMBER_PORTRAITS = [
+  { name: '방채미', email: 'chaemi.bang@igisam.com', path: 'songhyeon-members/방채미.webp' },
+  { name: '이지원', email: 'jiwon.lee@igisam.com', path: 'songhyeon-members/이지원.webp' },
+];
 
 const read = (path) => readFile(path, 'utf8');
 
@@ -42,7 +47,40 @@ test('송현 Member 사진 실패 시 이니셜을 유지하고 실패한 확대
     '확대 이미지까지 실패하면 깨진 이미지 대신 확대를 닫아야 합니다.');
 });
 
-test('이름 fallback이 가리키는 송현 원본 인물사진 9개가 실제 배포 자산에 존재한다', async () => {
-  const portraitNames = ['이시정', '이관용', '전기영', '김민지', '고아라', '김현수', '이가현', '정수명', '임수빈'];
+test('이름 fallback이 가리키는 송현 원본 인물사진 11개가 실제 배포 자산에 존재한다', async () => {
+  const portraitNames = ['이시정', '이관용', '전기영', '김민지', '고아라', '김현수', '이가현', '정수명', '임수빈', '방채미', '이지원'];
   await Promise.all(portraitNames.map((name) => access(`public/songhyeon-members/${name}.webp`)));
+});
+
+test('방채미·이지원 프로필은 실제 WebP 자산이며 seed와 운영 migration에서 동일 경로로 연결된다', async () => {
+  const [seed, migrationFiles] = await Promise.all([
+    read('supabase/seed.sql'),
+    readdir('supabase/migrations'),
+  ]);
+  const migrationSources = await Promise.all(
+    migrationFiles
+      .filter((file) => file.endsWith('.sql'))
+      .map((file) => read(`supabase/migrations/${file}`)),
+  );
+
+  for (const portrait of NEW_MEMBER_PORTRAITS) {
+    const asset = await readFile(`${MEMBER_PORTRAIT_DIRECTORY}/${portrait.name}.webp`);
+    assert.ok(asset.byteLength > 1_000, `${portrait.name} 프로필은 빈 파일이 아닌 실제 인물사진이어야 합니다.`);
+    assert.equal(asset.subarray(0, 4).toString('ascii'), 'RIFF');
+    assert.equal(asset.subarray(8, 12).toString('ascii'), 'WEBP');
+
+    const escapedPath = portrait.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const seedMapping = new RegExp(
+      `\\(\\s*'${portrait.email}'\\s*,\\s*'${portrait.name}'[\\s\\S]{0,500}'\\/?${escapedPath}'`,
+    );
+    const migrationMapping = new RegExp(
+      `'${portrait.name}'[\\s\\S]{0,200}'\\/?${escapedPath}'`,
+    );
+
+    assert.match(seed, seedMapping, `seed의 ${portrait.name} photo_path가 공용 프로필 자산을 가리켜야 합니다.`);
+    assert.ok(
+      migrationSources.some((source) => migrationMapping.test(source)),
+      `기존 운영 DB의 ${portrait.name} photo_path를 연결하는 migration이 필요합니다.`,
+    );
+  }
 });
