@@ -30,3 +30,90 @@ test('Data Room은 문서 추가·수정·삭제와 Supabase 공동 저장을 �
   assert.doesNotMatch(page, /크기\/표시|document\.size|draft\.size/);
   assert.match(page, /label="문서명" className="col-span-2"[\s\S]*?label="기준일"[\s\S]*?label="설명" className="col-span-3"/);
 });
+
+test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 검색값으로 사용한다', async () => {
+  const [page, repository] = await Promise.all([
+    readFile('src/pages/DataRoom.jsx', 'utf8'),
+    readFile('src/lib/songhyeonDataRoomRepository.js', 'utf8'),
+  ]);
+
+  assert.match(repository, /authorName:\s*row\.created_by_name/,
+    'DB가 반환한 created_by_name을 목록 모델에 매핑해야 합니다.');
+  assert.doesNotMatch(repository, /created_by_name:\s*actor\.(?:name|staffName)/,
+    '클라이언트가 전달한 이름을 원장 작성자로 신뢰하면 안 됩니다.');
+  assert.match(page, /<th[^>]*>작성자<\/th>/,
+    '문서 목록 헤더에 작성자 열이 있어야 합니다.');
+  assert.match(page, /\{document\.authorName\s*\|\|/,
+    '각 문서 행에 작성자 이름을 표시해야 합니다.');
+  assert.match(page, /\[document\.title,\s*document\.description,\s*document\.category,\s*document\.type,\s*document\.date,\s*document\.authorName\]/,
+    '표시된 작성자도 Data Room 검색 대상이어야 합니다.');
+  assert.match(page, /colSpan=\{8\}/,
+    '작성자 열 추가 후 로딩·빈 결과 행이 전체 8열을 사용해야 합니다.');
+});
+
+test('Data Room 작성자 원장은 auth uid에 연결된 활성 멤버 이름을 서버 trigger로 확정한다', async () => {
+  const migration = await readFile('supabase/migrations/202608180010_songhyeon_data_room_authors.sql', 'utf8');
+  const lower = migration.toLowerCase();
+  const triggerFunctions = [...migration.matchAll(
+    /create\s+or\s+replace\s+function\s+public\.[a-z0-9_]+\s*\([^)]*\)[\s\S]*?returns\s+trigger[\s\S]*?\$\$[\s\S]*?\$\$\s*;/gi,
+  )].map((match) => match[0]).join('\n');
+
+  assert.match(lower, /alter table public\.songhyeon_data_room_documents[\s\S]*add column(?: if not exists)? created_by_name text/);
+  assert.ok(triggerFunctions, 'Data Room 작성자를 확정하는 trigger function이 있어야 합니다.');
+  assert.match(triggerFunctions, /auth\.uid\(\)/i);
+  assert.match(triggerFunctions, /from\s+public\.songhyeon_members/i);
+  assert.match(triggerFunctions, /auth_id\s*=\s*auth\.uid\(\)/i);
+  assert.match(triggerFunctions, /is_active/i);
+  assert.match(triggerFunctions, /staff_name/i);
+  assert.match(triggerFunctions, /new\.created_by\s*:=\s*auth\.uid\(\)/i,
+    'INSERT의 created_by는 요청 payload가 아니라 인증 세션으로 덮어써야 합니다.');
+  assert.match(triggerFunctions, /new\.created_by_name\s*:=/i,
+    'INSERT의 created_by_name은 활성 멤버 staff_name으로 확정해야 합니다.');
+  assert.match(triggerFunctions, /new\.created_by\s*:=\s*old\.created_by/i,
+    'UPDATE가 최초 작성자의 auth id를 바꿀 수 없어야 합니다.');
+  assert.match(triggerFunctions, /new\.created_by_name\s*:=\s*old\.created_by_name/i,
+    'UPDATE가 최초 작성자 이름을 바꿀 수 없어야 합니다.');
+
+  assert.match(lower, /update public\.songhyeon_data_room_documents[\s\S]*created_by_name\s*=[\s\S]*staff_name/,
+    '기존 문서에도 작성자 이름을 backfill해야 합니다.');
+  assert.match(lower, /created_by_name\s+text\s+not null|alter column created_by_name set not null/,
+    'backfill 이후 모든 문서에 작성자 이름이 존재해야 합니다.');
+  assert.match(lower, /create trigger[\s\S]*on public\.songhyeon_data_room_documents/);
+});
+
+test('활성 송현 멤버는 Data Room 전체 읽기·쓰기를 공유하고 게스트는 작성자명을 포함한 공개뷰만 읽는다', async () => {
+  const [baseMigration, authorMigration, guestMigration, page] = await Promise.all([
+    readFile('supabase/migrations/202608130007_songhyeon_data_room.sql', 'utf8'),
+    readFile('supabase/migrations/202608180010_songhyeon_data_room_authors.sql', 'utf8'),
+    readFile('supabase/migrations/202608140004_songhyeon_guest_readonly_analytics.sql', 'utf8'),
+    readFile('src/pages/DataRoom.jsx', 'utf8'),
+  ]);
+  const base = baseMigration.toLowerCase();
+  const guestView = authorMigration.match(
+    /create\s+or\s+replace\s+view\s+public\.songhyeon_public_data_room_documents[\s\S]*?from\s+public\.songhyeon_data_room_documents\s+(?:as\s+)?document\s*;/i,
+  )?.[0] || '';
+
+  const policies = [...base.matchAll(/create policy[\s\S]*?;/gi)].map((match) => match[0]);
+  for (const operation of ['select', 'insert', 'update', 'delete']) {
+    const policy = policies.find((statement) => new RegExp(`for ${operation} to authenticated`, 'i').test(statement)) || '';
+    assert.ok(policy, `authenticated ${operation} 정책이 있어야 합니다.`);
+    assert.match(policy, /public\.is_songhyeon_member\(\)/i,
+      `${operation}는 활성 송현 멤버 전체가 사용할 수 있어야 합니다.`);
+  }
+  assert.match(base, /grant select, insert, update, delete on public\.songhyeon_data_room_documents to authenticated/);
+  assert.match(base, /revoke all on table public\.songhyeon_data_room_documents from anon/);
+
+  assert.ok(guestView, '작성자 migration이 게스트 공개뷰를 새 projection으로 교체해야 합니다.');
+  assert.match(guestView, /document\.created_by_name/i);
+  for (const privateField of ['created_by', 'updated_by', 'auth_id', 'email']) {
+    assert.doesNotMatch(guestView, new RegExp(`\\b${privateField}\\b`, 'i'));
+  }
+  assert.match(authorMigration, /grant select on public\.songhyeon_public_data_room_documents to anon, authenticated/i);
+  assert.doesNotMatch(authorMigration, /grant (?:insert|update|delete|all) on public\.songhyeon_public_data_room_documents to anon/i);
+  assert.match(guestMigration, /grant select on public\.songhyeon_public_data_room_documents to anon, authenticated/i);
+
+  assert.match(page, /!isReadOnly && <button[\s\S]*문서 추가/);
+  assert.match(page, /!isReadOnly \? <div[\s\S]*<Pencil[\s\S]*<Trash2/);
+  assert.doesNotMatch(page, /isAdmin|platform_role/,
+    'Data Room 쓰기 UI를 특정 역할로 제한하면 안 됩니다.');
+});

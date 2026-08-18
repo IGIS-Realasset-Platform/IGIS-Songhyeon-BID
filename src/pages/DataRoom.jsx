@@ -164,7 +164,7 @@ export default function DataRoom() {
   const normalizedQuery = query.trim().toLowerCase();
   const filteredDocuments = documents.filter((document) => (
     !normalizedQuery
-    || [document.title, document.description, document.category, document.type, document.date]
+    || [document.title, document.description, document.category, document.type, document.date, document.authorName]
       .some((value) => String(value || '').toLowerCase().includes(normalizedQuery))
   ));
   const updateQuery = (value) => {
@@ -208,6 +208,7 @@ export default function DataRoom() {
             <thead>
               <tr className="border-b border-[#3c3c3c] bg-[#272726]">
                 <th className="px-[20px] py-[14px] text-[13px] font-bold text-[#86868B]">문서명</th>
+                <th className="w-[112px] px-[14px] py-[14px] text-[13px] font-bold text-[#86868B]">작성자</th>
                 <th className="w-[140px] px-[18px] py-[14px] text-[13px] font-bold text-[#86868B]">분류</th>
                 <th className="w-[88px] px-[16px] py-[14px] text-[13px] font-bold text-[#86868B]">형식</th>
                 <th className="w-[120px] px-[14px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">기준일</th>
@@ -243,6 +244,7 @@ export default function DataRoom() {
                       </div>
                     </div>
                   </td>
+                  <td className="px-[14px] py-[18px] align-middle text-[13px] font-semibold text-[#D1D1D6]">{document.authorName || '송현 BID TF'}</td>
                   <td className="px-[18px] py-[18px] align-middle text-[13px] text-[#bbb9af]">{document.category}</td>
                   <td className="px-[16px] py-[18px] align-middle text-[13px] text-[#bbb9af]">{document.type}</td>
                   <td className="px-[14px] py-[18px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
@@ -274,12 +276,12 @@ export default function DataRoom() {
               ))}
               {!loading && filteredDocuments.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-[20px] py-[48px] text-center text-[13px] text-[#86868B]">검색 결과가 없습니다.</td>
+                  <td colSpan={8} className="px-[20px] py-[48px] text-center text-[13px] text-[#86868B]">검색 결과가 없습니다.</td>
                 </tr>
               )}
               {loading && (
                 <tr>
-                  <td colSpan={7} className="px-[20px] py-[48px] text-center text-[13px] text-[#86868B]">Data Room 문서를 불러오는 중입니다…</td>
+                  <td colSpan={8} className="px-[20px] py-[48px] text-center text-[13px] text-[#86868B]">Data Room 문서를 불러오는 중입니다…</td>
                 </tr>
               )}
             </tbody>
