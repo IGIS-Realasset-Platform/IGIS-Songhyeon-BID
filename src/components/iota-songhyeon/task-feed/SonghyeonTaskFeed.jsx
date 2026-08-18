@@ -19,6 +19,7 @@ import {
   loadTaskFeedOptions,
   loadTaskFeedPosts,
   toggleTaskFeedReaction,
+  updateTaskFeedComment,
 } from '../../../lib/songhyeonTaskFeedRepository';
 import SonghyeonReactionAvatarStack from '../task-board/SonghyeonReactionAvatarStack';
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
@@ -263,6 +264,9 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [commentDrafts, setCommentDrafts] = useState({});
   const [commentPendingId, setCommentPendingId] = useState('');
+  const [editingComment, setEditingComment] = useState(null);
+  const [commentEditDraft, setCommentEditDraft] = useState('');
+  const [commentEditPendingId, setCommentEditPendingId] = useState('');
   const [mentionPostId, setMentionPostId] = useState('');
   const [selectedTask, setSelectedTask] = useState(null);
   const restoredListLocationKey = useRef('');
@@ -441,6 +445,30 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     finally { setIsDeleting(false); }
   };
 
+  const startEditingComment = (postId, commentId, content) => {
+    setEditingComment({ postId, commentId });
+    setCommentEditDraft(content);
+    setError('');
+  };
+
+  const cancelEditingComment = () => {
+    setEditingComment(null);
+    setCommentEditDraft('');
+  };
+
+  const handleUpdateComment = async () => {
+    const content = commentEditDraft.trim();
+    if (!editingComment || !content || isReadOnly) return;
+    setCommentEditPendingId(editingComment.commentId);
+    setError('');
+    try {
+      await updateTaskFeedComment(editingComment.postId, editingComment.commentId, content, actor);
+      cancelEditingComment();
+      await refresh();
+    } catch (mutationError) { setError(mutationError?.message || '댓글을 수정하지 못했습니다.'); }
+    finally { setCommentEditPendingId(''); }
+  };
+
   const handleDeletePost = async (postId) => {
     setIsDeleting(true);
     try {
@@ -554,7 +582,9 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                         const commentAuthorName = comment.author?.name || comment.authorName || comment.author_name || (typeof comment.author === 'string' ? comment.author : '') || '사용자';
                         const commentContent = comment.content || comment.body || comment.text || '';
                         const isCommentAuthor = Boolean(actor.userId && actor.userId === commentAuthorId);
-                        return <div key={commentId} className="rounded-[10px] border border-[#333] bg-white/[0.02] p-3"><div className="flex items-start gap-3"><Avatar profile={{ name: commentAuthorName, photoPath: comment.author?.photoPath || comment.authorPhotoPath || comment.author_photo_path }} size="h-7 w-7" /><div className="min-w-0 flex-1"><div className="flex items-center gap-2"><strong className="text-[12px] text-white">{commentAuthorName}</strong>{isRecent(comment.createdAt || comment.created_at, comment.updatedAt || comment.updated_at) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="text-[11px] text-[#86868B]">{displayDateTime(comment.createdAt || comment.created_at)}</span>{isCommentAuthor && !isReadOnly ? <button type="button" onClick={() => setDeleteTarget({ type: 'comment', postId: post.id, commentId })} className="ml-auto text-[11px] text-[#bd716d] hover:text-[#dd8b86]">삭제</button> : null}</div><p className="mt-1 whitespace-pre-wrap break-words text-[13px] leading-6 text-[#B8B8BD]"><LinkifiedText text={commentContent} /></p><div className="mt-2 flex gap-3"><ReactionButton compact type="like" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'like', commentId)} /><ReactionButton compact type="check" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'check', commentId)} /></div></div></div></div>;
+                        const isEditingComment = editingComment?.postId === post.id && editingComment?.commentId === commentId;
+                        const wasEdited = Boolean(comment.updatedAt && comment.createdAt && comment.updatedAt !== comment.createdAt);
+                        return <div key={commentId} className="rounded-[10px] border border-[#333] bg-white/[0.02] p-3"><div className="flex items-start gap-3"><Avatar profile={{ name: commentAuthorName, photoPath: comment.author?.photoPath || comment.authorPhotoPath || comment.author_photo_path }} size="h-7 w-7" /><div className="min-w-0 flex-1"><div className="flex items-center gap-2"><strong className="text-[12px] text-white">{commentAuthorName}</strong>{isRecent(comment.createdAt || comment.created_at, comment.updatedAt || comment.updated_at) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="text-[11px] text-[#86868B]">{displayDateTime(comment.createdAt || comment.created_at)}</span>{wasEdited ? <span className="text-[10px] text-[#686868]">수정됨</span> : null}{isCommentAuthor && !isReadOnly ? <div className="ml-auto flex items-center gap-3"><button type="button" onClick={() => startEditingComment(post.id, commentId, commentContent)} className="text-[11px] text-[#8eb8dc] hover:text-[#b7d7f2]">수정</button><button type="button" onClick={() => setDeleteTarget({ type: 'comment', postId: post.id, commentId })} className="text-[11px] text-[#bd716d] hover:text-[#dd8b86]">삭제</button></div> : null}</div>{isEditingComment ? <div className="mt-2"><textarea aria-label="댓글 수정" autoFocus value={commentEditDraft} onChange={(event) => setCommentEditDraft(event.target.value)} className="min-h-[88px] w-full resize-y rounded-[8px] border border-[#4b5965] bg-[#29292B] px-3 py-2 text-[13px] leading-6 text-white outline-none focus:border-[#6f9fc7]" /><div className="mt-2 flex justify-end gap-2"><button type="button" onClick={cancelEditingComment} disabled={commentEditPendingId === commentId} className="h-8 rounded-[7px] border border-[#444] px-3 text-[11px] text-[#A1A1AA] disabled:opacity-40">취소</button><button type="button" onClick={handleUpdateComment} disabled={commentEditPendingId === commentId || !commentEditDraft.trim()} className="h-8 rounded-[7px] bg-[#3279b4] px-3 text-[11px] font-bold text-white disabled:opacity-40">{commentEditPendingId === commentId ? '저장 중...' : '저장'}</button></div></div> : <p className="mt-1 whitespace-pre-wrap break-words text-[13px] leading-6 text-[#B8B8BD]"><LinkifiedText text={commentContent} /></p>}<div className="mt-2 flex gap-3"><ReactionButton compact type="like" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'like', commentId)} /><ReactionButton compact type="check" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'check', commentId)} /></div></div></div></div>;
                       })}
                     </div>
 

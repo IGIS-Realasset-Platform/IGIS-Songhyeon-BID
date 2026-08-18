@@ -98,6 +98,7 @@ const toComment = (row, reactionRows) => ({
   author: toProfile(row, 'author'),
   reactions: groupedReactions(reactionsFor(reactionRows, row.post_id, row.id)),
   createdAt: row.created_at,
+  updatedAt: row.updated_at || row.created_at,
 });
 
 const stakeholderFor = (rows, postId) => {
@@ -377,6 +378,16 @@ export async function addTaskFeedComment(postId, body, actor = {}) {
   assertActor(actor);
   if (!text(body)) throw new SonghyeonTaskFeedRepositoryError('댓글 내용을 입력해 주세요.');
   return run(requireSupabase().rpc('add_songhyeon_feed_comment', { target_post_id: text(postId), comment_body: text(body) }), '댓글을 등록하지 못했습니다.');
+}
+
+export async function updateTaskFeedComment(postId, commentId, body, actor = {}) {
+  assertActor(actor);
+  if (!text(postId) || !text(commentId)) throw new SonghyeonTaskFeedRepositoryError('수정할 댓글을 확인해 주세요.');
+  if (!text(body)) throw new SonghyeonTaskFeedRepositoryError('댓글 내용을 입력해 주세요.');
+  return run(requireSupabase().rpc('update_songhyeon_feed_comment', {
+    target_comment_id: text(commentId),
+    comment_body: text(body),
+  }), '댓글을 수정하지 못했습니다.');
 }
 
 export async function deleteTaskFeedComment(postId, commentId, actor = {}) {

@@ -18,6 +18,7 @@ const WRITE_BOX_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFee
 const MEMBER_AVATAR_PATH = 'src/components/iota-songhyeon/SonghyeonMemberAvatar.jsx';
 const REPOSITORY_PATH = 'src/lib/songhyeonTaskFeedRepository.js';
 const MIGRATION_PATH = 'supabase/migrations/202608180001_songhyeon_task_feed.sql';
+const COMMENT_EDIT_MIGRATION_PATH = 'supabase/migrations/202608180013_songhyeon_feed_comment_edit.sql';
 const SHARED_CONTACTS_MIGRATION_PATH = 'supabase/migrations/202608180003_songhyeon_shared_stakeholder_contacts.sql';
 const STAKEHOLDER_MASTER_SYNC_MIGRATION_PATH = 'supabase/migrations/202608180005_songhyeon_feed_stakeholder_master_sync.sql';
 
@@ -750,26 +751,39 @@ test('부서 mention의 UI row id를 멤버 UUID로 재해석하지 않는다', 
     '명시된 멤버 ID도 UUID인 경우에만 RPC payload에 포함해야 합니다.');
 });
 
-test('댓글은 @멘션 가능한 단일 계층이며 댓글 수정·대댓글·댓글 첨부를 새로 만들지 않는다', async () => {
-  const [feed, repository, migration] = await Promise.all([
+test('댓글은 @멘션 가능한 단일 계층이며 작성자 본인이 인라인 수정할 수 있다', async () => {
+  const [feed, repository, migration, commentEditMigration] = await Promise.all([
     read(FEED_PATH),
     read(REPOSITORY_PATH),
     read(MIGRATION_PATH),
+    read(COMMENT_EDIT_MIGRATION_PATH),
   ]);
 
-  for (const method of ['addTaskFeedComment', 'deleteTaskFeedComment']) {
+  for (const method of ['addTaskFeedComment', 'updateTaskFeedComment', 'deleteTaskFeedComment']) {
     assert.match(repository, exportedFunction(repository, method), `댓글 API 누락: ${method}`);
     assert.match(feed, new RegExp(method), `댓글 UI 연결 누락: ${method}`);
   }
   assert.match(feed, /댓글을 입력하세요|@를 입력하여/);
   assert.match(feed, /mention/i);
-  assert.doesNotMatch(repository, /updateTaskFeedComment|addTaskFeedReply|deleteTaskFeedReply|replyId|parentComment/i);
+  assert.match(feed, /aria-label="댓글 수정"/);
+  assert.match(feed, /startEditingComment/);
+  assert.match(feed, /handleUpdateComment/);
+  assert.match(feed, /수정됨/);
+  assert.doesNotMatch(repository, /addTaskFeedReply|deleteTaskFeedReply|replyId|parentComment/i);
   assert.doesNotMatch(feed, /대댓글|답글|replyId|parentComment/i);
-  assert.doesNotMatch(migration, /songhyeon_feed_(?:comment_)?repl(?:y|ies)|parent_comment/i);
+  assert.doesNotMatch(`${migration}\n${commentEditMigration}`, /songhyeon_feed_(?:comment_)?repl(?:y|ies)|parent_comment/i);
 
   const commentsTable = migration.match(/create table(?: if not exists)? public\.songhyeon_feed_comments[\s\S]*?\n\);/i)?.[0] || '';
   assert.ok(commentsTable, 'flat comments 원장 테이블이 필요합니다.');
   assert.doesNotMatch(commentsTable, /attachment|parent_/i, '댓글에는 첨부나 중첩 부모 필드를 두지 않습니다.');
+
+  assert.match(commentEditMigration, /create or replace function public\.update_songhyeon_feed_comment\(/i);
+  assert.match(commentEditMigration, /target_comment\.author_id is distinct from current_user_id/i,
+    '댓글 수정은 서버에서 작성자 본인만 허용해야 합니다.');
+  assert.match(commentEditMigration, /for update/i, '동시 수정 시 대상 댓글 행을 잠가야 합니다.');
+  assert.match(commentEditMigration, /set body = normalized_body,[\s\S]*?updated_at = now\(\)/i);
+  assert.match(commentEditMigration, /grant execute on function public\.update_songhyeon_feed_comment\(text,text\) to authenticated/i);
+  assert.doesNotMatch(commentEditMigration, /grant execute on function public\.update_songhyeon_feed_comment\(text,text\) to anon/i);
 });
 
 test('좋아요·확인은 게시글과 댓글에서 사용자별 토글되고 반응자 프로필을 표시한다', async () => {
@@ -966,8 +980,12 @@ test('링크화는 표시 단계에만 적용하고 게시글 작성·수정과 
 });
 
 test('피드 DB는 송현 전용 원장·guest-safe 공개뷰·active-member 쓰기와 작성자 권한을 서버에서 강제한다', async () => {
-  const [repository, migration] = await Promise.all([read(REPOSITORY_PATH), read(MIGRATION_PATH)]);
-  const lower = migration.toLowerCase();
+  const [repository, migration, commentEditMigration] = await Promise.all([
+    read(REPOSITORY_PATH),
+    read(MIGRATION_PATH),
+    read(COMMENT_EDIT_MIGRATION_PATH),
+  ]);
+  const lower = `${migration}\n${commentEditMigration}`.toLowerCase();
   const tables = [
     'songhyeon_feed_posts',
     'songhyeon_feed_post_tasks',
@@ -1000,6 +1018,7 @@ test('피드 DB는 송현 전용 원장·guest-safe 공개뷰·active-member 쓰
     'update_songhyeon_feed_post',
     'delete_songhyeon_feed_post',
     'add_songhyeon_feed_comment',
+    'update_songhyeon_feed_comment',
     'delete_songhyeon_feed_comment',
     'toggle_songhyeon_feed_reaction',
   ]) {
