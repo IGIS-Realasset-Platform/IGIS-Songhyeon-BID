@@ -51,7 +51,7 @@ test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 
     '작성자 열 추가 후 로딩·빈 결과 행이 전체 8열을 사용해야 합니다.');
 });
 
-test('Data Room 목록은 문서명을 한 줄 말줄임하고 각 문서 행 높이를 6px 줄인다', async () => {
+test('Data Room 목록은 문서명과 설명을 한 줄 말줄임하고 각 문서 행 높이를 6px 줄인다', async () => {
   const page = await readFile('src/pages/DataRoom.jsx', 'utf8');
   const documentRow = page.match(
     /\{filteredDocuments\.map\(\(document\) => \([\s\S]*?<tr[\s\S]*?<\/tr>\s*\)\)\}/,
@@ -60,6 +60,8 @@ test('Data Room 목록은 문서명을 한 줄 말줄임하고 각 문서 행 �
   assert.ok(documentRow, 'Data Room 문서 목록 행을 찾을 수 있어야 합니다.');
   assert.match(documentRow, /<div className="[^"]*\bmin-w-0\b[^"]*">\s*<div\b[^>]*className="[^"]*\btruncate\b[^"]*"[^>]*>\{document\.title\}<\/div>/,
     '문서명은 너비가 제한된 컨테이너 안에서 한 줄 말줄임되어야 합니다.');
+  assert.match(documentRow, /<div\b[^>]*className="[^"]*\btruncate\b[^"]*"[^>]*>\{document\.description\}<\/div>/,
+    '문서 설명도 너비가 제한된 컨테이너 안에서 한 줄 말줄임되어야 합니다.');
 
   const dataCellClasses = [...documentRow.matchAll(/<td className="([^"]+)"/g)]
     .map((match) => match[1]);

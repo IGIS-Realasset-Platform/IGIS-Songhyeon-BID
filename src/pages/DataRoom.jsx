@@ -240,7 +240,7 @@ export default function DataRoom() {
                       </span>
                       <div className="min-w-0 flex-1">
                         <div title={document.title} className="truncate text-[14px] font-bold text-white">{document.title}</div>
-                        <div className="mt-[3px] text-[12px] leading-[18px] text-[#86868B]">{document.description}</div>
+                        <div title={document.description} className="mt-[3px] truncate text-[12px] leading-[18px] text-[#86868B]">{document.description}</div>
                       </div>
                     </div>
                   </td>
