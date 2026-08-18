@@ -23,6 +23,23 @@ const STAKEHOLDER_MASTER_SYNC_MIGRATION_PATH = 'supabase/migrations/202608180005
 
 const exportedFunction = (source, name) => new RegExp(`export\\s+(?:async\\s+)?function\\s+${name}\\b|export\\s+const\\s+${name}\\s*=`);
 
+const feedTableParts = (feed) => {
+  const headerLabelPosition = feed.indexOf('<FilterSelect label="기능셀"');
+  const headerStart = feed.lastIndexOf('<div className=', headerLabelPosition);
+  const headerEnd = feed.indexOf('</div>', headerLabelPosition);
+  const rowLinkPosition = feed.indexOf('data-feed-row-link', headerEnd);
+  const rowStart = feed.lastIndexOf('<button type="button"', rowLinkPosition);
+  const rowEnd = feed.indexOf('</button>', rowLinkPosition);
+  return {
+    headerStart,
+    headerEnd,
+    rowStart,
+    rowEnd,
+    header: feed.slice(headerStart, headerEnd),
+    row: feed.slice(rowStart, rowEnd),
+  };
+};
+
 test('업무 피드는 Data Room 바로 앞의 독립 상위 메뉴와 /feed 라우트로 열린다', async () => {
   const [layout, app, page] = await Promise.all([
     read('src/components/Layout.jsx'),
@@ -53,7 +70,8 @@ test('업무 피드는 IOTA 실제 게시판의 열 구조·작성 프롬프트�
   ]);
 
   assert.doesNotMatch(feed, /송현 BID 업무 메시지/, 'WorkspacePageHeader 아래에 내부 중복 제목을 다시 표시하면 안 됩니다.');
-  for (const column of ['프로젝트', '기능셀', '등록자', '내용', '이해관계자', '목적', '진행상태', '중요도', '등록일']) {
+  assert.doesNotMatch(feed, /<span>프로젝트<\/span>/, '모든 게시글이 송현 BID이므로 목록에 프로젝트 열을 중복 표시하면 안 됩니다.');
+  for (const column of ['기능셀', '등록자', '내용', '이해관계자', '목적', '진행상태', '중요도', '등록일']) {
     assert.match(feed, new RegExp(column), `원본 게시판 열 누락: ${column}`);
   }
   assert.match(writeBox, /업무 메시지, 협업 사항 또는 공유할 내용을 등록하세요\./);
@@ -103,31 +121,31 @@ test('업무 피드 작성 박스와 목록 행은 요청한 compact 패딩으�
   assert.doesNotMatch(rowClasses, /(?:^|\s)(?:px-5|py-4)(?:\s|$)/,
     'compact 목록 행에 이전 px-5 또는 py-4 패딩을 남기면 안 됩니다.');
 
-  const headerStart = feed.indexOf('<div className="grid min-w-[1080px]');
-  const headerEnd = feed.indexOf('</div>', headerStart);
-  const header = feed.slice(headerStart, headerEnd);
+  const { header } = feedTableParts(feed);
   const headerClasses = header.match(/className="([^"]*)"/)?.[1] || '';
   assert.match(headerClasses, /(?:^|\s)px-\[14px\](?:\s|$)/,
     '열 제목과 목록 행은 같은 좌우 패딩을 써서 수직 정렬을 유지해야 합니다.');
 });
 
-test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나머지 열을 보존한다', async () => {
+test('업무 피드 header와 row는 프로젝트를 제외한 동일한 9열 grid로 테이블 안에 맞춘다', async () => {
   const feed = await read(FEED_PATH);
-  const headerStart = feed.indexOf('<div className="grid min-w-[1080px]');
-  const headerEnd = feed.indexOf('</div>', headerStart);
-  const rowLinkPosition = feed.indexOf('data-feed-row-link', headerEnd);
-  const rowStart = feed.lastIndexOf('<button type="button"', rowLinkPosition);
-  const rowEnd = feed.indexOf('</button>', rowStart);
+  const { headerStart, headerEnd, rowStart, rowEnd, header, row } = feedTableParts(feed);
   assert.ok(headerStart >= 0 && headerEnd > headerStart, '피드 table header grid를 찾을 수 없습니다.');
-  assert.ok(rowLinkPosition >= 0 && rowStart >= 0 && rowEnd > rowStart, '피드 table row grid를 찾을 수 없습니다.');
-  const header = feed.slice(headerStart, headerEnd);
-  const row = feed.slice(rowStart, rowEnd);
+  assert.ok(rowStart >= 0 && rowEnd > rowStart, '피드 table row grid를 찾을 수 없습니다.');
   const headerGrid = header.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
   const rowGrid = row.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
-  const expectedGrid = '116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px';
-  assert.equal(headerGrid, expectedGrid, '기존 10개 header 열 템플릿을 보존해야 합니다.');
-  assert.equal(rowGrid, expectedGrid, 'row는 header와 정확히 같은 10개 열을 사용해야 합니다.');
-  assert.equal(headerGrid.split('_').length, 10);
+  const expectedGrid = '96px_126px_minmax(0,1fr)_92px_120px_72px_84px_68px_84px';
+  assert.equal(headerGrid, expectedGrid, '9개 열은 우측 등록일까지 테이블 폭 안에 맞는 반응형 grid여야 합니다.');
+  assert.equal(rowGrid, headerGrid, 'row는 header와 정확히 같은 grid template을 사용해야 합니다.');
+  assert.equal(headerGrid.split('_').length, 9, '프로젝트를 제외한 9개 열만 렌더해야 합니다.');
+
+  for (const [source, label] of [[header, 'header'], [row, 'row']]) {
+    const classes = source.match(/className="([^"]*)"/)?.[1] || '';
+    assert.match(classes, /(?:^|\s)w-full(?:\s|$)/, `${label}는 테이블 전체 폭 안에서 배치되어야 합니다.`);
+    assert.match(classes, /(?:^|\s)min-w-0(?:\s|$)/, `${label}는 고정 최소폭 때문에 우측 열을 자르면 안 됩니다.`);
+    assert.doesNotMatch(classes, /(?:^|\s)min-w-\[(?:1080|\d{4,})px\](?:\s|$)/,
+      `${label}에 viewport보다 큰 고정 최소폭을 두면 우측 등록일이 잘립니다.`);
+  }
 
   const assertOrdered = (source, tokens, label) => {
     let previous = -1;
@@ -138,14 +156,19 @@ test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나�
     });
   };
   assertOrdered(header, [
-    '>프로젝트<', 'label="기능셀"', '>등록자<', '>내용<', 'aria-label="반응자"',
+    'label="기능셀"', '>등록자<', '>내용<', 'aria-label="반응자"',
     'label="이해관계자"', 'label="목적"', 'label="진행상태"', 'label="중요도"', '>등록일<',
   ], 'header');
   assertOrdered(row, [
-    '{post.project}', '{post.cell', '<Avatar profile={{ name: post.authorName', "{post.title || '제목 없음'}",
+    '{post.cell', '<Avatar profile={{ name: post.authorName', "{post.title || '제목 없음'}",
     '<SonghyeonReactionAvatarStack', '{post.stakeholderLabel', '{post.purpose', 'statusClass(post.status)',
     'priorityClass(post.priority)', 'shortDate(post.workDate)',
   ], 'row');
+
+  assert.doesNotMatch(header, /<span>프로젝트<\/span>/, 'header에서 고정 프로젝트 열을 제거해야 합니다.');
+  assert.doesNotMatch(row, /\{post\.project\}/, 'row에서 고정 프로젝트 cell을 제거해야 합니다.');
+  assert.match(header, /<span[^>]*>등록일<\/span>\s*$/, '등록일은 header의 마지막 열로 테이블 안에 보여야 합니다.');
+  assert.match(row, /<span[^>]*>\{shortDate\(post\.workDate\)\}<\/span>\s*$/, '등록일 값은 row의 마지막 열로 테이블 안에 보여야 합니다.');
 
   assert.match(header, /className="[^"]*text-center[^"]*"[\s\S]*?<span(?:\s+className="(?![^"]*text-left)[^"]*")?>등록자<\/span>/,
     '등록자 header는 해당 grid cell에서 중앙 정렬을 유지해야 합니다.');
