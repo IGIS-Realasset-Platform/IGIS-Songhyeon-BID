@@ -370,6 +370,53 @@ test('공개글 수정 확인 모달은 편집 overlay 앞에 표시되어 수�
     `공개글 확인 portal(z=${portalZ})은 수정 overlay(z=${editingZ})보다 앞에 있어야 합니다.`);
 });
 
+test('업무 피드 수정 modal의 활성 control은 pointer, 비활성 control은 not-allowed cursor를 사용한다', async () => {
+  const [feed, writeBox] = await Promise.all([read(FEED_PATH), read(WRITE_BOX_PATH)]);
+  const cursorContracts = [
+    '[&_button]:cursor-pointer',
+    '[&_button:disabled]:cursor-not-allowed',
+    '[&_select]:cursor-pointer',
+    '[&_select:disabled]:cursor-not-allowed',
+  ];
+
+  const formRootStart = writeBox.indexOf('<div className={`mb-[11px] w-full rounded-[24px]');
+  const formRootEnd = writeBox.indexOf('}>', formRootStart);
+  assert.ok(formRootStart >= 0 && formRootEnd > formRootStart, '펼쳐진 작성·수정 form root를 찾을 수 없습니다.');
+  const formRoot = writeBox.slice(formRootStart, formRootEnd);
+  const modalShellStart = writeBox.indexOf('function ModalShell');
+  const modalShellEnd = writeBox.indexOf('\n}\n', modalShellStart);
+  const modalShell = writeBox.slice(modalShellStart, modalShellEnd);
+  for (const contract of cursorContracts) {
+    assert.ok(formRoot.includes(contract), `수정 form cursor 계약 누락: ${contract}`);
+    assert.ok(modalShell.includes(contract), `수정 내부 portal cursor 계약 누락: ${contract}`);
+  }
+
+  const selectFieldStart = writeBox.indexOf('function SelectField');
+  const selectFieldEnd = writeBox.indexOf('\n}\n', selectFieldStart);
+  const selectField = writeBox.slice(selectFieldStart, selectFieldEnd);
+  assert.match(selectField, /<label className="[^"]*\bcursor-pointer\b[^"]*">[\s\S]*?<select\b/,
+    '선택 필드 label 전체가 클릭 가능한 cursor를 보여야 합니다.');
+  const dateLabelStart = writeBox.indexOf('<label className="relative ml-auto inline-flex h-9');
+  const dateLabelEnd = writeBox.indexOf('</label>', dateLabelStart);
+  assert.ok(dateLabelStart >= 0 && dateLabelEnd > dateLabelStart, '작업일 control을 찾을 수 없습니다.');
+  const dateControl = writeBox.slice(dateLabelStart, dateLabelEnd);
+  assert.match(dateControl, /<label className="[^"]*\bcursor-pointer\b/);
+  assert.match(dateControl, /<input type="date"[\s\S]*?className="[^"]*\bcursor-pointer\b/,
+    '작업일 필드와 date input 모두 클릭 가능한 cursor를 유지해야 합니다.');
+  assert.match(writeBox, /<button type="button" onClick=\{requestSave\} disabled=\{submitting\} className="[^"]*disabled:cursor-not-allowed[^"]*"/,
+    '저장 중인 수정 완료 버튼은 not-allowed cursor여야 합니다.');
+
+  const editOverlayStart = feed.indexOf('{editingPost ?');
+  const editOverlayEnd = feed.indexOf('<SonghyeonTaskFeedWriteBox', editOverlayStart);
+  const editOverlay = feed.slice(editOverlayStart, editOverlayEnd);
+  const editCloseStart = editOverlay.indexOf('<button type="button" aria-label="닫기"');
+  const editCloseEnd = editOverlay.indexOf('><X', editCloseStart);
+  assert.ok(editCloseStart >= 0 && editCloseEnd > editCloseStart, '부모 수정 modal 닫기 control을 찾을 수 없습니다.');
+  const editClose = editOverlay.slice(editCloseStart, editCloseEnd);
+  assert.match(editClose, /className="[^"]*\bcursor-pointer\b[^"]*"/,
+    '부모 수정 modal의 상단 닫기 control도 pointer cursor를 사용해야 합니다.');
+});
+
 test('수정 저장은 ID 반환·pending 해제·닫기 후 재조회·inline 오류 계약을 유지한다', async () => {
   const [repository, writeBox, feed] = await Promise.all([
     read(REPOSITORY_PATH),

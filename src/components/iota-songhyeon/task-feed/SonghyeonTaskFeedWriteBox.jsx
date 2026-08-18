@@ -131,7 +131,7 @@ function Avatar({ actor }) {
 function ModalShell({ title, description, onClose, width = 'max-w-[560px]', children, footer }) {
   if (typeof document === 'undefined') return null;
   return createPortal(
-    <div className="fixed inset-0 z-[130000] flex items-center justify-center p-5">
+    <div className="fixed inset-0 z-[130000] flex items-center justify-center p-5 [&_button]:cursor-pointer [&_button:disabled]:cursor-not-allowed [&_select]:cursor-pointer [&_select:disabled]:cursor-not-allowed">
       <button type="button" aria-label={`${title} 닫기`} className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" onClick={onClose} />
       <section className={`relative flex max-h-[88vh] w-full ${width} flex-col overflow-hidden rounded-[22px] border border-[#414141] bg-[#232323] shadow-2xl`}>
         <header className="flex items-start gap-4 border-b border-[#393939] px-6 py-5">
@@ -341,7 +341,7 @@ function TaskPickerModal({ tasks, selectedTaskIds, reference, onApply, onClose }
 
 function SelectField({ label, value, onChange, children, valueClassName = 'text-[#e5e5e5]' }) {
   return (
-    <label className="relative flex min-w-0 items-center gap-2">
+    <label className="relative flex min-w-0 cursor-pointer items-center gap-2">
       <span className="shrink-0 text-[12px] font-bold text-[#85858b]">{label}</span>
       <select value={value} onChange={onChange} className={`h-9 min-w-0 appearance-none rounded-[8px] border border-[#3e3e3e] bg-[#222] py-1 pl-3 pr-8 text-[13px] font-bold outline-none focus:border-[#4f89b7] ${valueClassName}`}>
         {children}
@@ -579,7 +579,7 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
   }
 
   return (
-    <div className={`mb-[11px] w-full rounded-[24px] bg-gradient-to-br from-[#d6efe9] via-[#82afb9] to-[#4c6e86] p-px ${editMode ? 'shadow-2xl' : ''}`}>
+    <div className={`mb-[11px] w-full rounded-[24px] bg-gradient-to-br from-[#d6efe9] via-[#82afb9] to-[#4c6e86] p-px [&_button]:cursor-pointer [&_button:disabled]:cursor-not-allowed [&_select]:cursor-pointer [&_select:disabled]:cursor-not-allowed ${editMode ? 'shadow-2xl' : ''}`}>
       <section className="overflow-hidden rounded-[23px] bg-[#262626]">
         <header className="flex flex-wrap items-center gap-3 border-b border-[#383838] px-5 py-3">
           <Avatar actor={actor} />
@@ -595,7 +595,7 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
           <SelectField label="중요도" value={priority} onChange={(event) => setPriority(event.target.value)} valueClassName={priorityColor(priority)}>
             {priorities.map((entry) => <option key={entry} value={entry}>{entry}</option>)}
           </SelectField>
-          <label className="relative ml-auto inline-flex h-9 items-center gap-2 rounded-[8px] border border-[#3e3e3e] bg-[#222] px-3 text-[12px] font-bold text-[#ddd]">
+          <label className="relative ml-auto inline-flex h-9 cursor-pointer items-center gap-2 rounded-[8px] border border-[#3e3e3e] bg-[#222] px-3 text-[12px] font-bold text-[#ddd]">
             <CalendarDays size={14} className="text-[#85858b]" />
             {formatDate(workDate)}
             <input type="date" value={workDate} onChange={(event) => setWorkDate(event.target.value)} className="absolute inset-0 cursor-pointer opacity-0" />
