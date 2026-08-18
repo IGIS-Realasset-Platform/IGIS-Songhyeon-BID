@@ -139,7 +139,7 @@
       "deterministic": true,
       "generatedBy": "scripts/build-songhyeon-hotel-data.mjs",
       "provenance": {
-        "baseRuntimeManifestSha256": "bb1d8049f0b1a2649c56be24c2ee29fab60eebab5d75c0a8512b2c982a2da704",
+        "baseRuntimeManifestSha256": "ea947daf730d3ae3faaf66d56e8b23dfbca05477345c8633bb807b7bee1dae19",
         "extraction": {
           "datasetDirectory": "references/map-activities/hotel/datasets",
           "deterministic": true,
@@ -218,7 +218,7 @@
       "publicPath": "/map-activities/data/integrated-map.json",
       "recordCount": 44,
       "repositoryPath": "public/map-activities/data/integrated-map.json",
-      "sha256": "bdeefec643c5b9a490f7ce5e0d48e0aa13f2a50216cf3df186f26449c175111f",
+      "sha256": "12084d31b51652df2502f718bd48d6899b08fda39376016151c179939d88a3da",
       "sizeBytes": 33943,
       "standaloneDataset": false
     },
@@ -237,7 +237,7 @@
       "publicPath": "/map-activities/data/operating-boundaries.json",
       "recordCount": 21,
       "repositoryPath": "public/map-activities/data/operating-boundaries.json",
-      "sha256": "e9e5a46f6645b6fb20319393d17ceb1d6a3c6ae2af826df8a656863a9d073c17",
+      "sha256": "db78abe7a2f5f1a3ae8603425b1f99a6fcd38b587a3f5fe920770e72b4d438c3",
       "sizeBytes": 3682181,
       "standaloneDataset": false
     },
@@ -252,7 +252,7 @@
       "publicPath": "/map-activities/data/assets-leases.json",
       "recordCount": 5,
       "repositoryPath": "public/map-activities/data/assets-leases.json",
-      "sha256": "cff47397441ab16fcfccab98580bc4517e54a73fb8143d15e6d50814706a9738",
+      "sha256": "29d1ccefd8474ec85f4fac1baf611d2b2ba5692c43f73cea3a7fd68eb64cf708",
       "sizeBytes": 273265,
       "standaloneDataset": false
     },
@@ -269,10 +269,10 @@
       "id": "market-activities",
       "label": "상권·활동",
       "publicPath": "/map-activities/data/market-activities.json",
-      "recordCount": 1398,
+      "recordCount": 1426,
       "repositoryPath": "public/map-activities/data/market-activities.json",
-      "sha256": "817a6682c0e93f85a2de3474fcf68915dd587bf85fca572fa6461119609a2ed2",
-      "sizeBytes": 1052550,
+      "sha256": "a28f0dcf6dc7bd61b52e7695c422967faef70ecc713238f9626a2ca5670215d8",
+      "sizeBytes": 1167186,
       "standaloneDataset": false
     },
     {
@@ -290,7 +290,7 @@
       "publicPath": "/map-activities/data/institutions-community.json",
       "recordCount": 63,
       "repositoryPath": "public/map-activities/data/institutions-community.json",
-      "sha256": "512903959188c986c3172c2b941bbdce74f1bfc98abf0859738217c2e44f450a",
+      "sha256": "3e79e7235543c03f6a6c8d52821c9b46f3458ff38032171f6483702d681958c5",
       "sizeBytes": 112535,
       "standaloneDataset": false
     },
@@ -686,6 +686,8 @@
       "bundleId": "market-activities",
       "containerFields": [
         "asset_order",
+        "change_log",
+        "change_summary",
         "map_assets",
         "metadata",
         "records"
@@ -700,13 +702,13 @@
       "jsonPointer": "/datasets/igis_retail",
       "name": "igis_retail",
       "publicPath": "/map-activities/data/market-activities.json",
-      "recordCount": 147,
+      "recordCount": 175,
       "recordPath": "$.records",
       "repositoryPath": "public/map-activities/data/market-activities.json",
-      "runtimeValueSha256": "ec485fb40b5344e6e8cce009f83f3b1e1ec67adaf945e5e5638edc7786258f1b",
+      "runtimeValueSha256": "111e685675ea84bae238dc00685fec2424708615074499ee86faed18c4058634",
       "sourceFile": "references/map-activities/datasets/igis_retail.json",
-      "sourceSha256": "ec485fb40b5344e6e8cce009f83f3b1e1ec67adaf945e5e5638edc7786258f1b",
-      "sourceSizeBytes": 108436,
+      "sourceSha256": "111e685675ea84bae238dc00685fec2424708615074499ee86faed18c4058634",
+      "sourceSizeBytes": 206532,
       "valueType": "object"
     },
     {
@@ -1192,7 +1194,7 @@
     "sourceManifest": {
       "repositoryPath": "references/map-activities/manifest.json",
       "schemaVersion": 1,
-      "sha256": "0fb667be7ee3e2deebdd3f56caab873f431b490abc8dac144a3c0a7ea6e312c9"
+      "sha256": "4ae89b01840d22a33a54c27278567cc0147b1249bd57168499afed536a7f8807"
     }
   },
   "publicBasePath": "/map-activities/data",
@@ -1200,8 +1202,8 @@
   "summary": {
     "bundleCount": 6,
     "datasetCount": 21,
-    "sumOfDatasetRecordCounts": 12102,
-    "totalRuntimeDataBytes": 12545107,
-    "totalSourceDatasetBytes": 11898723
+    "sumOfDatasetRecordCounts": 12130,
+    "totalRuntimeDataBytes": 12659743,
+    "totalSourceDatasetBytes": 11996819
   }
 }

@@ -34,6 +34,18 @@ test('홈의 주요 컴포넌트는 실제 상세 랜딩으로 연결된다', ()
   assert.match(source, /to=\{`\/data\/\$\{encodeURIComponent\(document\.id\)\}`\}/);
 });
 
+test('홈의 공간 화면 소개 카드는 작은 글씨를 피하고 구분선과 메타 정보 사이 여백을 확보한다', () => {
+  const source = read('src/pages/Dashboard.jsx');
+  const mapSection = source.match(/<div className="grid grid-cols-12 gap-px bg-white\/\[0\.09\]">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/section>/)?.[0] || '';
+
+  assert.ok(mapSection, '공간 화면 소개 카드 영역을 찾을 수 없습니다.');
+  assert.match(mapSection, /text-\[15px\] font-bold text-\[#8fc1ba\]/, '통합지도·운영구역 등의 분류명은 15px 이상이어야 합니다.');
+  assert.match(mapSection, /text-\[23px\] font-semibold text-white/, '각 공간 화면 제목은 충분히 크게 보여야 합니다.');
+  assert.match(mapSection, /text-\[15px\] leading-\[1\.65\]/, '카드 설명은 15px 이상이어야 합니다.');
+  assert.match(mapSection, /border-t[^"\n]*pt-5 text-\[14px\]/, '하단 선과 데이터 문구 사이에 충분한 위쪽 여백이 필요합니다.');
+  assert.doesNotMatch(mapSection, /text-\[(?:10|11|12|13)px\]/, '공간 화면 카드에 지나치게 작은 글씨를 다시 사용하면 안 됩니다.');
+});
+
 test('홈 메인 제목 아래 실행계획 PDF는 브라우저 새 탭으로 열린다', () => {
   const source = read('src/pages/Dashboard.jsx');
   const pdfPath = 'public/songhyeon-bid-direction-execution-plan-260813.pdf';

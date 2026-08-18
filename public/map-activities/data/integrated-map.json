@@ -754,7 +754,7 @@
   },
   "generatedFrom": {
     "sourceManifest": "references/map-activities/manifest.json",
-    "sourceManifestSha256": "0fb667be7ee3e2deebdd3f56caab873f431b490abc8dac144a3c0a7ea6e312c9"
+    "sourceManifestSha256": "4ae89b01840d22a33a54c27278567cc0147b1249bd57168499afed536a7f8807"
   },
   "label": "통합지도",
   "schemaVersion": 1

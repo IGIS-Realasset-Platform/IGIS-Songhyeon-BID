@@ -615,6 +615,69 @@ function RawSelect({ label, value, options, onChange }) {
   return <select aria-label={label} value={value} onChange={onChange} className="h-10 min-w-0 rounded-[8px] border border-[#3d3f42] bg-[#1f2022] px-3 text-[15px] text-[#d5d7da] outline-none focus:border-[#6d8ca3]"><option value="all">전체 {label}</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select>;
 }
 
+const CHANGE_BADGE_CLASSES = {
+  '신규': 'border-[#315f4b] bg-[#233c32] text-[#83c9a6]',
+  '위치변경': 'border-[#4c5871] bg-[#293243] text-[#9cb7e4]',
+  '영업 종료': 'border-[#71433f] bg-[#442b29] text-[#ef9c94]',
+};
+
+function RetailChanges({ changeLog, changeSummary, scope }) {
+  const changes = useMemo(
+    () => scope === '전체' ? changeLog : changeLog.filter((item) => item.asset === scope),
+    [changeLog, scope],
+  );
+  const counts = useMemo(() => ({
+    '신규': changes.filter((item) => item.change_type === '신규').length,
+    '위치변경': changes.filter((item) => item.change_type === '위치변경').length,
+    '영업 종료': changes.filter((item) => item.change_type === '영업 종료').length,
+  }), [changes]);
+  const assetStatus = useMemo(
+    () => (changeSummary?.by_asset || []).filter((item) => scope === '전체' || item.asset === scope),
+    [changeSummary?.by_asset, scope],
+  );
+  return (
+    <div data-retail-changes className="min-h-0 flex-1 overflow-y-auto p-4 min-[901px]:p-6">
+      <section className="grid grid-cols-2 gap-3 min-[761px]:grid-cols-4">
+        {[
+          ['총 변경', changes.length, 'text-[#e4e6e8]'],
+          ['신규', counts['신규'], 'text-[#83c9a6]'],
+          ['위치변경', counts['위치변경'], 'text-[#9cb7e4]'],
+          ['영업 종료', counts['영업 종료'], 'text-[#ef9c94]'],
+        ].map(([label, value, tone]) => (
+          <article key={label} className="rounded-[11px] border border-[#393b3e] bg-[#242527] p-4">
+            <p className="text-[14px] font-bold text-[#8e9195]">{label}</p>
+            <strong className={`mt-2 block text-[28px] tabular-nums ${tone}`}>{nf.format(value)}</strong>
+          </article>
+        ))}
+      </section>
+      <section className="mt-4 overflow-hidden rounded-[11px] border border-[#393b3e] bg-[#242527]">
+        <header className="flex flex-wrap items-end justify-between gap-3 border-b border-[#393b3e] px-4 py-3.5">
+          <div><h2 className="text-[18px] font-bold text-[#e2e4e7]">변경 상점</h2><p className="mt-1 text-[14px] text-[#85888c]">{scope === '전체' ? '전체 자산' : scope} · 현재 층과 운영상태 기준</p></div>
+          <span className="text-[14px] font-bold text-[#a4a7ab]">{nf.format(changes.length)}건</span>
+        </header>
+        {changes.length ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[720px] border-collapse text-left">
+              <thead className="bg-[#292a2c] text-[14px] text-[#8f9296]"><tr><th className="px-4 py-3">자산</th><th className="px-4 py-3">현재 층</th><th className="px-4 py-3">브랜드명</th><th className="px-4 py-3">운영상태</th><th className="px-4 py-3">변화유형</th></tr></thead>
+              <tbody>{changes.map((item) => <tr key={`${item.asset}-${item.current_floor}-${item.brand}`} className="border-t border-[#343638] text-[15px] text-[#bdc0c4]"><td className="px-4 py-3.5 font-bold text-[#d4d6d9]">{item.asset}</td><td className="px-4 py-3.5">{item.current_floor}</td><td className="px-4 py-3.5 font-bold text-[#d4d6d9]">{item.brand}</td><td className="px-4 py-3.5">{item.operating_status}</td><td className="px-4 py-3.5"><span className={`${CHANGE_BADGE_CLASSES[item.change_type] || 'border-[#47494c] bg-[#2d2f31] text-[#a6a9ad]'} inline-flex rounded-[6px] border px-2 py-1 text-[14px] font-bold`}>{item.change_type}</span></td></tr>)}</tbody>
+            </table>
+          </div>
+        ) : <p className="px-4 py-12 text-center text-[15px] text-[#7f8286]">선택한 자산의 변경사항이 없습니다.</p>}
+      </section>
+      <div className="mt-4 grid gap-4 min-[901px]:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)]">
+        <section className="overflow-hidden rounded-[11px] border border-[#393b3e] bg-[#242527]">
+          <header className="border-b border-[#393b3e] px-4 py-3.5"><h2 className="text-[18px] font-bold text-[#e2e4e7]">자산별 운영 현황</h2></header>
+          <div className="overflow-x-auto"><table className="w-full min-w-[560px] border-collapse text-center text-[14px]"><thead className="bg-[#292a2c] text-[#8f9296]"><tr><th className="px-3 py-3 text-left">자산</th><th className="px-3 py-3">운영 중</th><th className="px-3 py-3">공실</th><th className="px-3 py-3">영업 종료</th><th className="px-3 py-3">지원시설</th></tr></thead><tbody>{assetStatus.map((item) => <tr key={item.asset} className="border-t border-[#343638] text-[#bdc0c4]"><td className="px-3 py-3.5 text-left font-bold text-[#d4d6d9]">{item.asset}</td><td>{nf.format(item.active)}</td><td>{nf.format(item.vacant)}</td><td>{nf.format(item.closed)}</td><td>{nf.format(item.support)}</td></tr>)}</tbody></table></div>
+        </section>
+        <aside className="rounded-[11px] border border-[#393b3e] bg-[#242527] p-4">
+          <h2 className="text-[18px] font-bold text-[#e2e4e7]">변경 표기 기준</h2>
+          <ul className="mt-3 space-y-2.5 text-[14px] leading-6 text-[#a0a3a7]">{(changeSummary?.definitions || []).map((item) => <li key={item} className="border-l-2 border-[#526879] pl-3">{item}</li>)}</ul>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
 export function IgisRetailWorkspace({ igisRetail = {} }) {
   const records = useMemo(() => igisRetail.records || [], [igisRetail.records]);
   const mapAssets = igisRetail.map_assets || [];
@@ -625,6 +688,7 @@ export function IgisRetailWorkspace({ igisRetail = {} }) {
   }, [igisRetail.asset_order, presentAssets]);
   const scopes = useMemo(() => ['전체', ...assetOrder], [assetOrder]);
   const [scope, setScope] = useState('전체');
+  const [view, setView] = useState('status');
   const [highlightedAsset, setHighlightedAsset] = useState(null);
   const [rawOpen, setRawOpen] = useState(false);
   const scopedRecords = useMemo(() => scope === '전체' ? records : records.filter((record) => record.normalized?.asset === scope), [records, scope]);
@@ -651,7 +715,16 @@ export function IgisRetailWorkspace({ igisRetail = {} }) {
   const highlightAsset = useCallback((asset) => setHighlightedAsset(asset), []);
   return (
     <section data-map-activities-view="igis-retail" className="flex h-full min-h-[610px] flex-col overflow-y-auto bg-[#1f2022] text-[14px]">
-      <div className="flex min-h-[54px] flex-wrap items-center justify-between gap-3 border-b border-[#383a3d] bg-[#232426] px-4 py-2.5">
+      <div className="flex min-h-[54px] flex-wrap items-center justify-between gap-3 border-b border-[#383a3d] bg-[#202123] px-4 py-2.5">
+        <div role="tablist" aria-label="이지스 리테일 보기" className="inline-flex rounded-[9px] border border-[#3d3f42] bg-[#191a1b] p-1">
+          {[['status', 'Retail 현황'], ['changes', '변경사항']].map(([value, label]) => <button key={value} type="button" role="tab" aria-selected={view === value} onClick={() => setView(value)} className={`${view === value ? 'bg-[#324757] text-[#b8daf1]' : 'text-[#85888c] hover:text-[#c3c6ca]'} h-8 cursor-pointer rounded-[6px] px-3.5 text-[14px] font-bold transition-colors`}>{label}</button>)}
+        </div>
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <a href={igisRetail.metadata?.source_url} target="_blank" rel="noopener noreferrer" className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[8px] border border-[#3d3f42] px-3 text-[14px] font-bold text-[#9da0a4] hover:border-[#596068] hover:text-[#d0d3d6]">원본 시트 <ExternalLink size={14} /></a>
+          <button type="button" onClick={() => setRawOpen(true)} className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-[8px] border border-[#51697a] bg-[#2b3943] px-3 text-[14px] font-bold text-[#abd0e8] hover:border-[#7897ad] hover:bg-[#30424f]"><Database size={15} />RAW DATA · {nf.format(records.length)}</button>
+        </div>
+      </div>
+      <div className="flex min-h-[50px] flex-wrap items-center justify-between gap-3 border-b border-[#383a3d] bg-[#232426] px-4 py-2">
         <div role="tablist" aria-label="리테일 자산 선택" className="flex flex-wrap items-center gap-1.5">
           {scopes.map((asset, index) => (
             <button
@@ -673,21 +746,20 @@ export function IgisRetailWorkspace({ igisRetail = {} }) {
             >{asset}</button>
           ))}
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-3">
-          <div aria-label="자산 색상 범례" className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-[#8d9094]">{assetOrder.map((asset) => <span key={asset} className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: ASSET_COLORS[asset] || '#74787d' }} />{asset}</span>)}</div>
-          <button type="button" onClick={() => setRawOpen(true)} className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-[8px] border border-[#51697a] bg-[#2b3943] px-3 text-[14px] font-bold text-[#abd0e8] hover:border-[#7897ad] hover:bg-[#30424f]"><Database size={15} />RAW DATA · {nf.format(records.length)}</button>
+        <div aria-label="자산 색상 범례" className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-[#8d9094]">{assetOrder.map((asset) => <span key={asset} className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: ASSET_COLORS[asset] || '#74787d' }} />{asset}</span>)}</div>
+      </div>
+      {view === 'status' ? <>
+        <div className="grid min-h-[420px] grid-cols-1 border-b border-[#383a3d] min-[701px]:grid-cols-[minmax(0,1fr)_230px] min-[981px]:grid-cols-[minmax(0,1fr)_290px] max-[700px]:grid-rows-[minmax(420px,1fr)_minmax(0,260px)]">
+          <RetailMap items={mapAssets} records={records} selectedAsset={scope} highlightedAsset={highlightedAsset} onSelect={selectScope} onAssetHighlight={highlightAsset} />
+          <div className="min-h-0 max-[700px]:max-h-[260px] max-[700px]:overflow-y-auto"><RetailSummary scope={scope} records={scopedRecords} /></div>
         </div>
-      </div>
-      <div className="grid min-h-[420px] grid-cols-1 border-b border-[#383a3d] min-[701px]:grid-cols-[minmax(0,1fr)_230px] min-[981px]:grid-cols-[minmax(0,1fr)_290px] max-[700px]:grid-rows-[minmax(420px,1fr)_minmax(0,260px)]">
-        <RetailMap items={mapAssets} records={records} selectedAsset={scope} highlightedAsset={highlightedAsset} onSelect={selectScope} onAssetHighlight={highlightAsset} />
-        <div className="min-h-0 max-[700px]:max-h-[260px] max-[700px]:overflow-y-auto"><RetailSummary scope={scope} records={scopedRecords} /></div>
-      </div>
-      <div className="grid grid-cols-1 gap-3 p-3 min-[701px]:grid-cols-2">
-        <RetailChart title="대분류 구성" rows={categories} segmented={scope === '전체'} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} />
-        <RetailChart title="중분류 구성" rows={subcategories} segmented={scope === '전체'} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} />
-        <RetailChart title="Origin 구성" rows={origins} segmented={scope === '전체'} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} />
-        <RetailChart title="자산별 대기업 모회사 비율" rows={parentRows} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} valueFormatter={(row) => `${nf.format(row.count)} / ${nf.format(row.denominator)} · ${row.share.toFixed(1)}%`} />
-      </div>
+        <div className="grid grid-cols-1 gap-3 p-3 min-[701px]:grid-cols-2">
+          <RetailChart title="대분류 구성" rows={categories} segmented={scope === '전체'} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} />
+          <RetailChart title="중분류 구성" rows={subcategories} segmented={scope === '전체'} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} />
+          <RetailChart title="Origin 구성" rows={origins} segmented={scope === '전체'} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} />
+          <RetailChart title="자산별 대기업 모회사 비율" rows={parentRows} highlightedAsset={highlightedAsset} onAssetHighlight={highlightAsset} valueFormatter={(row) => `${nf.format(row.count)} / ${nf.format(row.denominator)} · ${row.share.toFixed(1)}%`} />
+        </div>
+      </> : <RetailChanges changeLog={igisRetail.change_log || []} changeSummary={igisRetail.change_summary || {}} scope={scope} />}
       {rawOpen && <RetailRawDialog onClose={() => setRawOpen(false)} igisRetail={igisRetail} initialAsset={scope} />}
     </section>
   );

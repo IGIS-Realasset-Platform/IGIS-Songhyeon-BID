@@ -20,6 +20,18 @@ node scripts/extract-songhyeon-map-activities.mjs \
 
 `SONGHYEON_MAP_DASHBOARD_SOURCE` 환경 변수도 사용할 수 있습니다. 출력 위치는 이 디렉터리로 고정되어 있어 다른 프로젝트나 IOTA 경로에 쓰지 않습니다.
 
+### 이지스 리테일 공유 시트 교체
+
+공개 Google Sheets의 `Retail 현황`과 `변경사항`을 브라우저에서 JSON으로 내려받은 뒤 다음 명령으로 정규화합니다. 입력 JSON은 `{ "retail": [...], "changes": [...] }` 형태의 두 행렬이어야 합니다.
+
+```bash
+node scripts/import-songhyeon-igis-retail.mjs \
+  --input=/private/tmp/songhyeon-retail-sheet.json
+node scripts/build-songhyeon-map-data.mjs
+```
+
+가져오기는 최신 원장의 175행, 자산별 합계, 운영상태 합계와 변경사항 14건을 검증한 뒤에만 `igis_retail.json`과 manifest를 교체합니다. 기존 건물 형상은 유지하고 리테일 건수만 최신 원장과 맞춥니다.
+
 ### v1.2 호텔 추가 데이터
 
 v1.2에서 새로 추가된 호텔 데이터만 갱신할 때는 별도 생성기를 사용합니다. 이 명령은 v1.2의 기존 21개 데이터셋이 v1.1 참조본과 동일한지 먼저 검증하고, `hotels`와 `hotel_display_audit`만 `hotel/` 아래에 추출합니다.

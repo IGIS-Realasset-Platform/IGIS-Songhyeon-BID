@@ -154,7 +154,7 @@ export default function Dashboard() {
       title: '송현을 한 장의 지도에서',
       description: '운영구역·자산·점포·기관을 겹쳐 보며 장소의 조건과 관계를 함께 읽습니다.',
       meta: '21개 데이터셋 · 공간 통합 탐색',
-      icon: <Layers3 size={19} />,
+      icon: <Layers3 size={21} />,
       className: 'col-span-6 bg-gradient-to-br from-[#263640] to-[#222625]',
     },
     {
@@ -163,7 +163,7 @@ export default function Dashboard() {
       title: '운영 범위를 비교',
       description: '도로와 필지, 보행 흐름을 기준으로 BID 운영 범위의 대안을 비교합니다.',
       meta: unavailable.has('map') ? '운영 범위 비교' : `${data.mapOverview?.boundaries?.length || 0}개 운영 대안`,
-      icon: <ScanSearch size={19} />,
+      icon: <ScanSearch size={21} />,
       className: 'col-span-3 bg-[#242625]',
     },
     {
@@ -172,7 +172,7 @@ export default function Dashboard() {
       title: '자산·임차 관계',
       description: '주요 자산의 위치와 운영 관계, 임대차 현황을 공간 위에서 확인합니다.',
       meta: unavailable.has('map') ? '자산 관계 탐색' : `${mapCatalog.assets?.length || 0}개 주요 자산`,
-      icon: <Building2 size={19} />,
+      icon: <Building2 size={21} />,
       className: 'col-span-3 bg-[#262526]',
     },
     {
@@ -181,7 +181,7 @@ export default function Dashboard() {
       title: '운영 자산 연결',
       description: '이지스 자산과 주변 상권을 함께 보며 협업 가능한 운영 네트워크를 찾습니다.',
       meta: '자산 포트폴리오 · 운영 접점',
-      icon: <Store size={19} />,
+      icon: <Store size={21} />,
       className: 'col-span-3 bg-[#252524]',
     },
     {
@@ -190,7 +190,7 @@ export default function Dashboard() {
       title: '상권과 활동 밀도',
       description: '점포 구성과 유동, 시간대별 활동을 통해 실제 도시 경험의 패턴을 봅니다.',
       meta: '10,571개 점포 · 상권 활동',
-      icon: <Activity size={19} />,
+      icon: <Activity size={21} />,
       className: 'col-span-3 bg-[#232526]',
     },
     {
@@ -199,7 +199,7 @@ export default function Dashboard() {
       title: '도심 체류 수요',
       description: '숙박시설의 등급과 분포, 객실 공급을 비교해 방문객 체류 조건을 읽습니다.',
       meta: '266개 숙박시설 · 공급 구성',
-      icon: <Hotel size={19} />,
+      icon: <Hotel size={21} />,
       className: 'col-span-3 bg-[#252425]',
     },
     {
@@ -208,7 +208,7 @@ export default function Dashboard() {
       title: '제도와 관계자',
       description: '관련 계획·정책과 기관·공동체를 연결해 협의 순서와 실행 조건을 확인합니다.',
       meta: unavailable.has('map') ? '제도와 관계자 탐색' : `${mapCatalog.plans?.length || 0}개 계획 · ${mapCatalog.organizations?.length || 0}개 기관`,
-      icon: <Landmark size={19} />,
+      icon: <Landmark size={21} />,
       className: 'col-span-3 bg-[#242624]',
     },
   ];
@@ -398,26 +398,26 @@ export default function Dashboard() {
           <div className="col-span-12 mt-2 overflow-hidden rounded-[28px] border border-white/[0.11] bg-[#202120]">
             <div className="flex items-end justify-between gap-10 border-b border-white/[0.09] px-8 py-7">
               <div>
-                <div className="flex items-center gap-3 text-[#8fc5bc]"><MapPinned size={20} /><p className="text-[12px] font-bold uppercase">Map & Activities</p></div>
+                <div className="flex items-center gap-3 text-[#8fc5bc]"><MapPinned size={21} /><p className="text-[15px] font-bold uppercase">Map & Activities</p></div>
                 <h3 className="mt-4 text-[30px] font-semibold text-white">장소를 이해하는 일곱 개의 관점</h3>
-                <p className="mt-3 text-[15px] leading-[1.65] text-[#929297]">숫자만 요약하지 않고, 각 공간 화면에서 실제로 확인할 수 있는 핵심 콘텐츠를 바로 소개합니다.</p>
+                <p className="mt-3 text-[16px] leading-[1.65] text-[#929297]">숫자만 요약하지 않고, 각 공간 화면에서 실제로 확인할 수 있는 핵심 콘텐츠를 바로 소개합니다.</p>
               </div>
-              <Link to="/map-activities/integrated-map" className="inline-flex shrink-0 cursor-pointer items-center gap-2 text-[13px] font-bold text-[#9ccfca] hover:text-white">전체 지도에서 시작 <ArrowUpRight size={15} /></Link>
+              <Link to="/map-activities/integrated-map" className="inline-flex shrink-0 cursor-pointer items-center gap-2 text-[15px] font-bold text-[#9ccfca] hover:text-white">전체 지도에서 시작 <ArrowUpRight size={16} /></Link>
             </div>
 
             <div className="grid grid-cols-12 gap-px bg-white/[0.09]">
               {mapViews.map(({ path, label, title, description, meta, icon, className }) => (
-                <Link key={path} to={path} className={`${className} group flex min-h-[230px] cursor-pointer flex-col p-7 transition-colors hover:bg-[#2c3435]`}>
+                <Link key={path} to={path} className={`${className} group flex min-h-[260px] cursor-pointer flex-col p-8 transition-colors hover:bg-[#2c3435]`}>
                   <div className="flex items-start justify-between">
                     <span className="grid h-10 w-10 place-items-center rounded-[12px] border border-white/[0.08] bg-white/[0.055] text-[#91c9c1]">{icon}</span>
                     <ArrowUpRight size={17} className="text-[#62676a] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                   </div>
-                  <div className="mt-7">
-                    <p className="text-[11px] font-bold text-[#80aaa4]">{label}</p>
-                    <h4 className="mt-2 whitespace-nowrap text-[20px] font-semibold text-white">{title}</h4>
-                    <p className="mt-3 text-[13px] leading-[1.6] text-[#929297]">{description}</p>
+                  <div className="mt-8">
+                    <p className="text-[15px] font-bold text-[#8fc1ba]">{label}</p>
+                    <h4 className="mt-2.5 whitespace-nowrap text-[23px] font-semibold text-white">{title}</h4>
+                    <p className="mt-3.5 text-[15px] leading-[1.65] text-[#a0a0a5]">{description}</p>
                   </div>
-                  <p className="mt-auto border-t border-white/[0.08] pt-4 text-[11px] font-semibold text-[#73777a]">{meta}</p>
+                  <p className="mt-auto border-t border-white/[0.08] pt-5 text-[14px] font-semibold text-[#85898c]">{meta}</p>
                 </Link>
               ))}
             </div>

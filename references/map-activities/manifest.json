@@ -319,6 +319,8 @@
     {
       "containerFields": [
         "asset_order",
+        "change_log",
+        "change_summary",
         "map_assets",
         "metadata",
         "records"
@@ -331,10 +333,10 @@
       "file": "references/map-activities/datasets/igis_retail.json",
       "idFields": [],
       "name": "igis_retail",
-      "recordCount": 147,
+      "recordCount": 175,
       "recordPath": "$.records",
-      "sha256": "ec485fb40b5344e6e8cce009f83f3b1e1ec67adaf945e5e5638edc7786258f1b",
-      "sizeBytes": 108436,
+      "sha256": "111e685675ea84bae238dc00685fec2424708615074499ee86faed18c4058634",
+      "sizeBytes": 206532,
       "valueType": "object"
     },
     {
@@ -751,7 +753,7 @@
   },
   "summary": {
     "datasetCount": 21,
-    "sumOfDatasetRecordCounts": 12102,
-    "totalDatasetBytes": 11898723
+    "sumOfDatasetRecordCounts": 12130,
+    "totalDatasetBytes": 11996819
   }
 }

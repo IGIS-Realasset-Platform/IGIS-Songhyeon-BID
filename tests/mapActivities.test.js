@@ -21,11 +21,11 @@ const MAP_SECTIONS = [
 const HOTEL_SECTION = { label: '호텔', slug: 'hotel' };
 const EXPECTED_SOURCE_SHA256 = 'ab022062d28812bbc39fa34bd81dd894450ffebfb4c61eaf6e05d39c0c7f8b02';
 const EXPECTED_LEGACY_RUNTIME_BUNDLE_SHA256 = {
-  'integrated-map': 'bdeefec643c5b9a490f7ce5e0d48e0aa13f2a50216cf3df186f26449c175111f',
-  'operating-boundaries': 'e9e5a46f6645b6fb20319393d17ceb1d6a3c6ae2af826df8a656863a9d073c17',
-  'assets-leases': 'cff47397441ab16fcfccab98580bc4517e54a73fb8143d15e6d50814706a9738',
-  'market-activities': '817a6682c0e93f85a2de3474fcf68915dd587bf85fca572fa6461119609a2ed2',
-  'institutions-community': '512903959188c986c3172c2b941bbdce74f1bfc98abf0859738217c2e44f450a',
+  'integrated-map': '12084d31b51652df2502f718bd48d6899b08fda39376016151c179939d88a3da',
+  'operating-boundaries': 'db78abe7a2f5f1a3ae8603425b1f99a6fcd38b587a3f5fe920770e72b4d438c3',
+  'assets-leases': '29d1ccefd8474ec85f4fac1baf611d2b2ba5692c43f73cea3a7fd68eb64cf708',
+  'market-activities': 'a28f0dcf6dc7bd61b52e7695c422967faef70ecc713238f9626a2ca5670215d8',
+  'institutions-community': '3e79e7235543c03f6a6c8d52821c9b46f3458ff38032171f6483702d681958c5',
   stores: '1423862df91f338afd38330363d38b79db0128430186926ab380b60ae203d9fb',
 };
 const EXPECTED_HOTEL_FIELDS = [
@@ -72,7 +72,7 @@ const EXPECTED_DATASET_COUNTS = {
   boundary_geojson: 3,
   boundary_narratives: 3,
   delivery_parity: 6,
-  igis_retail: 147,
+  igis_retail: 175,
   insights: 6,
   landmarks: 4,
   organizations: 22,
@@ -691,6 +691,38 @@ test('이지스 리테일 요약 패널은 불필요한 ASSET SUMMARY 영문 제
   assert.doesNotMatch(retailSummary, /ASSET SUMMARY/, '요청에 따라 ASSET SUMMARY 제목은 제거되어야 합니다.');
   assert.match(retailSummary, /<h2 className="text-\[21px\]/, '첫 제목에 제거된 라벨의 상단 여백이 남으면 안 됩니다.');
   assert.doesNotMatch(retailSummary, /<h2 className="[^"]*\bmt-2\b/, '첫 제목을 불필요하게 아래로 미루면 안 됩니다.');
+});
+
+test('이지스 리테일은 최신 공유 시트 175행과 변경사항 14건을 두 탭에서 제공한다', async () => {
+  const [assetViews, datasetText, importer] = await Promise.all([
+    read('src/components/map-activities/SonghyeonAssetRetailViews.jsx'),
+    read('references/map-activities/datasets/igis_retail.json'),
+    read('scripts/import-songhyeon-igis-retail.mjs'),
+  ]);
+  const dataset = JSON.parse(datasetText);
+  const statusCounts = dataset.records.reduce((counts, record) => {
+    const status = record.normalized?.operating_status;
+    counts[status] = (counts[status] || 0) + 1;
+    return counts;
+  }, {});
+  const changeCounts = dataset.change_log.reduce((counts, record) => {
+    counts[record.change_type] = (counts[record.change_type] || 0) + 1;
+    return counts;
+  }, {});
+
+  assert.equal(dataset.records.length, 175);
+  assert.deepEqual(statusCounts, { '운영 중': 145, '공실': 24, '영업 종료': 3, '지원시설': 3 });
+  assert.equal(dataset.change_log.length, 14);
+  assert.deepEqual(changeCounts, { '영업 종료': 3, '위치변경': 6, '신규': 5 });
+  assert.equal(dataset.metadata?.sheet_name, 'Retail 현황');
+  assert.equal(dataset.metadata?.change_sheet_name, '변경사항');
+  assert.match(dataset.metadata?.source_url || '', /^https:\/\/docs\.google\.com\/spreadsheets\//);
+  assert.match(assetViews, /\['status', 'Retail 현황'\]/);
+  assert.match(assetViews, /\['changes', '변경사항'\]/);
+  assert.match(assetViews, /data-retail-changes/);
+  assert.match(assetViews, /원본 시트/);
+  assert.match(importer, /Retail 현황은 헤더 포함 176행이어야 합니다/);
+  assert.match(importer, /변경유형 합계/);
 });
 
 test('이지스 리테일 지도는 6개 전체 건물 형상을 맞춘 뒤 늦은 초기 애니메이션이나 마커 범위로 다시 축소하지 않는다', async () => {

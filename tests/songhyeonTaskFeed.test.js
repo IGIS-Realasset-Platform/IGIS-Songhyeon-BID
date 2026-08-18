@@ -178,6 +178,23 @@ test('업무 피드 header와 row는 프로젝트를 제외한 동일한 9열 gr
     '등록자 row는 126px 열 안에서 avatar·이름을 중앙 정렬해야 합니다.');
 });
 
+test('댓글이 있는 업무 피드 행은 제목 옆에 댓글 아이콘과 개수를 표시한다', async () => {
+  const feed = await read(FEED_PATH);
+  const { row } = feedTableParts(feed);
+  const titlePosition = row.indexOf("{post.title || '제목 없음'}");
+  const commentPosition = row.indexOf('post.comments.length > 0');
+  const recentPosition = row.indexOf('isRecent(post.createdAt, post.updatedAt)');
+
+  assert.ok(titlePosition >= 0 && commentPosition > titlePosition,
+    '댓글 개수는 해당 게시글 제목 바로 뒤에 표시해야 합니다.');
+  assert.ok(recentPosition > commentPosition,
+    '댓글 표시는 기존 N 배지·열람권한 표시와 같은 제목행에 있어야 합니다.');
+  assert.match(row, /post\.comments\.length > 0[\s\S]*?aria-label=\{`댓글 \$\{post\.comments\.length\}개`\}/,
+    '댓글이 1개 이상인 게시글에만 접근 가능한 댓글 개수 라벨을 표시해야 합니다.');
+  assert.match(row, /<MessageSquare size=\{12\} \/>\{post\.comments\.length\}/,
+    '목록의 댓글 개수에는 댓글 아이콘과 실제 댓글 배열 길이를 함께 표시해야 합니다.');
+});
+
 test('펼쳐진 업무 피드 본문은 관리 버튼 열과 분리되어 행 전체 폭을 사용한다', async () => {
   const feed = await read(FEED_PATH);
   const expandedStart = feed.indexOf('{isExpanded ? (');
