@@ -233,23 +233,23 @@ export default function DataRoom() {
                   }}
                   className="cursor-pointer border-b border-[#3c3c3c] bg-[#272726] transition-colors last:border-b-0 hover:bg-[#333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#6f9fc7]"
                 >
-                  <td className="px-[20px] py-[18px] align-middle">
+                  <td className="px-[20px] py-[15px] align-middle">
                     <div className="flex items-center gap-[12px]">
                       <span className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-[10px] border border-[#3c3c3c] bg-[#1F1F1E] text-[#86868B]">
                         <FileText size={17} strokeWidth={1.6} />
                       </span>
-                      <div className="min-w-0">
-                        <div className="text-[14px] font-bold text-white">{document.title}</div>
+                      <div className="min-w-0 flex-1">
+                        <div title={document.title} className="truncate text-[14px] font-bold text-white">{document.title}</div>
                         <div className="mt-[3px] text-[12px] leading-[18px] text-[#86868B]">{document.description}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-[14px] py-[18px] align-middle text-[13px] font-semibold text-[#D1D1D6]">{document.authorName || '송현 BID TF'}</td>
-                  <td className="px-[18px] py-[18px] align-middle text-[13px] text-[#bbb9af]">{document.category}</td>
-                  <td className="px-[16px] py-[18px] align-middle text-[13px] text-[#bbb9af]">{document.type}</td>
-                  <td className="px-[14px] py-[18px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
-                  <td className="px-[10px] py-[18px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.viewCount || 0}</td>
-                  <td className="px-[12px] py-[18px] text-center align-middle">
+                  <td className="px-[14px] py-[15px] align-middle text-[13px] font-semibold text-[#D1D1D6]">{document.authorName || '송현 BID TF'}</td>
+                  <td className="px-[18px] py-[15px] align-middle text-[13px] text-[#bbb9af]">{document.category}</td>
+                  <td className="px-[16px] py-[15px] align-middle text-[13px] text-[#bbb9af]">{document.type}</td>
+                  <td className="px-[14px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
+                  <td className="px-[10px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.viewCount || 0}</td>
+                  <td className="px-[12px] py-[15px] text-center align-middle">
                     <a
                       href={document.href}
                       target="_blank"
@@ -262,7 +262,7 @@ export default function DataRoom() {
                       원문 열기
                     </a>
                   </td>
-                  <td className="px-[12px] py-[18px] text-center align-middle">
+                  <td className="px-[12px] py-[15px] text-center align-middle">
                     {!isReadOnly ? <div className="flex items-center justify-center gap-1">
                       <button type="button" onClick={(event) => { event.stopPropagation(); setEditingDocument({ ...document }); }} aria-label={`${document.title} 수정`} title="수정" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#454544] hover:text-white">
                         <Pencil size={14} strokeWidth={1.8} />

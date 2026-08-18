@@ -51,6 +51,25 @@ test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 
     '작성자 열 추가 후 로딩·빈 결과 행이 전체 8열을 사용해야 합니다.');
 });
 
+test('Data Room 목록은 문서명을 한 줄 말줄임하고 각 문서 행 높이를 6px 줄인다', async () => {
+  const page = await readFile('src/pages/DataRoom.jsx', 'utf8');
+  const documentRow = page.match(
+    /\{filteredDocuments\.map\(\(document\) => \([\s\S]*?<tr[\s\S]*?<\/tr>\s*\)\)\}/,
+  )?.[0] || '';
+
+  assert.ok(documentRow, 'Data Room 문서 목록 행을 찾을 수 있어야 합니다.');
+  assert.match(documentRow, /<div className="[^"]*\bmin-w-0\b[^"]*">\s*<div\b[^>]*className="[^"]*\btruncate\b[^"]*"[^>]*>\{document\.title\}<\/div>/,
+    '문서명은 너비가 제한된 컨테이너 안에서 한 줄 말줄임되어야 합니다.');
+
+  const dataCellClasses = [...documentRow.matchAll(/<td className="([^"]+)"/g)]
+    .map((match) => match[1]);
+  assert.equal(dataCellClasses.length, 8, '문서 행의 8개 셀을 모두 검사해야 합니다.');
+  for (const className of dataCellClasses) {
+    assert.match(className, /(?:^|\s)py-\[15px\](?:\s|$)/,
+      '기존 py-[18px]에서 상하 3px씩 줄여 문서 행 전체 높이를 6px 축소해야 합니다.');
+  }
+});
+
 test('Data Room 작성자 원장은 auth uid에 연결된 활성 멤버 이름을 서버 trigger로 확정한다', async () => {
   const migration = await readFile('supabase/migrations/202608180010_songhyeon_data_room_authors.sql', 'utf8');
   const lower = migration.toLowerCase();
