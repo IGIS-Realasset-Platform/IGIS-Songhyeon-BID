@@ -486,7 +486,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         <SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} onSaved={refresh} />
 
         <div className="overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#252525]">
-          <div className="grid min-w-[1080px] grid-cols-[116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px] items-center border-b border-[#3c3c3c] px-5 py-3 text-center text-[13px] font-bold text-[#86868B]">
+          <div className="grid min-w-[1080px] grid-cols-[116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px] items-center border-b border-[#3c3c3c] px-[14px] py-3 text-center text-[13px] font-bold text-[#86868B]">
             <span>프로젝트</span><FilterSelect label="기능셀" value={filters.cell} options={options.cells || []} onChange={(value) => updateFilter('cell', value)} /><span>등록자</span><span className="text-left">내용</span><span aria-label="반응자" />
             <FilterSelect label="이해관계자" value={filters.stakeholder} options={options.stakeholders || []} onChange={(value) => updateFilter('stakeholder', value)} />
             <FilterSelect label="목적" value={filters.purpose} options={['공유', '협업', '리스크 판단', '의사결정']} onChange={(value) => updateFilter('purpose', value)} />
@@ -517,7 +517,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                 }}
                 className={`transition-colors ${index ? 'border-t border-[#3c3c3c]' : ''} hover:bg-white/[0.025]`}
               >
-                <button type="button" aria-expanded={isExpanded} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-[1080px] cursor-pointer grid-cols-[116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px] items-center px-5 py-4 text-[13px] text-[#A1A1AA]">
+                <button type="button" aria-expanded={isExpanded} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-[1080px] cursor-pointer grid-cols-[116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA]">
                   <span className="mx-auto rounded-[8px] border border-[#444] px-3 py-2 font-bold text-[#D1D1D6]">{post.project}</span>
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>

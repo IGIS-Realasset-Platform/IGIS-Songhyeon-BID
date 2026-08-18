@@ -569,7 +569,7 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
   if (!expanded && !editMode) {
     return (
       <div className="mb-[11px] w-full rounded-[24px] bg-gradient-to-br from-[#d6efe9] via-[#82afb9] to-[#4c6e86] p-px">
-        <button type="button" onClick={() => setExpanded(true)} className="flex w-full items-center gap-4 rounded-[23px] bg-[#262626] px-5 py-4 text-left hover:bg-[#2a2a2a]">
+        <button type="button" onClick={() => setExpanded(true)} className="flex w-full items-center gap-4 rounded-[23px] bg-[#262626] px-[18px] py-[13px] text-left hover:bg-[#2a2a2a]">
           <Avatar actor={actor} />
           <span className="min-w-0 flex-1 text-[16px] font-bold text-[#bcdbdb]">업무 메시지, 협업 사항 또는 공유할 내용을 등록하세요.</span>
           <span className="shrink-0 rounded-[8px] border border-[#83adb5] bg-[#222] px-4 py-2 text-[13px] font-black text-[#e5e5e5]">글작성하기</span>

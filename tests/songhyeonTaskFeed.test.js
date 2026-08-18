@@ -70,6 +70,47 @@ test('업무 피드는 IOTA 실제 게시판의 열 구조·작성 프롬프트�
   assert.doesNotMatch(options, /['"]보류['"]/);
 });
 
+test('업무 피드 작성 박스와 목록 행은 요청한 compact 패딩으로 높이와 좌우 여백을 줄인다', async () => {
+  const [feed, writeBox] = await Promise.all([
+    read(FEED_PATH),
+    read(WRITE_BOX_PATH),
+  ]);
+
+  const collapsedStart = writeBox.indexOf('if (!expanded && !editMode)');
+  const collapsedEnd = writeBox.indexOf('\n  return (', collapsedStart);
+  assert.ok(collapsedStart >= 0 && collapsedEnd > collapsedStart,
+    '최상단 접힌 글작성 박스를 찾을 수 없습니다.');
+  const collapsedWriteBox = writeBox.slice(collapsedStart, collapsedEnd);
+  const collapsedButtonClasses = collapsedWriteBox.match(/<button\b[\s\S]*?className="([^"]*)"/)?.[1] || '';
+  assert.match(collapsedButtonClasses, /(?:^|\s)px-\[18px\](?:\s|$)/,
+    '글작성 박스 좌우 패딩은 기존 20px에서 양쪽 각각 2px 줄인 18px이어야 합니다.');
+  assert.match(collapsedButtonClasses, /(?:^|\s)py-\[13px\](?:\s|$)/,
+    '글작성 박스 높이는 기존 py-4에서 총 6px 줄인 py-[13px]이어야 합니다.');
+  assert.doesNotMatch(collapsedButtonClasses, /(?:^|\s)(?:px-5|py-4)(?:\s|$)/,
+    'compact 글작성 박스에 이전 px-5 또는 py-4 패딩을 남기면 안 됩니다.');
+
+  const rowLinkPosition = feed.indexOf('data-feed-row-link');
+  const rowStart = feed.lastIndexOf('<button type="button"', rowLinkPosition);
+  const rowEnd = feed.indexOf('</button>', rowStart);
+  assert.ok(rowLinkPosition >= 0 && rowStart >= 0 && rowEnd > rowStart,
+    'compact 패딩을 확인할 업무 피드 목록 행을 찾을 수 없습니다.');
+  const row = feed.slice(rowStart, rowEnd);
+  const rowClasses = row.match(/data-feed-row-link\s+className="([^"]*)"/)?.[1] || '';
+  assert.match(rowClasses, /(?:^|\s)px-\[14px\](?:\s|$)/,
+    '목록 행 좌우 패딩은 기존 20px에서 양쪽 각각 6px 줄인 14px이어야 합니다.');
+  assert.match(rowClasses, /(?:^|\s)py-\[13px\](?:\s|$)/,
+    '목록 행 높이는 기존 py-4에서 총 6px 줄인 py-[13px]이어야 합니다.');
+  assert.doesNotMatch(rowClasses, /(?:^|\s)(?:px-5|py-4)(?:\s|$)/,
+    'compact 목록 행에 이전 px-5 또는 py-4 패딩을 남기면 안 됩니다.');
+
+  const headerStart = feed.indexOf('<div className="grid min-w-[1080px]');
+  const headerEnd = feed.indexOf('</div>', headerStart);
+  const header = feed.slice(headerStart, headerEnd);
+  const headerClasses = header.match(/className="([^"]*)"/)?.[1] || '';
+  assert.match(headerClasses, /(?:^|\s)px-\[14px\](?:\s|$)/,
+    '열 제목과 목록 행은 같은 좌우 패딩을 써서 수직 정렬을 유지해야 합니다.');
+});
+
 test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나머지 열을 보존한다', async () => {
   const feed = await read(FEED_PATH);
   const headerStart = feed.indexOf('<div className="grid min-w-[1080px]');
