@@ -59,15 +59,14 @@ const memberOption = (member) => ({
 const stakeholderOption = (stakeholder) => {
   if (typeof stakeholder === 'string') {
     const [companyName = '', contactName = ''] = stakeholder.split(' - ');
-    return { companyName: text(companyName), contactName: text(contactName), category: '' };
+    return { companyName: text(companyName), contactName: text(contactName) };
   }
   return {
     companyName: text(stakeholder?.companyName || stakeholder?.company_name || stakeholder?.name || stakeholder?.stakeholderName || stakeholder?.stakeholder_name),
     contactName: text(stakeholder?.contactName || stakeholder?.contact_name),
-    category: text(stakeholder?.category || stakeholder?.roleCategory || stakeholder?.role_category),
   };
 };
-const stakeholderKey = (stakeholder) => [stakeholder?.companyName, stakeholder?.contactName, stakeholder?.category].map(text).join('|');
+const stakeholderKey = (stakeholder) => [stakeholder?.companyName, stakeholder?.contactName].map(text).join('|');
 
 const taskOption = (task) => ({
   raw: task,
@@ -411,7 +410,6 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
   const [content, setContent] = useState(text(initialPost?.content || initialPost?.body || initialPost?.rawText || initialPost?.raw_text));
   const [stakeholderCompany, setStakeholderCompany] = useState(initialStakeholder.companyName);
   const [stakeholderContact, setStakeholderContact] = useState(initialStakeholder.contactName);
-  const [stakeholderCategory, setStakeholderCategory] = useState(initialStakeholder.category);
   const [visibilityGroups, setVisibilityGroups] = useState(permissionValues(initialPermissions, 'groups'));
   const [visibilityIndividuals, setVisibilityIndividuals] = useState(matchedInitialIndividuals);
   const [mentionedEntities, setMentionedEntities] = useState(asArray(initialPost?.mentions));
@@ -442,7 +440,6 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
   const stakeholderContacts = unique(stakeholders
     .filter((entry) => !stakeholderCompany || entry.companyName === stakeholderCompany)
     .map((entry) => entry.contactName));
-  const stakeholderCategories = unique(stakeholders.map((entry) => entry.category));
 
   const updateMentionQuery = (event) => {
     const nextContent = event.target.value;
@@ -522,8 +519,8 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
         workDate,
         title: title.trim(),
         content: content.trim(),
-        stakeholder: stakeholderCompany || stakeholderContact || stakeholderCategory
-          ? { companyName: stakeholderCompany, contactName: stakeholderContact, category: stakeholderCategory }
+        stakeholder: stakeholderCompany || stakeholderContact
+          ? { companyName: stakeholderCompany, contactName: stakeholderContact }
           : null,
         permissions: { groups: visibilityGroups, individuals: visibilityIndividuals },
         mentions: activeMentions,
@@ -538,7 +535,6 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
         setContent('');
         setStakeholderCompany('');
         setStakeholderContact('');
-        setStakeholderCategory('');
         setVisibilityGroups([]);
         setVisibilityIndividuals([]);
         setMentionedEntities([]);
@@ -683,12 +679,6 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
             <input list={`${formId}-stakeholder-contacts`} value={stakeholderContact} onChange={(event) => setStakeholderContact(event.target.value)} placeholder="담당자명" className="h-10 w-full rounded-[9px] border border-[#414141] bg-[#222] px-3 text-[13px] text-white outline-none focus:border-[#4f89b7]" />
             <datalist id={`${formId}-stakeholder-contacts`}>{stakeholderContacts.map((entry) => <option key={entry} value={entry} />)}</datalist>
           </label>
-          <label className="relative min-w-[140px] flex-1">
-            <span className="sr-only">이해관계자 분류</span>
-            <input list={`${formId}-stakeholder-categories`} value={stakeholderCategory} onChange={(event) => setStakeholderCategory(event.target.value)} placeholder="분류" className="h-10 w-full rounded-[9px] border border-[#414141] bg-[#222] px-3 text-[13px] text-white outline-none focus:border-[#4f89b7]" />
-            <datalist id={`${formId}-stakeholder-categories`}>{stakeholderCategories.map((entry) => <option key={entry} value={entry} />)}</datalist>
-          </label>
-
           {(visibilityGroups.length > 0 || visibilityIndividuals.length > 0) && (
             <span className="max-w-[260px] truncate px-2 text-[12px] font-black text-[#df7f7a]" title={[...visibilityGroups, ...selectedIndividualMembers.map((member) => member.name)].join(', ')}>
               {[...visibilityGroups, ...selectedIndividualMembers.map((member) => member.name)].join(', ')}

@@ -68,6 +68,45 @@ test('업무 피드는 IOTA 실제 게시판의 열 구조·작성 프롬프트�
   assert.doesNotMatch(options, /['"]보류['"]/);
 });
 
+test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입력·자동완성·저장한다', async () => {
+  const writeBox = await read(WRITE_BOX_PATH);
+  const stakeholderOptionStart = writeBox.indexOf('const stakeholderOption =');
+  const taskOptionStart = writeBox.indexOf('const taskOption =', stakeholderOptionStart);
+  assert.ok(stakeholderOptionStart >= 0 && taskOptionStart > stakeholderOptionStart,
+    '이해관계자 UI 정규화 구간을 찾을 수 없습니다.');
+  const stakeholderOptions = writeBox.slice(stakeholderOptionStart, taskOptionStart);
+
+  assert.match(stakeholderOptions, /companyName/);
+  assert.match(stakeholderOptions, /contactName/);
+  assert.doesNotMatch(stakeholderOptions, /category|roleCategory|role_category/i,
+    '작성 UI의 이해관계자 정규화·키에는 legacy 분류를 다시 포함하면 안 됩니다.');
+  assert.match(writeBox, /const \[stakeholderCompany, setStakeholderCompany\] = useState\(initialStakeholder\.companyName\)/);
+  assert.match(writeBox, /const \[stakeholderContact, setStakeholderContact\] = useState\(initialStakeholder\.contactName\)/);
+  for (const removedToken of [
+    'stakeholderCategory',
+    'setStakeholderCategory',
+    'stakeholderCategories',
+    'stakeholder-categories',
+    '이해관계자 분류',
+    'placeholder="분류"',
+  ]) {
+    assert.ok(!writeBox.includes(removedToken), `작성 UI에서 제거되지 않은 분류 계약: ${removedToken}`);
+  }
+
+  assert.match(writeBox, /placeholder="회사·기관명"/);
+  assert.match(writeBox, /placeholder="담당자명"/);
+  const stakeholderDatalists = [...writeBox.matchAll(/stakeholder-(companies|contacts|categories)/g)].map((match) => match[1]);
+  assert.deepEqual([...new Set(stakeholderDatalists)].sort(), ['companies', 'contacts']);
+
+  const payloadStart = writeBox.indexOf('const payload = {');
+  const saveCallStart = writeBox.indexOf('const savedPost =', payloadStart);
+  assert.ok(payloadStart >= 0 && saveCallStart > payloadStart, '게시글 저장 payload 구간을 찾을 수 없습니다.');
+  const payload = writeBox.slice(payloadStart, saveCallStart);
+  assert.match(payload, /stakeholder:\s*stakeholderCompany\s*\|\|\s*stakeholderContact\s*\?\s*\{\s*companyName:\s*stakeholderCompany,\s*contactName:\s*stakeholderContact\s*\}\s*:\s*null/);
+  assert.doesNotMatch(payload, /stakeholderCategory|\bcategory\s*:/,
+    '새 게시글 payload에는 legacy 이해관계자 분류를 저장하면 안 됩니다.');
+});
+
 test('피드 목록은 원본의 검색·5개 요약·20개 전체보기와 다섯 필터를 실제 데이터에 적용한다', async () => {
   const [feed, repository] = await Promise.all([read(FEED_PATH), read(REPOSITORY_PATH)]);
 
