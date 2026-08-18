@@ -28,13 +28,32 @@ const assertActor = (actor) => {
   if (!actor?.userId) throw new SonghyeonTaskFeedRepositoryError('인증된 송현 BID 멤버만 업무 피드를 변경할 수 있습니다.');
 };
 
+const text = (value) => String(value || '').trim();
+
+const mutationErrorMessage = (message, error) => {
+  const code = text(error?.code);
+  const diagnostic = [error?.message, error?.details, error?.hint].map(text).filter(Boolean).join(' ');
+  if (code === '42883' && /is_songhyeon_member/i.test(diagnostic)) {
+    return '이해관계자 정보를 동기화하지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.';
+  }
+  if (code === '23503') {
+    return '연결한 통합업무가 변경되었습니다. 연결 업무를 다시 선택한 뒤 저장해 주세요.';
+  }
+  if (code === '42501' || /SONGHYEON_MEMBERSHIP_REQUIRED|AUTH_REQUIRED/i.test(diagnostic)) {
+    return '송현 BID 멤버 로그인 상태를 확인한 뒤 다시 시도해 주세요.';
+  }
+  if (/fetch failed|failed to fetch|network/i.test(diagnostic)) {
+    return '네트워크 연결을 확인한 뒤 다시 시도해 주세요.';
+  }
+  return message;
+};
+
 const run = async (promise, message) => {
   const { data, error } = await promise;
-  if (error) throw new SonghyeonTaskFeedRepositoryError(message, error);
+  if (error) throw new SonghyeonTaskFeedRepositoryError(mutationErrorMessage(message, error), error);
   return data;
 };
 
-const text = (value) => String(value || '').trim();
 const array = (value) => Array.isArray(value) ? value : [];
 const unique = (values) => [...new Set(values.map(text).filter(Boolean))];
 const isUuid = (value) => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
@@ -359,6 +378,20 @@ export async function uploadTaskFeedAttachment(file, actor = {}) {
   const path = `${actor.userId}/${Date.now()}-${crypto.randomUUID()}-${safeFileName(file.name)}`;
   await run(client.storage.from('songhyeon-feed-attachments').upload(path, file, { contentType: file.type || 'application/octet-stream', upsert: false }), '첨부파일을 업로드하지 못했습니다.');
   return { id: uid('feed-attachment'), name: file.name, path, mimeType: file.type || 'application/octet-stream', size: file.size };
+}
+
+export async function removeTaskFeedUploadedAttachments(attachments, actor = {}) {
+  assertActor(actor);
+  const ownerPrefix = `${actor.userId}/`;
+  const paths = unique(array(attachments).map((attachment) => (
+    attachment?.path || attachment?.objectPath || attachment?.object_path
+  ))).filter((path) => path.startsWith(ownerPrefix));
+  if (!paths.length) return [];
+  await run(
+    requireSupabase().storage.from('songhyeon-feed-attachments').remove(paths),
+    '업로드된 첨부파일을 정리하지 못했습니다.',
+  );
+  return paths;
 }
 
 export async function downloadTaskFeedAttachment(attachment) {

@@ -337,8 +337,10 @@ test('업무 피드에서 신규 입력한 이해관계자는 trigger로 IOTA �
     '피드 작성자는 IOTA 원장 직접 쓰기 권한 없이 제한된 trigger로만 동기화해야 합니다.');
   assert.match(syncFunction, /set\s+search_path\s*=\s*pg_catalog,\s*public/,
     'security-definer 함수는 고정 search_path를 사용해야 합니다.');
-  assert.match(syncFunction, /auth\.uid\(\)\s+is\s+null[\s\S]*?not\s+public\.is_songhyeon_member\(auth\.uid\(\)\)/,
-    'trigger 실행 시점에도 인증된 활성 송현 멤버인지 다시 확인해야 합니다.');
+  assert.match(syncFunction, /auth\.uid\(\)\s+is\s+null[\s\S]*?not\s+public\.is_songhyeon_member\(\)/,
+    'trigger 실행 시점에도 배포 DB와 호환되는 무인자 함수로 인증된 활성 송현 멤버인지 다시 확인해야 합니다.');
+  assert.doesNotMatch(syncFunction, /public\.is_songhyeon_member\(auth\.uid\(\)\)/,
+    '배포 DB에 없는 is_songhyeon_member(uuid)를 호출하면 이해관계자 포함 게시글 전체가 42883으로 rollback됩니다.');
   assert.match(syncFunction,
     /normalized_company[\s\S]*?nullif\(pg_catalog\.btrim\(new\.company_name\),\s*''\)[\s\S]*?nullif\(pg_catalog\.btrim\(new\.category\),\s*''\)/,
     '회사명은 공백을 정규화하고 과거 category-only 행도 회사명으로 승격해야 합니다.');

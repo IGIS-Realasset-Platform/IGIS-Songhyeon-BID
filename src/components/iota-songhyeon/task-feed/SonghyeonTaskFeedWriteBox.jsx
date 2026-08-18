@@ -17,6 +17,7 @@ import {
 import {
   createTaskFeedPost,
   downloadTaskFeedAttachment,
+  removeTaskFeedUploadedAttachments,
   updateTaskFeedPost,
   uploadTaskFeedAttachment,
 } from '../../../lib/songhyeonTaskFeedRepository.js';
@@ -507,9 +508,9 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
     }
     setSubmitting(true);
     setError('');
+    const uploadedAttachments = [];
     try {
       const activeMentions = mentionedEntities.filter((mention) => content.includes(`@${mention.label}`));
-      const uploadedAttachments = [];
       for (const file of pendingFiles) {
         uploadedAttachments.push(await uploadTaskFeedAttachment(file, actor));
       }
@@ -547,6 +548,13 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
       }
       onSaved?.(savedPost);
     } catch (saveError) {
+      if (uploadedAttachments.length > 0) {
+        try {
+          await removeTaskFeedUploadedAttachments(uploadedAttachments, actor);
+        } catch {
+          // Keep the original save failure visible; orphan cleanup is best effort.
+        }
+      }
       setError(saveError?.message || '게시글을 저장하지 못했습니다.');
     } finally {
       setSubmitting(false);

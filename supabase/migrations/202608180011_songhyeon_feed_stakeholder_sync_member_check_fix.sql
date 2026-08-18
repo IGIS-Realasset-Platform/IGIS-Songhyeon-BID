@@ -1,5 +1,5 @@
--- Keep Songhyeon feed stakeholders in the shared IOTA stakeholder master.
--- Feed posts retain their own historical snapshot, while autocomplete reads the shared master.
+-- Repair the shared stakeholder sync trigger for deployments where
+-- is_songhyeon_member is exposed with the authenticated-session signature.
 
 create or replace function public.sync_songhyeon_feed_stakeholder_to_master()
 returns trigger
@@ -57,40 +57,5 @@ after insert or update of company_name, contact_name, category
 on public.songhyeon_feed_post_stakeholders
 for each row
 execute function public.sync_songhyeon_feed_stakeholder_to_master();
-
--- Bring previously saved feed values into the same master once.
-with normalized as (
-  select
-    coalesce(
-      nullif(pg_catalog.btrim(stakeholder.company_name), ''),
-      nullif(pg_catalog.btrim(stakeholder.category), '')
-    ) as company_name,
-    nullif(pg_catalog.btrim(stakeholder.contact_name), '') as contact_name
-  from public.songhyeon_feed_post_stakeholders stakeholder
-), candidates as (
-  select distinct on (
-    pg_catalog.lower(company_name),
-    pg_catalog.lower(coalesce(contact_name, ''))
-  ) company_name, contact_name
-  from normalized
-  where company_name is not null
-    and pg_catalog.char_length(company_name) <= 200
-    and pg_catalog.char_length(coalesce(contact_name, '')) <= 200
-  order by
-    pg_catalog.lower(company_name),
-    pg_catalog.lower(coalesce(contact_name, '')),
-    company_name
-)
-insert into public.iota_stakeholder_master(company_name, contact_name, role_category)
-select source.company_name, source.contact_name, null
-from candidates source
-where not exists (
-    select 1
-    from public.iota_stakeholder_master master
-    where pg_catalog.lower(pg_catalog.btrim(master.company_name)) = pg_catalog.lower(source.company_name)
-      and pg_catalog.lower(pg_catalog.btrim(coalesce(master.contact_name, '')))
-        = pg_catalog.lower(coalesce(source.contact_name, ''))
-  )
-on conflict do nothing;
 
 notify pgrst, 'reload schema';
