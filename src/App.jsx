@@ -16,6 +16,7 @@ import MarketData from './pages/assets/MarketData';
 import UsCases from './pages/UsCases';
 import JapanCases from './pages/JapanCases';
 import ServiceHypotheses from './pages/ServiceHypotheses';
+import TaskFeed from './pages/TaskFeed';
 import DataRoom from './pages/DataRoom';
 import SonghyeonScheduleGate from './components/iota-songhyeon/pmo/SonghyeonScheduleGate';
 import Login from './pages/Login';
@@ -56,6 +57,7 @@ export default function App() {
           <Route path="milestones" element={<SonghyeonScheduleGate />} />
           <Route path="hypotheses" element={<ServiceHypotheses />} />
           <Route path="membership" element={<Navigate replace to="/hypotheses" />} />
+          <Route path="feed" element={<TaskFeed />} />
           <Route path="data" element={<DataRoom />} />
           <Route path="governance/internal" element={<SonghyeonInternal />} />
           <Route path="governance/principles" element={<SonghyeonPrinciples />} />

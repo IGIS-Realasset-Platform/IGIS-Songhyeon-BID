@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home, CalendarDays, Map, MapPinned, ListChecks, BarChart3,
-  FolderOpen, ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen,
+  FolderOpen, MessageSquareText, ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen,
 } from 'lucide-react';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import SonghyeonPageViewTracker from './analytics/SonghyeonPageViewTracker';
@@ -26,6 +26,7 @@ const primaryItems = [
   },
   { name: '마일스톤 및 R&R', path: '/milestones', icon: CalendarDays },
   { name: '서비스·운영 가설', path: '/hypotheses', icon: Map },
+  { name: '업무 피드', path: '/feed', icon: MessageSquareText },
   { name: 'Data Room', path: '/data', icon: FolderOpen },
 ];
 
@@ -141,7 +142,7 @@ function Section({ label, items, open, setOpen, collapsed }) {
 export default function Layout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/data' || pathname.startsWith('/governance') || pathname.startsWith('/admin');
+  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname === '/data' || pathname.startsWith('/governance') || pathname.startsWith('/admin');
   const { user, member, isGuest, isAdmin, exitGuestMode, signOut } = useSonghyeonAuth();
   const mainRef = useRef(null);
   const [collapsed, setCollapsed] = useState(false);
