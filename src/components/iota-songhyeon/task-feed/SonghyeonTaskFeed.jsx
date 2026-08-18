@@ -20,6 +20,7 @@ import {
   loadTaskFeedPosts,
   toggleTaskFeedReaction,
   updateTaskFeedComment,
+  updateTaskFeedPostStatus,
 } from '../../../lib/songhyeonTaskFeedRepository';
 import SonghyeonReactionAvatarStack from '../task-board/SonghyeonReactionAvatarStack';
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
@@ -28,6 +29,7 @@ import SonghyeonTaskFeedWriteBox from './SonghyeonTaskFeedWriteBox';
 
 const SUMMARY_PAGE_SIZE = 5;
 const FULL_PAGE_SIZE = 20;
+const FEED_STATUS_OPTIONS = ['신규', '검토중', '진행중', '중단', '완료'];
 const NEW_MARKER_EPOCH = new Date('2026-07-13T09:02:39Z').getTime();
 const NEW_MARKER_WINDOW = 48 * 60 * 60 * 1000;
 const URL_CANDIDATE_PATTERN = /https?:\/\/[^\s<>"']+/giu;
@@ -260,6 +262,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
   const [editingPost, setEditingPost] = useState(null);
+  const [statusPendingId, setStatusPendingId] = useState('');
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [commentDrafts, setCommentDrafts] = useState({});
@@ -480,6 +483,17 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     finally { setIsDeleting(false); }
   };
 
+  const handleUpdatePostStatus = async (postId, status) => {
+    if (isReadOnly || statusPendingId || !FEED_STATUS_OPTIONS.includes(status)) return;
+    setStatusPendingId(postId);
+    setError('');
+    try {
+      await updateTaskFeedPostStatus(postId, status, actor);
+      await refresh();
+    } catch (mutationError) { setError(mutationError?.message || '진행상태를 변경하지 못했습니다.'); }
+    finally { setStatusPendingId(''); }
+  };
+
   const handleDownloadAttachment = async (attachment) => {
     setError('');
     try {
@@ -518,7 +532,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
             <FilterSelect label="기능셀" value={filters.cell} options={options.cells || []} onChange={(value) => updateFilter('cell', value)} /><span>등록자</span><span className="text-left">내용</span><span aria-label="반응자" />
             <FilterSelect label="이해관계자" value={filters.stakeholder} options={options.stakeholders || []} onChange={(value) => updateFilter('stakeholder', value)} />
             <FilterSelect label="목적" value={filters.purpose} options={['공유', '협업', '리스크 판단', '의사결정']} onChange={(value) => updateFilter('purpose', value)} />
-            <FilterSelect label="진행상태" value={filters.status} options={['신규', '검토중', '진행중', '중단', '완료']} onChange={(value) => updateFilter('status', value)} />
+            <FilterSelect label="진행상태" value={filters.status} options={FEED_STATUS_OPTIONS} onChange={(value) => updateFilter('status', value)} />
             <FilterSelect label="중요도" value={filters.priority} options={['높음', '중간', '낮음']} onChange={(value) => updateFilter('priority', value)} />
             <span>등록일</span>
           </div>
@@ -531,9 +545,16 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
           {displayedPosts.map((post, index) => {
             const isExpanded = Boolean(routePostId && String(post.id) === String(routePostId));
             const isAuthor = Boolean(actor.userId && post.authorId === actor.userId);
+            const canManageFeedStatus = Boolean(!isReadOnly && actor.name === '전기영' && actor.email.toLowerCase() === 'jk.jeon@igisam.com');
             const restricted = Boolean(post.permissions?.groups?.length || post.permissions?.individuals?.length);
             const postLike = reactionEntries(post.reactions, 'like');
-            const postCheck = reactionEntries(post.reactions, 'check');
+            const likeReactors = [
+              ...postLike,
+              ...post.comments.flatMap((comment) => reactionEntries(comment.reactions, 'like')),
+            ].filter((entry, itemIndex, array) => {
+              const identity = entry.userId || entry.email || entry.name;
+              return array.findIndex((candidate) => (candidate.userId || candidate.email || candidate.name) === identity) === itemIndex;
+            });
             return (
               <article
                 key={post.id}
@@ -549,7 +570,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>
                   <span className="min-w-0 pr-4 text-left"><span className="flex min-w-0 items-center gap-1.5"><strong className="min-w-0 truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || '제목 없음'}</strong>{post.comments.length > 0 ? <span aria-label={`댓글 ${post.comments.length}개`} title={`댓글 ${post.comments.length}개`} className="inline-flex h-[22px] shrink-0 items-center gap-1 rounded-full border border-[#45484b] bg-[#2b2d2f] px-2 text-[12px] font-bold text-[#a6aaae]"><MessageSquare size={12} />{post.comments.length}</span> : null}{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span></span>
-                  <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={[...postLike, ...postCheck].filter((entry, itemIndex, array) => array.findIndex((candidate) => (candidate.userId || candidate.email) === (entry.userId || entry.email)) === itemIndex)} label="게시글" /></span>
+                  <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={likeReactors} label="본문과 댓글 좋아요" /></span>
                   <span className="truncate text-center">{post.stakeholderLabel || '-'}</span><span>{post.purpose || '-'}</span><span className={statusClass(post.status)}>{post.status || '-'}</span><span className={`font-bold ${priorityClass(post.priority)}`}>{post.priority || '-'}</span><span>{shortDate(post.workDate)}</span>
                 </button>
 
@@ -557,7 +578,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                   <div className="border-t border-[#38383A] bg-[#202020] px-8 py-6">
                     <div data-feed-detail-header className="flex items-start justify-between gap-6">
                       <div className="flex min-w-0 items-center gap-2"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><div className="min-w-0"><div className="flex min-w-0 items-center gap-2"><strong className="truncate text-[14px] text-white">{post.authorName}</strong>{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="shrink-0 rounded-[4px] bg-[#82afb9]/10 px-2 py-0.5 text-[11px] font-bold text-[#82afb9]">{post.cell || post.authorGroup || '송현 BID'}</span></div><span className="text-[11px] text-[#86868B]">{displayDateTime(post.createdAt)}</span></div></div>
-                      {isAuthor && !isReadOnly ? <div className="flex shrink-0 gap-2"><button type="button" onClick={() => setEditingPost(post)} className="flex h-8 items-center gap-1 rounded-[7px] border border-[#444] px-3 text-[12px] text-[#A1A1AA] hover:text-white"><Pencil size={12} />수정하기</button><button type="button" onClick={() => setDeleteTarget({ type: 'post', post })} className="flex h-8 items-center gap-1 rounded-[7px] border border-[#5a3937] px-3 text-[12px] text-[#cc8580]"><Trash2 size={12} />삭제</button></div> : null}
+                      {(canManageFeedStatus || (isAuthor && !isReadOnly)) ? <div className="flex shrink-0 items-center gap-2">{canManageFeedStatus ? <label className="flex h-8 items-center gap-2 rounded-[7px] border border-[#3e566b] bg-[#24313b] px-2"><span className="text-[11px] font-bold text-[#8eb8dc]">진행상태</span><select aria-label="게시글 진행상태 변경" value={post.status} disabled={statusPendingId === post.id} onChange={(event) => handleUpdatePostStatus(post.id, event.target.value)} className="cursor-pointer bg-transparent text-[12px] font-bold text-white outline-none disabled:cursor-wait disabled:opacity-50">{FEED_STATUS_OPTIONS.map((status) => <option key={status} value={status} className="bg-[#222] text-white">{status}</option>)}</select></label> : null}{isAuthor && !isReadOnly ? <><button type="button" onClick={() => setEditingPost(post)} className="flex h-8 items-center gap-1 rounded-[7px] border border-[#444] px-3 text-[12px] text-[#A1A1AA] hover:text-white"><Pencil size={12} />수정하기</button><button type="button" onClick={() => setDeleteTarget({ type: 'post', post })} className="flex h-8 items-center gap-1 rounded-[7px] border border-[#5a3937] px-3 text-[12px] text-[#cc8580]"><Trash2 size={12} />삭제</button></> : null}</div> : null}
                     </div>
                     <div data-feed-detail-content className="w-full min-w-0">
                       <h3 className="mt-5 text-[18px] font-bold leading-7 text-white">{post.title || '업무 메시지'}</h3>

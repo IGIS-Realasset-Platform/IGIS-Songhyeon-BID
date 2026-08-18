@@ -383,7 +383,7 @@ begin
   if not public.is_songhyeon_member() then raise exception 'SONGHYEON_MEMBERSHIP_REQUIRED' using errcode = '42501'; end if;
   select * into current_post from public.songhyeon_feed_posts where id = target_post_id for update;
   if not found then raise exception 'FEED_POST_NOT_FOUND' using errcode = 'P0002'; end if;
-  if current_post.author_id <> current_user_id and not public.is_songhyeon_feed_moderator(current_user_id) then
+  if current_post.author_id <> current_user_id then
     raise exception 'FEED_POST_AUTHOR_REQUIRED' using errcode = '42501';
   end if;
 

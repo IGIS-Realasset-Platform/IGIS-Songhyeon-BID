@@ -16,9 +16,11 @@ const PAGE_PATH = 'src/pages/TaskFeed.jsx';
 const FEED_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFeed.jsx';
 const WRITE_BOX_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFeedWriteBox.jsx';
 const MEMBER_AVATAR_PATH = 'src/components/iota-songhyeon/SonghyeonMemberAvatar.jsx';
+const REACTION_AVATAR_STACK_PATH = 'src/components/iota-songhyeon/task-board/SonghyeonReactionAvatarStack.jsx';
 const REPOSITORY_PATH = 'src/lib/songhyeonTaskFeedRepository.js';
 const MIGRATION_PATH = 'supabase/migrations/202608180001_songhyeon_task_feed.sql';
 const COMMENT_EDIT_MIGRATION_PATH = 'supabase/migrations/202608180013_songhyeon_feed_comment_edit.sql';
+const STATUS_MANAGEMENT_MIGRATION_PATH = 'supabase/migrations/202608180014_songhyeon_feed_status_management.sql';
 const SHARED_CONTACTS_MIGRATION_PATH = 'supabase/migrations/202608180003_songhyeon_shared_stakeholder_contacts.sql';
 const STAKEHOLDER_MASTER_SYNC_MIGRATION_PATH = 'supabase/migrations/202608180005_songhyeon_feed_stakeholder_master_sync.sql';
 
@@ -194,6 +196,24 @@ test('댓글이 있는 업무 피드 행은 제목 옆에 댓글 아이콘과 �
     '댓글이 1개 이상인 게시글에만 접근 가능한 댓글 개수 라벨을 표시해야 합니다.');
   assert.match(row, /<MessageSquare size=\{12\} \/>\{post\.comments\.length\}/,
     '목록의 댓글 개수에는 댓글 아이콘과 실제 댓글 배열 길이를 함께 표시해야 합니다.');
+});
+
+test('업무 피드 목록은 본문과 댓글의 좋아요 사용자를 합쳐 우측 프로필로 표시한다', async () => {
+  const feed = await read(FEED_PATH);
+  const { row } = feedTableParts(feed);
+
+  assert.match(feed, /const likeReactors = \[[\s\S]*?\.\.\.postLike,[\s\S]*?post\.comments\.flatMap\(\(comment\) => reactionEntries\(comment\.reactions, 'like'\)\)[\s\S]*?\]\.filter/,
+    '좋아요 프로필은 게시글과 모든 댓글의 좋아요 사용자를 합쳐야 합니다.');
+  assert.match(feed, /entry\.userId \|\| entry\.email \|\| entry\.name[\s\S]*?array\.findIndex/,
+    '한 사용자가 본문과 댓글에 모두 좋아요를 눌러도 프로필은 한 번만 표시해야 합니다.');
+  assert.match(row, /<SonghyeonReactionAvatarStack reactors=\{likeReactors\} label="본문과 댓글 좋아요" \/>/,
+    '합친 좋아요 사용자는 목록 우측 반응자 열에 프로필 스택으로 표시해야 합니다.');
+  assert.doesNotMatch(row, /totalLikeCount|본문과 댓글 좋아요 합계|<Heart size=\{12\}/,
+    '제목 옆에는 좋아요 숫자나 하트 배지를 표시하면 안 됩니다.');
+  const avatarStack = await read(REACTION_AVATAR_STACK_PATH);
+  assert.match(avatarStack, /reactors\.slice\(0, 3\)/);
+  assert.match(avatarStack, />\+\{extraCount\}<\/span>/,
+    '프로필이 많아지면 3명 이후 인원을 +N으로 표시해야 합니다.');
 });
 
 test('펼쳐진 업무 피드 본문은 관리 버튼 열과 분리되어 행 전체 폭을 사용한다', async () => {
@@ -586,6 +606,37 @@ test('게시글 작성·수정·삭제는 공통 작성폼과 송현 repository�
   assert.match(feed, /수정하기/);
   assert.match(feed, /삭제/);
   assert.doesNotMatch(feed, /isAdmin[\s\S]{0,180}(?:수정하기|삭제)/, 'DB 관리 예외를 원본 작성자 전용 UI에 노출하면 안 됩니다.');
+});
+
+test('전기영은 다른 작성자의 게시글에서 진행상태만 별도 변경할 수 있다', async () => {
+  const [feed, repository, migration] = await Promise.all([
+    read(FEED_PATH),
+    read(REPOSITORY_PATH),
+    read(STATUS_MANAGEMENT_MIGRATION_PATH),
+  ]);
+
+  assert.match(repository, exportedFunction(repository, 'updateTaskFeedPostStatus'));
+  assert.match(repository, /rpc\(['"]update_songhyeon_feed_post_status['"]/);
+  assert.match(feed, /actor\.name === ['"]전기영['"]/);
+  assert.match(feed, /actor\.email\.toLowerCase\(\) === ['"]jk\.jeon@igisam\.com['"]/);
+  assert.match(feed, /aria-label="게시글 진행상태 변경"/);
+  assert.match(feed, /handleUpdatePostStatus/);
+  assert.match(feed, /updateTaskFeedPostStatus/);
+
+  assert.match(migration, /create or replace function public\.update_songhyeon_feed_post_status\(/i);
+  assert.match(migration, /not public\.is_songhyeon_feed_moderator\(current_user_id\)/i);
+  assert.match(migration, /set status = normalized_status,[\s\S]*?updated_at = now\(\)/i,
+    '상태 전용 RPC는 status와 updated_at만 변경해야 합니다.');
+  assert.match(migration, /normalized_status not in \('신규', '검토중', '진행중', '중단', '완료'\)/i);
+  assert.match(migration, /grant execute on function public\.update_songhyeon_feed_post_status\(text,text\) to authenticated/i);
+  assert.doesNotMatch(migration, /grant execute on function public\.update_songhyeon_feed_post_status\(text,text\) to anon/i);
+
+  const fullUpdateStart = migration.indexOf('create or replace function public.update_songhyeon_feed_post(');
+  const fullUpdateEnd = migration.indexOf('create or replace function public.update_songhyeon_feed_post_status(', fullUpdateStart);
+  const fullUpdate = migration.slice(fullUpdateStart, fullUpdateEnd);
+  assert.match(fullUpdate, /current_post\.author_id is distinct from current_user_id/i);
+  assert.doesNotMatch(fullUpdate, /is_songhyeon_feed_moderator/i,
+    '전체 게시글 수정 RPC에서 관리자 우회 권한을 남기면 상태만 수정한다는 계약이 깨집니다.');
 });
 
 test('공개글 수정 확인 모달은 편집 overlay 앞에 표시되어 수정 완료가 먹통이 되지 않는다', async () => {

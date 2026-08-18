@@ -369,6 +369,19 @@ export async function updateTaskFeedPost(id, input, actor = {}) {
   return postId;
 }
 
+export async function updateTaskFeedPostStatus(id, status, actor = {}) {
+  assertActor(actor);
+  const postId = text(id);
+  const normalizedStatus = text(status);
+  if (!postId) throw new SonghyeonTaskFeedRepositoryError('상태를 변경할 게시글을 확인해 주세요.');
+  if (!SONGHYEON_FEED_STATUSES.includes(normalizedStatus)) throw new SonghyeonTaskFeedRepositoryError('올바른 진행상태를 선택해 주세요.');
+  await run(requireSupabase().rpc('update_songhyeon_feed_post_status', {
+    target_post_id: postId,
+    post_status: normalizedStatus,
+  }), '진행상태를 변경하지 못했습니다.');
+  return postId;
+}
+
 export async function deleteTaskFeedPost(id, actor = {}) {
   assertActor(actor);
   return run(requireSupabase().rpc('delete_songhyeon_feed_post', { target_post_id: text(id) }), '업무 메시지를 삭제하지 못했습니다.');
