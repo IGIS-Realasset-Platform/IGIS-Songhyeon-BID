@@ -201,7 +201,7 @@ test('송현 조직도는 IOTA 상단 여백·표 동작과 11명 통합 명단�
   assert.doesNotMatch(page, /<article/);
   assert.doesNotMatch(page, />Gate 범위</);
   assert.match(page, /last:border-b-0/);
-  for (const [name, title] of [['김현수', '센터장'], ['이시정', '센터장'], ['김민지', '리더'], ['정수명', '매니저'], ['임수빈', '매니저'], ['방채미', '매니저'], ['이지원', '매니저']]) {
+  for (const [name, title] of [['김현수', '센터장'], ['이시정', '센터장'], ['김민지', '리더'], ['정수명', '매니저'], ['임수빈', '매니저'], ['방채미', '사원'], ['이지원', '사원']]) {
     assert.match(page, new RegExp(`${name}: '${title}'`));
   }
   assert.equal((page.match(/align-middle/g) || []).length, 4);
@@ -217,6 +217,35 @@ test('송현 멤버는 지정된 3개 조직 11명으로 구성된다', () => {
     { 기획추진센터: 3, 기업마케팅: 2, 공간솔루션센터: 6 },
   );
   assert.equal(songhyeonMemberFallback.some((member) => member.name.includes('예정')), false);
+});
+
+test('방채미·이지원 직책은 거버넌스 표시값·fallback·Supabase seed와 운영 migration에서 모두 사원으로 유지된다', async () => {
+  const [page, seed, migration] = await Promise.all([
+    read('src/pages/governance/SonghyeonInternal.jsx'),
+    read('supabase/seed.sql'),
+    read('supabase/migrations/202608180008_songhyeon_member_title_corrections.sql'),
+  ]);
+
+  for (const { name, email } of [
+    { name: '방채미', email: 'chaemi.bang@igisam.com' },
+    { name: '이지원', email: 'jiwon.lee@igisam.com' },
+  ]) {
+    const fallback = songhyeonMemberFallback.find((member) => member.name === name);
+    assert.equal(fallback?.title, '사원', `${name} fallback 직책은 사원이어야 합니다.`);
+    assert.match(page, new RegExp(`${name}: '사원'`), `${name} 거버넌스 표시 직책은 사원이어야 합니다.`);
+    assert.doesNotMatch(page, new RegExp(`${name}: '매니저'`), `${name} 거버넌스 표시값에 매니저가 남으면 안 됩니다.`);
+
+    const escapedEmail = email.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(
+      seed,
+      new RegExp(`\\('${escapedEmail}','${name}','공간솔루션센터','사원'`),
+      `${name} Supabase seed 직책은 사원이어야 합니다.`,
+    );
+    assert.match(migration, new RegExp(`staff_name = '${name}'`), `${name} 운영 DB 보정 조건이 필요합니다.`);
+    assert.match(migration, new RegExp(`lower\\(email\\) = '${escapedEmail}'`), `${name} 운영 DB 보정은 이메일까지 한정해야 합니다.`);
+  }
+  assert.match(migration, /set title = '사원'/, '운영 DB 보정 직책은 사원이어야 합니다.');
+  assert.doesNotMatch(migration, /set title = '매니저'/, '운영 DB 보정이 매니저로 되돌리면 안 됩니다.');
 });
 
 test('9명의 IOTA 원본 프로필 이미지가 송현 저장소에 독립 복사된다', async () => {

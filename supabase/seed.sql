@@ -10,8 +10,8 @@ values
 ('ghlee@igisam.com','이가현','공간솔루션센터','공간솔루션 리더',array['송현 BID TF'],'서비스 설계·파트너 실무협의','/songhyeon-members/이가현.webp',array['G1','G2','G3','G4','G5','G6'],'member',7,true),
 ('smchung@igisam.com','정수명','공간솔루션센터','공간솔루션센터 차장',array['송현 BID TF'],'운영모델·성과관리','/songhyeon-members/정수명.webp',array['G2','G3','G4','G5','G6'],'member',8,true),
 ('subin.yim@igisam.com','임수빈','공간솔루션센터','공간솔루션 매니저',array['송현 BID TF'],'서비스 실행지원','/songhyeon-members/임수빈.webp',array['G2','G3','G4','G5','G6'],'member',9,true),
-('chaemi.bang@igisam.com','방채미','공간솔루션센터','공간솔루션센터 사원',array['송현 BID TF'],'서비스 운영 및 현장 실행 지원','',array['G2','G3','G4','G6'],'member',10,true),
-('jiwon.lee@igisam.com','이지원','공간솔루션센터','공간솔루션센터 사원',array['송현 BID TF'],'서비스 운영 및 현장 실행 지원','',array['G2','G3','G4','G6'],'member',11,true)
+('chaemi.bang@igisam.com','방채미','공간솔루션센터','사원',array['송현 BID TF'],'서비스 운영 및 현장 실행 지원','',array['G2','G3','G4','G6'],'member',10,true),
+('jiwon.lee@igisam.com','이지원','공간솔루션센터','사원',array['송현 BID TF'],'서비스 운영 및 현장 실행 지원','',array['G2','G3','G4','G6'],'member',11,true)
 on conflict (email) do update set
 staff_name=excluded.staff_name, group_name=excluded.group_name, title=excluded.title, roles=excluded.roles,
 responsibility=excluded.responsibility, photo_path=excluded.photo_path, gate_scope=excluded.gate_scope,

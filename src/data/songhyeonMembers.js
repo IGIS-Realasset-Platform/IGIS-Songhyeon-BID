@@ -45,12 +45,12 @@ export const songhyeonMemberFallback = [
     email: '', phone: '', gateScope: ['G1', 'G2', 'G3', 'G4', 'G6'], order: 90,
   },
   {
-    group: '공간솔루션센터', name: '방채미', title: '매니저',
+    group: '공간솔루션센터', name: '방채미', title: '사원',
     roles: ['공간솔루션/사원', '송현 BID TF'], responsibility: '서비스 운영 및 현장 실행 지원',
     email: 'chaemi.bang@igisam.com', phone: '', gateScope: ['G2', 'G3', 'G4', 'G6'], order: 100,
   },
   {
-    group: '공간솔루션센터', name: '이지원', title: '매니저',
+    group: '공간솔루션센터', name: '이지원', title: '사원',
     roles: ['공간솔루션/사원', '송현 BID TF'], responsibility: '서비스 운영 및 현장 실행 지원',
     email: 'jiwon.lee@igisam.com', phone: '', gateScope: ['G2', 'G3', 'G4', 'G6'], order: 110,
   },
