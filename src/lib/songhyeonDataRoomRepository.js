@@ -74,6 +74,17 @@ export async function loadDataRoomDocuments() {
   return rows.map(toDocument);
 }
 
+export async function loadRecentDataRoomDocuments(limit = 4) {
+  const client = requireSupabase();
+  const authenticated = await hasAuthenticatedSonghyeonSession(client);
+  const table = authenticated ? 'songhyeon_data_room_documents' : 'songhyeon_public_data_room_documents';
+  const rows = await run(
+    client.from(table).select('*').order('reference_date', { ascending: false }).order('created_at', { ascending: false }).limit(Math.max(1, Math.min(Number(limit) || 4, 8))),
+    '최근 Data Room 문서를 불러오지 못했습니다.',
+  );
+  return rows.map(toDocument);
+}
+
 export async function loadDataRoomDocument(documentId) {
   const client = requireSupabase();
   const authenticated = await hasAuthenticatedSonghyeonSession(client);

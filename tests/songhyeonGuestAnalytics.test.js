@@ -17,8 +17,8 @@ test('비회원은 로그인 세션을 비운 뒤 기기 로컬 게스트로 입
   assert.match(context, /auth\.getSession\(\)/);
   assert.match(context, /if \(data\.session\)[\s\S]*auth\.signOut\(\{ scope: 'local' \}\)/);
   assert.match(context, /isGuest,\s*isReadOnly:\s*isGuest/);
-  assert.match(login, /로그인 없이 둘러보기/);
-  assert.match(login, /읽기 전용/);
+  assert.match(login, /게스트로 입장/);
+  assert.doesNotMatch(login, /로그인 없이 둘러보기/);
   assert.match(login, /await enterGuestMode\(\)/);
   assert.match(guard, /&& !isGuest/);
 });
@@ -107,17 +107,17 @@ test('게스트 UI는 업무·댓글·일정·Data Room 변경 기능을 렌더�
   ]);
 
   assert.match(board, /const \{ user, member, isReadOnly \} = useSonghyeonAuth\(\)/);
-  assert.match(board, /isReadOnly \|\| task\.status === ['"]완료['"] \? <span[\s\S]*task\.status[\s\S]*: <button/);
+  assert.match(board, /archived \|\| isReadOnly \|\| task\.status === ['"]완료['"] \? <span[\s\S]*task\.status[\s\S]*: <button/);
   assert.match(board, /isEditorOpen && canCreateAndArchive/);
   assert.match(board, /workflowTask && !isReadOnly/);
-  assert.match(drawer, /const workflowActions = isReadOnly \? \[\] : taskWorkflowActions/);
-  assert.match(drawer, /if \(!task \|\| isReadOnly\) return undefined;[\s\S]*subscribeToTaskDiscussion/);
-  assert.match(drawer, /!isReadOnly && comment\.authorId === actor\.userId/);
-  assert.match(drawer, /!isReadOnly \? <form[\s\S]*게스트는 협업 기록을 읽을 수 있습니다/);
+  assert.match(drawer, /const workflowActions = detailReadOnly \? \[\] : taskWorkflowActions/);
+  assert.match(drawer, /if \(!task \|\| detailReadOnly\) return undefined;[\s\S]*subscribeToTaskDiscussion/);
+  assert.match(drawer, /!detailReadOnly && comment\.authorId === actor\.userId/);
+  assert.match(drawer, /!detailReadOnly \? <form[\s\S]*게스트는 협업 기록을 읽을 수 있습니다/);
   assert.match(schedule, /if \(isReadOnly\) return;/);
-  assert.match(schedule, /readOnly=\{isReadOnly\}/);
+  assert.match(schedule, /readOnly=\{!canManageScheduleLinks\}/);
   assert.match(linkModal, /readOnly = false/);
-  assert.match(linkModal, /link && !readOnly/);
+  assert.match(linkModal, /link && canManageLinks/);
   assert.match(dataRoom, /!isReadOnly && <button[\s\S]*문서 추가/);
   assert.match(dataRoom, /if \(!isReadOnly\) recordView/);
   assert.match(dataRoom, /editingDocument && !isReadOnly/);
@@ -142,7 +142,7 @@ test('게스트 읽기는 개인정보 없는 송현 public view로만 분기한
     'songhyeon_public_task_activity',
   ]) assert.match(taskRepository, new RegExp(view));
   assert.match(scheduleRepository, /songhyeon_public_schedule_task_links/);
-  assert.match(scheduleRepository, /songhyeon_public_schedule_overrides/);
+  assert.match(scheduleRepository, /songhyeon_public_schedule_rows/);
   assert.match(dataRepository, /songhyeon_public_data_room_documents/);
   assert.match(profilesPage, /songhyeon_public_profiles/);
   assert.doesNotMatch(profilesPage, /\.select\([^\n]*email/);

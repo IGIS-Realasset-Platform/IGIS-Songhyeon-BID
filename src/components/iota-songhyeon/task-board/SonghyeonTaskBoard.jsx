@@ -29,6 +29,11 @@ const unique = (rows, getter) => [...new Set(rows.flatMap((row) => asList(getter
 const TASK_GATES = SONGHYEON_GATE_STAGES;
 const TASK_STATUSES = SONGHYEON_TASK_STATUSES;
 const TASK_IMPORTANCE = SONGHYEON_TASK_IMPORTANCE_LEVELS;
+const initialTaskStatus = () => {
+  if (typeof window === 'undefined') return ALL;
+  const candidate = new URLSearchParams(window.location.search).get('status');
+  return [...TASK_STATUSES, ARCHIVED_TASKS].includes(candidate) ? candidate : ALL;
+};
 const PINNED_TASK_CATEGORY = '자료전수조사';
 const LARGE_SCREEN_TABLE_RATIO = 0.6;
 const LAPTOP_REFERENCE_VIEWPORT_HEIGHT = 900;
@@ -55,7 +60,7 @@ const currentViewportHeight = () => typeof window === 'undefined' ? 900 : window
 const mergeOptions = (...groups) => [...new Set(groups.flat().filter(Boolean))];
 const STATUS_BADGE_CLASSES = {
   '미착수': 'border border-[#636366]/[0.22] bg-[#636366]/[0.055] text-[#9c9ca1]',
-  '진행중': 'border border-[#4f8fca]/[0.22] bg-[#4f8fca]/[0.055] text-[#71a8d6]',
+  '진행중': 'border border-[#2997ff]/50 bg-[#147dcc]/20 text-[#8fc7ff]',
   '완료': 'border border-[#4da566]/[0.22] bg-[#4da566]/[0.055] text-[#73bc84]',
   '중단': 'border border-[#bd5f5a]/[0.22] bg-[#bd5f5a]/[0.055] text-[#d47670]',
 };
@@ -78,10 +83,11 @@ const formatTaskDueDate = (value) => {
 };
 
 function HeaderFilter({ label, value, onChange, options, width = 'max-w-[74px]', disabledLabel }) {
+  const isActive = value !== ALL;
   return (
-    <div className={`relative mx-auto inline-flex h-[22px] w-full ${width} cursor-pointer items-center justify-center overflow-visible rounded-[6px] border border-[#3c3c3c] bg-[#2c2c2b] px-1 align-middle transition-colors hover:border-[#4c4c4b] hover:bg-[#323231]`}>
-      <span className={`shrink-0 whitespace-nowrap text-[10px] font-bold ${value === ALL ? 'text-[#86868B]' : 'text-[#2997ff]'}`}>{value === ALL ? label : value}</span>
-      <span className="pointer-events-none ml-0.5 shrink-0 translate-y-[0.5px] select-none text-[8px] text-[#86868B]/70">▼</span>
+    <div data-filter-active={isActive ? 'true' : undefined} className={`relative mx-auto inline-flex h-[22px] w-full ${width} cursor-pointer items-center justify-center overflow-visible rounded-[6px] border px-1 align-middle transition-colors ${isActive ? 'border-[#2997ff] bg-[#334155] shadow-[0_0_0_1px_rgba(41,151,255,.12)]' : 'border-[#3c3c3c] bg-[#2c2c2b] hover:border-[#4c4c4b] hover:bg-[#323231]'}`}>
+      <span className={`shrink-0 whitespace-nowrap text-[10px] font-bold ${isActive ? 'text-[#8fc7ff]' : 'text-[#86868B]'}`}>{value === ALL ? label : value}</span>
+      <span className={`pointer-events-none ml-0.5 shrink-0 translate-y-[0.5px] select-none text-[8px] ${isActive ? 'text-[#8fc7ff]' : 'text-[#86868B]/70'}`}>▼</span>
       <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)} className="absolute inset-0 h-full w-full opacity-0 cursor-pointer">
         {disabledLabel && <option disabled value="">[ {disabledLabel} ]</option>}
         <option value={ALL}>전체보기</option>
@@ -127,7 +133,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
 
   const [selectedIsBlocker, setSelectedIsBlocker] = useState(ALL);
   const [selectedNeedsDecision, setSelectedNeedsDecision] = useState(ALL);
-  const [selectedStatus, setSelectedStatus] = useState(ALL);
+  const [selectedStatus, setSelectedStatus] = useState(initialTaskStatus);
   const [selectedImportanceLevel, setSelectedImportanceLevel] = useState(ALL);
 
   const [loading, setLoading] = useState(true);
@@ -387,7 +393,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
           title="통합업무보드"
           controls={(
             <div className="relative ml-[10px] w-[280px] self-center">
-              <input type="text" placeholder="업무명, 담당자, 부서, 산출물 검색..." value={searchQuery} onChange={(event) => { setSearchQuery(event.target.value); setCurrentPage(1); }} className="w-full rounded-[10px] border border-[#3c3c3c] bg-[#1c1c1e]/60 py-1.5 pl-9 pr-8 text-[13px] text-white outline-none transition-all placeholder:text-[#86868B] focus:border-[#2997ff] focus:ring-1 focus:ring-[#2997ff]" />
+              <input type="text" placeholder="업무명, 담당자, 부서, 산출물 검색..." value={searchQuery} data-filter-active={searchQuery ? 'true' : undefined} onChange={(event) => { setSearchQuery(event.target.value); setCurrentPage(1); }} className={`w-full rounded-[10px] border py-1.5 pl-9 pr-8 text-[13px] text-white outline-none transition-all placeholder:text-[#86868B] focus:border-[#2997ff] focus:ring-1 focus:ring-[#2997ff] ${searchQuery ? 'border-[#2997ff] bg-[#334155] shadow-[0_0_0_1px_rgba(41,151,255,.12)]' : 'border-[#3c3c3c] bg-[#1c1c1e]/60'}`} />
               <svg className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#86868B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
               {searchQuery && <button type="button" onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 flex h-[18px] w-[18px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/5 text-[11px] font-bold text-[#86868B] hover:bg-white/10 hover:text-white">✕</button>}
             </div>

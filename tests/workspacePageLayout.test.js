@@ -8,7 +8,6 @@ const WORKSPACE_ROUTES = [
   { name: '통합업무보드', path: '/tasks', route: 'tasks', page: 'TaskBoard' },
   { name: 'Map & Activities', path: '/map-activities', route: 'map-activities', page: 'MapActivities', nested: true },
   { name: '마일스톤 및 R&R', path: '/milestones', route: 'milestones', page: 'SonghyeonScheduleGate' },
-  { name: '서비스·운영 가설', path: '/hypotheses', route: 'hypotheses', page: 'ServiceHypotheses' },
   { name: '업무 피드', path: '/feed', route: 'feed', page: 'TaskFeed' },
   { name: 'Data Room', path: '/data', route: 'data', page: 'DataRoom' },
 ];

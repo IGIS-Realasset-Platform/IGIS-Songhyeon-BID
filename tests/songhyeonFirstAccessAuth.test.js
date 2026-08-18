@@ -136,7 +136,7 @@ test('최초 접속은 emailRedirectTo가 있는 signUp과 독립 claimMembershi
     '인증 함수 내부 순서는 signUp → session 확인 → membership claim이어야 합니다.');
   assert.ok(
     loginHandler.search(/await\s+completeFirstAccess\s*\(/u) < loginHandler.search(/(?:window\.location\.assign|navigate)\s*\(/u),
-    'membership claim이 포함된 최초 접속 함수가 끝난 뒤 /tasks로 이동해야 합니다.',
+    'membership claim이 포함된 최초 접속 함수가 끝난 뒤 홈페이지 루트로 이동해야 합니다.',
   );
 
   for (const contract of [
@@ -188,13 +188,13 @@ test('claim 오류는 SQLSTATE와 sentinel을 함께 확인하며 P0001 전체�
     '잘못된 코드 안내는 22023/INVALID_ACCESS_CODE 조합에만 연결해야 합니다.');
 });
 
-test('이미 auth_id가 있는 기존 멤버는 비밀번호 로그인과 /tasks 목적지가 그대로 유지된다', async () => {
+test('이미 auth_id가 있는 기존 멤버는 비밀번호 로그인과 홈페이지 루트 목적지가 유지된다', async () => {
   const login = await read('src/pages/Login.jsx');
 
   assert.match(login, /const\s+proceedLogin\s*=\s*async/u);
   assert.match(login, /const\s+proceedLogin[\s\S]{0,420}?await\s+signIn\(\s*email\s*,\s*password\s*\)/u);
   assert.match(login, /const\s+handlePasswordSubmit[\s\S]{0,360}?await\s+proceedLogin\(\)/u);
-  assert.match(login, /const\s+postLoginPath\s*=\s*['"]\/tasks['"]/u);
+  assert.match(login, /const\s+postLoginPath\s*=\s*['"]\/['"]/u);
   assert.match(login, /const\s+proceedLogin[\s\S]{0,700}?window\.location\.assign\(\s*postLoginPath\s*\)/u);
 });
 

@@ -66,11 +66,11 @@ test('타임라인은 7개 Gate와 실행업무를 모두 포함한다', () => {
   assert.deepEqual(gates.map((row) => row.stage), ['G0', 'G1', 'G2', 'G3', 'G4', 'G5', 'G6']);
 });
 
-test('표준 실행기간은 단계별 2·2·2·3·2·2·3주, 총 16주다', () => {
-  assert.deepEqual(milestoneStages.map((stage) => stage.durationWeeks), [2, 2, 2, 3, 2, 2, 3]);
-  assert.equal(milestoneWeeks.length, 16);
+test('표준 실행기간은 단계별 2·2·2·3·2·2·2주, 총 15주다', () => {
+  assert.deepEqual(milestoneStages.map((stage) => stage.durationWeeks), [2, 2, 2, 3, 2, 2, 2]);
+  assert.equal(milestoneWeeks.length, 15);
   assert.equal(milestoneWeeks[0].week, 1);
-  assert.equal(milestoneWeeks.at(-1).week, 16);
+  assert.equal(milestoneWeeks.at(-1).week, 15);
 });
 
 test('8월 10일 상세 실행계획은 Milestone → Workstream → Task 3단 구조를 보존한다', () => {
@@ -122,29 +122,29 @@ test('상세 일정의 업무 제목은 한 줄 업무명형으로 표시하고 
   assert.match(page, /keys\.add\(ancestorKey\)/);
 });
 
-test('상세 일정은 8월 1주부터 11월말까지 월별 4주로 표시한다', () => {
-  assert.equal(milestoneWeeks.length, 16);
+test('상세 일정은 8월 2주부터 11월말까지 실제 주차로 표시한다', () => {
+  assert.equal(milestoneWeeks.length, 15);
   assert.deepEqual(
     milestoneWeeks.slice(0, 4).map(({ month, weekOfMonth, startDate }) => ({ month, weekOfMonth, startDate })),
     [
-      { month: 8, weekOfMonth: 1, startDate: '2026-08-01' },
-      { month: 8, weekOfMonth: 2, startDate: '2026-08-08' },
-      { month: 8, weekOfMonth: 3, startDate: '2026-08-15' },
-      { month: 8, weekOfMonth: 4, startDate: '2026-08-22' },
+      { month: 8, weekOfMonth: 2, startDate: '2026-08-10' },
+      { month: 8, weekOfMonth: 3, startDate: '2026-08-17' },
+      { month: 8, weekOfMonth: 4, startDate: '2026-08-24' },
+      { month: 9, weekOfMonth: 1, startDate: '2026-09-01' },
     ],
   );
   assert.equal(milestoneWeeks.at(-1).endDate, '2026-11-30');
   assert.deepEqual(
     Object.fromEntries([8, 9, 10, 11].map((month) => [month, milestoneWeeks.filter((week) => week.month === month).length])),
-    { 8: 4, 9: 4, 10: 4, 11: 4 },
+    { 8: 3, 9: 4, 10: 4, 11: 4 },
   );
 });
 
 test('오늘 표시는 서울 기준 날짜를 실제 일정축 좌표로 환산한다', () => {
   const marker = getSonghyeonTodayMarker(new Date('2026-08-12T09:00:00+09:00'));
   assert.equal(marker.dateLabel, '오늘 8.12');
-  assert.equal(marker.periodIndex, 1);
-  assert.ok(marker.left > 478 && marker.left < 526);
+  assert.equal(marker.periodIndex, 0);
+  assert.ok(marker.left > 430 && marker.left < 470);
   assert.equal(getSonghyeonTodayMarker(new Date('2026-07-31T09:00:00+09:00')), null);
 });
 
@@ -189,15 +189,15 @@ test('Task 제목은 핵심 주제만 표시하고 행 전체 클릭으로 상�
 test('일정은 8월 2주에 시작해 주제별로 병렬 진행하고 11월 말까지 종료한다', () => {
   const tasks = songhyeonDetailedScheduleItems.filter((item) => item.itemType === 'task');
   const groups = songhyeonDetailedScheduleItems.filter((item) => item.itemType !== 'task');
-  assert.equal(Math.min(...tasks.map((item) => item.startIndex)), 1);
-  assert.ok(tasks.every((item) => item.startIndex >= 1));
+  assert.equal(Math.min(...tasks.map((item) => item.startIndex)), 0);
+  assert.ok(tasks.every((item) => item.startIndex >= 0));
   const workstreams = songhyeonDetailedScheduleItems.filter((item) => item.itemType === 'lv2');
   assert.ok(workstreams.every((workstream) => {
     const firstTask = tasks.find((task) => task.parentSourceKey === workstream.sourceKey);
-    return firstTask?.startIndex === 1;
+    return firstTask?.startIndex === workstream.startIndex;
   }));
-  assert.ok(tasks.every((item) => item.endIndex <= 15));
-  assert.ok(tasks.some((item) => item.endIndex === 15));
+  assert.ok(tasks.every((item) => item.endIndex <= 14));
+  assert.ok(tasks.some((item) => item.endIndex === 14));
   assert.ok(new Set(tasks.map((item) => item.startIndex)).size >= 8);
   assert.ok(tasks.some((item, index) => tasks.slice(index + 1).some((other) => (
     item.parentSourceKey !== other.parentSourceKey

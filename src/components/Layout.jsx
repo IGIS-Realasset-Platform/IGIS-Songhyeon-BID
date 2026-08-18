@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
-  Home, CalendarDays, Map, MapPinned, ListChecks, BarChart3,
+  Home, CalendarDays, MapPinned, ListChecks, BarChart3,
   FolderOpen, MessageSquareText, ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen,
   KeyRound, Mail, LogOut,
 } from 'lucide-react';
@@ -10,7 +10,7 @@ import SonghyeonPageViewTracker from './analytics/SonghyeonPageViewTracker';
 import SonghyeonMemberAvatar from './iota-songhyeon/SonghyeonMemberAvatar';
 
 const primaryItems = [
-  { name: '홈', path: '/home', icon: Home },
+  { name: '홈', path: '/', icon: Home },
   { name: '통합업무보드', path: '/tasks', icon: ListChecks },
   {
     name: 'Map & Activities',
@@ -27,7 +27,6 @@ const primaryItems = [
     ],
   },
   { name: '마일스톤 및 R&R', path: '/milestones', icon: CalendarDays },
-  { name: '서비스·운영 가설', path: '/hypotheses', icon: Map },
   { name: '업무 피드', path: '/feed', icon: MessageSquareText },
   { name: 'Data Room', path: '/data', icon: FolderOpen },
 ];
@@ -58,6 +57,7 @@ function MainLink({ item, collapsed }) {
   return (
     <NavLink
       to={item.path}
+      end={item.path === '/'}
       title={collapsed ? item.name : undefined}
       className={({ isActive }) => `flex items-center rounded-xl py-[7px] text-[14px] font-light transition-colors ${
         collapsed ? 'justify-center px-2' : 'px-[7px]'
@@ -145,7 +145,7 @@ export default function Layout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isReferenceDarkWorkspace = pathname.startsWith('/assets') || pathname.startsWith('/cases');
-  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname.startsWith('/feed/') || pathname === '/data' || pathname.startsWith('/data/') || pathname.startsWith('/governance') || pathname.startsWith('/admin') || pathname.startsWith('/assets') || pathname.startsWith('/cases');
+  const isDarkWorkspace = pathname === '/' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname.startsWith('/feed/') || pathname === '/data' || pathname.startsWith('/data/') || pathname.startsWith('/governance') || pathname.startsWith('/admin') || pathname.startsWith('/assets') || pathname.startsWith('/cases');
   const { user, member, isGuest, isAdmin, exitGuestMode, signOut, updatePassword } = useSonghyeonAuth();
   const mainRef = useRef(null);
   const [collapsed, setCollapsed] = useState(false);

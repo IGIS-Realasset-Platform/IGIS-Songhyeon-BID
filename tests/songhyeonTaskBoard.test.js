@@ -184,7 +184,7 @@ test('상태·중요도·실행주관 네임택은 정식 값마다 서로 다�
   const expectedClasses = {
     statusBadgeClass: {
       '미착수': 'border border-[#636366]/[0.22] bg-[#636366]/[0.055] text-[#9c9ca1]',
-      '진행중': 'border border-[#4f8fca]/[0.22] bg-[#4f8fca]/[0.055] text-[#71a8d6]',
+      '진행중': 'border border-[#2997ff]/50 bg-[#147dcc]/20 text-[#8fc7ff]',
       '완료': 'border border-[#4da566]/[0.22] bg-[#4da566]/[0.055] text-[#73bc84]',
       '중단': 'border border-[#bd5f5a]/[0.22] bg-[#bd5f5a]/[0.055] text-[#d47670]',
     },
@@ -995,7 +995,8 @@ test('좌측 주요 메뉴와 독립 /tasks 라우트에서 통합업무보드�
 
   assert.match(layout, /name: '통합업무보드', path: '\/tasks'/);
   assert.ok(layout.indexOf("path: '/tasks'") < layout.indexOf("path: '/milestones'"));
-  assert.ok(layout.indexOf("path: '/milestones'") < layout.indexOf("path: '/hypotheses'"));
+  assert.doesNotMatch(layout, /name: '서비스·운영 가설'/);
+  assert.ok(layout.indexOf("path: '/milestones'") < layout.indexOf("path: '/feed'"));
   assert.doesNotMatch(layout, /path: '\/execution'/);
   assert.match(app, /import TaskBoard from '\.\/pages\/TaskBoard'/);
   assert.match(app, /<Route path="tasks" element=\{<TaskBoard \/>\}/);

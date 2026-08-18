@@ -85,17 +85,13 @@ test('서비스·운영 가설의 주요 컴포넌트 간격은 36px 리듬으�
   assert.doesNotMatch(page, /<section className="(?:mt-\[48px\] )?mb-\[48px\]">/);
 });
 
-test('서비스·운영 가설은 핵심 메뉴이며 구 Membership 주소를 호환한다', async () => {
+test('서비스·운영 가설은 홈 작업방식 섹션에 흡수되고 구 주소를 호환한다', async () => {
   const layout = await readFile('src/components/Layout.jsx', 'utf8');
   const app = await readFile('src/App.jsx', 'utf8');
-  const hypothesisIndex = layout.indexOf("path: '/hypotheses'");
-  const dataIndex = layout.indexOf("path: '/data'");
-
-  assert.ok(hypothesisIndex < dataIndex);
-  assert.match(layout, /name: '서비스·운영 가설', path: '\/hypotheses'/);
+  assert.doesNotMatch(layout, /name: '서비스·운영 가설', path: '\/hypotheses'/);
   assert.doesNotMatch(layout, /\/execution|업무실행계획/);
   assert.equal((layout.match(/name: 'Data Room'/g) || []).length, 1);
-  assert.match(app, /path="hypotheses"/);
+  assert.match(app, /path="hypotheses" element=\{<Navigate replace to="\/#how-we-work"/);
   assert.doesNotMatch(app, /ExecutionPlan|path="execution"/);
-  assert.match(app, /path="membership" element=\{<Navigate replace to="\/hypotheses"/);
+  assert.match(app, /path="membership" element=\{<Navigate replace to="\/#how-we-work"/);
 });

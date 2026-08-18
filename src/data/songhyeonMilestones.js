@@ -235,6 +235,7 @@ export const getSonghyeonTodayMarker = (date = new Date()) => {
     dateLabel: `오늘 ${month}.${day}`,
     isoDate: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
     periodIndex,
+    periodProgress,
     left: SCHEDULE_LABEL_COLUMN_WIDTH + ((periodIndex + periodProgress) * SCHEDULE_PERIOD_WIDTH),
   };
 };

@@ -13,13 +13,14 @@ const SCHEDULE_LABEL_COLUMN_WIDTH = 430;
 const SCHEDULE_PERIOD_WIDTH = 48;
 const SCHEDULE_TABLE_WIDTH = 1198;
 
-const SelectControl = ({ value, onChange, options, label }) => (
-    <label className="relative h-[34px] min-w-[126px] cursor-pointer">
+const SelectControl = ({ value, onChange, options, label }) => {
+    const isActive = value !== options[0]?.value;
+    return <label className="relative h-[34px] min-w-[126px] cursor-pointer" data-filter-active={isActive ? 'true' : undefined}>
         <span className="sr-only">{label}</span>
         <select
             value={value}
             onChange={(event) => onChange(event.target.value)}
-            className="h-full w-full cursor-pointer appearance-none rounded-[8px] border border-[#3c3c3c] bg-[#2c2c2b] pl-3 pr-8 text-[12px] font-bold text-[#E5E5E5] outline-none transition-colors hover:border-[#505050] focus:border-[#2997ff]"
+            className={`h-full w-full cursor-pointer appearance-none rounded-[8px] border pl-3 pr-8 text-[12px] font-bold text-[#E5E5E5] outline-none transition-colors focus:border-[#2997ff] ${isActive ? 'border-[#2997ff] bg-[#334155] shadow-[0_0_0_1px_rgba(41,151,255,.12)]' : 'border-[#3c3c3c] bg-[#2c2c2b] hover:border-[#505050]'}`}
         >
             {options.map((option) => (
                 <option key={option.value} value={option.value} className="bg-[#222] text-white">
@@ -27,9 +28,9 @@ const SelectControl = ({ value, onChange, options, label }) => (
                 </option>
             ))}
         </select>
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-[#86868B]">▼</span>
-    </label>
-);
+        <span className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[9px] ${isActive ? 'text-[#8fc7ff]' : 'text-[#86868B]'}`}>▼</span>
+    </label>;
+};
 
 
 const scheduleMonthGroups = milestoneWeeks.reduce((groups, week) => {
@@ -71,6 +72,11 @@ const statusStyles = {
     cancelled: 'border-[#8e8e93]/35 bg-[#8e8e93]/10 text-[#a1a1aa]',
 };
 const statusLabels = { not_started: '미착수', in_progress: '진행중', completed: '완료', delayed: '지연', cancelled: '중단' };
+const initialMilestoneStage = () => {
+    if (typeof window === 'undefined') return '전체';
+    const candidate = new URLSearchParams(window.location.search).get('stage');
+    return milestoneStages.some((stage) => stage.code === candidate) ? candidate : '전체';
+};
 
 const insertScheduleRow = (items, row) => {
     const normalizedRow = { ...row, itemType: 'task' };
@@ -92,7 +98,7 @@ export default function SonghyeonDetailedSchedule() {
     const [links, setLinks] = useState([]);
     const [busy, setBusy] = useState(false);
     const [workspaceError, setWorkspaceError] = useState('');
-    const [selectedStage, setSelectedStage] = useState('전체');
+    const [selectedStage, setSelectedStage] = useState(initialMilestoneStage);
     const [selectedLead, setSelectedLead] = useState('전체');
     const [selectedState, setSelectedState] = useState('전체');
     const [metricFilter, setMetricFilter] = useState('all');
@@ -298,7 +304,7 @@ export default function SonghyeonDetailedSchedule() {
                     ))}
                     <div className="relative h-[46px] min-w-[280px] flex-1">
                         <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[22px] font-bold text-[#86868B]">⌕</span>
-                        <input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="일정·업무·실행주관 검색" className="h-full w-full rounded-[8px] border border-[#3c3c3c] bg-[#2c2c2b] pl-10 pr-3 text-[13px] text-[#E5E5E5] outline-none placeholder:text-[#86868B] focus:border-[#2997ff]" />
+                        <input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} data-filter-active={searchTerm ? 'true' : undefined} placeholder="일정·업무·실행주관 검색" className={`h-full w-full rounded-[8px] border pl-10 pr-3 text-[13px] text-[#E5E5E5] outline-none placeholder:text-[#86868B] focus:border-[#2997ff] ${searchTerm ? 'border-[#2997ff] bg-[#334155] shadow-[0_0_0_1px_rgba(41,151,255,.12)]' : 'border-[#3c3c3c] bg-[#2c2c2b]'}`} />
                     </div>
                 </div>
             </div>

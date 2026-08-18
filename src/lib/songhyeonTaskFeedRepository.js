@@ -198,6 +198,30 @@ export async function loadTaskFeedPosts(filters = {}) {
   return posts;
 }
 
+export async function loadRecentTaskFeedPosts(limit = 4) {
+  const client = requireSupabase();
+  const authenticated = await hasAuthenticatedSonghyeonSession(client);
+  const table = authenticated ? 'songhyeon_feed_posts' : 'songhyeon_public_feed_posts';
+  const { data, error } = await client
+    .from(table)
+    .select('*')
+    .order('work_date', { ascending: false })
+    .order('created_at', { ascending: false })
+    .limit(Math.max(1, Math.min(Number(limit) || 4, 8)));
+  if (error) throw new SonghyeonTaskFeedRepositoryError('최근 업무 피드를 불러오지 못했습니다.', error);
+  const emptyRelated = {
+    taskLinks: [],
+    stakeholders: [],
+    permissions: [],
+    mentions: [],
+    attachments: [],
+    comments: [],
+    reactions: [],
+    tasksByKey: new Map(),
+  };
+  return (data || []).map((row) => postFromRow(row, emptyRelated));
+}
+
 const normalizeMember = (row, authenticated) => ({
   id: row.id || row.profile_id,
   userId: authenticated ? row.auth_id : null,

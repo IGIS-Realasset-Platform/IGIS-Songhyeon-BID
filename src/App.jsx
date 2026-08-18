@@ -15,7 +15,6 @@ import NewAssets from './pages/assets/NewAssets';
 import MarketData from './pages/assets/MarketData';
 import UsCases from './pages/UsCases';
 import JapanCases from './pages/JapanCases';
-import ServiceHypotheses from './pages/ServiceHypotheses';
 import TaskFeed from './pages/TaskFeed';
 import DataRoom from './pages/DataRoom';
 import DataRoomDetail from './pages/DataRoomDetail';
@@ -33,8 +32,8 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-          <Route index element={<Navigate replace to="/tasks" />} />
-          <Route path="home" element={<Dashboard />} />
+          <Route index element={<Dashboard />} />
+          <Route path="home" element={<Navigate replace to="/" />} />
           <Route path="tasks" element={<TaskBoard />} />
           <Route path="map-activities">
             <Route index element={<Navigate replace to="integrated-map" />} />
@@ -56,8 +55,8 @@ export default function App() {
           <Route path="cases/us" element={<UsCases />} />
           <Route path="cases/japan" element={<JapanCases />} />
           <Route path="milestones" element={<SonghyeonScheduleGate />} />
-          <Route path="hypotheses" element={<ServiceHypotheses />} />
-          <Route path="membership" element={<Navigate replace to="/hypotheses" />} />
+          <Route path="hypotheses" element={<Navigate replace to="/#how-we-work" />} />
+          <Route path="membership" element={<Navigate replace to="/#how-we-work" />} />
           <Route path="feed" element={<TaskFeed />} />
           <Route path="feed/:postId" element={<TaskFeed />} />
           <Route path="data" element={<DataRoom />} />

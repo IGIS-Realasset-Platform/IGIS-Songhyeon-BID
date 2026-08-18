@@ -17,7 +17,7 @@ test('관리 열의 수정은 row 상세 클릭과 분리해 해당 업무 edito
   assert.match(rows, /<tr\b[^>]*data-task-board-row[^>]*onClick=\{\(\) => openTask\(task\)\}/,
     '관리 버튼 외 row 클릭은 기존 상세 drawer를 열어야 합니다.');
 
-  const managementLabel = rows.indexOf("{isReadOnly ? '상세' : '수정'}");
+  const managementLabel = rows.indexOf("{archived || isReadOnly ? '상세' : '수정'}");
   const managementButtonStart = rows.lastIndexOf('<button type="button"', managementLabel);
   const managementButtonEnd = rows.indexOf('</button>', managementLabel);
   assert.ok(managementButtonStart >= 0 && managementButtonEnd > managementButtonStart,
@@ -25,16 +25,16 @@ test('관리 열의 수정은 row 상세 클릭과 분리해 해당 업무 edito
   const managementButton = rows.slice(managementButtonStart, managementButtonEnd);
   assert.match(managementButton, /onClick=\{\(event\) => \{\s*event\.stopPropagation\(\);/,
     '수정 버튼이 row openTask까지 bubbling되면 안 됩니다.');
-  assert.match(managementButton, /if \(isReadOnly\) openTask\(task\); else setEditingTask\(task\);/,
+  assert.match(managementButton, /if \(archived \|\| isReadOnly\) openTask\(task\); else setEditingTask\(task\);/,
     '편집 가능 사용자는 상세 drawer를 거치지 않고 해당 task editor를 열어야 합니다.');
-  assert.match(managementButton, /\{isReadOnly \? ['"]상세['"] : ['"]수정['"]\}/);
+  assert.match(managementButton, /\{archived \|\| isReadOnly \? ['"]상세['"] : ['"]수정['"]\}/);
 });
 
 test('읽기 전용 관리 버튼은 상세를 열고 editor는 렌더하지 않는다', async () => {
   const board = await readBoard();
-  assert.match(board, /if \(isReadOnly\) openTask\(task\); else setEditingTask\(task\);/,
+  assert.match(board, /if \(archived \|\| isReadOnly\) openTask\(task\); else setEditingTask\(task\);/,
     '읽기 전용에서는 관리 열도 상세 openTask 경로를 사용해야 합니다.');
-  assert.match(board, /\{editingTask && !isReadOnly && <SonghyeonTaskEditorModal\b/,
+  assert.match(board, /\{editingTask && !isReadOnly && !editingTask\.archivedAt && <SonghyeonTaskEditorModal\b/,
     '읽기 전용 사용자에게 수정 editor를 노출하면 안 됩니다.');
   assert.match(board, /\{selectedTask && <SonghyeonTaskDetailDrawer\b[^>]*\btask=\{selectedTask\}/,
     '읽기 전용을 포함한 기존 상세 drawer 경로는 유지해야 합니다.');
