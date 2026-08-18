@@ -463,14 +463,14 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
 
                 {isExpanded ? (
                   <div className="border-t border-[#38383A] bg-[#202020] px-8 py-6">
-                    <div className="flex items-start justify-between gap-6">
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><div><div className="flex items-center gap-2"><strong className="text-[14px] text-white">{post.authorName}</strong>{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="rounded-[4px] bg-[#82afb9]/10 px-2 py-0.5 text-[11px] font-bold text-[#82afb9]">{post.cell || post.authorGroup || '송현 BID'}</span></div><span className="text-[11px] text-[#86868B]">{displayDateTime(post.createdAt)}</span></div></div>
-                        <h3 className="mt-5 text-[18px] font-bold leading-7 text-white">{post.title || '업무 메시지'}</h3>
-                        <div className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-7 text-[#D1D1D6]">{post.content}</div>
-                        {post.mentions?.length ? <div className="mt-4 flex flex-wrap gap-1.5" aria-label="멘션"><Users size={14} className="mt-1 text-[#7fa6c8]" />{post.mentions.map((mention) => <span key={mention.id || mention.memberId || mention.member_id || mention.name || mention} className="rounded-[6px] bg-[#6f9fc7]/10 px-2 py-1 text-[12px] text-[#9cc4e6]">@{mention.name || mention.label || mention}</span>)}</div> : null}
-                      </div>
+                    <div data-feed-detail-header className="flex items-start justify-between gap-6">
+                      <div className="flex min-w-0 items-center gap-2"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><div className="min-w-0"><div className="flex min-w-0 items-center gap-2"><strong className="truncate text-[14px] text-white">{post.authorName}</strong>{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="shrink-0 rounded-[4px] bg-[#82afb9]/10 px-2 py-0.5 text-[11px] font-bold text-[#82afb9]">{post.cell || post.authorGroup || '송현 BID'}</span></div><span className="text-[11px] text-[#86868B]">{displayDateTime(post.createdAt)}</span></div></div>
                       {isAuthor && !isReadOnly ? <div className="flex shrink-0 gap-2"><button type="button" onClick={() => setEditingPost(post)} className="flex h-8 items-center gap-1 rounded-[7px] border border-[#444] px-3 text-[12px] text-[#A1A1AA] hover:text-white"><Pencil size={12} />수정하기</button><button type="button" onClick={() => setDeleteTarget({ type: 'post', post })} className="flex h-8 items-center gap-1 rounded-[7px] border border-[#5a3937] px-3 text-[12px] text-[#cc8580]"><Trash2 size={12} />삭제</button></div> : null}
+                    </div>
+                    <div data-feed-detail-content className="w-full min-w-0">
+                      <h3 className="mt-5 text-[18px] font-bold leading-7 text-white">{post.title || '업무 메시지'}</h3>
+                      <div className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-7 text-[#D1D1D6]">{post.content}</div>
+                      {post.mentions?.length ? <div className="mt-4 flex flex-wrap gap-1.5" aria-label="멘션"><Users size={14} className="mt-1 text-[#7fa6c8]" />{post.mentions.map((mention) => <span key={mention.id || mention.memberId || mention.member_id || mention.name || mention} className="rounded-[6px] bg-[#6f9fc7]/10 px-2 py-1 text-[12px] text-[#9cc4e6]">@{mention.name || mention.label || mention}</span>)}</div> : null}
                     </div>
 
                     {post.attachments.length ? <div className="mt-5 flex flex-wrap gap-2 border-t border-[#333] pt-4">{post.attachments.map((file) => <button key={file.id || file.path || file.name} type="button" onClick={() => handleDownloadAttachment(file)} className="flex items-center gap-2 rounded-[8px] border border-[#444] bg-[#272727] px-3 py-2 text-[12px] text-[#D1D1D6] hover:border-[#666]"><FileText size={14} />{file.name}<Download size={13} className="text-[#86868B]" /></button>)}</div> : null}

@@ -114,6 +114,42 @@ test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나�
     '등록자 row는 126px 열 안에서 avatar·이름을 중앙 정렬해야 합니다.');
 });
 
+test('펼쳐진 업무 피드 본문은 관리 버튼 열과 분리되어 행 전체 폭을 사용한다', async () => {
+  const feed = await read(FEED_PATH);
+  const expandedStart = feed.indexOf('{isExpanded ? (');
+  const expandedEnd = feed.indexOf('{post.attachments.length', expandedStart);
+  assert.ok(expandedStart >= 0 && expandedEnd > expandedStart,
+    '펼쳐진 게시글의 메타정보·본문 구간을 찾을 수 없습니다.');
+  const expanded = feed.slice(expandedStart, expandedEnd);
+
+  const headerPosition = expanded.indexOf('data-feed-detail-header');
+  const contentPosition = expanded.indexOf('data-feed-detail-content');
+  assert.ok(headerPosition >= 0,
+    '작성자 정보와 수정·삭제 버튼을 묶는 상세 header가 필요합니다.');
+  assert.ok(contentPosition > headerPosition,
+    '제목과 본문은 우측 관리 버튼과 같은 flex 행이 아닌 별도의 전체 폭 구간에 와야 합니다.');
+
+  const contentTag = expanded.slice(0, contentPosition).match(/<(?:div|section)\b[^>]*$/)?.[0]
+    ? `${expanded.slice(0, contentPosition).match(/<(?:div|section)\b[^>]*$/)[0]}${expanded.slice(contentPosition).split('>')[0]}>`
+    : '';
+  assert.ok(contentTag, '상세 본문 wrapper tag를 찾을 수 없습니다.');
+  const contentClasses = contentTag.match(/className="([^"]*)"/)?.[1] || '';
+  assert.match(contentClasses, /\bw-full\b/,
+    '상세 본문 wrapper는 펼쳐진 행의 전체 폭을 명시적으로 사용해야 합니다.');
+  assert.match(contentClasses, /\bmin-w-0\b/,
+    '본문은 유동 너비 안에서 안전하게 줄바꿈될 수 있어야 합니다.');
+  assert.doesNotMatch(contentClasses, /(?:^|\s)(?:max-w-|w-fit|inline-grid|grid-cols-)/,
+    '상세 본문을 이전 목록의 좁은 content column 너비로 제한하면 안 됩니다.');
+
+  const detailContent = expanded.slice(contentPosition);
+  assert.match(detailContent, /\{post\.title\s*\|\|\s*['"](?:업무 메시지|제목 없음)['"]\}/,
+    '제목은 전체 폭 본문 구간 안에 있어야 합니다.');
+  assert.match(detailContent, /className="[^"]*whitespace-pre-wrap[^"]*break-words[^"]*"[^>]*>\{post\.content\}<\/div>/,
+    '본문은 작성자가 넣은 단락은 보존하고 긴 문장은 사용 가능한 전체 폭에서만 자연스럽게 줄바꿈되어야 합니다.');
+  assert.doesNotMatch(expanded.slice(headerPosition, contentPosition), /post\.content/,
+    '본문을 수정·삭제 버튼이 폭을 차지하는 header flex 안에 두면 안 됩니다.');
+});
+
 test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입력·자동완성·저장한다', async () => {
   const writeBox = await read(WRITE_BOX_PATH);
   const stakeholderOptionStart = writeBox.indexOf('const stakeholderOption =');
