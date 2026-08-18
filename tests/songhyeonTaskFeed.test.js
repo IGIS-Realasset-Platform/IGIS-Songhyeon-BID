@@ -50,7 +50,7 @@ test('업무 피드는 IOTA 실제 게시판의 열 구조·작성 프롬프트�
     read('src/data/songhyeonTaskFeedOptions.js'),
   ]);
 
-  assert.match(feed, />송현 BID 업무 메시지</, '원본의 workspace 업무 메시지 제목을 송현 이름으로 표시해야 합니다.');
+  assert.doesNotMatch(feed, /송현 BID 업무 메시지/, 'WorkspacePageHeader 아래에 내부 중복 제목을 다시 표시하면 안 됩니다.');
   for (const column of ['프로젝트', '기능셀', '등록자', '내용', '이해관계자', '목적', '진행상태', '중요도', '등록일']) {
     assert.match(feed, new RegExp(column), `원본 게시판 열 누락: ${column}`);
   }
@@ -107,8 +107,61 @@ test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입�
     '새 게시글 payload에는 legacy 이해관계자 분류를 저장하면 안 됩니다.');
 });
 
+test('검색과 요약·전체보기 전환은 최상단 WorkspacePageHeader actions에서 기존 피드 상태를 제어한다', async () => {
+  const [page, feed, workspaceLayout] = await Promise.all([
+    read(PAGE_PATH),
+    read(FEED_PATH),
+    read('src/components/workspace/WorkspacePageLayout.jsx'),
+  ]);
+
+  assert.match(workspaceLayout, /\{actions && <div className="flex shrink-0 items-end">\{actions\}<\/div>\}/,
+    '공용 Header의 trailing actions 슬롯이 유지되어야 합니다.');
+  assert.match(page, /<SonghyeonTaskFeed\b[\s\S]{0,240}?renderHeader=\{\(actions\)\s*=>\s*\([\s\S]{0,360}?<WorkspacePageHeader\b/,
+    '페이지가 Feed 상태를 유지하는 renderHeader 연결로 최상단 공용 Header를 렌더해야 합니다.');
+  const renderPropStart = page.indexOf('renderHeader={(actions) =>');
+  const feedMountEnd = page.indexOf('/>', renderPropStart);
+  assert.ok(renderPropStart >= 0 && feedMountEnd > renderPropStart, 'TaskFeed renderHeader 구간을 찾을 수 없습니다.');
+  const pageHeader = page.slice(renderPropStart, feedMountEnd);
+  assert.match(pageHeader, /<WorkspacePageHeader\b/);
+  assert.match(pageHeader, /title="업무 피드"/);
+  assert.match(pageHeader, /\bactions=\{actions\}/,
+    '검색·보기 전환 UI는 WorkspacePageHeader의 우측 actions로 전달되어야 합니다.');
+
+  assert.match(feed, /export default function SonghyeonTaskFeed\(\{\s*renderHeader\s*\}\)/);
+  const headerActionsStart = feed.indexOf('const headerActions =');
+  const feedReturnStart = feed.indexOf('\n  return (', headerActionsStart);
+  assert.ok(headerActionsStart >= 0 && feedReturnStart > headerActionsStart,
+    'Feed의 header actions 구간을 찾을 수 없습니다.');
+  const headerControls = feed.slice(headerActionsStart, feedReturnStart);
+  assert.match(headerControls, /<Search\b/);
+  assert.match(headerControls, /placeholder="검색어 입력\.\.\."/);
+  assert.match(headerControls, /value=\{searchQuery\}/);
+  assert.match(headerControls, /setSearchQuery\(event\.target\.value\)/);
+  assert.match(headerControls, /setCurrentPage\(1\)/,
+    '헤더 검색 변경과 보기 전환은 기존 페이지를 1쪽으로 되돌려야 합니다.');
+  assert.match(headerControls, /setViewMode\(\(mode\)\s*=>\s*mode === ['"]summary['"]\s*\?\s*['"]full['"]\s*:\s*['"]summary['"]\)/);
+  assert.match(headerControls, /viewMode === ['"]summary['"]\s*\?\s*['"]전체보기['"]\s*:\s*['"]간략히 보기['"]/);
+  assert.equal((headerControls.match(/h-\[37px\]/g) || []).length, 2,
+    '검색 입력과 보기 전환 버튼은 37px 제목행 높이에 맞아야 합니다.');
+
+  const renderCallStart = feed.indexOf('renderHeader?.(headerActions)', feedReturnStart);
+  const feedSectionStart = feed.indexOf('<section', renderCallStart);
+  assert.ok(renderCallStart >= 0 && feedSectionStart > renderCallStart,
+    'Feed가 게시판 section보다 먼저 WorkspacePageHeader actions를 요청해야 합니다.');
+
+  assert.doesNotMatch(feed, /송현 BID 업무 메시지|<h2\b[^>]*>\s*송현 BID/,
+    '피드 본문에 예전 내부 제목을 남기면 안 됩니다.');
+  assert.match(feed, /const \[searchQuery, setSearchQuery\] = useState\(['"]{2}\)/);
+  assert.match(feed, /const \[viewMode, setViewMode\] = useState\(['"]summary['"]\)/);
+  assert.match(feed, /const \[currentPage, setCurrentPage\] = useState\(1\)/);
+  assert.match(feed, /const query = searchQuery\.trim\(\)\.toLowerCase\(\)/);
+  assert.match(feed, /const pageSize = viewMode === ['"]summary['"] \? SUMMARY_PAGE_SIZE : FULL_PAGE_SIZE/);
+  assert.match(feed, /setViewMode\(['"]full['"]\)/,
+    'postId deep-link는 기존처럼 전체보기로 전환되어야 합니다.');
+});
+
 test('피드 목록은 원본의 검색·5개 요약·20개 전체보기와 다섯 필터를 실제 데이터에 적용한다', async () => {
-  const [feed, repository] = await Promise.all([read(FEED_PATH), read(REPOSITORY_PATH)]);
+  const [page, feed, repository] = await Promise.all([read(PAGE_PATH), read(FEED_PATH), read(REPOSITORY_PATH)]);
 
   assert.match(feed, /loadTaskFeedPosts/);
   assert.match(feed, /loadTaskFeedOptions/);
@@ -116,9 +169,9 @@ test('피드 목록은 원본의 검색·5개 요약·20개 전체보기와 다�
   assert.match(repository, exportedFunction(repository, 'loadTaskFeedOptions'));
   assert.match(feed, /(?:SUMMARY_PAGE_SIZE|summaryPageSize|summary[^\n]{0,40})\s*=\s*5/i);
   assert.match(feed, /(?:FULL_PAGE_SIZE|fullPageSize|full[^\n]{0,40})\s*=\s*20/i);
-  assert.match(feed, /전체보기/);
-  assert.match(feed, /간략히 보기/);
-  assert.match(feed, /검색어 입력/);
+  assert.match(`${page}\n${feed}`, /전체보기/);
+  assert.match(`${page}\n${feed}`, /간략히 보기/);
+  assert.match(`${page}\n${feed}`, /검색어 입력/);
 
   for (const filter of ['stakeholder', 'cell', 'purpose', 'status', 'priority']) {
     assert.match(feed, new RegExp(`filter${filter}|selected${filter}|filters?\\.${filter}`, 'i'), `필터 상태 누락: ${filter}`);

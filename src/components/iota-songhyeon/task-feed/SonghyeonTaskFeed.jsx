@@ -175,7 +175,7 @@ function LinkedTaskCard({ task, onOpen }) {
   );
 }
 
-export default function SonghyeonTaskFeed() {
+export default function SonghyeonTaskFeed({ renderHeader }) {
   const { user, member, isReadOnly } = useSonghyeonAuth();
   const actor = useMemo(() => ({
     userId: user?.id || '', email: user?.email || '', name: member?.staff_name || '', group: member?.staff_group || member?.group_name || '', photoPath: member?.photo_path || '',
@@ -328,19 +328,21 @@ export default function SonghyeonTaskFeed() {
     ...(options.members || []).map((person) => person.name || person.staffName || person.staff_name),
   ].filter(Boolean), [options.groups, options.members]);
 
-  return (
-    <section className="w-full" aria-label="업무 피드 게시판">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-[16px] font-bold tracking-tight text-white">송현 BID 업무 메시지</h2>
-        <div className="flex items-center gap-3">
-        <label className="relative block">
-          <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#86868B]" />
-          <input value={searchQuery} onChange={(event) => { setSearchQuery(event.target.value); setCurrentPage(1); }} placeholder="검색어 입력..." className="h-10 w-[230px] rounded-[10px] border border-[#3A3A3C] bg-[#222] pl-9 pr-3 text-[13px] text-white outline-none transition-colors focus:border-[#6f9fc7]" />
-        </label>
-        <button type="button" onClick={() => { setViewMode((mode) => mode === 'summary' ? 'full' : 'summary'); setCurrentPage(1); }} className="h-10 rounded-[10px] border border-[#3A3A3C] bg-[#222] px-4 text-[13px] font-semibold text-[#A1A1AA] hover:border-[#555] hover:text-white">{viewMode === 'summary' ? '전체보기' : '간략히 보기'}</button>
-        </div>
-      </div>
+  const headerActions = (
+    <div className="flex items-center gap-3">
+      <label className="relative block">
+        <span className="sr-only">업무 피드 검색</span>
+        <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#86868B]" />
+        <input value={searchQuery} onChange={(event) => { setSearchQuery(event.target.value); setCurrentPage(1); }} placeholder="검색어 입력..." className="h-[37px] w-[230px] rounded-[10px] border border-[#3A3A3C] bg-[#222] pl-9 pr-3 text-[13px] text-white outline-none transition-colors focus:border-[#6f9fc7]" />
+      </label>
+      <button type="button" onClick={() => { setViewMode((mode) => mode === 'summary' ? 'full' : 'summary'); setCurrentPage(1); }} className="h-[37px] rounded-[10px] border border-[#3A3A3C] bg-[#222] px-4 text-[13px] font-semibold text-[#A1A1AA] hover:border-[#555] hover:text-white">{viewMode === 'summary' ? '전체보기' : '간략히 보기'}</button>
+    </div>
+  );
 
+  return (
+    <>
+      {renderHeader?.(headerActions)}
+      <section className="w-full" aria-label="업무 피드 게시판">
       <div className="rounded-[30px] border border-[#333] p-[6px]">
         <SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} onSaved={refresh} />
 
@@ -429,8 +431,9 @@ export default function SonghyeonTaskFeed() {
 
       {deleteTarget ? <ConfirmDialog title={deleteTarget.type === 'post' ? '게시글을 삭제할까요?' : '댓글을 삭제할까요?'} description="삭제한 내용은 되돌릴 수 없습니다." pending={isDeleting} onClose={() => setDeleteTarget(null)} onConfirm={() => deleteTarget.type === 'post' ? handleDeletePost(deleteTarget.post.id) : handleDeleteComment(deleteTarget.postId, deleteTarget.commentId)} /> : null}
 
-      {selectedTask ? <SonghyeonTaskDetailDrawer key={taskKeyOf(selectedTask)} task={selectedTask} onClose={() => setSelectedTask(null)} onSaved={(updated) => setSelectedTask(updated)} /> : null}
-    </section>
+        {selectedTask ? <SonghyeonTaskDetailDrawer key={taskKeyOf(selectedTask)} task={selectedTask} onClose={() => setSelectedTask(null)} onSaved={(updated) => setSelectedTask(updated)} /> : null}
+      </section>
+    </>
   );
 }
 
