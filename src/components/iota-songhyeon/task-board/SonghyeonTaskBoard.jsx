@@ -130,6 +130,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
   const [loading, setLoading] = useState(true);
   const [repositoryError, setRepositoryError] = useState('');
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
   const [workflowTask, setWorkflowTask] = useState(null);
   const [archiveTarget, setArchiveTarget] = useState(null);
   const [archiveReason, setArchiveReason] = useState('');
@@ -410,7 +411,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
                     <td className="w-[56px] min-w-[56px] max-w-[56px] truncate text-center"><span className={`rounded px-2 py-0.5 text-[11px] font-bold ${importanceBadgeClass(task.importanceLevel)}`}>{task.importanceLevel}</span></td>
                     <td className="w-[71px] min-w-[71px] max-w-[71px] border-l border-r border-[#3c3c3c] px-1 text-center">
                       <div className="flex items-center justify-center gap-1">
-                        <button type="button" onClick={(event) => { event.stopPropagation(); openTask(task); }} className="cursor-pointer text-[11px] font-bold text-[#6f9fc7] hover:text-[#82add0]">{isReadOnly ? '상세' : '수정'}</button>
+                        <button type="button" onClick={(event) => { event.stopPropagation(); if (isReadOnly) openTask(task); else setEditingTask(task); }} className="cursor-pointer text-[11px] font-bold text-[#6f9fc7] hover:text-[#82add0]">{isReadOnly ? '상세' : '수정'}</button>
                         {canCreateAndArchive && <><span className="mx-[2px] select-none text-[#555]">|</span><button type="button" onClick={(event) => { event.stopPropagation(); requestArchive(task); }} className="cursor-pointer text-[11px] font-bold text-[#a78661] hover:text-[#b89a78]">보관</button></>}
                       </div>
                     </td>
@@ -425,6 +426,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
       </div>
       {selectedTask && <SonghyeonTaskDetailDrawer key={selectedTask.sourceKey} task={selectedTask} onClose={closeTask} onBackdropClick={handleTaskDetailBackdropClick} onSaved={replaceTask} canArchive={canCreateAndArchive} onArchiveRequest={requestArchive} />}
       {isEditorOpen && canCreateAndArchive && <SonghyeonTaskEditorModal onClose={() => setIsEditorOpen(false)} onCreated={(created) => { setTasks((current) => [...current, created]); setIsEditorOpen(false); openTask(created); }} />}
+      {editingTask && !isReadOnly && <SonghyeonTaskEditorModal key={editingTask.sourceKey} task={editingTask} onClose={() => setEditingTask(null)} onSaved={(updated) => { replaceTask(updated); setEditingTask(null); }} onWorkflowSaved={replaceTask} />}
       {workflowTask && !isReadOnly && <SonghyeonTaskWorkflowModal task={workflowTask} onClose={() => setWorkflowTask(null)} onSaved={async (updated) => { replaceTask(updated); setWorkflowTask(null); }} />}
       {archiveTarget && canCreateAndArchive && (
         <div className="fixed inset-0 z-[210000] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget && !archiving) { setArchiveTarget(null); setArchiveReason(''); } }}>
