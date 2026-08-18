@@ -69,6 +69,49 @@ test('업무 피드는 IOTA 실제 게시판의 열 구조·작성 프롬프트�
   assert.doesNotMatch(options, /['"]보류['"]/);
 });
 
+test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나머지 열을 보존한다', async () => {
+  const feed = await read(FEED_PATH);
+  const headerStart = feed.indexOf('<div className="grid min-w-[1080px]');
+  const headerEnd = feed.indexOf('</div>', headerStart);
+  const rowStart = feed.indexOf('<button type="button" onClick={() => setExpanded', headerEnd);
+  const rowEnd = feed.indexOf('</button>', rowStart);
+  assert.ok(headerStart >= 0 && headerEnd > headerStart, '피드 table header grid를 찾을 수 없습니다.');
+  assert.ok(rowStart >= 0 && rowEnd > rowStart, '피드 table row grid를 찾을 수 없습니다.');
+  const header = feed.slice(headerStart, headerEnd);
+  const row = feed.slice(rowStart, rowEnd);
+  const headerGrid = header.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
+  const rowGrid = row.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
+  const expectedGrid = '116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px';
+  assert.equal(headerGrid, expectedGrid, '기존 10개 header 열 템플릿을 보존해야 합니다.');
+  assert.equal(rowGrid, expectedGrid, 'row는 header와 정확히 같은 10개 열을 사용해야 합니다.');
+  assert.equal(headerGrid.split('_').length, 10);
+
+  const assertOrdered = (source, tokens, label) => {
+    let previous = -1;
+    tokens.forEach((token, index) => {
+      const position = source.indexOf(token, previous + 1);
+      assert.ok(position > previous, `${label} ${index + 1}번 열 누락·순서 변경: ${token}`);
+      previous = position;
+    });
+  };
+  assertOrdered(header, [
+    '>프로젝트<', 'label="기능셀"', '>등록자<', '>내용<', 'aria-label="반응자"',
+    'label="이해관계자"', 'label="목적"', 'label="진행상태"', 'label="중요도"', '>등록일<',
+  ], 'header');
+  assertOrdered(row, [
+    '{post.project}', '{post.cell', '<Avatar profile={{ name: post.authorName', '{post.title || post.content}',
+    '<SonghyeonReactionAvatarStack', '{post.stakeholderLabel', '{post.purpose', 'statusClass(post.status)',
+    'priorityClass(post.priority)', 'shortDate(post.workDate)',
+  ], 'row');
+
+  assert.match(header, /className="[^"]*text-center[^"]*"[\s\S]*?<span(?:\s+className="(?![^"]*text-left)[^"]*")?>등록자<\/span>/,
+    '등록자 header는 해당 grid cell에서 중앙 정렬을 유지해야 합니다.');
+  const authorCell = row.match(/<span className="([^"]*)"><Avatar profile=\{\{ name: post\.authorName[\s\S]*?\{post\.authorName \|\| ['"]-['"]\}[\s\S]*?<\/span><\/span>/);
+  assert.ok(authorCell, '등록자 avatar·이름 row cell을 찾을 수 없습니다.');
+  assert.match(authorCell[1], /\bjustify-center\b/,
+    '등록자 row는 126px 열 안에서 avatar·이름을 중앙 정렬해야 합니다.');
+});
+
 test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입력·자동완성·저장한다', async () => {
   const writeBox = await read(WRITE_BOX_PATH);
   const stakeholderOptionStart = writeBox.indexOf('const stakeholderOption =');
