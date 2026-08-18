@@ -371,7 +371,7 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
     const seen = new Set();
     return asArray(options.stakeholders).map(stakeholderOption).filter((entry) => {
       const key = stakeholderKey(entry);
-      if (!entry.companyName || seen.has(key)) return false;
+      if ((!entry.companyName && !entry.contactName) || seen.has(key)) return false;
       seen.add(key);
       return true;
     });
@@ -437,9 +437,12 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
   const selectedIndividualMembers = members.filter((member) => visibilityIndividuals.includes(member.id));
   const project = projects.find((entry) => entry.value === projectCode) || projects[0];
   const stakeholderCompanies = unique(stakeholders.map((entry) => entry.companyName));
-  const stakeholderContacts = unique(stakeholders
-    .filter((entry) => !stakeholderCompany || entry.companyName === stakeholderCompany)
-    .map((entry) => entry.contactName));
+  const stakeholderContacts = unique([
+    ...stakeholders
+      .filter((entry) => !stakeholderCompany || entry.companyName === stakeholderCompany)
+      .map((entry) => entry.contactName),
+    ...members.map((member) => member.name),
+  ]);
 
   const updateMentionQuery = (event) => {
     const nextContent = event.target.value;

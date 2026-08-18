@@ -187,6 +187,26 @@ const normalizeMember = (row, authenticated) => ({
   displayOrder: row.display_order,
 });
 
+const loadSharedStakeholderContacts = async (client, authenticated) => {
+  if (!authenticated) return { data: [], error: null };
+
+  const detailed = await client
+    .from('songhyeon_shared_stakeholder_contacts')
+    .select('company_name,contact_name')
+    .limit(5000);
+  if (!detailed.error) return detailed;
+
+  const legacy = await client
+    .from('songhyeon_shared_stakeholders')
+    .select('stakeholder_name')
+    .limit(5000);
+  if (legacy.error) return legacy;
+  return {
+    data: (legacy.data || []).map((row) => ({ company_name: row.stakeholder_name, contact_name: '' })),
+    error: null,
+  };
+};
+
 export async function loadTaskFeedOptions() {
   const client = requireSupabase();
   const authenticated = await hasAuthenticatedSonghyeonSession(client);
@@ -195,9 +215,7 @@ export async function loadTaskFeedOptions() {
       ? client.from('songhyeon_members').select('id,auth_id,email,staff_name,group_name,title,photo_path,display_order').eq('is_active', true).order('display_order')
       : client.from('songhyeon_public_profiles').select('*').order('display_order'),
     loadTasks(),
-    authenticated
-      ? client.from('songhyeon_shared_stakeholders').select('stakeholder_name').limit(5000)
-      : Promise.resolve({ data: [], error: null }),
+    loadSharedStakeholderContacts(client, authenticated),
   ]);
   if (memberResult.error) throw new SonghyeonTaskFeedRepositoryError('송현 멤버 목록을 불러오지 못했습니다.', memberResult.error);
   if (stakeholderResult.error) throw new SonghyeonTaskFeedRepositoryError('이해관계자 목록을 불러오지 못했습니다.', stakeholderResult.error);
@@ -212,7 +230,10 @@ export async function loadTaskFeedOptions() {
     groups,
     members,
     tasks,
-    stakeholders: (stakeholderResult.data || []).map((row) => row.stakeholder_name),
+    stakeholders: (stakeholderResult.data || []).map((row) => ({
+      companyName: row.company_name || row.stakeholder_name || '',
+      contactName: row.contact_name || '',
+    })),
   };
 }
 

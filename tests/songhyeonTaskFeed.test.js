@@ -18,6 +18,7 @@ const WRITE_BOX_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFee
 const MEMBER_AVATAR_PATH = 'src/components/iota-songhyeon/SonghyeonMemberAvatar.jsx';
 const REPOSITORY_PATH = 'src/lib/songhyeonTaskFeedRepository.js';
 const MIGRATION_PATH = 'supabase/migrations/202608180001_songhyeon_task_feed.sql';
+const SHARED_CONTACTS_MIGRATION_PATH = 'supabase/migrations/202608180003_songhyeon_shared_stakeholder_contacts.sql';
 
 const exportedFunction = (source, name) => new RegExp(`export\\s+(?:async\\s+)?function\\s+${name}\\b|export\\s+const\\s+${name}\\s*=`);
 
@@ -105,6 +106,85 @@ test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입�
   assert.match(payload, /stakeholder:\s*stakeholderCompany\s*\|\|\s*stakeholderContact\s*\?\s*\{\s*companyName:\s*stakeholderCompany,\s*contactName:\s*stakeholderContact\s*\}\s*:\s*null/);
   assert.doesNotMatch(payload, /stakeholderCategory|\bcategory\s*:/,
     '새 게시글 payload에는 legacy 이해관계자 분류를 저장하면 안 됩니다.');
+});
+
+test('담당자명 자동완성은 회사별 외부 연락처와 전체 내부 멤버 이름을 중복 없이 합친다', async () => {
+  const writeBox = await read(WRITE_BOX_PATH);
+  assert.match(writeBox, /const members = useMemo\(\(\) => asArray\(options\.members\)\.map\(memberOption\)/,
+    '내부 담당자 후보는 options.members에서 정규화해야 합니다.');
+  assert.match(writeBox, /const unique = \(values\) => \[\.\.\.new Set\(/,
+    '외부·내부에 같은 이름이 있어도 datalist에는 한 번만 표시해야 합니다.');
+
+  const contactsStart = writeBox.indexOf('const stakeholderContacts =');
+  const contactsEnd = writeBox.indexOf('\n\n  const updateMentionQuery', contactsStart);
+  assert.ok(contactsStart >= 0 && contactsEnd > contactsStart, '담당자명 후보 계산 구간을 찾을 수 없습니다.');
+  const contacts = writeBox.slice(contactsStart, contactsEnd);
+  assert.match(contacts, /unique\(\s*\[/,
+    '외부 연락처와 내부 멤버를 합친 뒤 전체 후보를 중복 제거해야 합니다.');
+  assert.match(contacts, /\.\.\.stakeholders\s*\.filter\(\(entry\)\s*=>\s*!stakeholderCompany\s*\|\|\s*entry\.companyName === stakeholderCompany\)\s*\.map\(\(entry\)\s*=>\s*entry\.contactName\)/,
+    '외부 이해관계자 연락처에는 선택한 회사·기관 필터를 유지해야 합니다.');
+  assert.match(contacts, /\.\.\.members\.map\(\(member\)\s*=>\s*member\.name\)/,
+    '내부 options.members 이름은 담당자명 후보에 항상 합쳐야 합니다.');
+  const memberNamesStart = contacts.indexOf('...members.map');
+  assert.ok(memberNamesStart > contacts.indexOf('...stakeholders'), '외부 연락처와 내부 멤버 이름을 모두 합쳐야 합니다.');
+  assert.doesNotMatch(contacts.slice(memberNamesStart), /stakeholderCompany|\.filter\(/,
+    '회사 선택이 내부 멤버 이름까지 필터링하면 안 됩니다.');
+
+  assert.match(writeBox, /<datalist id=\{`\$\{formId\}-stakeholder-contacts`\}>\{stakeholderContacts\.map/);
+  const payloadStart = writeBox.indexOf('const payload = {');
+  const payloadEnd = writeBox.indexOf('const savedPost =', payloadStart);
+  const payload = writeBox.slice(payloadStart, payloadEnd);
+  assert.match(payload, /contactName:\s*stakeholderContact/,
+    '신규 게시글에는 선택된 담당자의 표시 문자열만 저장해야 합니다.');
+  assert.doesNotMatch(payload, /contact(?:Member)?Id|stakeholderContact\.|\bcategory\s*:/,
+    '담당자 객체·내부 ID·분류를 신규 게시글 payload에 저장하면 안 됩니다.');
+});
+
+test('공유 이해관계자 연락처는 인증 사용자에게만 읽기 전용으로 제공하고 legacy fallback을 유지한다', async () => {
+  const [repository, migration] = await Promise.all([
+    read(REPOSITORY_PATH),
+    read(SHARED_CONTACTS_MIGRATION_PATH),
+  ]);
+  const lower = migration.toLowerCase();
+  const viewDefinition = lower.match(/create or replace view public\.songhyeon_shared_stakeholder_contacts[\s\S]*?(?=\nrevoke\s)/)?.[0] || '';
+  assert.ok(viewDefinition, '공유 이해관계자 연락처 view 정의가 필요합니다.');
+  assert.match(viewDefinition, /with\s*\(\s*security_invoker\s*=\s*true\s*\)/,
+    '기반 IOTA 권한을 우회하지 않는 security-invoker view여야 합니다.');
+  assert.match(viewDefinition, /select distinct[\s\S]*?company_name[\s\S]*?contact_name[\s\S]*?from public\.iota_stakeholder_master/,
+    'iota_stakeholder_master의 회사·기관명과 담당자명을 공유해야 합니다.');
+
+  assert.match(lower, /revoke all on public\.songhyeon_shared_stakeholder_contacts\s+from public, anon, authenticated\s*;/,
+    '기본·비인증·인증 role의 기존 view 권한을 먼저 제거해야 합니다.');
+  assert.match(lower, /grant select on public\.songhyeon_shared_stakeholder_contacts to authenticated\s*;/,
+    '인증된 사용자에게만 조회 권한을 줄 수 있습니다.');
+  assert.doesNotMatch(lower, /grant select on public\.songhyeon_shared_stakeholder_contacts to (?:public|anon)\b/,
+    '비인증 사용자에게 공유 연락처를 노출하면 안 됩니다.');
+  assert.doesNotMatch(lower, /grant\s+(?:all|insert|update|delete|truncate|references|trigger)\b[^;]*songhyeon_shared_stakeholder_contacts/,
+    '공유 연락처 view에 쓰기 권한을 주면 안 됩니다.');
+
+  const loaderStart = repository.indexOf('const loadSharedStakeholderContacts =');
+  const optionsStart = repository.indexOf('export async function loadTaskFeedOptions', loaderStart);
+  assert.ok(loaderStart >= 0 && optionsStart > loaderStart, '공유 연락처 loader를 찾을 수 없습니다.');
+  const loader = repository.slice(loaderStart, optionsStart);
+  assert.match(loader, /if\s*\(\s*!authenticated\s*\)\s*return\s*\{\s*data:\s*\[\],\s*error:\s*null\s*\}/,
+    '비인증 세션은 연락처 view를 조회하지 않아야 합니다.');
+  assert.match(loader, /\.from\(['"]songhyeon_shared_stakeholder_contacts['"]\)\s*\.select\(['"]company_name,contact_name['"]\)/,
+    '상세 view에서 회사·기관명과 담당자명을 함께 조회해야 합니다.');
+  assert.match(loader, /if\s*\(\s*!detailed\.error\s*\)\s*return detailed\s*;/,
+    '상세 view가 적용된 환경에서는 그 결과를 우선해야 합니다.');
+  const detailedStart = loader.indexOf(".from('songhyeon_shared_stakeholder_contacts')");
+  const legacyStart = loader.indexOf(".from('songhyeon_shared_stakeholders')");
+  assert.ok(detailedStart >= 0 && legacyStart > detailedStart,
+    '상세 view 조회가 실패한 미적용 환경에서만 legacy view로 fallback해야 합니다.');
+  assert.match(loader, /\.from\(['"]songhyeon_shared_stakeholders['"]\)\s*\.select\(['"]stakeholder_name['"]\)/);
+  assert.match(loader, /company_name:\s*row\.stakeholder_name,\s*contact_name:\s*['"]{2}/,
+    'legacy 결과는 회사·기관명만 보존하고 담당자명은 빈 문자열이어야 합니다.');
+
+  const optionMapping = repository.slice(optionsStart, repository.indexOf('const normalizeStakeholder', optionsStart));
+  assert.match(optionMapping, /loadSharedStakeholderContacts\(client, authenticated\)/);
+  assert.match(optionMapping, /companyName:\s*row\.company_name\s*\|\|\s*row\.stakeholder_name\s*\|\|\s*['"]{2}/);
+  assert.match(optionMapping, /contactName:\s*row\.contact_name\s*\|\|\s*['"]{2}/,
+    'repository 옵션은 DB snake_case를 UI의 companyName/contactName으로 매핑해야 합니다.');
 });
 
 test('검색과 요약·전체보기 전환은 최상단 WorkspacePageHeader actions에서 기존 피드 상태를 제어한다', async () => {
