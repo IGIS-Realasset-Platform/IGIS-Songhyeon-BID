@@ -14,6 +14,7 @@ export function WorkspacePageHeader({
   controls,
   actions,
   className = '',
+  descriptionClassName = '',
   ...headerProps
 }) {
   return (
@@ -23,7 +24,7 @@ export function WorkspacePageHeader({
     >
       <div className="flex min-w-0 items-center gap-[16px]">
         <h1 className="shrink-0 font-['Inter'] text-[32px] font-bold leading-none tracking-tight text-white">{title}</h1>
-        {description && <p className="truncate text-[14px] leading-none text-[#86868B]">{description}</p>}
+        {description && <p className={`truncate text-[14px] leading-none text-[#86868B] ${descriptionClassName}`}>{description}</p>}
         {controls && <div className="flex shrink-0 items-center">{controls}</div>}
       </div>
       {actions && <div className="flex shrink-0 items-end">{actions}</div>}

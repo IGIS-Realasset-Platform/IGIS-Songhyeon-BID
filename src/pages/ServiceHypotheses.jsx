@@ -33,6 +33,7 @@ export default function ServiceHypotheses() {
       <WorkspacePageHeader
         title="서비스·운영 가설"
         description="장소 문제와 참여수요를 실행 가능한 가설로 전환하고 검증합니다."
+        descriptionClassName="self-end"
       />
 
       <section className="grid grid-cols-4 overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#272726]">

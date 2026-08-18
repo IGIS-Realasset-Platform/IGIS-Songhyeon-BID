@@ -9,12 +9,14 @@ const WORKSPACE_ROUTES = [
   { name: 'Map & Activities', path: '/map-activities', route: 'map-activities', page: 'MapActivities', nested: true },
   { name: '마일스톤 및 R&R', path: '/milestones', route: 'milestones', page: 'SonghyeonScheduleGate' },
   { name: '서비스·운영 가설', path: '/hypotheses', route: 'hypotheses', page: 'ServiceHypotheses' },
+  { name: '업무 피드', path: '/feed', route: 'feed', page: 'TaskFeed' },
   { name: 'Data Room', path: '/data', route: 'data', page: 'DataRoom' },
 ];
 const HEADER_OWNERS = [
   { title: '통합업무보드', file: 'src/components/iota-songhyeon/task-board/SonghyeonTaskBoard.jsx', frame: false },
   { title: '마일스톤', file: 'src/components/iota-songhyeon/pmo/SonghyeonScheduleGate.jsx', frame: true },
   { title: '서비스·운영 가설', file: 'src/pages/ServiceHypotheses.jsx', frame: true },
+  { title: '업무 피드', file: 'src/pages/TaskFeed.jsx', frame: true },
   { title: 'Data Room', file: 'src/pages/DataRoom.jsx', frame: true },
 ];
 
@@ -60,12 +62,12 @@ test('WorkspacePageFrame과 WorkspacePageHeader가 상단·본문 폭·제목 �
     /<h1\b[^>]*className=["'][^"']*font-\['Inter'\] text-\[32px\] font-bold leading-none tracking-tight text-white[^"']*["'][^>]*>/,
     '모든 workspace 제목의 typography 토큰은 공통 Header에서 고정해야 합니다.',
   );
-  for (const prop of ['title', 'description', 'controls', 'actions']) {
+  for (const prop of ['title', 'description', 'descriptionClassName', 'controls', 'actions']) {
     assert.match(common, new RegExp(`\\b${prop}\\b`), `WorkspacePageHeader prop 누락: ${prop}`);
   }
 });
 
-test('표준 4개 페이지 제목은 자체 h1·상단 간격을 만들지 않고 동일한 WorkspacePageHeader를 사용한다', async () => {
+test('표준 5개 페이지 제목은 자체 h1·상단 간격을 만들지 않고 동일한 WorkspacePageHeader를 사용한다', async () => {
   for (const { title, file, frame } of HEADER_OWNERS) {
     const source = await read(file);
     assert.match(
@@ -86,6 +88,39 @@ test('표준 4개 페이지 제목은 자체 h1·상단 간격을 만들지 않�
       );
       assert.match(source, /<WorkspacePageFrame\b/, `${title}: 공통 Frame 사용 누락`);
     }
+  }
+});
+
+test('서비스·운영 가설과 업무 피드는 공용 Header에서 제목·설명 하단선을 동일하게 맞춘다', async () => {
+  const [common, hypotheses, feed] = await Promise.all([
+    read(WORKSPACE_LAYOUT_PATH),
+    read('src/pages/ServiceHypotheses.jsx'),
+    read('src/pages/TaskFeed.jsx'),
+  ]);
+
+  const headerStart = common.indexOf('export function WorkspacePageHeader');
+  assert.ok(headerStart >= 0, '공용 WorkspacePageHeader 구현을 찾을 수 없습니다.');
+  const header = common.slice(headerStart);
+  assert.match(header, /<header[\s\S]{0,500}?className=\{`[^`]*\bitems-end\b[^`]*`\}/,
+    'Header 전체 행은 actions를 포함해 하단 정렬되어야 합니다.');
+  assert.match(header, /descriptionClassName\s*=\s*['"]{2}/,
+    '공용 Header가 페이지별 description 정렬 class를 명시적으로 받아야 합니다.');
+  assert.match(header, /<h1\b[^>]*\bleading-none\b[^>]*>\{title\}<\/h1>/);
+  assert.match(header, /description && <p\b[^>]*className=\{`[^`]*\bleading-none\b[^`]*\$\{descriptionClassName\}[^`]*`\}[^>]*>\{description\}<\/p>/,
+    'description 정렬 class는 공용 Header의 설명 요소에 적용되어야 합니다.');
+
+  for (const [page, title, description] of [
+    [hypotheses, '서비스·운영 가설', '장소 문제와 참여수요를 실행 가능한 가설로 전환하고 검증합니다.'],
+    [feed, '업무 피드', '회의록과 협업 메시지를 자유롭게 기록하고 공유합니다.'],
+  ]) {
+    const invocation = page.match(/<WorkspacePageHeader\b[\s\S]*?\/>/)?.[0] || '';
+    assert.ok(invocation, `${title}: 공용 Header 호출을 찾을 수 없습니다.`);
+    assert.ok(invocation.includes(`title="${title}"`), `${title}: 제목 prop 누락`);
+    assert.ok(invocation.includes(`description="${description}"`), `${title}: description prop 누락`);
+    assert.ok(invocation.includes('descriptionClassName="self-end"'),
+      `${title}: 제목과 설명의 bottom edge를 맞추는 공통 description 계약이 필요합니다.`);
+    assert.doesNotMatch(invocation, /\bclassName=/,
+      `${title}: Header 전체 정렬을 페이지에서 별도로 덮어쓰면 안 됩니다.`);
   }
 });
 

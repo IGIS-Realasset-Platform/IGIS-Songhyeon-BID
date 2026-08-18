@@ -7,6 +7,7 @@ export default function TaskFeed() {
       <WorkspacePageHeader
         title="업무 피드"
         description="회의록과 협업 메시지를 자유롭게 기록하고 공유합니다."
+        descriptionClassName="self-end"
       />
       <SonghyeonTaskFeed />
     </WorkspacePageFrame>
