@@ -252,12 +252,15 @@ const normalizePermissions = (value) => ({
   memberIds: unique(array(value?.individuals || value?.memberIds).map((entry) => typeof entry === 'string' ? entry : entry?.id)).filter(isUuid),
 });
 
-const normalizeMentions = (value) => array(value).map((mention) => ({
-  type: mention.type === 'group' || mention.type === 'department' ? 'department' : 'person',
-  label: text(mention.label || mention.name),
-  memberId: isUuid(text(mention.memberId || mention.member_id || mention.id)) ? text(mention.memberId || mention.member_id || mention.id) : '',
-  groupName: text(mention.groupName || mention.group_name || mention.organization),
-})).filter((mention) => mention.label);
+const normalizeMentions = (value) => array(value).map((mention) => {
+  const memberId = text(mention.memberId || mention.member_id);
+  return {
+    type: mention.type === 'group' || mention.type === 'department' ? 'department' : 'person',
+    label: text(mention.label || mention.name),
+    memberId: isUuid(memberId) ? memberId : '',
+    groupName: text(mention.groupName || mention.group_name || mention.organization),
+  };
+}).filter((mention) => mention.label);
 
 const normalizeAttachments = (value) => array(value).map((attachment) => ({
   id: text(attachment.id) || uid('feed-attachment'),

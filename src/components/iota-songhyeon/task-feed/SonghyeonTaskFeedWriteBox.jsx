@@ -131,7 +131,7 @@ function Avatar({ actor }) {
 function ModalShell({ title, description, onClose, width = 'max-w-[560px]', children, footer }) {
   if (typeof document === 'undefined') return null;
   return createPortal(
-    <div className="fixed inset-0 z-[180] flex items-center justify-center p-5">
+    <div className="fixed inset-0 z-[130000] flex items-center justify-center p-5">
       <button type="button" aria-label={`${title} 닫기`} className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" onClick={onClose} />
       <section className={`relative flex max-h-[88vh] w-full ${width} flex-col overflow-hidden rounded-[22px] border border-[#414141] bg-[#232323] shadow-2xl`}>
         <header className="flex items-start gap-4 border-b border-[#393939] px-6 py-5">
@@ -733,13 +733,13 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
         </ModalShell>
       )}
       {showPublicWarning && (
-        <ModalShell title="전체 공개 게시물" description="열람 권한이 설정되지 않았습니다." onClose={() => setShowPublicWarning(false)}>
+        <ModalShell title={editMode ? '전체 공개 게시물 수정' : '전체 공개 게시물 작성'} description="열람 권한이 설정되지 않았습니다." onClose={() => setShowPublicWarning(false)}>
           <div className="text-center">
             <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#5e9ac7]/10 text-[#8ec4e8]"><Users size={25} /></span>
-            <p className="mt-4 text-[13px] leading-6 text-[#aaa]">이 게시물은 게스트를 포함한 모든 방문자가 열람할 수 있는 <strong className="text-[#75d49a]">전체 공개글</strong>로 게시됩니다.</p>
+            <p className="mt-4 text-[13px] leading-6 text-[#aaa]">이 게시물은 게스트를 포함한 모든 방문자가 열람할 수 있는 <strong className="text-[#75d49a]">전체 공개글</strong>로 {editMode ? '수정됩니다.' : '작성됩니다.'}</p>
             <div className="mt-6 flex justify-center gap-3">
               <button type="button" onClick={() => setShowPublicWarning(false)} className="h-10 rounded-[9px] border border-[#484848] px-5 text-[13px] font-bold text-[#bbb]">취소</button>
-              <button type="button" onClick={() => { setShowPublicWarning(false); void save(); }} className="h-10 rounded-[9px] bg-[#2b8de4] px-5 text-[13px] font-black text-white">네, 작성할게요</button>
+              <button type="button" onClick={() => { setShowPublicWarning(false); void save(); }} className="h-10 rounded-[9px] bg-[#2b8de4] px-5 text-[13px] font-black text-white">{editMode ? '네, 수정할게요' : '네, 작성할게요'}</button>
             </div>
           </div>
         </ModalShell>

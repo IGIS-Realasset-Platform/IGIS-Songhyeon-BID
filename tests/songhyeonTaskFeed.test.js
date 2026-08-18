@@ -301,6 +301,122 @@ test('게시글 작성·수정·삭제는 공통 작성폼과 송현 repository�
   assert.doesNotMatch(feed, /isAdmin[\s\S]{0,180}(?:수정하기|삭제)/, 'DB 관리 예외를 원본 작성자 전용 UI에 노출하면 안 됩니다.');
 });
 
+test('공개글 수정 확인 모달은 편집 overlay 앞에 표시되어 수정 완료가 먹통이 되지 않는다', async () => {
+  const [feed, writeBox] = await Promise.all([read(FEED_PATH), read(WRITE_BOX_PATH)]);
+  assert.match(writeBox, /if\s*\(\s*visibilityGroups\.length === 0 && visibilityIndividuals\.length === 0\s*\)\s*setShowPublicWarning\(true\)/,
+    '열람 권한이 없는 공개글은 저장 전 확인을 거쳐야 합니다.');
+  const publicWarningStart = writeBox.indexOf('{showPublicWarning &&');
+  const publicWarningEnd = writeBox.indexOf('\n      )}', publicWarningStart);
+  assert.ok(publicWarningStart >= 0 && publicWarningEnd > publicWarningStart, '전체 공개 확인 modal을 찾을 수 없습니다.');
+  const publicWarning = writeBox.slice(publicWarningStart, publicWarningEnd);
+  assert.match(publicWarning, /<ModalShell\s+title=\{editMode\s*\?\s*['"]전체 공개 게시물 수정['"]\s*:\s*['"]전체 공개 게시물 작성['"]\}/);
+  assert.match(publicWarning, /\{editMode\s*\?\s*['"]네, 수정할게요['"]\s*:\s*['"]네, 작성할게요['"]\}/,
+    '수정 확인 버튼이 작성 행위로 오인되지 않아야 합니다.');
+  assert.match(writeBox, /return createPortal\([\s\S]*?document\.body/,
+    '확인 모달은 document.body portal로 렌더됩니다.');
+
+  const modalShellStart = writeBox.indexOf('function ModalShell');
+  const modalShellEnd = writeBox.indexOf('\n}\n', modalShellStart);
+  const modalShell = writeBox.slice(modalShellStart, modalShellEnd);
+  const portalZ = Number(modalShell.match(/z-\[(\d+)\]/)?.[1]);
+  const editingOverlayStart = feed.indexOf('{editingPost ?');
+  const editingOverlay = feed.slice(editingOverlayStart, feed.indexOf('{deleteTarget ?', editingOverlayStart));
+  const editingZ = Number(editingOverlay.match(/z-\[(\d+)\]/)?.[1]);
+  assert.ok(Number.isFinite(portalZ) && Number.isFinite(editingZ), '모달 z-index 계층을 확인할 수 없습니다.');
+  assert.ok(portalZ > editingZ,
+    `공개글 확인 portal(z=${portalZ})은 수정 overlay(z=${editingZ})보다 앞에 있어야 합니다.`);
+});
+
+test('수정 저장은 ID 반환·pending 해제·닫기 후 재조회·inline 오류 계약을 유지한다', async () => {
+  const [repository, writeBox, feed] = await Promise.all([
+    read(REPOSITORY_PATH),
+    read(WRITE_BOX_PATH),
+    read(FEED_PATH),
+  ]);
+
+  const updateStart = repository.indexOf('export async function updateTaskFeedPost');
+  const updateEnd = repository.indexOf('export async function deleteTaskFeedPost', updateStart);
+  assert.ok(updateStart >= 0 && updateEnd > updateStart, 'updateTaskFeedPost 구간을 찾을 수 없습니다.');
+  const update = repository.slice(updateStart, updateEnd);
+  assert.match(update, /const postId = text\(id\)/,
+    '수정 대상 ID를 안정적인 문자열로 정규화해야 합니다.');
+  assert.match(update, /await run\([\s\S]*?target_post_id:\s*postId[\s\S]*?\)/,
+    'RPC 성공을 확인한 뒤에만 수정 완료로 처리해야 합니다.');
+  assert.match(update, /return postId\s*;/,
+    'updateTaskFeedPost는 raw RPC row가 아닌 수정된 게시글 ID 문자열을 반환해야 합니다.');
+
+  const saveStart = writeBox.indexOf('const save = async () =>');
+  const saveEnd = writeBox.indexOf('\n\n  const requestSave', saveStart);
+  assert.ok(saveStart >= 0 && saveEnd > saveStart, '작성창 저장 흐름을 찾을 수 없습니다.');
+  const save = writeBox.slice(saveStart, saveEnd);
+  assert.match(save, /setSubmitting\(true\)[\s\S]*?try\s*\{/);
+  assert.match(save, /await updateTaskFeedPost\(initialPost\.id, payload, actor\)/);
+  assert.match(save, /onSaved\?\.\(savedPost\)/,
+    '저장 성공 후에만 부모 onSaved를 호출해야 합니다.');
+  const catchStart = save.indexOf('catch (saveError)');
+  const finallyStart = save.indexOf('finally', catchStart);
+  assert.ok(catchStart >= 0 && finallyStart > catchStart, '저장 실패와 종료 처리가 필요합니다.');
+  const failedSave = save.slice(catchStart, finallyStart);
+  assert.match(failedSave, /setError\(saveError\?\.message\s*\|\|\s*['"]게시글을 저장하지 못했습니다\.['"]\)/);
+  assert.doesNotMatch(failedSave, /onSaved|onCancel/,
+    '수정 실패 시에는 편집창을 닫지 말고 오류를 보존해야 합니다.');
+  assert.match(save.slice(finallyStart), /finally\s*\{\s*setSubmitting\(false\)\s*;?\s*\}/,
+    '성공·실패 모두에서 저장 pending을 반드시 해제해야 합니다.');
+  assert.match(writeBox, /\{error\s*&&\s*<p role="alert"[^>]*>\{error\}<\/p>\}/,
+    '저장 실패 사유를 수정창 내 inline alert로 남겨야 합니다.');
+  assert.match(writeBox, /editMode\s*&&\s*<button[^>]*onClick=\{onCancel\}[^>]*>\uCDE8소<\/button>/,
+    '수정 취소는 저장 콜백과 분리된 onCancel로 닫혀야 합니다.');
+
+  const editMountStart = feed.indexOf('{editingPost ?');
+  const editMountEnd = feed.indexOf('{deleteTarget ?', editMountStart);
+  assert.ok(editMountStart >= 0 && editMountEnd > editMountStart, '부모 편집 modal 구간을 찾을 수 없습니다.');
+  const editMount = feed.slice(editMountStart, editMountEnd);
+  assert.match(editMount, /onCancel=\{\(\)\s*=>\s*setEditingPost\(null\)\}|onCancel=\{[A-Za-z_$][\w$]*\}/,
+    '부모는 취소 시 editingPost를 닫아야 합니다.');
+
+  const onSavedExpression = editMount.match(/onSaved=\{([\s\S]*?)\}\s+onCancel=/)?.[1] || '';
+  let editSavedFlow = onSavedExpression;
+  if (/^[A-Za-z_$][\w$]*$/.test(onSavedExpression.trim())) {
+    const handlerName = onSavedExpression.trim();
+    const handlerStart = feed.indexOf(`const ${handlerName} =`);
+    const handlerEnd = feed.indexOf('\n  };', handlerStart);
+    assert.ok(handlerStart >= 0 && handlerEnd > handlerStart, '수정 성공 handler를 찾을 수 없습니다.');
+    editSavedFlow = feed.slice(handlerStart, handlerEnd);
+  }
+  assert.match(editSavedFlow, /setEditingPost\(null\)/,
+    '수정 RPC 성공 즉시 편집 modal을 닫아야 합니다.');
+  assert.match(editSavedFlow, /void\s+refresh\(\)|refresh\(\)\s*;?/,
+    '편집창을 닫은 뒤 목록을 재조회해야 합니다.');
+  assert.ok(editSavedFlow.indexOf('setEditingPost(null)') < editSavedFlow.indexOf('refresh()'),
+    '재조회가 지연되어도 수정 modal은 먼저 닫혀야 합니다.');
+  assert.doesNotMatch(editSavedFlow, /await\s+refresh\(\)/,
+    '편집 modal 닫기를 재조회 완료에 결합하면 안 됩니다.');
+});
+
+test('부서 mention의 UI row id를 멤버 UUID로 재해석하지 않는다', async () => {
+  const [repository, writeBox] = await Promise.all([read(REPOSITORY_PATH), read(WRITE_BOX_PATH)]);
+
+  const candidatesStart = writeBox.indexOf('const mentionCandidates =');
+  const candidatesEnd = writeBox.indexOf('const filteredMentions', candidatesStart);
+  assert.ok(candidatesStart >= 0 && candidatesEnd > candidatesStart, 'mention 후보 구간을 찾을 수 없습니다.');
+  const candidates = writeBox.slice(candidatesStart, candidatesEnd);
+  assert.match(candidates, /groups\.map\(\(group\)\s*=>\s*\(\{\s*id:\s*`group:\$\{group\}`,[\s\S]*?type:\s*['"]department['"][\s\S]*?groupName:\s*group/,
+    '부서 후보의 id는 UI key일 뿐이며 department로 구분해야 합니다.');
+  assert.match(candidates, /members\.map\(\(member\)\s*=>\s*\(\{[\s\S]*?type:\s*['"]person['"][\s\S]*?memberId:\s*member\.id/,
+    '실제 멤버 후보만 memberId를 명시해야 합니다.');
+
+  const normalizeStart = repository.indexOf('const normalizeMentions =');
+  const normalizeEnd = repository.indexOf('const normalizeAttachments', normalizeStart);
+  assert.ok(normalizeStart >= 0 && normalizeEnd > normalizeStart, 'mention repository 정규화 구간을 찾을 수 없습니다.');
+  const normalize = repository.slice(normalizeStart, normalizeEnd);
+  assert.match(normalize, /const memberId = text\(mention\.memberId\s*\|\|\s*mention\.member_id\)/,
+    'memberId는 명시적인 memberId 필드에서만 읽어야 합니다.');
+  assert.doesNotMatch(normalize, /memberId[^\n]*(?:\|\||\?\?)[^\n]*mention\.id|text\([^\n]*mention\.id/,
+    '부서 UI row id를 멤버 UUID로 전송하면 DB cast가 실패합니다.');
+  assert.match(normalize, /memberId:\s*isUuid\(memberId\)\s*\?\s*memberId\s*:\s*['"]{2}/,
+    '명시된 멤버 ID도 UUID인 경우에만 RPC payload에 포함해야 합니다.');
+});
+
 test('댓글은 @멘션 가능한 단일 계층이며 댓글 수정·대댓글·댓글 첨부를 새로 만들지 않는다', async () => {
   const [feed, repository, migration] = await Promise.all([
     read(FEED_PATH),
