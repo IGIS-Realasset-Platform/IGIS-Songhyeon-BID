@@ -215,7 +215,7 @@ export default function Layout() {
             ) : <MainLink key={item.path} item={item} collapsed={collapsed} />)}
           </div>
 
-          <Section label="주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} />
+          <Section label="이지스 주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} />
           <Section label="BID 구축사례" items={caseItems} open={casesOpen} setOpen={setCasesOpen} collapsed={collapsed} />
           <Section label="송현 BID 거버넌스" items={governanceItems} open={governanceOpen} setOpen={setGovernanceOpen} collapsed={collapsed} />
         </nav>

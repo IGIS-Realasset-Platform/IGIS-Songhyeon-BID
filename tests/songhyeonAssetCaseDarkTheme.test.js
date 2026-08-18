@@ -19,7 +19,13 @@ const CONTENT_ROUTES = [
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 test('주요 자산과 BID 구축사례의 실제 route/page 인벤토리를 빠짐없이 유지한다', async () => {
-  const app = await read('src/App.jsx');
+  const [app, layout] = await Promise.all([
+    read('src/App.jsx'),
+    read('src/components/Layout.jsx'),
+  ]);
+
+  assert.match(layout, /<Section\s+label=["']이지스 주요 자산["']\s+items=\{assetItems\}/,
+    '좌측 자산 메뉴는 이지스 주요 자산으로 표시해야 합니다.');
 
   for (const route of CONTENT_ROUTES) {
     assert.match(
