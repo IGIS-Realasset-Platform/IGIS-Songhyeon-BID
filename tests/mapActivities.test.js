@@ -671,6 +671,16 @@ test('상권·활동과 이지스 리테일 지도는 진입 시 타일과 화�
   assert.match(storeMap, /const boundaryVisibility = useMemo\([\s\S]*?\[boundaryMode\]\)/, '상권 지도 경계 설정 객체를 안정화해 불필요한 레이어 재생성을 막아야 합니다.');
 });
 
+test('이지스 리테일 요약 패널은 불필요한 ASSET SUMMARY 영문 제목과 잔여 상단 여백을 표시하지 않는다', async () => {
+  const assetViews = await read('src/components/map-activities/SonghyeonAssetRetailViews.jsx');
+  const retailSummary = assetViews.match(/function RetailSummary\b[\s\S]*?(?=\nfunction RetailRawDialog\b)/)?.[0] || '';
+
+  assert.ok(retailSummary, '이지스 리테일 요약 패널 구현을 찾을 수 없습니다.');
+  assert.doesNotMatch(retailSummary, /ASSET SUMMARY/, '요청에 따라 ASSET SUMMARY 제목은 제거되어야 합니다.');
+  assert.match(retailSummary, /<h2 className="text-\[21px\]/, '첫 제목에 제거된 라벨의 상단 여백이 남으면 안 됩니다.');
+  assert.doesNotMatch(retailSummary, /<h2 className="[^"]*\bmt-2\b/, '첫 제목을 불필요하게 아래로 미루면 안 됩니다.');
+});
+
 test('이지스 리테일 지도는 6개 전체 건물 형상을 맞춘 뒤 늦은 초기 애니메이션이나 마커 범위로 다시 축소하지 않는다', async () => {
   const [leafletMap, assetViews, marketBundleText] = await Promise.all([
     read('src/components/map-activities/SonghyeonLeafletMap.jsx'),

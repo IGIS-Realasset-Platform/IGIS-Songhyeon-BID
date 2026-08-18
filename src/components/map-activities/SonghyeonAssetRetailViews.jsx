@@ -539,8 +539,7 @@ function RetailSummary({ scope, records }) {
   ];
   return (
     <aside data-retail-summary aria-live="polite" className="overflow-y-auto border-l border-[#393b3e] bg-[#242527] p-5">
-      <p className="text-[14px] font-bold tracking-[0.12em] text-[#768fa2]">ASSET SUMMARY</p>
-      <h2 className="mt-2 text-[21px] font-bold text-[#e4e6e8]">{scope === '전체' ? '전체 포트폴리오' : scope}</h2>
+      <h2 className="text-[21px] font-bold text-[#e4e6e8]">{scope === '전체' ? '전체 포트폴리오' : scope}</h2>
       <p className="mt-1 text-[15px] text-[#8e9195]">{nf.format(records.length)}개 브랜드</p>
       <div className="mt-5 space-y-2.5">
         {metrics.map(([label, value]) => <div key={label} className="rounded-[9px] border border-[#393b3e] bg-[#292a2c] p-3"><span className="text-[14px] text-[#85888c]">{label}</span><strong className="mt-1 block text-[15px] leading-5 text-[#d0d3d6]">{value}</strong></div>)}
