@@ -548,9 +548,14 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
             const canManageFeedStatus = Boolean(!isReadOnly && actor.name === '전기영' && actor.email.toLowerCase() === 'jk.jeon@igisam.com');
             const restricted = Boolean(post.permissions?.groups?.length || post.permissions?.individuals?.length);
             const postLike = reactionEntries(post.reactions, 'like');
-            const likeReactors = [
+            const postCheck = reactionEntries(post.reactions, 'check');
+            const reactionReactors = [
               ...postLike,
-              ...post.comments.flatMap((comment) => reactionEntries(comment.reactions, 'like')),
+              ...postCheck,
+              ...post.comments.flatMap((comment) => [
+                ...reactionEntries(comment.reactions, 'like'),
+                ...reactionEntries(comment.reactions, 'check'),
+              ]),
             ].filter((entry, itemIndex, array) => {
               const identity = entry.userId || entry.email || entry.name;
               return array.findIndex((candidate) => (candidate.userId || candidate.email || candidate.name) === identity) === itemIndex;
@@ -570,7 +575,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>
                   <span className="min-w-0 pr-4 text-left"><span className="flex min-w-0 items-center gap-1.5"><strong className="min-w-0 truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || '제목 없음'}</strong>{post.comments.length > 0 ? <span aria-label={`댓글 ${post.comments.length}개`} title={`댓글 ${post.comments.length}개`} className="inline-flex h-[22px] shrink-0 items-center gap-1 rounded-full border border-[#45484b] bg-[#2b2d2f] px-2 text-[12px] font-bold text-[#a6aaae]"><MessageSquare size={12} />{post.comments.length}</span> : null}{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span></span>
-                  <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={likeReactors} label="본문과 댓글 좋아요" /></span>
+                  <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={reactionReactors} label="본문과 댓글 반응" /></span>
                   <span className="truncate text-center">{post.stakeholderLabel || '-'}</span><span>{post.purpose || '-'}</span><span className={statusClass(post.status)}>{post.status || '-'}</span><span className={`font-bold ${priorityClass(post.priority)}`}>{post.priority || '-'}</span><span>{shortDate(post.workDate)}</span>
                 </button>
 

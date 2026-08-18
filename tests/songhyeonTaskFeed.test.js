@@ -198,16 +198,16 @@ test('댓글이 있는 업무 피드 행은 제목 옆에 댓글 아이콘과 �
     '목록의 댓글 개수에는 댓글 아이콘과 실제 댓글 배열 길이를 함께 표시해야 합니다.');
 });
 
-test('업무 피드 목록은 본문과 댓글의 좋아요 사용자를 합쳐 우측 프로필로 표시한다', async () => {
+test('업무 피드 목록은 본문과 댓글의 좋아요·체크 사용자를 합쳐 우측 프로필로 표시한다', async () => {
   const feed = await read(FEED_PATH);
   const { row } = feedTableParts(feed);
 
-  assert.match(feed, /const likeReactors = \[[\s\S]*?\.\.\.postLike,[\s\S]*?post\.comments\.flatMap\(\(comment\) => reactionEntries\(comment\.reactions, 'like'\)\)[\s\S]*?\]\.filter/,
-    '좋아요 프로필은 게시글과 모든 댓글의 좋아요 사용자를 합쳐야 합니다.');
+  assert.match(feed, /const reactionReactors = \[[\s\S]*?\.\.\.postLike,[\s\S]*?\.\.\.postCheck,[\s\S]*?post\.comments\.flatMap\(\(comment\) => \[[\s\S]*?reactionEntries\(comment\.reactions, 'like'\)[\s\S]*?reactionEntries\(comment\.reactions, 'check'\)[\s\S]*?\]\)[\s\S]*?\]\.filter/,
+    '반응자 프로필은 게시글과 모든 댓글의 좋아요·체크 사용자를 모두 합쳐야 합니다.');
   assert.match(feed, /entry\.userId \|\| entry\.email \|\| entry\.name[\s\S]*?array\.findIndex/,
-    '한 사용자가 본문과 댓글에 모두 좋아요를 눌러도 프로필은 한 번만 표시해야 합니다.');
-  assert.match(row, /<SonghyeonReactionAvatarStack reactors=\{likeReactors\} label="본문과 댓글 좋아요" \/>/,
-    '합친 좋아요 사용자는 목록 우측 반응자 열에 프로필 스택으로 표시해야 합니다.');
+    '한 사용자가 여러 위치·종류에 반응해도 프로필은 한 번만 표시해야 합니다.');
+  assert.match(row, /<SonghyeonReactionAvatarStack reactors=\{reactionReactors\} label="본문과 댓글 반응" \/>/,
+    '합친 좋아요·체크 사용자는 목록 우측 반응자 열에 프로필 스택으로 표시해야 합니다.');
   assert.doesNotMatch(row, /totalLikeCount|본문과 댓글 좋아요 합계|<Heart size=\{12\}/,
     '제목 옆에는 좋아요 숫자나 하트 배지를 표시하면 안 됩니다.');
   const avatarStack = await read(REACTION_AVATAR_STACK_PATH);
