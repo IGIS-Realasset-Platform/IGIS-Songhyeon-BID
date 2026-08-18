@@ -2,12 +2,19 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ArrowUpRight,
+  Activity,
+  Building2,
   CalendarDays,
   Database,
   FileText,
+  Hotel,
+  Landmark,
+  Layers3,
   ListChecks,
   MapPinned,
   MessageSquareText,
+  ScanSearch,
+  Store,
   Target,
 } from 'lucide-react';
 import { getSonghyeonTodayMarker, milestoneStages, milestoneWeeks } from '../data/songhyeonMilestones';
@@ -140,6 +147,71 @@ export default function Dashboard() {
 
   const stageHref = `/milestones?stage=${overview.currentStage.code}&focus=current`;
   const mapCatalog = data.mapOverview?.catalog || {};
+  const mapViews = [
+    {
+      path: '/map-activities/integrated-map',
+      label: '통합지도',
+      title: '송현을 한 장의 지도에서',
+      description: '운영구역·자산·점포·기관을 겹쳐 보며 장소의 조건과 관계를 함께 읽습니다.',
+      meta: '21개 데이터셋 · 공간 통합 탐색',
+      icon: <Layers3 size={19} />,
+      className: 'col-span-6 bg-gradient-to-br from-[#263640] to-[#222625]',
+    },
+    {
+      path: '/map-activities/boundary',
+      label: '운영구역',
+      title: '운영 범위를 비교',
+      description: '도로와 필지, 보행 흐름을 기준으로 BID 운영 범위의 대안을 비교합니다.',
+      meta: unavailable.has('map') ? '운영 범위 비교' : `${data.mapOverview?.boundaries?.length || 0}개 운영 대안`,
+      icon: <ScanSearch size={19} />,
+      className: 'col-span-3 bg-[#242625]',
+    },
+    {
+      path: '/map-activities/assets-leases',
+      label: '자산·임차',
+      title: '자산·임차 관계',
+      description: '주요 자산의 위치와 운영 관계, 임대차 현황을 공간 위에서 확인합니다.',
+      meta: unavailable.has('map') ? '자산 관계 탐색' : `${mapCatalog.assets?.length || 0}개 주요 자산`,
+      icon: <Building2 size={19} />,
+      className: 'col-span-3 bg-[#262526]',
+    },
+    {
+      path: '/map-activities/igis-retail',
+      label: '이지스 리테일',
+      title: '운영 자산 연결',
+      description: '이지스 자산과 주변 상권을 함께 보며 협업 가능한 운영 네트워크를 찾습니다.',
+      meta: '자산 포트폴리오 · 운영 접점',
+      icon: <Store size={19} />,
+      className: 'col-span-3 bg-[#252524]',
+    },
+    {
+      path: '/map-activities/market-activities',
+      label: '상권·활동',
+      title: '상권과 활동 밀도',
+      description: '점포 구성과 유동, 시간대별 활동을 통해 실제 도시 경험의 패턴을 봅니다.',
+      meta: '10,571개 점포 · 상권 활동',
+      icon: <Activity size={19} />,
+      className: 'col-span-3 bg-[#232526]',
+    },
+    {
+      path: '/map-activities/hotel',
+      label: '호텔',
+      title: '도심 체류 수요',
+      description: '숙박시설의 등급과 분포, 객실 공급을 비교해 방문객 체류 조건을 읽습니다.',
+      meta: '266개 숙박시설 · 공급 구성',
+      icon: <Hotel size={19} />,
+      className: 'col-span-3 bg-[#252425]',
+    },
+    {
+      path: '/map-activities/institutions-community',
+      label: '제도·공동체',
+      title: '제도와 관계자',
+      description: '관련 계획·정책과 기관·공동체를 연결해 협의 순서와 실행 조건을 확인합니다.',
+      meta: unavailable.has('map') ? '제도와 관계자 탐색' : `${mapCatalog.plans?.length || 0}개 계획 · ${mapCatalog.organizations?.length || 0}개 기관`,
+      icon: <Landmark size={19} />,
+      className: 'col-span-3 bg-[#242624]',
+    },
+  ];
 
   return (
     <main data-songhyeon-home className="overflow-hidden bg-[#1F1F1E] text-[#E5E5E5]">
@@ -203,7 +275,7 @@ export default function Dashboard() {
       <section id="where-we-are" className="mx-auto w-[1200px] max-w-full px-6 py-[112px]">
         <SectionHeading
           eyebrow="Where we are"
-          title="전체 여정 속에서, 지금의 위치를 정확히 봅니다."
+          title="전체 프로젝트 여정 속에서, 지금의 위치를 정확히 봅니다."
           description="시간이 얼마나 흘렀는지와 실제 상세 일정이 얼마나 완료됐는지를 분리해 보여줍니다. 일정의 속도와 업무의 진척을 같은 숫자로 포장하지 않습니다."
         />
 
@@ -323,32 +395,33 @@ export default function Dashboard() {
             </div>
           </Link>
 
-          <Link to="/map-activities/integrated-map" className="group col-span-12 grid min-h-[300px] cursor-pointer grid-cols-[1fr_1.2fr] overflow-hidden rounded-[28px] border border-white/[0.1] bg-[#242424] transition-transform hover:-translate-y-1">
-            <div className="flex flex-col p-8">
-              <div className="flex items-start justify-between">
-                <span className="grid h-11 w-11 place-items-center rounded-[13px] bg-[#315d57]/35 text-[#8fc5bc]"><MapPinned size={21} /></span>
-                <ArrowUpRight size={19} className="text-[#66666b] transition-colors group-hover:text-white" />
+          <div className="col-span-12 mt-2 overflow-hidden rounded-[28px] border border-white/[0.11] bg-[#202120]">
+            <div className="flex items-end justify-between gap-10 border-b border-white/[0.09] px-8 py-7">
+              <div>
+                <div className="flex items-center gap-3 text-[#8fc5bc]"><MapPinned size={20} /><p className="text-[12px] font-bold uppercase">Map & Activities</p></div>
+                <h3 className="mt-4 text-[30px] font-semibold text-white">장소를 이해하는 일곱 개의 관점</h3>
+                <p className="mt-3 text-[15px] leading-[1.65] text-[#929297]">숫자만 요약하지 않고, 각 공간 화면에서 실제로 확인할 수 있는 핵심 콘텐츠를 바로 소개합니다.</p>
               </div>
-              <div className="mt-auto">
-                <p className="text-[12px] font-bold uppercase text-[#77777c]">Map & Activities</p>
-                <h3 className="mt-3 whitespace-nowrap text-[31px] font-semibold text-white">우리의 장소를 근거로 봅니다.</h3>
-                <p className="mt-3 text-[14px] leading-[1.65] text-[#8d8d92]">운영구역·자산·상권·활동·기관 데이터를 같은 지도 위에서 연결합니다.</p>
-              </div>
+              <Link to="/map-activities/integrated-map" className="inline-flex shrink-0 cursor-pointer items-center gap-2 text-[13px] font-bold text-[#9ccfca] hover:text-white">전체 지도에서 시작 <ArrowUpRight size={15} /></Link>
             </div>
-            <div className="relative grid grid-cols-2 border-l border-white/[0.09] bg-[#1d211f]">
-              {[
-                ['운영 대안', data.mapOverview?.boundaries?.length || 0, '/map-activities/boundary'],
-                ['주요 자산', mapCatalog.assets?.length || 0, '/map-activities/assets-leases'],
-                ['계획·정책', mapCatalog.plans?.length || 0, '/map-activities/institutions-community'],
-                ['관계 기관', mapCatalog.organizations?.length || 0, '/map-activities/institutions-community'],
-              ].map(([label, value], index) => (
-                <div key={label} className={`${index < 2 ? 'border-b' : ''} ${index % 2 === 0 ? 'border-r' : ''} flex flex-col justify-end border-white/[0.08] p-7`}>
-                  <p className="text-[12px] font-semibold text-[#777f7b]">{label}</p>
-                  <p className="mt-2 text-[31px] font-semibold text-white">{unavailable.has('map') ? '-' : value}</p>
-                </div>
+
+            <div className="grid grid-cols-12 gap-px bg-white/[0.09]">
+              {mapViews.map(({ path, label, title, description, meta, icon, className }) => (
+                <Link key={path} to={path} className={`${className} group flex min-h-[230px] cursor-pointer flex-col p-7 transition-colors hover:bg-[#2c3435]`}>
+                  <div className="flex items-start justify-between">
+                    <span className="grid h-10 w-10 place-items-center rounded-[12px] border border-white/[0.08] bg-white/[0.055] text-[#91c9c1]">{icon}</span>
+                    <ArrowUpRight size={17} className="text-[#62676a] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                  </div>
+                  <div className="mt-7">
+                    <p className="text-[11px] font-bold text-[#80aaa4]">{label}</p>
+                    <h4 className="mt-2 whitespace-nowrap text-[20px] font-semibold text-white">{title}</h4>
+                    <p className="mt-3 text-[13px] leading-[1.6] text-[#929297]">{description}</p>
+                  </div>
+                  <p className="mt-auto border-t border-white/[0.08] pt-4 text-[11px] font-semibold text-[#73777a]">{meta}</p>
+                </Link>
               ))}
             </div>
-          </Link>
+          </div>
         </div>
       </section>
 

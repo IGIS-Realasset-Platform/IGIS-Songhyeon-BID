@@ -27,6 +27,9 @@ test('홈의 주요 컴포넌트는 실제 상세 랜딩으로 연결된다', ()
   assert.match(source, /to="\/tasks"[\s\S]{0,260}?진행 중 업무/u);
   assert.match(source, /to="\/tasks\?status=진행중"[\s\S]{0,260}?현재 상세 업무 보기/u);
   assert.match(source, /to="\/map-activities\/integrated-map"/);
+  for (const path of ['boundary', 'assets-leases', 'igis-retail', 'market-activities', 'hotel', 'institutions-community']) {
+    assert.match(source, new RegExp(`path: '/map-activities/${path}'`));
+  }
   assert.match(source, /to=\{`\/feed\/\$\{encodeURIComponent\(post\.id\)\}`\}/);
   assert.match(source, /to=\{`\/data\/\$\{encodeURIComponent\(document\.id\)\}`\}/);
 });

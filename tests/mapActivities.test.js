@@ -377,6 +377,18 @@ test('제도·공동체의 계획과 기관 영역은 패널·그룹·카드 계
   assert.doesNotMatch(`${planAccordion}\n${organizationAccordion}`, /text-\[#7e8084\]|text-\[#77797d\]/, '카드 핵심 요약을 기존의 지나치게 흐린 회색으로 되돌리면 안 됩니다.');
 });
 
+test('제도·공동체 본문은 화면 끝까지 붙지 않고 반응형 좌우 여백과 중앙 최대 폭을 사용한다', async () => {
+  const governance = await read('src/components/map-activities/SonghyeonMarketGovernanceViews.jsx');
+  const workspace = governance.match(/export function InstitutionsCommunityWorkspace\b[\s\S]*$/)?.[0] || '';
+  const root = workspace.match(/<div\s+data-institutions-community-workspace[^>]*>/)?.[0] || '';
+  const content = workspace.match(/<div\s+data-institutions-community-content[^>]*>/)?.[0] || '';
+
+  assert.match(root, /px-\[clamp\(24px,4vw,72px\)\]/, '화면 폭에 따라 충분한 좌우 패딩을 유지해야 합니다.');
+  assert.match(content, /mx-auto/, '본문은 화면 중앙에 배치되어야 합니다.');
+  assert.match(content, /w-full/, '좁은 화면에서는 사용할 수 있는 폭을 유연하게 써야 합니다.');
+  assert.match(content, /max-w-\[1440px\]/, '넓은 화면에서 본문이 끝까지 늘어나지 않도록 최대 폭을 제한해야 합니다.');
+});
+
 test('제도·공동체 가독성 개선은 계획·기관 원문과 상세 상호작용을 전량 유지한다', async () => {
   const [governance, plans, organizations] = await Promise.all([
     read('src/components/map-activities/SonghyeonMarketGovernanceViews.jsx'),
