@@ -91,6 +91,59 @@ export function SonghyeonAuthProvider({ children }) {
     exitGuestMode();
     return songhyeonSupabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
   }, [exitGuestMode]);
+  const claimMembership = useCallback(async (accessCode) => {
+    const claimResult = await songhyeonSupabase.rpc('claim_songhyeon_membership', {
+      candidate_access_code: accessCode.trim(),
+    });
+    if (claimResult.error) return { data: null, error: claimResult.error };
+    const claimedMember = Array.isArray(claimResult.data) ? claimResult.data[0] : claimResult.data;
+    setMember(claimedMember || null);
+    return { data: claimedMember || null, error: null };
+  }, []);
+  const completeFirstAccess = useCallback(async (email, password, accessCode) => {
+    exitGuestMode();
+    const normalizedEmail = email.trim().toLowerCase();
+    const emailRedirectTo = typeof window === 'undefined'
+      ? undefined
+      : `${window.location.origin}/login?mode=first-access`;
+    let authResult = await songhyeonSupabase.auth.signUp({
+      email: normalizedEmail,
+      password,
+      options: { emailRedirectTo },
+    });
+
+    // A previous incomplete attempt may already have created the Auth user.
+    // Supabase can conceal an existing email with an empty identities array.
+    const concealedExistingUser = !authResult.data?.session
+      && Array.isArray(authResult.data?.user?.identities)
+      && authResult.data.user.identities.length === 0;
+    if (authResult.error || concealedExistingUser) {
+      const existingAccount = await songhyeonSupabase.auth.signInWithPassword({ email: normalizedEmail, password });
+      if (existingAccount.error || !existingAccount.data?.session) {
+        return { data: null, error: existingAccount.error || authResult.error };
+      }
+      authResult = existingAccount;
+    }
+
+    const sessionUser = authResult.data?.session?.user || null;
+    if (!sessionUser) {
+      return {
+        data: { confirmationRequired: true },
+        error: null,
+      };
+    }
+
+    const claimResult = await claimMembership(accessCode);
+    if (claimResult.error) {
+      await songhyeonSupabase.auth.signOut({ scope: 'local' });
+      setUser(null);
+      setMember(null);
+      return { data: null, error: claimResult.error };
+    }
+
+    setUser(sessionUser);
+    return { data: { user: sessionUser, member: claimResult.data }, error: null };
+  }, [claimMembership, exitGuestMode]);
   const signOut = useCallback(async () => {
     exitGuestMode();
     if (songhyeonSupabase) await songhyeonSupabase.auth.signOut({ scope: 'local' });
@@ -107,12 +160,13 @@ export function SonghyeonAuthProvider({ children }) {
 
   const value = useMemo(() => ({
     user, member, loading, recoveryMode, setRecoveryMode, configurationError: songhyeonSupabaseError,
-    isGuest, isReadOnly: isGuest, isAdmin, deviceId, enterGuestMode, exitGuestMode, signIn,
+    isGuest, isReadOnly: isGuest, isAdmin, deviceId, enterGuestMode, exitGuestMode,
+    signIn, claimMembership, completeFirstAccess,
 
     updatePassword: (password) => songhyeonSupabase.auth.updateUser({ password }),
     resetPassword: (email) => songhyeonSupabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo: `${window.location.origin}/login` }),
     signOut,
-  }), [deviceId, enterGuestMode, exitGuestMode, isAdmin, isGuest, loading, member, recoveryMode, signIn, signOut, user]);
+  }), [claimMembership, completeFirstAccess, deviceId, enterGuestMode, exitGuestMode, isAdmin, isGuest, loading, member, recoveryMode, signIn, signOut, user]);
   return <SonghyeonAuthContext.Provider value={value}>{children}</SonghyeonAuthContext.Provider>;
 }
 

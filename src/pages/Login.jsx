@@ -11,11 +11,23 @@ function StatusMessage({ errorMessage, noticeMessage }) {
   return <div className="w-full min-h-[20px] my-1 flex items-center px-1">{errorMessage && <span className="text-red-500 dark:text-[#FF453A] text-[13px] font-medium">* {errorMessage}</span>}{noticeMessage && <span className="text-green-500 text-[13px] font-medium">{noticeMessage}</span>}</div>;
 }
 
+const firstAccessErrorMessage = (error) => {
+  const code = error?.code || '';
+  const message = error?.message || '';
+  if (code === '22023' && message.includes('INVALID_ACCESS_CODE')) return '최초 접속 코드가 올바르지 않습니다.';
+  if (code === '55000' && message.includes('ACCESS_CODE_NOT_CONFIGURED')) return '최초 접속 코드가 아직 설정되지 않았습니다. 관리자에게 문의해주세요.';
+  if (code === 'P0002' && message.includes('MEMBERSHIP_NOT_FOUND')) return '승인된 송현 BID 멤버 정보를 찾지 못했습니다.';
+  if (code === '42501' && message.includes('AUTH_REQUIRED')) return '인증 세션이 만료되었습니다. 이메일부터 다시 확인해주세요.';
+  return `최초 계정 설정 실패: ${message || '알 수 없는 오류'}`;
+};
+
 export default function Login() {
-  const { user, member, enterGuestMode, signIn, updatePassword, resetPassword, recoveryMode, setRecoveryMode, configurationError } = useSonghyeonAuth();
+  const { user, member, enterGuestMode, signIn, claimMembership, completeFirstAccess, updatePassword, resetPassword, recoveryMode, setRecoveryMode, configurationError } = useSonghyeonAuth();
   const [step, setStep] = useState(recoveryMode ? 5 : 1);
   const [email, setEmail] = useState('');
   const [staffName, setStaffName] = useState('');
+  const [isFirstTime, setIsFirstTime] = useState(false);
+  const [accessCode, setAccessCode] = useState('');
   const [password, setPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -30,7 +42,27 @@ export default function Login() {
   const postLoginPath = '/tasks';
 
   useEffect(() => { const timer = setTimeout(() => setMounted(true), 100); return () => clearTimeout(timer); }, []);
-  useEffect(() => { if (step === 2) passwordInputRef.current?.focus(); }, [step]);
+  useEffect(() => { if (step === 2 || step === 6) passwordInputRef.current?.focus(); }, [step]);
+
+  useEffect(() => {
+    if (!user || member || recoveryMode || !user.email || !songhyeonSupabase) return undefined;
+    let active = true;
+    songhyeonSupabase.rpc('check_songhyeon_member_email', {
+      candidate_email: user.email.trim().toLowerCase(),
+    }).then(({ data, error }) => {
+      if (!active) return;
+      const matchedMember = Array.isArray(data) ? data[0] : data;
+      if (error || !matchedMember?.is_first_time) {
+        setErrorMessage(error?.message || '최초 접속 대상 멤버 정보를 확인하지 못했습니다.');
+        return;
+      }
+      setEmail(user.email.trim().toLowerCase());
+      setStaffName(matchedMember.staff_name);
+      setIsFirstTime(true);
+      setStep(6);
+    });
+    return () => { active = false; };
+  }, [member, recoveryMode, user]);
 
   useEffect(() => { if (user && member) navigate(postLoginPath, { replace: true }); }, [user, member, navigate, postLoginPath]);
   if (user && member) return <Navigate to={postLoginPath} replace />;
@@ -53,7 +85,9 @@ export default function Login() {
     const matchedMember = Array.isArray(data) ? data[0] : data;
     if (!matchedMember) return fail('등록되지 않은 사용자입니다. 관리팀에 문의해주세요.');
     setStaffName(matchedMember.staff_name);
-    setStep(2);
+    const firstAccess = Boolean(matchedMember.is_first_time);
+    setIsFirstTime(firstAccess);
+    setStep(firstAccess ? 6 : 2);
   };
 
   const proceedLogin = async () => {
@@ -80,6 +114,27 @@ export default function Login() {
     event.preventDefault(); clearMessages();
     if (password.length < 6) return fail('패스워드는 최소 6자리 이상이어야 합니다.');
     await proceedLogin();
+  };
+
+  const handleFirstAccessSubmit = async (event) => {
+    event.preventDefault(); clearMessages();
+    if (!accessCode.trim()) return fail('최초 접속 코드를 입력해주세요.');
+    const isConfirmedFirstAccess = Boolean(user && !member);
+    if (!isConfirmedFirstAccess && newPassword.length < 6) return fail('새 패스워드는 최소 6자리 이상이어야 합니다.');
+    if (!isConfirmedFirstAccess && newPassword !== confirmNewPassword) return fail('새 패스워드가 일치하지 않습니다.');
+    setBusy(true);
+    const { data, error } = isConfirmedFirstAccess
+      ? await claimMembership(accessCode)
+      : await completeFirstAccess(email, newPassword, accessCode);
+    if (error) return fail(firstAccessErrorMessage(error));
+    if (data?.confirmationRequired) {
+      setBusy(false);
+      setNoticeMessage('확인 이메일을 보냈습니다. 이메일 확인 후 이 화면에서 최초 접속 코드를 입력해주세요.');
+      return;
+    }
+    await recordLogin(data?.user || user);
+    setBusy(false);
+    window.location.assign(postLoginPath);
   };
 
   const handleChangePasswordSubmit = async (event) => {
@@ -120,6 +175,7 @@ export default function Login() {
   const inputClass = 'w-full bg-white dark:bg-[#262626] text-[#111] dark:text-white placeholder-gray-400 dark:placeholder-[#737373] text-[15px] px-4 py-3.5 rounded-[16px] border border-black/10 dark:border-[#3A3A3A] focus:outline-none focus:border-[#111] dark:focus:border-[#666] transition-colors duration-300';
   const primaryClass = 'w-full bg-[#111] dark:bg-white text-white dark:text-[#111111] hover:bg-[#333] dark:hover:bg-gray-200 rounded-[16px] py-3.5 font-semibold transition-colors text-[16px] cursor-pointer disabled:opacity-60';
   const activeStep = recoveryMode ? 5 : step;
+  const isConfirmedFirstAccess = Boolean(user && !member);
   const goBack = (to = 2) => { setStep(to); clearMessages(); };
   const message = <StatusMessage errorMessage={errorMessage} noticeMessage={noticeMessage} />;
 
@@ -136,6 +192,7 @@ export default function Login() {
         {activeStep === 3 && <><div className="flex justify-between mt-1 mb-6"><span className="text-[17px] font-semibold">패스워드를 변경해주세요.</span><BackButton onBack={() => goBack()} /></div><form onSubmit={handleChangePasswordSubmit}><div className="mb-2"><input type="password" placeholder="기존 패스워드" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} className={inputClass} /></div><div className="mb-2"><input type="password" placeholder="새 패스워드" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className={inputClass} /></div><div className="mb-2"><input type="password" placeholder="새 패스워드 확인" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} className={inputClass} /></div>{message}<button type="submit" disabled={busy} className={primaryClass}>변경 및 접속하기</button></form></>}
         {activeStep === 4 && <><div className="flex justify-between mt-1 mb-6"><span className="text-[17px] font-semibold">비밀번호 재설정 링크 발송</span><BackButton onBack={() => goBack()} /></div><p className="text-[#86868B] text-[14px] mb-6 leading-relaxed">가입하신 이메일 주소로 비밀번호를 재설정할 수 있는 링크를 보내드립니다.</p><form onSubmit={handleResetEmailSubmit}><div className="mb-2"><input type="email" placeholder="이메일을 입력하세요." value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} /></div>{message}<button type="submit" disabled={busy} className={primaryClass}>재설정 링크 받기</button></form></>}
         {activeStep === 5 && <><div className="w-full mt-1 mb-6"><span className="text-[17px] font-semibold">새로운 패스워드 설정</span></div><form onSubmit={handleRecoveryPasswordSubmit}><div className="mb-2"><input type="password" placeholder="새 패스워드" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className={inputClass} /></div><div className="mb-2"><input type="password" placeholder="새 패스워드 확인" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} className={inputClass} /></div>{message}<button type="submit" disabled={busy} className={primaryClass}>패스워드 저장 및 접속하기</button></form></>}
+        {activeStep === 6 && isFirstTime && <><div className="flex items-center justify-between w-full mt-1 mb-6"><div className="flex min-w-0 items-center"><div className="w-[36px] h-[36px] shrink-0 rounded-full overflow-hidden mr-3"><img src={`/songhyeon-members/${staffName}.webp`} alt={staffName} className="w-full h-full object-cover" /></div><span className="text-[16px] font-semibold">{staffName}님, 최초 계정을 설정해주세요.</span></div><BackButton onBack={() => goBack(1)} /></div><form onSubmit={handleFirstAccessSubmit}><div className="mb-2"><input type="password" ref={isConfirmedFirstAccess ? passwordInputRef : undefined} placeholder="최초 접속 코드" value={accessCode} onChange={(e) => { setAccessCode(e.target.value); clearMessages(); }} className={inputClass} autoComplete="one-time-code" /></div>{!isConfirmedFirstAccess && <><div className="mb-2"><input type="password" ref={passwordInputRef} placeholder="새 패스워드" value={newPassword} onChange={(e) => { setNewPassword(e.target.value); clearMessages(); }} className={inputClass} autoComplete="new-password" /></div><div className="mb-2"><input type="password" placeholder="새 패스워드 확인" value={confirmNewPassword} onChange={(e) => { setConfirmNewPassword(e.target.value); clearMessages(); }} className={inputClass} autoComplete="new-password" /></div></>}{message}<button type="submit" disabled={busy} className={primaryClass}>{busy ? '계정 설정 중...' : isConfirmedFirstAccess ? '최초 접속 완료하기' : '패스워드 설정 및 접속하기'}</button>{!isConfirmedFirstAccess && <button type="button" onClick={() => setStep(4)} className="mt-4 w-full cursor-pointer text-[13px] text-[#86868B]">이미 공통 계정이 있거나 비밀번호를 잊으셨나요?</button>}</form></>}
       </div>
     </div>
   </div>;

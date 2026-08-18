@@ -92,14 +92,13 @@ test('송현 파비콘은 사용자 제공 SO 아이콘으로 연결된다', asy
   await access('public/favicon-original-d.png');
 });
 
-test('송현 로그인은 IOTA 공통계정의 로그인·변경·분실·복구 단계를 제공한다', async () => {
+test('송현 기존 멤버 로그인은 IOTA 공통계정의 로그인·변경·분실·복구 단계를 유지한다', async () => {
   const login = await read('src/pages/Login.jsx');
   const context = await read('src/context/SonghyeonAuthContext.jsx');
   for (const text of [
     '패스워드를 입력하세요.', '패스워드 변경', '비밀번호를 잊으셨나요?',
     '비밀번호 재설정 링크 발송', '새로운 패스워드 설정', '패스워드 저장 및 접속하기',
   ]) assert.match(login, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  assert.doesNotMatch(login, /signUp|최초 접속 코드|패스워드를 재확인하세요/);
   assert.match(login, /updatePassword/);
   assert.match(context, /PASSWORD_RECOVERY/);
 
