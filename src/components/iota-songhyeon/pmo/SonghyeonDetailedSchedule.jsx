@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { getSonghyeonTodayMarker, milestoneStages, milestoneWeeks } from '../../../data/songhyeonMilestones';
 import { songhyeonDetailedScheduleItems } from '../../../data/songhyeonDetailedSchedule';
-import { categoryForSonghyeonTask } from '../../../data/songhyeonTaskCategories';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
-import { createAndLinkScheduleTask, linkScheduleTask, loadScheduleWorkspace, taskStatusToScheduleStatus, unlinkScheduleTask, updateScheduleItem } from '../../../lib/songhyeonScheduleRepository';
+import { createScheduleRow, deleteScheduleRow, linkScheduleTask, loadScheduleWorkspace, unlinkScheduleTask, updateScheduleRow } from '../../../lib/songhyeonScheduleRepository';
+import SonghyeonScheduleRowEditorModal from './SonghyeonScheduleRowEditorModal';
 import SonghyeonScheduleTaskLinkModal from './SonghyeonScheduleTaskLinkModal';
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
 
@@ -11,6 +11,7 @@ import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
 
 const SCHEDULE_LABEL_COLUMN_WIDTH = 430;
 const SCHEDULE_PERIOD_WIDTH = 48;
+const SCHEDULE_TABLE_WIDTH = 1198;
 
 const SelectControl = ({ value, onChange, options, label }) => (
     <label className="relative h-[34px] min-w-[126px] cursor-pointer">
@@ -71,15 +72,22 @@ const statusStyles = {
 };
 const statusLabels = { not_started: '미착수', in_progress: '진행중', completed: '완료', delayed: '지연', cancelled: '중단' };
 
+const insertScheduleRow = (items, row) => {
+    const normalizedRow = { ...row, itemType: 'task' };
+    const siblingIndexes = items.reduce((indexes, item, index) => (
+        item.parentSourceKey === normalizedRow.parentSourceKey ? [...indexes, index] : indexes
+    ), []);
+    const parentIndex = items.findIndex((item) => item.sourceKey === normalizedRow.parentSourceKey);
+    const insertAt = siblingIndexes.length ? siblingIndexes.at(-1) + 1 : Math.max(0, parentIndex + 1);
+    return [...items.slice(0, insertAt), normalizedRow, ...items.slice(insertAt)];
+};
+
 export default function SonghyeonDetailedSchedule() {
     const { user, member, isReadOnly } = useSonghyeonAuth();
     const actor = { userId: user?.id, email: user?.email, name: member?.staff_name || user?.email || '송현 BID TF' };
-    const canCreateTask = !isReadOnly && member?.staff_name === '전기영' && user?.email?.toLowerCase() === 'jk.jeon@igisam.com';
-    const [scheduleItems, setScheduleItems] = useState(() => songhyeonDetailedScheduleItems.map((item) => (
-        item.itemType === 'task'
-            ? { ...item, categoryMain: categoryForSonghyeonTask(item.sourceKey, item.categoryMain) }
-            : item
-    )));
+    const canManageScheduleLinks = !isReadOnly && Boolean(user?.id && member);
+    const canManageScheduleRows = canManageScheduleLinks && member?.staff_name === '전기영' && user?.email?.toLowerCase() === 'jk.jeon@igisam.com';
+    const [scheduleItems, setScheduleItems] = useState(songhyeonDetailedScheduleItems);
     const [tasks, setTasks] = useState([]);
     const [links, setLinks] = useState([]);
     const [busy, setBusy] = useState(false);
@@ -92,6 +100,10 @@ export default function SonghyeonDetailedSchedule() {
     const [todayMarker, setTodayMarker] = useState(getSonghyeonTodayMarker);
     const [selectedItem, setSelectedItem] = useState(null);
     const [embeddedTask, setEmbeddedTask] = useState(null);
+    const [rowEditor, setRowEditor] = useState(null);
+    const scheduleScrollRef = useRef(null);
+    const adminRailViewportRef = useRef(null);
+    const adminRailRowsRef = useRef(null);
     const [expandedGroups, setExpandedGroups] = useState(new Set(scheduleItems.filter((item) => item.itemType !== 'task').map((item) => item.sourceKey)));
     const scheduleItemMap = useMemo(() => new Map(scheduleItems.map((item) => [item.sourceKey, item])), [scheduleItems]);
 
@@ -100,11 +112,7 @@ export default function SonghyeonDetailedSchedule() {
         let active = true;
         loadScheduleWorkspace(songhyeonDetailedScheduleItems).then((workspace) => {
             if (!active) return;
-            setScheduleItems(workspace.items.map((item) => (
-                item.itemType === 'task'
-                    ? { ...item, categoryMain: categoryForSonghyeonTask(item.sourceKey, item.categoryMain) }
-                    : item
-            )));
+            setScheduleItems(workspace.items);
             setTasks(workspace.tasks);
             setLinks(workspace.links);
         }).catch((error) => active && setWorkspaceError(error.message || '마일스톤 업무 원장을 불러오지 못했습니다.'));
@@ -146,6 +154,47 @@ export default function SonghyeonDetailedSchedule() {
         return true;
     }), [expandedGroups, matchedKeys, scheduleItemMap, scheduleItems]);
 
+    const syncAdminRailRows = useCallback(() => {
+        const scrollElement = scheduleScrollRef.current;
+        const railViewport = adminRailViewportRef.current;
+        const railRows = adminRailRowsRef.current;
+        if (!scrollElement || !railViewport || !railRows) return;
+
+        const scheduleRows = new Map(Array.from(scrollElement.querySelectorAll('[data-schedule-row-source]')).map((row) => (
+            [row.dataset.scheduleRowSource, row]
+        )));
+        const railTop = railViewport.getBoundingClientRect().top;
+
+        railRows.querySelectorAll('[data-schedule-admin-source]').forEach((adminRow) => {
+            const scheduleRow = scheduleRows.get(adminRow.dataset.scheduleAdminSource);
+            if (!scheduleRow) {
+                adminRow.style.visibility = 'hidden';
+                return;
+            }
+
+            const rowBounds = scheduleRow.getBoundingClientRect();
+            adminRow.style.visibility = 'visible';
+            adminRow.style.height = `${rowBounds.height}px`;
+            adminRow.style.transform = `translateY(${rowBounds.top - railTop}px)`;
+        });
+    }, []);
+
+    useLayoutEffect(() => {
+        const frameId = window.requestAnimationFrame(syncAdminRailRows);
+        const scrollElement = scheduleScrollRef.current;
+        const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(syncAdminRailRows);
+        if (scrollElement && resizeObserver) {
+            resizeObserver.observe(scrollElement);
+            scrollElement.querySelectorAll('[data-schedule-row-source]').forEach((row) => resizeObserver.observe(row));
+        }
+        window.addEventListener('resize', syncAdminRailRows);
+        return () => {
+            window.cancelAnimationFrame(frameId);
+            resizeObserver?.disconnect();
+            window.removeEventListener('resize', syncAdminRailRows);
+        };
+    }, [canManageScheduleRows, syncAdminRailRows, visibleItems]);
+
     const toggleGroup = (sourceKey) => setExpandedGroups((current) => {
         const next = new Set(current);
         if (next.has(sourceKey)) next.delete(sourceKey);
@@ -169,10 +218,52 @@ export default function SonghyeonDetailedSchedule() {
         catch (error) { setWorkspaceError(error.message || '요청을 처리하지 못했습니다.'); }
         finally { setBusy(false); }
     };
+    const openRowEditor = (mode, item, event) => {
+        event?.stopPropagation();
+        setWorkspaceError('');
+        setRowEditor({ mode, item });
+    };
+    const handleSaveScheduleRow = async (input) => {
+        if (!rowEditor || !canManageScheduleRows) return;
+        setBusy(true);
+        setWorkspaceError('');
+        try {
+            if (rowEditor.mode === 'create') {
+                const created = await createScheduleRow(input, actor);
+                setScheduleItems((current) => insertScheduleRow(current, created));
+            } else {
+                const updated = await updateScheduleRow(rowEditor.item.sourceKey, input, actor);
+                setScheduleItems((current) => current.map((item) => item.sourceKey === updated.sourceKey ? { ...item, ...updated } : item));
+                setSelectedItem((current) => current?.sourceKey === updated.sourceKey ? { ...current, ...updated } : current);
+            }
+            setRowEditor(null);
+        } catch (error) {
+            setWorkspaceError(error.message || '상세 일정을 저장하지 못했습니다.');
+        } finally {
+            setBusy(false);
+        }
+    };
+    const handleDeleteScheduleRow = async () => {
+        if (!canManageScheduleRows || rowEditor?.mode !== 'delete') return;
+        const sourceKey = rowEditor.item.sourceKey;
+        setBusy(true);
+        setWorkspaceError('');
+        try {
+            await deleteScheduleRow(sourceKey, actor);
+            setScheduleItems((current) => current.filter((item) => item.sourceKey !== sourceKey));
+            setLinks((current) => current.filter((link) => link.scheduleSourceKey !== sourceKey));
+            setSelectedItem((current) => current?.sourceKey === sourceKey ? null : current);
+            setRowEditor(null);
+        } catch (error) {
+            setWorkspaceError(error.message || '상세 일정을 삭제하지 못했습니다.');
+        } finally {
+            setBusy(false);
+        }
+    };
 
     return (
-        <section className="w-[1200px] overflow-hidden rounded-[32px] border border-[#3c3c3c] bg-[#272726]">
-            <div className="border-b border-[#3c3c3c] bg-[#272726] px-5 py-4">
+        <section className="relative w-[1200px] overflow-visible rounded-[32px] border border-[#3c3c3c] bg-[#272726]">
+            <div className="rounded-t-[31px] border-b border-[#3c3c3c] bg-[#272726] px-5 py-4">
                 <div className="flex items-center justify-between gap-5">
                     <div className="flex min-w-0 items-center gap-2.5">
                         <h2 className="shrink-0 text-[17px] font-bold text-[#E5E5E5]">송현 BID 통합 상세 일정</h2>
@@ -212,8 +303,14 @@ export default function SonghyeonDetailedSchedule() {
                 </div>
             </div>
 
-            <div data-schedule-scroll className="timeline-scrollbar max-h-[calc(100vh-250px)] w-full overflow-auto">
-                <div className="relative min-w-[1198px]" style={{ width: `${SCHEDULE_LABEL_COLUMN_WIDTH + milestoneWeeks.length * SCHEDULE_PERIOD_WIDTH}px` }}>
+            <div className="relative">
+                <div
+                    ref={scheduleScrollRef}
+                    data-schedule-scroll
+                    className="timeline-scrollbar max-h-[calc(100vh-250px)] w-full overflow-auto rounded-b-[31px]"
+                    onScroll={syncAdminRailRows}
+                >
+                    <div data-schedule-center-content className="relative min-w-[1198px]" style={{ width: `${SCHEDULE_TABLE_WIDTH}px` }}>
                     {todayMarker && (
                         <div className="pointer-events-none sticky top-0 z-[40] -mb-[58px] h-[58px]">
                             <div className="absolute top-[4px] flex h-[22px] -translate-x-1/2 items-center whitespace-nowrap rounded-[5px] border border-[#fbbf24]/70 bg-[#F59E0B] px-2 text-[11px] font-black tracking-[-0.02em] text-[#1c1c1e]" style={{ left: `${todayMarker.left}px` }}>
@@ -224,7 +321,7 @@ export default function SonghyeonDetailedSchedule() {
                             </div>
                         </div>
                     )}
-                    <table className="w-full table-fixed border-collapse text-left">
+                    <table className="table-fixed border-collapse text-left" style={{ width: `${SCHEDULE_TABLE_WIDTH}px` }}>
                         <thead className="sticky top-0 z-20 bg-[#272726] shadow-[0_1px_0_#464646]">
                             <tr className="h-[30px] border-b border-[#3c3c3c] bg-[#272726]">
                                 <th rowSpan={2} className="sticky left-0 z-30 w-[430px] min-w-[430px] bg-[#272726] px-4 text-[12px] font-bold text-[#86868B] shadow-[inset_-1px_0_0_#464646]">업무명 / 실행주관 / 기간</th>
@@ -247,20 +344,25 @@ export default function SonghyeonDetailedSchedule() {
                                 return (
                                     <tr
                                         key={item.sourceKey}
+                                        data-schedule-row-source={item.sourceKey}
                                         onClick={() => { if (item.itemType === 'task') setSelectedItem(item); }}
                                         data-task-link-source={item.itemType === 'task' ? item.sourceKey : undefined}
                                         data-task-key={item.itemType === 'task' ? item.sourceKey : undefined}
-                                        className={`group min-h-[48px] border-b border-[#393939] ${item.itemType === 'task' ? 'cursor-pointer' : ''} ${isMilestone ? 'bg-[#2c3440] hover:bg-[#343e4d]' : isWorkstream ? 'bg-[#2d2d2c] hover:bg-[#363635]' : 'bg-[#272726] hover:bg-[#30302f]'}`}
+                                        className={`group h-[48px] border-b border-[#393939] ${item.itemType === 'task' ? 'cursor-pointer' : ''} ${isMilestone ? 'bg-[#2c3440] hover:bg-[#343e4d]' : isWorkstream ? 'bg-[#2d2d2c] hover:bg-[#363635]' : 'bg-[#272726] hover:bg-[#30302f]'}`}
                                     >
-                                        <td className={`sticky left-0 z-10 w-[430px] min-w-[430px] px-3 shadow-[inset_-1px_0_0_#464646] ${isMilestone ? 'bg-[#2c3440] group-hover:bg-[#343e4d]' : isWorkstream ? 'bg-[#2d2d2c] group-hover:bg-[#363635]' : 'bg-[#272726] group-hover:bg-[#30302f]'}`}>
-                                            <div className="flex min-h-[48px] items-center py-[7px]">
-                                                <div className="min-w-0 flex-1" style={{ paddingLeft: `${depth * 18}px` }}>
-                                                    <div className="flex min-w-0 items-start gap-2">
-                                                        {isGroup ? <button type="button" onClick={() => toggleGroup(item.sourceKey)} className="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded text-[10px] text-[#86868B] hover:bg-white/10 hover:text-[#E5E5E5]">{isExpanded ? '▼' : '▶'}</button> : <span className="w-5 shrink-0 text-center font-mono text-[8px] text-[#86868B]">•</span>}
-                                                        <span title={item.sourceText || item.displayName} className={`min-w-0 flex-1 truncate whitespace-nowrap pr-1 leading-[18px] ${isMilestone ? 'text-[14px] font-bold text-[#E5E5E5]' : isWorkstream ? 'text-[13px] font-bold text-[#d1d1cc]' : 'text-[13px] font-medium text-[#bdbba7] group-hover:text-white'}`}>{item.displayName}</span>
-                                                        <span className={`shrink-0 rounded-full border px-1.5 py-0.5 text-[8px] font-bold ${statusStyles[item.status] || statusStyles.not_started}`}>{statusLabels[item.status] || '미착수'}</span>
+                                        <td className={`sticky left-0 z-10 h-[48px] w-[430px] min-w-[430px] px-3 shadow-[inset_-1px_0_0_#464646] ${isMilestone ? 'bg-[#2c3440] group-hover:bg-[#343e4d]' : isWorkstream ? 'bg-[#2d2d2c] group-hover:bg-[#363635]' : 'bg-[#272726] group-hover:bg-[#30302f]'}`}>
+                                            <div className="flex h-[48px] items-center">
+                                                <div className="flex min-w-0 flex-1 items-center gap-2" style={{ paddingLeft: `${depth * 18}px` }}>
+                                                    <div className="min-w-0 flex-1">
+                                                        <div className="flex min-w-0 items-center gap-2">
+                                                            {isGroup ? <button type="button" onClick={(event) => { event.stopPropagation(); toggleGroup(item.sourceKey); }} className="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded text-[10px] text-[#86868B] hover:bg-white/10 hover:text-[#E5E5E5]">{isExpanded ? '▼' : '▶'}</button> : <span className="w-5 shrink-0 text-center font-mono text-[8px] text-[#86868B]">•</span>}
+                                                            <span title={item.sourceText || item.displayName} className={`min-w-0 flex-1 truncate whitespace-nowrap pr-1 leading-[18px] ${isMilestone ? 'text-[14px] font-bold text-[#E5E5E5]' : isWorkstream ? 'text-[13px] font-bold text-[#d1d1cc]' : 'text-[13px] font-medium text-[#bdbba7] group-hover:text-white'}`}>{item.displayName}</span>
+                                                        </div>
+                                                        <div className="flex min-w-0 items-center gap-2 overflow-hidden pl-7">
+                                                        <div className="flex min-w-0 flex-1 flex-nowrap items-center gap-x-2 overflow-hidden whitespace-nowrap text-[10px] leading-[15px] text-[#86868B]"><span className="truncate">{item.leadLabel}</span><span className="truncate">{item.categoryMain}</span></div>
+                                                        </div>
                                                     </div>
-                                                    <div className="mt-[2px] flex flex-wrap items-center gap-x-2 gap-y-0 pl-7 text-[10px] leading-[15px] text-[#86868B]"><span>{item.leadLabel}</span><span>{item.categoryMain}</span></div>
+                                                    <span className={`inline-flex h-[22px] shrink-0 items-center justify-center rounded-full border px-2 text-[11px] font-bold leading-none ${statusStyles[item.status] || statusStyles.not_started}`}>{statusLabels[item.status] || '미착수'}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -286,7 +388,37 @@ export default function SonghyeonDetailedSchedule() {
                             <div className="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-[#F59E0B]/80" />
                         </div>
                     )}
+                    </div>
                 </div>
+                {canManageScheduleRows ? (
+                    <aside
+                        data-schedule-admin-rail
+                        data-outside-centered-content="true"
+                        aria-label="상세 일정 관리"
+                        className="absolute bottom-0 left-full top-0 ml-3 w-[112px] overflow-hidden rounded-[12px] border border-[#464646] bg-[#242423] shadow-[0_12px_30px_rgba(0,0,0,0.28)]"
+                    >
+                        <div className="relative z-20 flex h-[58px] items-center justify-center border-b border-[#464646] bg-[#272726] text-[12px] font-bold text-[#86868B]">관리</div>
+                        <div ref={adminRailViewportRef} className="absolute bottom-0 left-0 right-0 top-[58px] overflow-hidden">
+                            <div ref={adminRailRowsRef} data-schedule-admin-rows className="relative h-full">
+                                {visibleItems.map((item) => {
+                                    const isMilestone = item.itemType === 'lv1';
+                                    const isWorkstream = item.itemType === 'lv2';
+                                    return (
+                                        <div
+                                            key={`admin-${item.sourceKey}`}
+                                            data-schedule-admin-source={item.sourceKey}
+                                            className={`absolute left-0 right-0 top-0 flex items-center justify-center gap-1 border-b border-[#393939] px-2 ${isMilestone ? 'bg-[#2c3440]' : isWorkstream ? 'bg-[#2d2d2c]' : 'bg-[#272726]'}`}
+                                        >
+                                            {isWorkstream ? <button type="button" data-schedule-row-add onClick={(event) => openRowEditor('create', item, event)} className="h-7 cursor-pointer rounded-[6px] border border-[#36658d] bg-[#2997ff]/10 px-2 text-[12px] font-bold text-[#7cc0ff] hover:bg-[#2997ff]/20">+ 추가</button> : null}
+                                            {item.itemType === 'task' ? <button type="button" data-schedule-row-edit onClick={(event) => openRowEditor('edit', item, event)} className="h-7 cursor-pointer rounded-[6px] border border-[#4a4a4a] px-2 text-[12px] font-bold text-[#a1a1aa] hover:border-[#6f9fc7] hover:text-[#b7d2e8]">수정</button> : null}
+                                            {item.itemType === 'task' ? <button type="button" data-schedule-row-delete onClick={(event) => openRowEditor('delete', item, event)} className="h-7 cursor-pointer rounded-[6px] border border-[#5b4240] px-2 text-[12px] font-bold text-[#c99591] hover:border-[#8b4a45] hover:bg-[#ff453a]/10 hover:text-[#e4817b]">삭제</button> : null}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </aside>
+                ) : null}
             </div>
             {!visibleItems.length && <div className="flex h-[120px] items-center justify-center text-[13px] text-[#86868B]">조건에 맞는 일정이 없습니다.</div>}
             {selectedItem && <SonghyeonScheduleTaskLinkModal
@@ -295,21 +427,29 @@ export default function SonghyeonDetailedSchedule() {
                 links={links}
                 busy={busy}
                 errorMessage={workspaceError}
-                canCreateTask={canCreateTask}
-                readOnly={isReadOnly}
+                canManageLinks={canManageScheduleLinks}
+                readOnly={!canManageScheduleLinks}
                 onClose={() => setSelectedItem(null)}
                 onOpenTask={(sourceKey) => { const task = tasks.find((entry) => entry.sourceKey === sourceKey); if (task) { setSelectedItem(null); setEmbeddedTask(task); } }}
-                onLink={(taskSourceKey) => runMutation(async () => { const link = await linkScheduleTask(selectedItem.sourceKey, taskSourceKey, actor); if (!link.implicit) setLinks((current) => current.some((entry) => entry.id === link.id) ? current : [...current, link]); })}
+                onLink={(taskSourceKey) => runMutation(async () => { const link = await linkScheduleTask(selectedItem.sourceKey, taskSourceKey, actor); setLinks((current) => [...current, link]); })}
                 onUnlink={(linkId) => runMutation(async () => { await unlinkScheduleTask(linkId, actor); setLinks((current) => current.filter((entry) => entry.id !== linkId)); })}
-                onCreateTask={(task) => runMutation(async () => { const created = await createAndLinkScheduleTask(selectedItem.sourceKey, task, actor); setTasks((current) => [...current, created]); const workspace = await loadScheduleWorkspace(scheduleItems); setLinks(workspace.links); })}
-                onEditSchedule={(patch) => runMutation(async () => { const updated = await updateScheduleItem(selectedItem.sourceKey, patch, actor); setScheduleItems((current) => current.map((item) => item.sourceKey === selectedItem.sourceKey ? { ...item, ...updated } : item)); setTasks((current) => current.map((task) => task.sourceKey === selectedItem.sourceKey ? { ...task, dueDate: patch.endDate } : task)); setSelectedItem((current) => ({ ...current, ...updated })); })}
+            />}
+            {rowEditor && <SonghyeonScheduleRowEditorModal
+                key={`${rowEditor.mode}-${rowEditor.item.sourceKey}`}
+                mode={rowEditor.mode}
+                item={rowEditor.mode === 'create' ? null : rowEditor.item}
+                parentItem={rowEditor.mode === 'create' ? rowEditor.item : scheduleItemMap.get(rowEditor.item.parentSourceKey)}
+                busy={busy}
+                errorMessage={workspaceError}
+                onClose={() => { if (!busy) setRowEditor(null); }}
+                onSave={handleSaveScheduleRow}
+                onDelete={handleDeleteScheduleRow}
             />}
             {embeddedTask && <SonghyeonTaskDetailDrawer
                 task={embeddedTask}
                 onClose={() => setEmbeddedTask(null)}
                 onSaved={(savedTask) => {
                     setTasks((current) => current.map((task) => task.sourceKey === savedTask.sourceKey ? savedTask : task));
-                    setScheduleItems((current) => current.map((item) => item.sourceKey === savedTask.sourceKey ? { ...item, endDate: savedTask.dueDate || item.endDate, status: taskStatusToScheduleStatus(savedTask.status) } : item));
                     setEmbeddedTask(savedTask);
                 }}
             />}

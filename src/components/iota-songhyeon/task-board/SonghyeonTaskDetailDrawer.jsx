@@ -95,8 +95,9 @@ function InlineDiscussionEditor({ label, value, originalValue, onChange, onSave,
   );
 }
 
-export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropClick, onSaved, canArchive = false, onArchiveRequest }) {
+export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropClick, onSaved, canArchive = false, onArchiveRequest, forceReadOnly = false }) {
   const { user, member, isReadOnly } = useSonghyeonAuth();
+  const detailReadOnly = isReadOnly || forceReadOnly;
   const [editorOpen, setEditorOpen] = useState(false);
   const [workflowTargetStatus, setWorkflowTargetStatus] = useState('');
   const [comments, setComments] = useState([]);
@@ -115,7 +116,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
 
   const [repositoryError, setRepositoryError] = useState('');
   const actor = { userId: user?.id, email: user?.email, name: member?.staff_name || user?.email || '송현 BID TF' };
-  const canDeleteActivity = !isReadOnly && member?.staff_name === '전기영' && user?.email?.toLowerCase() === 'jk.jeon@igisam.com';
+  const canDeleteActivity = !detailReadOnly && member?.staff_name === '전기영' && user?.email?.toLowerCase() === 'jk.jeon@igisam.com';
 
 
   useEffect(() => {
@@ -143,7 +144,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
     return () => { active = false; };
   }, [taskSourceKey]);
   useEffect(() => {
-    if (!task || isReadOnly) return undefined;
+    if (!task || detailReadOnly) return undefined;
     let refreshTimer;
     const refresh = () => {
       window.clearTimeout(refreshTimer);
@@ -153,7 +154,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
     };
     const unsubscribe = subscribeToTaskDiscussion(task.sourceKey, refresh);
     return () => { window.clearTimeout(refreshTimer); unsubscribe(); };
-  }, [isReadOnly, task]);
+  }, [detailReadOnly, task]);
   useEffect(() => {
     const close = (event) => {
       if (event.key !== 'Escape') return;
@@ -170,10 +171,14 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
 
   if (!task) return null;
   const visibleActivity = activity.filter((item) => item.action !== 'task_updated' || activityChanges(item).length);
-  const workflowActions = isReadOnly ? [] : taskWorkflowActions(task.status);
+  const stopActivity = task.status === '중단'
+    ? activity.find((item) => item.action === 'task_stopped' || item.action === 'task_held')
+    : null;
+  const stopReason = String(stopActivity?.payload?.reason || '').trim() || '중단 사유가 기록되지 않았습니다.';
+  const workflowActions = detailReadOnly ? [] : taskWorkflowActions(task.status);
 
   const submitComment = async () => {
-    if (!commentText.trim() || isSubmittingComment) return;
+    if (detailReadOnly || !commentText.trim() || isSubmittingComment) return;
     setRepositoryError('');
     setIsSubmittingComment(true);
     try {
@@ -188,6 +193,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
     }
   };
   const removeComment = async (commentId) => {
+    if (detailReadOnly) return;
     setRepositoryError('');
     try {
       await deleteComment(task.sourceKey, commentId, actor);
@@ -199,7 +205,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
   };
   const submitReply = async (commentId) => {
     const text = replyText[commentId]?.trim();
-    if (!text || pendingReply === commentId) return;
+    if (detailReadOnly || !text || pendingReply === commentId) return;
     setRepositoryError('');
     setPendingReply(commentId);
     try {
@@ -213,6 +219,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
     }
   };
   const removeReply = async (commentId, replyId) => {
+    if (detailReadOnly) return;
     setRepositoryError('');
     try {
       await deleteReply(task.sourceKey, commentId, replyId, actor);
@@ -222,7 +229,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
     }
   };
   const beginEdit = (type, commentId, entry, replyId = '') => {
-    if (pendingEdit) return;
+    if (detailReadOnly || pendingEdit) return;
     setRepositoryError('');
     setDiscussionEdit({ type, commentId, replyId, originalText: entry.text });
     setEditText(entry.text);
@@ -234,7 +241,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
   };
   const saveEdit = async () => {
     const cleanText = editText.trim();
-    if (!discussionEdit || pendingEdit || !cleanText || cleanText === discussionEdit.originalText.trim()) return;
+    if (detailReadOnly || !discussionEdit || pendingEdit || !cleanText || cleanText === discussionEdit.originalText.trim()) return;
     const pendingKey = discussionEdit.type === 'comment'
       ? `comment:${discussionEdit.commentId}`
       : `reply:${discussionEdit.replyId}`;
@@ -257,7 +264,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
   };
   const toggleReaction = async (targetType, targetId, reactionType) => {
     const pendingKey = `${targetType}:${targetId}:${reactionType}`;
-    if (pendingReaction === pendingKey) return;
+    if (detailReadOnly || pendingReaction === pendingKey) return;
     setRepositoryError('');
     setPendingReaction(pendingKey);
     try {
@@ -271,6 +278,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
     }
   };
   const removeActivity = async (activityId) => {
+    if (detailReadOnly) return;
     setRepositoryError('');
     try {
       await deleteActivity(task.sourceKey, activityId, actor);
@@ -295,8 +303,12 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
             <div className="relative top-[-6px] space-y-1 pl-[16px]">
               <h2 className="text-[22px] font-bold leading-snug text-[#bdbba7]">{task.taskName}</h2>
               <div className="flex flex-wrap items-center gap-2 pt-[2px]">
-                {task.status === '완료' ? (
+                {task.archivedAt ? (
+                  <span className={`${taskDetailBadgeClass} border border-[#a78661]/35 bg-[#a78661]/10 font-black text-[#b89a78]`}>보관됨</span>
+                ) : task.status === '완료' ? (
                   <span className={`${taskDetailBadgeClass} gap-1 border border-[#4da566]/40 bg-[#4da566]/15 font-black text-[#8fd19d] shadow-[0_0_18px_rgba(77,165,102,0.10)]`}><span aria-hidden="true">✓</span>Task가 완료되었습니다</span>
+                ) : task.status === '중단' ? (
+                  <span className={`${taskDetailBadgeClass} border border-[#ff453a]/35 bg-[#ff453a]/10 text-[#ff7169]`}>{task.status}</span>
                 ) : (
                   <span className={`${taskDetailBadgeClass} border border-[#2997ff]/25 bg-[#2997ff]/10 text-[#60a5fa]`}>{task.status}</span>
                 )}
@@ -306,6 +318,8 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
             </div>
 
             {task.status === '완료' && task.completionSummary && <section aria-label="완료 정보" className="rounded-[12px] border border-[#4da566]/20 bg-[#4da566]/[0.04] p-4"><div className="flex items-center justify-between gap-3"><h3 className="text-[12px] font-bold text-[#7fc18e]">완료 정보</h3>{task.completedAt && <time className="text-[10px] text-[#748077]" dateTime={task.completedAt}>{new Date(task.completedAt).toLocaleString('ko-KR')}</time>}</div><p className="mt-2 whitespace-pre-wrap text-[12px] leading-5 text-[#b8c2ba]">{task.completionSummary}</p>{task.completionEvidenceUrl && <a href={task.completionEvidenceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 rounded-[7px] border border-[#4da566]/25 px-2.5 py-1.5 text-[11px] font-bold text-[#7fc18e] hover:bg-[#4da566]/10">완료 증빙 열기 <span aria-hidden="true">↗</span></a>}</section>}
+            {task.status === '중단' && <section aria-label="중단 정보" className="rounded-[12px] border border-[#ff453a]/25 bg-[#ff453a]/[0.06] p-4"><div className="flex items-center justify-between gap-3"><h3 className="text-[12px] font-bold text-[#ff7169]">중단 정보</h3>{stopActivity?.createdAt && <time className="text-[10px] text-[#9b7774]" dateTime={stopActivity.createdAt}>{new Date(stopActivity.createdAt).toLocaleString('ko-KR')}</time>}</div><p className="mt-2 whitespace-pre-wrap text-[12px] leading-5 text-[#d2b5b2]">{stopReason}</p></section>}
+            {task.archivedAt && <section data-task-archive-info aria-label="보관 정보" className="rounded-[12px] border border-[#a78661]/25 bg-[#a78661]/[0.06] p-4"><div className="flex items-center justify-between gap-3"><h3 className="text-[12px] font-bold text-[#b89a78]">보관 정보</h3><time className="text-[10px] text-[#8c7a68]" dateTime={task.archivedAt}>{new Date(task.archivedAt).toLocaleString('ko-KR')}</time></div><p className="mt-2 whitespace-pre-wrap text-[12px] leading-5 text-[#c4b6a7]">{task.archiveReason || '보관 사유가 기록되지 않았습니다.'}</p></section>}
 
             {task.isBlocker && <div className="rounded-[12px] border border-[#ff453a]/20 bg-[#ff453a]/10 p-4"><h4 className="text-[13px] font-bold text-[#ff453a]">현재 진행 병목(Blocker) 상황</h4><p className="mt-1 text-[12px] leading-relaxed text-gray-300">이 업무는 병목 해소가 필요한 주요 모니터링 대상으로 설정되어 있습니다.</p></div>}
 
@@ -329,7 +343,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                           <span className="shrink-0 text-[11px] font-bold px-1.5 py-0.5 rounded text-[#82afb9] bg-[#82afb9]/10">{comment.authorGroup}</span>
                         </div>
                         <div className="flex shrink-0 items-center gap-1">
-                          {!isReadOnly && comment.authorId === actor.userId && (
+                          {!detailReadOnly && comment.authorId === actor.userId && (
                             <button
                               type="button"
                               onClick={() => beginEdit('comment', comment.id, comment)}
@@ -340,7 +354,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                               수정
                             </button>
                           )}
-                          {!isReadOnly && comment.authorEmail?.toLowerCase() === actor.email?.toLowerCase() && (
+                          {!detailReadOnly && comment.authorEmail?.toLowerCase() === actor.email?.toLowerCase() && (
                             <button
                               type="button"
                               onClick={(event) => { event.stopPropagation(); removeComment(comment.id); }}
@@ -378,7 +392,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
 
                   <div className="flex items-center justify-between mt-[-2px] pt-2 border-t border-[#333]/20 pl-[42px] gap-3">
                     <div className="flex items-center gap-[12px]">
-                      {!isReadOnly && <button
+                      {!detailReadOnly && <button
                         type="button"
                         onClick={() => toggleReaction('comment', comment.id, 'like')}
                         disabled={pendingReaction === `comment:${comment.id}:like`}
@@ -389,7 +403,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                         <svg width="12" height="12" viewBox="0 0 24 24" fill={hasCurrentUserReaction(comment, 'like', actor.userId) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
                         <span className="font-semibold">{reactionCount(comment, 'like')}</span>
                       </button>}
-                      {!isReadOnly && <button
+                      {!detailReadOnly && <button
                         type="button"
                         onClick={() => toggleReaction('comment', comment.id, 'check')}
                         disabled={pendingReaction === `comment:${comment.id}:check`}
@@ -432,8 +446,8 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                                 </span>
                               </div>
                               <div className="flex shrink-0 items-center gap-2">
-                                {!isReadOnly && reply.authorId === actor.userId && <button type="button" onClick={() => beginEdit('reply', comment.id, reply, reply.id)} disabled={Boolean(pendingEdit)} className="cursor-pointer text-[11px] text-[#86868B] transition-colors hover:text-[#9cc4e6] disabled:cursor-wait disabled:opacity-50" aria-label={`${reply.author} 대댓글 수정`}>수정</button>}
-                                {!isReadOnly && reply.authorEmail?.toLowerCase() === actor.email?.toLowerCase() && <button type="button" onClick={() => removeReply(comment.id, reply.id)} className="text-[11px] text-[#86868B] hover:text-[#FF453A] transition-colors cursor-pointer" aria-label={`${reply.author} 대댓글 삭제`}>삭제</button>}
+                                {!detailReadOnly && reply.authorId === actor.userId && <button type="button" onClick={() => beginEdit('reply', comment.id, reply, reply.id)} disabled={Boolean(pendingEdit)} className="cursor-pointer text-[11px] text-[#86868B] transition-colors hover:text-[#9cc4e6] disabled:cursor-wait disabled:opacity-50" aria-label={`${reply.author} 대댓글 수정`}>수정</button>}
+                                {!detailReadOnly && reply.authorEmail?.toLowerCase() === actor.email?.toLowerCase() && <button type="button" onClick={() => removeReply(comment.id, reply.id)} className="text-[11px] text-[#86868B] hover:text-[#FF453A] transition-colors cursor-pointer" aria-label={`${reply.author} 대댓글 삭제`}>삭제</button>}
                               </div>
                             </div>
                             <div className="mt-2">
@@ -452,14 +466,14 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                               )}
                             </div>
                             <div className="mt-2 flex items-center gap-[8px]">
-                              {!isReadOnly && <button type="button" onClick={() => toggleReaction('reply', reply.id, 'like')} disabled={pendingReaction === `reply:${reply.id}:like`} aria-pressed={hasCurrentUserReaction(reply, 'like', actor.userId)} aria-label={`대댓글 좋아요, 현재 ${reactionCount(reply, 'like')}명`} className={`flex items-center gap-[4px] text-[10px] transition-colors cursor-pointer disabled:cursor-wait ${hasCurrentUserReaction(reply, 'like', actor.userId) ? 'text-[#ff3b30]' : 'text-[#86868B] hover:text-[#A1A1AA]'}`}><svg width="10" height="10" viewBox="0 0 24 24" fill={hasCurrentUserReaction(reply, 'like', actor.userId) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>{reactionCount(reply, 'like')}</button>}
-                              {!isReadOnly && <button type="button" onClick={() => toggleReaction('reply', reply.id, 'check')} disabled={pendingReaction === `reply:${reply.id}:check`} aria-pressed={hasCurrentUserReaction(reply, 'check', actor.userId)} aria-label={`대댓글 확인, 현재 ${reactionCount(reply, 'check')}명`} className={`flex items-center gap-[4px] text-[10px] transition-colors cursor-pointer disabled:cursor-wait ${hasCurrentUserReaction(reply, 'check', actor.userId) ? 'text-[#2997ff]' : 'text-[#86868B] hover:text-[#A1A1AA]'}`}><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>{reactionCount(reply, 'check')}</button>}
+                              {!detailReadOnly && <button type="button" onClick={() => toggleReaction('reply', reply.id, 'like')} disabled={pendingReaction === `reply:${reply.id}:like`} aria-pressed={hasCurrentUserReaction(reply, 'like', actor.userId)} aria-label={`대댓글 좋아요, 현재 ${reactionCount(reply, 'like')}명`} className={`flex items-center gap-[4px] text-[10px] transition-colors cursor-pointer disabled:cursor-wait ${hasCurrentUserReaction(reply, 'like', actor.userId) ? 'text-[#ff3b30]' : 'text-[#86868B] hover:text-[#A1A1AA]'}`}><svg width="10" height="10" viewBox="0 0 24 24" fill={hasCurrentUserReaction(reply, 'like', actor.userId) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>{reactionCount(reply, 'like')}</button>}
+                              {!detailReadOnly && <button type="button" onClick={() => toggleReaction('reply', reply.id, 'check')} disabled={pendingReaction === `reply:${reply.id}:check`} aria-pressed={hasCurrentUserReaction(reply, 'check', actor.userId)} aria-label={`대댓글 확인, 현재 ${reactionCount(reply, 'check')}명`} className={`flex items-center gap-[4px] text-[10px] transition-colors cursor-pointer disabled:cursor-wait ${hasCurrentUserReaction(reply, 'check', actor.userId) ? 'text-[#2997ff]' : 'text-[#86868B] hover:text-[#A1A1AA]'}`}><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>{reactionCount(reply, 'check')}</button>}
                               <div className="ml-auto flex items-center gap-[6px]"><SonghyeonReactionAvatarStack reactors={reply.reactions?.like || []} label="대댓글 좋아요" sizeClass="w-[18px] h-[18px]" /><SonghyeonReactionAvatarStack reactors={reply.reactions?.check || []} label="대댓글 확인" sizeClass="w-[18px] h-[18px]" /></div>
                             </div>
                           </div>
                         </div>
                       ))}
-                      {!isReadOnly && <form onSubmit={(event) => { event.preventDefault(); submitReply(comment.id); }} className="w-full relative mt-1">
+                      {!detailReadOnly && <form onSubmit={(event) => { event.preventDefault(); submitReply(comment.id); }} className="w-full relative mt-1">
                         <textarea value={replyText[comment.id] || ''} onChange={(event) => setReplyText((current) => ({ ...current, [comment.id]: event.target.value }))} placeholder="대댓글을 입력하세요..." className="w-full bg-[#2a2a2c]/50 border border-[#333] rounded-[8px] p-[10px] text-[13px] text-[#E5E5E5] leading-relaxed resize-y focus:outline-none focus:border-[#2997ff] min-h-[60px]" />
                         <div className="flex justify-end gap-[8px] mt-[6px]"><button type="button" onClick={() => { setExpandedComments((current) => ({ ...current, [comment.id]: false })); setReplyText((current) => ({ ...current, [comment.id]: '' })); }} className="px-[10px] py-[4px] bg-transparent border border-[#444] rounded-[6px] text-[11px] text-[#A1A1AA] hover:text-[#E5E5E5] transition-colors cursor-pointer">취소</button><button type="submit" disabled={!replyText[comment.id]?.trim() || pendingReply === comment.id} className="px-[12px] py-[4px] bg-[#2997ff] hover:bg-[#0071e3] border border-transparent rounded-[6px] text-[11px] text-white font-bold transition-colors disabled:opacity-50 cursor-pointer">{pendingReply === comment.id ? '등록 중...' : '댓글 등록'}</button></div>
                       </form>}
@@ -473,7 +487,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                 )}
               </div>
 
-              {!isReadOnly ? <form className="mt-[10px] w-full rounded-[16px] bg-[#5d5d5d] p-[1px]" onSubmit={(event) => { event.preventDefault(); submitComment(); }}>
+              {!detailReadOnly ? <form className="mt-[10px] w-full rounded-[16px] bg-[#5d5d5d] p-[1px]" onSubmit={(event) => { event.preventDefault(); submitComment(); }}>
                 <div className="w-full h-full bg-[#262626] rounded-[15px] overflow-hidden">
                   <div className="w-full px-[20px] pt-[16px] pb-[18px] bg-transparent">
                     <textarea
@@ -495,7 +509,7 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
                     </button>
                   </div>
                 </div>
-              </form> : <div className="mt-[10px] rounded-[12px] border border-[#6f9fc7]/20 bg-[#6f9fc7]/[0.05] px-4 py-3 text-[11px] text-[#9cc4e6]">게스트는 협업 기록을 읽을 수 있습니다. 작성·반응은 로그인 후 이용해 주세요.</div>}
+              </form> : <div className="mt-[10px] rounded-[12px] border border-[#6f9fc7]/20 bg-[#6f9fc7]/[0.05] px-4 py-3 text-[11px] text-[#9cc4e6]">{forceReadOnly ? '보관된 업무는 읽기 전용으로 확인할 수 있습니다.' : '게스트는 협업 기록을 읽을 수 있습니다. 작성·반응은 로그인 후 이용해 주세요.'}</div>}
             </section>
 
             {visibleActivity.length > 0 && (
@@ -508,11 +522,11 @@ export default function SonghyeonTaskDetailDrawer({ task, onClose, onBackdropCli
             )}
           </div>
 
-          <footer className="flex items-center justify-between gap-3 border-t border-[#3c3c3c]/80 bg-[#1c1c1e]/90 px-[10px] py-4">{canArchive && !isReadOnly ? <button type="button" onClick={() => onArchiveRequest?.(task)} className="cursor-pointer rounded-[8px] border border-[#a78661]/25 bg-[#a78661]/[0.06] px-3 py-2 text-[11px] font-bold text-[#a98d70] hover:bg-[#a78661]/10 hover:text-[#bca080]">업무 보관</button> : <span className="text-[11px] font-bold text-[#6f9fc7]">{isReadOnly ? '읽기 전용' : ''}</span>}<div className="flex items-center gap-2"><button type="button" onClick={onClose} className="cursor-pointer rounded-[8px] border border-[#3c3c3c] bg-white/5 px-4 py-2 text-[13px] font-bold text-white hover:bg-white/10">닫기</button>{!isReadOnly && <>{task.status !== '완료' && <button type="button" onClick={() => setWorkflowTargetStatus(workflowActions[0]?.status || '')} className="cursor-pointer rounded-[8px] border border-[#4f8fca]/30 bg-[#4f8fca]/10 px-4 py-2 text-[13px] font-bold text-[#82add0] hover:bg-[#4f8fca]/15">상태 처리</button>}<button type="button" onClick={() => setEditorOpen(true)} className="cursor-pointer rounded-[8px] bg-[#2997ff] px-5 py-2 text-[13px] font-bold text-white">업무 수정하기</button></>}</div></footer>
+          <footer className="flex items-center justify-between gap-3 border-t border-[#3c3c3c]/80 bg-[#1c1c1e]/90 px-[10px] py-4">{canArchive && !detailReadOnly ? <button type="button" onClick={() => onArchiveRequest?.(task)} className="cursor-pointer rounded-[8px] border border-[#a78661]/25 bg-[#a78661]/[0.06] px-3 py-2 text-[11px] font-bold text-[#a98d70] hover:bg-[#a78661]/10 hover:text-[#bca080]">업무 보관</button> : <span className="text-[11px] font-bold text-[#6f9fc7]">{forceReadOnly ? '보관된 업무 · 읽기 전용' : detailReadOnly ? '읽기 전용' : ''}</span>}<div className="flex items-center gap-2"><button type="button" onClick={onClose} className="cursor-pointer rounded-[8px] border border-[#3c3c3c] bg-white/5 px-4 py-2 text-[13px] font-bold text-white hover:bg-white/10">닫기</button>{!detailReadOnly && <>{task.status !== '완료' && <button type="button" onClick={() => setWorkflowTargetStatus(workflowActions[0]?.status || '')} className="cursor-pointer rounded-[8px] border border-[#4f8fca]/30 bg-[#4f8fca]/10 px-4 py-2 text-[13px] font-bold text-[#82add0] hover:bg-[#4f8fca]/15">상태 처리</button>}<button type="button" onClick={() => setEditorOpen(true)} className="cursor-pointer rounded-[8px] bg-[#2997ff] px-5 py-2 text-[13px] font-bold text-white">업무 수정하기</button></>}</div></footer>
         </div>
       </aside>
-      {editorOpen && !isReadOnly && <SonghyeonTaskEditorModal task={task} onClose={() => setEditorOpen(false)} onWorkflowSaved={async (updated) => { setActivity(await loadActivity(task.sourceKey)); onSaved(updated); }} onSaved={async (updated) => { setActivity(await loadActivity(task.sourceKey)); onSaved(updated); setEditorOpen(false); }} />}
-      {workflowTargetStatus && !isReadOnly && <SonghyeonTaskWorkflowModal task={task} initialTargetStatus={workflowTargetStatus} onClose={() => setWorkflowTargetStatus('')} onSaved={async (updated) => { setActivity(await loadActivity(task.sourceKey)); onSaved(updated); setWorkflowTargetStatus(''); }} />}
+      {editorOpen && !detailReadOnly && <SonghyeonTaskEditorModal task={task} onClose={() => setEditorOpen(false)} onWorkflowSaved={async (updated) => { setActivity(await loadActivity(task.sourceKey)); onSaved(updated); }} onSaved={async (updated) => { setActivity(await loadActivity(task.sourceKey)); onSaved(updated); setEditorOpen(false); }} />}
+      {workflowTargetStatus && !detailReadOnly && <SonghyeonTaskWorkflowModal task={task} initialTargetStatus={workflowTargetStatus} onClose={() => setWorkflowTargetStatus('')} onSaved={async (updated) => { setActivity(await loadActivity(task.sourceKey)); onSaved(updated); setWorkflowTargetStatus(''); }} />}
     </div>
   );
 }

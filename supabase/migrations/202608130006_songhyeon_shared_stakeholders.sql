@@ -1,5 +1,5 @@
 -- Shared reference boundary for Songhyeon BID.
--- Reads approved stakeholder names from IOTA; never writes to IOTA objects.
+-- The view remains read-only; controlled feed writes use a separate audited sync trigger.
 
 create or replace view public.songhyeon_shared_stakeholders
 with (security_invoker = true)

@@ -19,6 +19,7 @@ const MEMBER_AVATAR_PATH = 'src/components/iota-songhyeon/SonghyeonMemberAvatar.
 const REPOSITORY_PATH = 'src/lib/songhyeonTaskFeedRepository.js';
 const MIGRATION_PATH = 'supabase/migrations/202608180001_songhyeon_task_feed.sql';
 const SHARED_CONTACTS_MIGRATION_PATH = 'supabase/migrations/202608180003_songhyeon_shared_stakeholder_contacts.sql';
+const STAKEHOLDER_MASTER_SYNC_MIGRATION_PATH = 'supabase/migrations/202608180005_songhyeon_feed_stakeholder_master_sync.sql';
 
 const exportedFunction = (source, name) => new RegExp(`export\\s+(?:async\\s+)?function\\s+${name}\\b|export\\s+const\\s+${name}\\s*=`);
 
@@ -73,10 +74,11 @@ test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나�
   const feed = await read(FEED_PATH);
   const headerStart = feed.indexOf('<div className="grid min-w-[1080px]');
   const headerEnd = feed.indexOf('</div>', headerStart);
-  const rowStart = feed.indexOf('<button type="button" onClick={() => setExpanded', headerEnd);
+  const rowLinkPosition = feed.indexOf('data-feed-row-link', headerEnd);
+  const rowStart = feed.lastIndexOf('<button type="button"', rowLinkPosition);
   const rowEnd = feed.indexOf('</button>', rowStart);
   assert.ok(headerStart >= 0 && headerEnd > headerStart, '피드 table header grid를 찾을 수 없습니다.');
-  assert.ok(rowStart >= 0 && rowEnd > rowStart, '피드 table row grid를 찾을 수 없습니다.');
+  assert.ok(rowLinkPosition >= 0 && rowStart >= 0 && rowEnd > rowStart, '피드 table row grid를 찾을 수 없습니다.');
   const header = feed.slice(headerStart, headerEnd);
   const row = feed.slice(rowStart, rowEnd);
   const headerGrid = header.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
@@ -99,7 +101,7 @@ test('등록자 header와 row는 같은 grid 열에서 중앙 정렬되고 나�
     'label="이해관계자"', 'label="목적"', 'label="진행상태"', 'label="중요도"', '>등록일<',
   ], 'header');
   assertOrdered(row, [
-    '{post.project}', '{post.cell', '<Avatar profile={{ name: post.authorName', '{post.title || post.content}',
+    '{post.project}', '{post.cell', '<Avatar profile={{ name: post.authorName', "{post.title || '제목 없음'}",
     '<SonghyeonReactionAvatarStack', '{post.stakeholderLabel', '{post.purpose', 'statusClass(post.status)',
     'priorityClass(post.priority)', 'shortDate(post.workDate)',
   ], 'row');
@@ -122,8 +124,11 @@ test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입�
 
   assert.match(stakeholderOptions, /companyName/);
   assert.match(stakeholderOptions, /contactName/);
-  assert.doesNotMatch(stakeholderOptions, /category|roleCategory|role_category/i,
-    '작성 UI의 이해관계자 정규화·키에는 legacy 분류를 다시 포함하면 안 됩니다.');
+  assert.match(stakeholderOptions,
+    /companyName:\s*text\([^\n]*stakeholder\?\.category\)/,
+    '예전 분류 값만 남은 게시글은 회사·기관명으로 읽어 수정할 수 있어야 합니다.');
+  assert.doesNotMatch(stakeholderOptions, /\bcategory\s*:/,
+    'legacy 분류는 읽기 호환에만 쓰고 작성 UI의 별도 필드로 다시 노출하면 안 됩니다.');
   assert.match(writeBox, /const \[stakeholderCompany, setStakeholderCompany\] = useState\(initialStakeholder\.companyName\)/);
   assert.match(writeBox, /const \[stakeholderContact, setStakeholderContact\] = useState\(initialStakeholder\.contactName\)/);
   for (const removedToken of [
@@ -149,6 +154,125 @@ test('작성 UI의 이해관계자는 회사·기관명과 담당자명만 입�
   assert.match(payload, /stakeholder:\s*stakeholderCompany\s*\|\|\s*stakeholderContact\s*\?\s*\{\s*companyName:\s*stakeholderCompany,\s*contactName:\s*stakeholderContact\s*\}\s*:\s*null/);
   assert.doesNotMatch(payload, /stakeholderCategory|\bcategory\s*:/,
     '새 게시글 payload에는 legacy 이해관계자 분류를 저장하면 안 됩니다.');
+});
+
+test('입력한 회사·기관명과 담당자명은 작성·수정 RPC를 거쳐 게시글 이해관계자 스냅샷에 저장된다', async () => {
+  const [writeBox, repository, migration] = await Promise.all([
+    read(WRITE_BOX_PATH),
+    read(REPOSITORY_PATH),
+    read(MIGRATION_PATH),
+  ]);
+
+  const payloadStart = writeBox.indexOf('const payload = {');
+  const saveCallStart = writeBox.indexOf('const savedPost =', payloadStart);
+  assert.ok(payloadStart >= 0 && saveCallStart > payloadStart, '게시글 저장 payload 구간을 찾을 수 없습니다.');
+  const formPayload = writeBox.slice(payloadStart, saveCallStart);
+  assert.match(formPayload,
+    /stakeholder:\s*stakeholderCompany\s*\|\|\s*stakeholderContact\s*\?\s*\{\s*companyName:\s*stakeholderCompany,\s*contactName:\s*stakeholderContact\s*\}\s*:\s*null/,
+    '회사·기관명과 담당자명을 하나의 stakeholder payload로 전달해야 합니다.');
+
+  const rpcPayloadStart = repository.indexOf('const postRpcPayload =');
+  const createStart = repository.indexOf('export async function createTaskFeedPost', rpcPayloadStart);
+  assert.ok(rpcPayloadStart >= 0 && createStart > rpcPayloadStart, 'post RPC payload 정규화 구간을 찾을 수 없습니다.');
+  const rpcPayload = repository.slice(rpcPayloadStart, createStart);
+  assert.match(rpcPayload, /post_stakeholder:\s*normalizeStakeholder\(input\.stakeholder\)/,
+    '작성창에서 전달한 이해관계자를 RPC에서 누락하면 안 됩니다.');
+
+  for (const method of ['createTaskFeedPost', 'updateTaskFeedPost']) {
+    const start = repository.indexOf(`export async function ${method}`);
+    const end = repository.indexOf('\nexport async function ', start + 1);
+    const body = repository.slice(start, end < 0 ? repository.length : end);
+    assert.match(body, /\.\.\.postRpcPayload\(input\)/,
+      `${method}는 정규화된 이해관계자 payload를 DB RPC에 전달해야 합니다.`);
+  }
+
+  const createSqlStart = migration.indexOf('create or replace function public.create_songhyeon_feed_post');
+  const updateSqlStart = migration.indexOf('create or replace function public.update_songhyeon_feed_post', createSqlStart);
+  const deleteSqlStart = migration.indexOf('create or replace function public.delete_songhyeon_feed_post', updateSqlStart);
+  assert.ok(createSqlStart >= 0 && updateSqlStart > createSqlStart && deleteSqlStart > updateSqlStart,
+    '작성·수정 SQL RPC 구간을 찾을 수 없습니다.');
+  const createSql = migration.slice(createSqlStart, updateSqlStart);
+  const updateSql = migration.slice(updateSqlStart, deleteSqlStart);
+  for (const [label, sql] of [['작성', createSql], ['수정', updateSql]]) {
+    assert.match(sql, /insert into public\.songhyeon_feed_post_stakeholders\s*\(post_id,\s*company_name,\s*contact_name,\s*category\)/i,
+      `${label} RPC는 게시글 시점의 이해관계자 스냅샷을 저장해야 합니다.`);
+    assert.match(sql, /post_stakeholder->>'companyName'/,
+      `${label} RPC는 회사·기관명을 저장해야 합니다.`);
+    assert.match(sql, /post_stakeholder->>'contactName'/,
+      `${label} RPC는 담당자명을 저장해야 합니다.`);
+  }
+});
+
+test('업무 피드 자동완성은 게시글 저장 이력을 긁지 않고 IOTA 통합 이해관계자 원장만 읽는다', async () => {
+  const repository = await read(REPOSITORY_PATH);
+  const optionsStart = repository.indexOf('export async function loadTaskFeedOptions');
+  const normalizeStart = repository.indexOf('const normalizeStakeholder', optionsStart);
+  assert.ok(optionsStart >= 0 && normalizeStart > optionsStart, '피드 옵션 loader 구간을 찾을 수 없습니다.');
+  const optionsLoader = repository.slice(optionsStart, normalizeStart);
+
+  assert.match(optionsLoader, /loadSharedStakeholderContacts\(client, authenticated\)/,
+    '자동완성은 IOTA 통합 이해관계자 원장을 감싼 공유 연락처 loader를 사용해야 합니다.');
+  assert.doesNotMatch(optionsLoader,
+    /\.from\(['"](?:songhyeon_feed_|songhyeon_public_feed_)post_stakeholders['"]\)/,
+    '게시글별 이해관계자 스냅샷을 자동완성 원천으로 다시 조회하면 통합 원장이 둘로 갈라집니다.');
+  assert.match(optionsLoader, /companyName:\s*text\(row\.company_name\s*\|\|\s*row\.stakeholder_name(?:\s*\|\|\s*row\.category)?\)/,
+    '통합 원장의 회사·기관명을 UI 후보로 매핑해야 합니다.');
+  assert.match(optionsLoader, /contactName:\s*text\(row\.contact_name\)/,
+    '통합 원장의 담당자명도 UI 후보로 매핑해야 합니다.');
+  assert.match(optionsLoader, /(?:stakeholderKey|companyName[\s\S]{0,120}contactName)[\s\S]{0,320}(?:Set|Map|some\(|filter\()/,
+    '통합 원장에 같은 회사·담당자 조합이 중복되어도 자동완성에는 한 번만 나와야 합니다.');
+});
+
+test('업무 피드에서 신규 입력한 이해관계자는 trigger로 IOTA 통합 원장에 동기화되고 기존 값도 backfill된다', async () => {
+  const migration = await read(STAKEHOLDER_MASTER_SYNC_MIGRATION_PATH);
+  const lower = migration.toLowerCase();
+  const functionStart = lower.indexOf('create or replace function public.sync_songhyeon_feed_stakeholder_to_master()');
+  const revokeStart = lower.indexOf('revoke all on function public.sync_songhyeon_feed_stakeholder_to_master()', functionStart);
+  assert.ok(functionStart >= 0 && revokeStart > functionStart,
+    '피드 이해관계자를 통합 원장에 동기화하는 trigger function이 필요합니다.');
+  const syncFunction = lower.slice(functionStart, revokeStart);
+
+  assert.match(syncFunction, /returns\s+trigger/);
+  assert.match(syncFunction, /security\s+definer/,
+    '피드 작성자는 IOTA 원장 직접 쓰기 권한 없이 제한된 trigger로만 동기화해야 합니다.');
+  assert.match(syncFunction, /set\s+search_path\s*=\s*pg_catalog,\s*public/,
+    'security-definer 함수는 고정 search_path를 사용해야 합니다.');
+  assert.match(syncFunction, /auth\.uid\(\)\s+is\s+null[\s\S]*?not\s+public\.is_songhyeon_member\(auth\.uid\(\)\)/,
+    'trigger 실행 시점에도 인증된 활성 송현 멤버인지 다시 확인해야 합니다.');
+  assert.match(syncFunction,
+    /normalized_company[\s\S]*?nullif\(pg_catalog\.btrim\(new\.company_name\),\s*''\)[\s\S]*?nullif\(pg_catalog\.btrim\(new\.category\),\s*''\)/,
+    '회사명은 공백을 정규화하고 과거 category-only 행도 회사명으로 승격해야 합니다.');
+  assert.match(syncFunction, /normalized_contact[\s\S]*?nullif\(pg_catalog\.btrim\(new\.contact_name\),\s*''\)/,
+    '담당자명도 공백을 정규화해야 합니다.');
+  assert.match(syncFunction, /pg_advisory_xact_lock\(pg_catalog\.hashtextextended\(stakeholder_key,\s*0\)\)/,
+    '동시 신규 입력에서도 같은 이해관계자가 중복 생성되지 않도록 직렬화해야 합니다.');
+  assert.match(syncFunction, /insert into public\.iota_stakeholder_master\s*\(company_name,\s*contact_name,\s*role_category\)/,
+    '송현 전용 후보 테이블이 아니라 IOTA 통합 이해관계자 원장에 저장해야 합니다.');
+  assert.match(syncFunction,
+    /where not exists\s*\([\s\S]*?from public\.iota_stakeholder_master[\s\S]*?lower\(pg_catalog\.btrim\(master\.company_name\)\)[\s\S]*?lower\(pg_catalog\.btrim\(coalesce\(master\.contact_name,\s*''\)\)\)/,
+    '회사·담당자 조합을 대소문자와 공백을 정규화해 중복 확인해야 합니다.');
+
+  assert.match(lower,
+    /create trigger sync_songhyeon_feed_stakeholder_master\s+after insert or update of company_name, contact_name, category\s+on public\.songhyeon_feed_post_stakeholders\s+for each row\s+execute function public\.sync_songhyeon_feed_stakeholder_to_master\(\)/,
+    '게시글 이해관계자의 작성·수정 직후 통합 원장 sync trigger가 실행되어야 합니다.');
+  assert.match(lower,
+    /revoke all on function public\.sync_songhyeon_feed_stakeholder_to_master\(\)\s+from public, anon, authenticated/,
+    '클라이언트가 동기화 함수를 직접 실행하지 못하고 feed RPC를 통해서만 사용해야 합니다.');
+
+  const backfillStart = lower.indexOf('with normalized as', revokeStart);
+  assert.ok(backfillStart > revokeStart, '기존 피드 이해관계자를 통합 원장으로 옮기는 backfill이 필요합니다.');
+  const backfill = lower.slice(backfillStart);
+  assert.match(backfill,
+    /from public\.songhyeon_feed_post_stakeholders stakeholder/,
+    '기존 게시글 이해관계자 전 건을 backfill 원천으로 사용해야 합니다.');
+  assert.match(backfill,
+    /coalesce\([\s\S]*?stakeholder\.company_name[\s\S]*?stakeholder\.category[\s\S]*?\) as company_name/,
+    'backfill에서도 과거 category-only 값을 회사명으로 보존해야 합니다.');
+  assert.match(backfill,
+    /insert into public\.iota_stakeholder_master\s*\(company_name,\s*contact_name,\s*role_category\)/,
+    '기존 값도 동일한 IOTA 통합 원장에 저장해야 합니다.');
+  assert.match(backfill, /where not exists\s*\([\s\S]*?from public\.iota_stakeholder_master/,
+    'backfill은 이미 등록된 회사·담당자 조합을 중복 삽입하면 안 됩니다.');
 });
 
 test('담당자명 자동완성은 회사별 외부 연락처와 전체 내부 멤버 이름을 중복 없이 합친다', async () => {
@@ -225,8 +349,8 @@ test('공유 이해관계자 연락처는 인증 사용자에게만 읽기 전�
 
   const optionMapping = repository.slice(optionsStart, repository.indexOf('const normalizeStakeholder', optionsStart));
   assert.match(optionMapping, /loadSharedStakeholderContacts\(client, authenticated\)/);
-  assert.match(optionMapping, /companyName:\s*row\.company_name\s*\|\|\s*row\.stakeholder_name\s*\|\|\s*['"]{2}/);
-  assert.match(optionMapping, /contactName:\s*row\.contact_name\s*\|\|\s*['"]{2}/,
+  assert.match(optionMapping, /companyName:\s*text\(row\.company_name\s*\|\|\s*row\.stakeholder_name\s*\|\|\s*row\.category\)/);
+  assert.match(optionMapping, /contactName:\s*text\(row\.contact_name\)/,
     'repository 옵션은 DB snake_case를 UI의 companyName/contactName으로 매핑해야 합니다.');
 });
 
@@ -309,17 +433,17 @@ test('피드 목록은 원본의 검색·5개 요약·20개 전체보기와 다�
   assert.doesNotMatch(feed, /unread|lastRead|readAt|markAsRead/i, 'N 표시는 개인별 읽지 않음 상태가 아닌 48시간 최신 표시여야 합니다.');
 });
 
-test('postId 딥링크는 대상 페이지로 이동해 상세를 펼치고 강조한 뒤 URL을 정리한다', async () => {
+test('legacy postId query 딥링크는 목록 상태를 담아 canonical 상세 pathname으로 교체한다', async () => {
   const feed = await read(FEED_PATH);
 
   assert.match(feed, /new URLSearchParams\(window\.location\.search\)/);
   assert.match(feed, /\.get\(['"]postId['"]\)/);
-  assert.match(feed, /findIndex[\s\S]{0,700}setCurrentPage/);
-  assert.match(feed, /setExpanded/);
-  assert.match(feed, /scrollIntoView\(\{[^}]*behavior:\s*['"]smooth['"]/);
-  assert.match(feed, /classList\.add|data-feed-highlight|highlightedPostId/);
   assert.match(feed, /(?:searchParams|params)\.delete\(['"]postId['"]\)/);
-  assert.match(feed, /history\.replaceState/);
+  assert.match(feed, /navigate\(`\/feed\/\$\{encodeURIComponent\(targetPostId\)\}\$\{query \? `\?\$\{query\}` : ['"]{2}\}`/);
+  assert.match(feed, /replace:\s*true/);
+  assert.match(feed, /feedListState:\s*\{\s*searchQuery:\s*['"]{2},\s*filters:[\s\S]{0,280}?viewMode:\s*['"]full['"],\s*currentPage:\s*targetPage\s*\}/);
+  assert.doesNotMatch(feed, /history\.replaceState|data-feed-highlight|highlightedPostId/,
+    'legacy query URL 정리는 Router navigate로 처리하고 예전 강조·직접 history 조작을 남기면 안 됩니다.');
 });
 
 test('게시글 작성·수정·삭제는 공통 작성폼과 송현 repository를 사용하고 UI 제어는 작성자에게만 보인다', async () => {

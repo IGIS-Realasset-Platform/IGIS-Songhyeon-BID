@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ExternalLink, FileText, Pencil, Plus, Search, Trash2, X } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import { WorkspacePageFrame, WorkspacePageHeader } from '../components/workspace/WorkspacePageLayout';
 import {
@@ -106,7 +107,9 @@ function DocumentEditor({ document, onClose, onSave }) {
 
 export default function DataRoom() {
   const { user, member, isReadOnly } = useSonghyeonAuth();
-  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('q') || '';
   const [documents, setDocuments] = useState([]);
   const [editingDocument, setEditingDocument] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -164,6 +167,15 @@ export default function DataRoom() {
     || [document.title, document.description, document.category, document.type, document.date]
       .some((value) => String(value || '').toLowerCase().includes(normalizedQuery))
   ));
+  const updateQuery = (value) => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (value) nextParams.set('q', value);
+    else nextParams.delete('q');
+    setSearchParams(nextParams, { replace: true });
+  };
+  const openDocument = (document) => navigate(`/data/${encodeURIComponent(document.id)}`, {
+    state: { dataRoomListSearch: searchParams.toString() },
+  });
 
   return (
     <>
@@ -177,7 +189,7 @@ export default function DataRoom() {
               <input
                 type="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => updateQuery(event.target.value)}
                 placeholder="문서 검색"
                 aria-label="Data Room 문서 검색"
                 className="h-[36px] w-full rounded-[8px] border border-[#3c3c3c] bg-[#262626] py-[8px] pl-[38px] pr-[12px] text-[13px] text-white outline-none transition-colors placeholder:text-[#686868] focus:border-[#666]"
@@ -206,7 +218,20 @@ export default function DataRoom() {
             </thead>
             <tbody>
               {filteredDocuments.map((document) => (
-                <tr key={document.id} className="border-b border-[#3c3c3c] bg-[#272726] transition-colors last:border-b-0 hover:bg-[#333]">
+                <tr
+                  key={document.id}
+                  tabIndex={0}
+                  role="link"
+                  aria-label={`${document.title} 상세 보기`}
+                  onClick={() => openDocument(document)}
+                  onKeyDown={(event) => {
+                    if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+                      event.preventDefault();
+                      openDocument(document);
+                    }
+                  }}
+                  className="cursor-pointer border-b border-[#3c3c3c] bg-[#272726] transition-colors last:border-b-0 hover:bg-[#333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#6f9fc7]"
+                >
                   <td className="px-[20px] py-[18px] align-middle">
                     <div className="flex items-center gap-[12px]">
                       <span className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-[10px] border border-[#3c3c3c] bg-[#1F1F1E] text-[#86868B]">
@@ -227,7 +252,7 @@ export default function DataRoom() {
                       href={document.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => { if (!isReadOnly) recordView(document.id); }}
+                      onClick={(event) => { event.stopPropagation(); if (!isReadOnly) recordView(document.id); }}
                       className="inline-flex h-[36px] w-[112px] cursor-pointer items-center justify-center gap-[6px] whitespace-nowrap rounded-[8px] border border-[#555] bg-white/[0.06] text-[12px] font-bold text-white transition-colors hover:border-[#666] hover:bg-white/[0.10]"
                       aria-label={`${document.title} 원문 열기`}
                     >
@@ -237,10 +262,10 @@ export default function DataRoom() {
                   </td>
                   <td className="px-[12px] py-[18px] text-center align-middle">
                     {!isReadOnly ? <div className="flex items-center justify-center gap-1">
-                      <button type="button" onClick={() => setEditingDocument({ ...document })} aria-label={`${document.title} 수정`} title="수정" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#454544] hover:text-white">
+                      <button type="button" onClick={(event) => { event.stopPropagation(); setEditingDocument({ ...document }); }} aria-label={`${document.title} 수정`} title="수정" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#454544] hover:text-white">
                         <Pencil size={14} strokeWidth={1.8} />
                       </button>
-                      <button type="button" disabled={deletingId === document.id} onClick={() => deleteDocument(document)} aria-label={`${document.title} 삭제`} title="삭제" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#FF453A]/15 hover:text-[#FF6961] disabled:cursor-wait disabled:opacity-40">
+                      <button type="button" disabled={deletingId === document.id} onClick={(event) => { event.stopPropagation(); deleteDocument(document); }} aria-label={`${document.title} 삭제`} title="삭제" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#FF453A]/15 hover:text-[#FF6961] disabled:cursor-wait disabled:opacity-40">
                         <Trash2 size={14} strokeWidth={1.8} />
                       </button>
                     </div> : <span className="text-[11px] font-bold text-[#6f9fc7]">읽기 전용</span>}

@@ -62,7 +62,7 @@ const stakeholderOption = (stakeholder) => {
     return { companyName: text(companyName), contactName: text(contactName) };
   }
   return {
-    companyName: text(stakeholder?.companyName || stakeholder?.company_name || stakeholder?.name || stakeholder?.stakeholderName || stakeholder?.stakeholder_name),
+    companyName: text(stakeholder?.companyName || stakeholder?.company_name || stakeholder?.name || stakeholder?.stakeholderName || stakeholder?.stakeholder_name || stakeholder?.category),
     contactName: text(stakeholder?.contactName || stakeholder?.contact_name),
   };
 };

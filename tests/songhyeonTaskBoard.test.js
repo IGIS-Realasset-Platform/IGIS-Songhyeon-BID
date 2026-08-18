@@ -84,10 +84,10 @@ test('자료전수조사 업무는 필터·검색 뒤 항상 최상단이며 각
   const end = board.indexOf('  const totalPages =', start);
   assert.ok(start >= 0 && end > start, '필터·검색·정렬 useMemo 블록을 찾을 수 없습니다.');
   const orderingBlock = board.slice(start, end);
-  const filterIndex = orderingBlock.indexOf('const rows = tasks.filter((task) => {');
+  const filterIndex = orderingBlock.indexOf('const rows = tasksForCurrentView.filter((task) => {');
   const searchIndex = orderingBlock.indexOf("if (!query) return true;");
   const partitionIndex = orderingBlock.indexOf('...rows.filter((task) => task.categoryMain === PINNED_TASK_CATEGORY)');
-  assert.ok(filterIndex >= 0, '정렬 전에 tasks.filter로 새 결과 배열을 만들어야 합니다.');
+  assert.ok(filterIndex >= 0, '정렬 전에 현재 active/archived view를 filter한 새 결과 배열을 만들어야 합니다.');
   assert.ok(searchIndex > filterIndex, '검색 조건은 rows 생성 과정에 포함돼야 합니다.');
   assert.ok(partitionIndex > searchIndex, '자료전수조사 우선 정렬은 모든 필터와 검색이 끝난 rows에 적용돼야 합니다.');
   assert.match(orderingBlock, /return \[\s*\.\.\.rows\.filter\(\(task\) => task\.categoryMain === PINNED_TASK_CATEGORY\),\s*\.\.\.rows\.filter\(\(task\) => task\.categoryMain !== PINNED_TASK_CATEGORY\),\s*\];/);
@@ -145,7 +145,7 @@ test('실행주관은 폐기 조직을 흡수하고 실제 업무가 있는 이�
   const board = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskBoard.jsx', 'utf8');
   const repository = await readFile('src/lib/songhyeonTaskRepository.js', 'utf8');
   const migration = await readFile('supabase/migrations/202608130009_songhyeon_task_lead_cleanup.sql', 'utf8');
-  assert.match(board, /leads: activeSonghyeonTaskLeads\(tasks\)/);
+  assert.match(board, /leads: activeSonghyeonTaskLeads\(tasksForCurrentView\)/);
   assert.doesNotMatch(board, /TASK_LEADS|mergeOptions\(TASK_LEADS/);
   assert.match(repository, /leadDept: normalizeSonghyeonTaskLead\(payload\.leadDept\)/);
   assert.match(migration, /update public\.songhyeon_tasks/);
@@ -160,17 +160,17 @@ test('업무 상태에서 보류를 삭제하고 legacy 보류·on_hold는 중�
 
   const board = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskBoard.jsx', 'utf8');
   const editor = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskEditorModal.jsx', 'utf8');
-  const scheduleRepository = await readFile('src/lib/songhyeonScheduleRepository.js', 'utf8');
+  const scheduleMigration = await readFile('supabase/migrations/202608180004_songhyeon_schedule_rows.sql', 'utf8');
   const migration = await readFile('supabase/migrations/202608130010_songhyeon_task_status_cleanup.sql', 'utf8');
-  assert.match(board, /statuses: TASK_STATUSES/);
+  assert.match(board, /statuses: canViewArchived \? \[\.\.\.TASK_STATUSES, ARCHIVED_TASKS\] : TASK_STATUSES/);
   assert.doesNotMatch(board, /statuses: mergeOptions/);
   assert.doesNotMatch(board, /['"]보류['"]/, '보류가 필터나 상태 배지에 남으면 안 됩니다.');
   assert.match(editor, /status: '미착수'/);
   assert.doesNotMatch(editor, /<select\s+value=\{form\.status\}/, '업무 수정이 상태를 일반 update payload로 우회 저장하면 안 됩니다.');
   assert.match(editor, /SonghyeonTaskWorkflowModal/, '업무 수정의 상태 변경도 정식 workflow modal을 사용해야 합니다.');
   assert.doesNotMatch(editor, /<option[^>]*>보류<\/option>/, '업무 수정 상태 선택지에 보류가 다시 생기면 안 됩니다.');
-  assert.match(scheduleRepository, /on_hold:\s*'중단'/, 'legacy 일정 상태 on_hold도 중단으로 정규화해야 합니다.');
-  assert.doesNotMatch(scheduleRepository, /보류:\s*'on_hold'|on_hold:\s*'보류'/, '보류 상태를 일정 경로에서 다시 생성하면 안 됩니다.');
+  assert.match(scheduleMigration, /when 'on_hold' then 'cancelled'/, 'legacy 일정 상태 on_hold도 중단으로 정규화해야 합니다.');
+  assert.match(scheduleMigration, /when '보류' then 'cancelled'/, 'legacy 일정 상태 보류도 중단으로 정규화해야 합니다.');
   assert.match(migration, /update public\.songhyeon_tasks/);
   assert.doesNotMatch(migration, /(?:insert into|update|delete from)\s+(?:public\.)?iota_/i);
 });
@@ -271,7 +271,7 @@ test('관리열 수정·보관은 기본 원색 대신 muted 정적 색상과 ho
   const managementCell = board.match(/<td className="w-\[71px\] min-w-\[71px\] max-w-\[71px\] border-l border-r border-\[#3c3c3c\] px-1 text-center">\s*<div className="flex items-center justify-center gap-1">[\s\S]*?<\/td>/)?.[0] || '';
   assert.ok(managementCell, '관리열 셀을 찾을 수 없습니다.');
 
-  const editButton = managementCell.match(/openTask\(task\); \}\} className="([^"]+)">\{isReadOnly \? '상세' : '수정'\}<\/button>/)?.[1] || '';
+  const editButton = managementCell.match(/if \(archived \|\| isReadOnly\) openTask\(task\); else setEditingTask\(task\); \}\} className="([^"]+)">\{archived \|\| isReadOnly \? '상세' : '수정'\}<\/button>/)?.[1] || '';
   const archiveButton = managementCell.match(/requestArchive\(task\); \}\} className="([^"]+)">보관<\/button>/)?.[1] || '';
   assert.ok(editButton, '관리열 수정 버튼의 정적 className이 필요합니다.');
   assert.ok(archiveButton, '관리열 보관 버튼의 정적 className이 필요합니다.');
@@ -292,7 +292,7 @@ test('변경 이력은 전기영에게만 항목별 삭제 UI와 RLS 권한을 �
   assert.match(repository, /actor\.name === '전기영'/);
   assert.match(repository, /actor\.email\?\.toLowerCase\(\) === 'jk\.jeon@igisam\.com'/);
   assert.doesNotMatch(repository, /delete\(\)\.eq\('id', activityId\)[^\n]*\.eq\('actor_id'/);
-  assert.match(drawer, /canDeleteActivity = !isReadOnly && member\?\.staff_name === '전기영' && user\?\.email\?\.toLowerCase\(\) === 'jk\.jeon@igisam\.com'/);
+  assert.match(drawer, /canDeleteActivity = !detailReadOnly && member\?\.staff_name === '전기영' && user\?\.email\?\.toLowerCase\(\) === 'jk\.jeon@igisam\.com'/);
   assert.match(drawer, /aria-label="변경 이력 개별 삭제"/);
   assert.match(drawer, /removeActivity\(item\.id\)/);
   assert.match(drawer, /\{visibleActivity\.length > 0 && \(/);
@@ -341,14 +341,14 @@ test('상세 drawer가 열린 동안 다른 업무 행은 상세를 즉시 교�
   assert.match(openTaskBlock, /setSelectedTask\(task\)/, '다른 행을 클릭하면 selectedTask를 해당 업무로 즉시 교체해야 합니다.');
 
   const backdropHandlerStart = board.indexOf('const handleTaskDetailBackdropClick =');
-  const backdropHandlerEnd = board.indexOf('\n  }, [closeTask, openTask, tasks]);', backdropHandlerStart);
+  const backdropHandlerEnd = board.indexOf('\n  }, [closeTask, openTask, tasksForCurrentView]);', backdropHandlerStart);
   assert.ok(backdropHandlerStart >= 0 && backdropHandlerEnd > backdropHandlerStart, '상세 backdrop 클릭 handler를 찾을 수 없습니다.');
   const backdropHandler = board.slice(backdropHandlerStart, backdropHandlerEnd);
 
   assert.match(backdropHandler, /document\.elementsFromPoint\(event\.clientX,\s*event\.clientY\)/, 'backdrop 뒤의 실제 클릭 위치를 조회해야 합니다.');
   assert.match(backdropHandler, /\.closest\??\.\(\s*['"]\[data-task-board-row\]['"]\s*\)/, '클릭 좌표 아래의 통합업무 행을 찾아야 합니다.');
   assert.match(backdropHandler, /\.dataset\.taskKey/, '행의 data-task-key로 교체할 업무를 식별해야 합니다.');
-  assert.match(backdropHandler, /tasks\.find\(\(task\) => task\.sourceKey === (?:taskKey|row\.dataset\.taskKey)\)/, 'data-task-key와 일치하는 업무를 현재 원장에서 찾아야 합니다.');
+  assert.match(backdropHandler, /tasksForCurrentView\.find\(\(task\) => task\.sourceKey === (?:taskKey|row\.dataset\.taskKey)\)/, 'data-task-key와 일치하는 업무를 현재 active/archived view에서 찾아야 합니다.');
   assert.match(backdropHandler, /if \(nextTask\) \{[\s\S]*?openTask\(nextTask\);[\s\S]*?return;[\s\S]*?\}[\s\S]*?closeTask\(\)/, '업무 행이면 drawer를 닫지 않고 해당 상세로 교체하며, 일반 backdrop일 때만 닫아야 합니다.');
 
   assert.match(board, /data-task-board-row[^\n]*data-task-key=\{task\.sourceKey\}[^\n]*onClick=\{\(\) => openTask\(task\)\}/, '기본 행 클릭도 openTask 경로를 유지해야 합니다.');
@@ -572,9 +572,9 @@ test('다른 사용자의 새 댓글·대댓글만 업무명 N으로 표시하�
   assert.match(openTask, /markTaskDiscussionRead\(task\.sourceKey, actor\)/);
   assert.match(openTask, /loadTaskDiscussionUnreadSourceKeys\(user\?\.id\)/, '읽음 저장 실패 시 DB 상태로 복구해야 합니다.');
 
-  const taskNameCell = board.match(/<td className=\{`sticky z-10 pl-4 font-bold text-\[#bdbba7\][\s\S]*?<\/td>/)?.[0] || '';
+  const taskNameCell = board.match(/<td className=\{`sticky z-10 pl-4 \$\{isNotStarted \? 'font-normal' : 'font-bold'\}[\s\S]*?<span className="min-w-0 truncate" style=\{\{ color: isNotStarted \? '#686868' : '#bdbba7' \}\}>[\s\S]*?<\/td>/)?.[0] || '';
   assert.ok(taskNameCell, '업무명 셀을 찾을 수 없습니다.');
-  assert.match(taskNameCell, /<span className="min-w-0 truncate">\{task\.taskName\}<\/span>/);
+  assert.match(taskNameCell, /<span className="min-w-0 truncate" style=\{\{ color: isNotStarted \? '#686868' : '#bdbba7' \}\}>\{task\.taskName\}<\/span>/);
   assert.match(taskNameCell, /unreadTaskSourceKeys\.has\(task\.sourceKey\)/);
   assert.match(taskNameCell, /aria-label="새 댓글"/);
   assert.match(taskNameCell, /bg-\[#ff3b30\]/);
@@ -790,7 +790,7 @@ test('통합업무보드 사용자 교정사항은 보관·상단여백·열재�
   assert.match(board, /<WorkspacePageHeader\s+data-task-board-header\s+title="통합업무보드"/);
   assert.match(workspaceLayout, /WorkspacePageHeader[\s\S]*mx-auto mb-\[12px\][^'"`]*w-\[1200px\] max-w-full/);
   assert.doesNotMatch(board, /HeaderFilter label="협업부서"|selectedCoopDept|options\.coops/);
-  assert.match(board, /\{isReadOnly \? '상세' : '수정'\}<\/button>[\s\S]*>\|<\/span>[\s\S]*>보관<\/button>/);
+  assert.match(board, /\{archived \|\| isReadOnly \? '상세' : '수정'\}<\/button>[\s\S]*\{!archived && canCreateAndArchive && <><span[\s\S]*>\|<\/span>[\s\S]*>보관<\/button>/);
   assert.match(board, /requestArchive\(task\)/);
   assert.match(board, /archiveTask\(archiveTarget\.sourceKey/);
   assert.doesNotMatch(board, /setDeleteTarget\(task\)|deleteTask\(/);
@@ -833,6 +833,88 @@ test('통합업무보드 하단은 원문을 보존한 시각적 종합실행계
   assert.doesNotMatch(plan, /bg-\[#263b52\]/);
   assert.doesNotMatch(plan, /bg-\[#2c3440\]/);
   assert.doesNotMatch(plan, /bg-white|text-slate|shadow-/);
+});
+
+test('종합실행계획은 상단 단계 요약을 제거하고 현재·다음·공동목표를 하단 한 줄에서 안내한다', async () => {
+  const plan = await readFile('src/components/iota-songhyeon/task-board/SonghyeonIntegratedExecutionPlan.jsx', 'utf8');
+  const headingEnd = plan.indexOf('<section className="mb-[44px]">');
+  const heading = plan.slice(plan.indexOf('<div className="mb-[32px]">'), headingEnd);
+
+  assert.doesNotMatch(heading, /현재 위치|다음 단계|projectContext\.currentStage|projectContext\.nextGate/);
+  assert.doesNotMatch(plan, /data-stage-summary/);
+
+  assert.match(plan, /data-current-goal-row[^>]*grid[^>]*grid-cols-\[[^\]]+\]/);
+  assert.doesNotMatch(plan, /data-current-goal-row[^>]*grid-cols-\[0\.82fr_64px_1\.18fr\]/);
+  assert.match(
+    plan,
+    /data-current-stage[\s\S]*?projectContext\.currentStage\.code[\s\S]*?projectContext\.currentStage\.name[\s\S]*?projectContext\.currentStage\.objective[\s\S]*?currentStage\.gate/,
+  );
+  assert.match(
+    plan,
+    /data-next-stage[\s\S]*?nextStage\.id[\s\S]*?nextStage\.title[\s\S]*?nextStage\.short[\s\S]*?nextStage\.gate/,
+  );
+  assert.doesNotMatch(plan, /data-next-stage[\s\S]*?projectContext\.nextGate/);
+  assert.match(
+    plan,
+    /data-common-goal[\s\S]*?projectContext\.coreValue[\s\S]*?projectContext\.definition/,
+  );
+  assert.match(plan, /data-current-stage[\s\S]*data-next-stage[\s\S]*data-common-goal/);
+});
+
+test('종합실행계획 현재·다음·공동목표 패널은 동일한 5행 레이아웃과 줄맞춤을 공유한다', async () => {
+  const plan = await readFile('src/components/iota-songhyeon/task-board/SonghyeonIntegratedExecutionPlan.jsx', 'utf8');
+  const sharedLayout = plan.match(/const summaryPanelLayout = '([^']+)'/)?.[1] || '';
+
+  for (const token of ['row-span-5', 'grid', 'grid-rows-subgrid']) {
+    assert.ok(sharedLayout.split(/\s+/).includes(token), `요약 패널 공통 레이아웃에 ${token}가 필요합니다.`);
+  }
+  assert.match(
+    plan,
+    /data-current-goal-row[^>]*grid-rows-\[auto_auto_auto_auto_auto\]/,
+    '세 패널을 관통하는 5개 공통 행을 정의해야 합니다.',
+  );
+
+  const currentStart = plan.indexOf('<div data-current-stage');
+  const nextStart = plan.indexOf('<div data-next-stage');
+  const goalStart = plan.indexOf('<div data-common-goal');
+  const goalEnd = plan.indexOf('<section className="mb-[44px]" data-execution-flow', goalStart);
+  assert.ok(currentStart >= 0 && nextStart > currentStart && goalStart > nextStart && goalEnd > goalStart);
+
+  const panels = {
+    current: plan.slice(currentStart, nextStart),
+    next: plan.slice(nextStart, goalStart),
+    goal: plan.slice(goalStart, goalEnd),
+  };
+  for (const [name, source] of Object.entries(panels)) {
+    const openingTag = source.slice(0, source.indexOf('>') + 1);
+    assert.match(openingTag, /summaryPanelLayout/, `${name} 패널이 공통 레이아웃을 사용해야 합니다.`);
+  }
+
+  const assertRowOrder = (source, markers, panelName) => {
+    let previousIndex = -1;
+    for (const marker of markers) {
+      const markerIndex = source.indexOf(marker, previousIndex + 1);
+      assert.ok(markerIndex > previousIndex, `${panelName} 패널의 ${marker} 행 순서가 동일해야 합니다.`);
+      previousIndex = markerIndex;
+    }
+  };
+  const stageRows = [
+    'data-summary-label',
+    'data-summary-step',
+    'data-summary-title',
+    'data-summary-description',
+    'data-summary-gate',
+  ];
+  assertRowOrder(panels.current, stageRows, '현재');
+  assertRowOrder(panels.next, stageRows, '다음');
+  assertRowOrder(
+    panels.goal,
+    ['data-summary-label', 'data-summary-spacer', 'data-summary-title', 'data-summary-description', 'data-summary-spacer'],
+    '공동 목표',
+  );
+
+  assert.equal((panels.goal.match(/data-summary-spacer/g) || []).length, 2, '공동 목표의 단계·전환기준 자리에는 명시적 여백 행을 둡니다.');
+  assert.doesNotMatch(panels.goal, /data-summary-step|data-summary-gate|currentStage|nextStage|nextGate|단계전환 기준/);
 });
 
 test('신규 업무 모달은 IOTA 원본 등록 구조와 실제 선택·다중선택 기능을 보존한다', async () => {
@@ -924,38 +1006,38 @@ test('좌측 주요 메뉴와 독립 /tasks 라우트에서 통합업무보드�
   assert.doesNotMatch(await readFile('src/pages/Dashboard.jsx', 'utf8'), /SonghyeonTaskBoard|showWorkspaceHeader/);
 });
 
-test('마일스톤 Task는 통합업무 연결·전기영 신규등록·일정수정 계약을 제공하고 상태 workflow를 우회하지 않는다', async () => {
+test('마일스톤 일정은 canonical row CRUD·explicit Task 연결을 제공하고 Task 원장과 독립적이다', async () => {
   const schedule = await readFile('src/components/iota-songhyeon/pmo/SonghyeonDetailedSchedule.jsx', 'utf8');
   const modal = await readFile('src/components/iota-songhyeon/pmo/SonghyeonScheduleTaskLinkModal.jsx', 'utf8');
+  const rowEditor = await readFile('src/components/iota-songhyeon/pmo/SonghyeonScheduleRowEditorModal.jsx', 'utf8');
   const repository = await readFile('src/lib/songhyeonScheduleRepository.js', 'utf8');
   const migration = await readFile('supabase/migrations/202608130005_songhyeon_schedule_task_links.sql', 'utf8');
-  for (const token of ['SonghyeonScheduleTaskLinkModal', 'loadScheduleWorkspace', 'linkScheduleTask', 'createAndLinkScheduleTask', 'updateScheduleItem']) assert.match(schedule, new RegExp(token));
-  for (const token of ['연결된 통합업무', '기존 통합업무 연결', '새 통합업무 등록', '마일스톤 및 일정 수정']) assert.ok(modal.includes(token));
-  for (const token of ['loadScheduleWorkspace', 'linkScheduleTask', 'unlinkScheduleTask', 'createAndLinkScheduleTask', 'updateScheduleItem']) assert.match(repository, new RegExp(`export async function ${token}`));
-  assert.match(repository, /sourceKey === scheduleSourceKey/);
+  const rowMigration = await readFile('supabase/migrations/202608180004_songhyeon_schedule_rows.sql', 'utf8');
+  for (const token of ['SonghyeonScheduleTaskLinkModal', 'SonghyeonScheduleRowEditorModal', 'loadScheduleWorkspace', 'linkScheduleTask', 'createScheduleRow', 'updateScheduleRow', 'deleteScheduleRow']) assert.match(schedule, new RegExp(token));
+  for (const token of ['연결된 통합업무', '기존 통합업무 연결']) assert.ok(modal.includes(token));
+  for (const token of ['loadScheduleWorkspace', 'linkScheduleTask', 'unlinkScheduleTask', 'createScheduleRow', 'updateScheduleRow', 'deleteScheduleRow']) assert.match(repository, new RegExp(`export async function ${token}`));
+  assert.doesNotMatch(`${schedule}\n${modal}\n${repository}`, /createAndLinkScheduleTask|onCreateTask|canCreateTask|새 통합업무 등록|등록 후 연결/);
+  assert.doesNotMatch(repository, /sourceKey === scheduleSourceKey|implicit:\s*true/);
   assert.match(migration, /songhyeon_schedule_task_links/);
   assert.match(migration, /songhyeon_schedule_overrides/);
+  assert.match(rowMigration, /songhyeon_schedule_rows/);
   assert.doesNotMatch(schedule, /task-link concerns are intentionally excluded/);
   assert.match(schedule, /SonghyeonTaskDetailDrawer/);
   assert.match(schedule, /setEmbeddedTask/);
   assert.doesNotMatch(schedule, /window\.location\.href = `\/tasks\?task=/);
-  assert.match(modal, /type="date"/);
-  assert.match(modal, /시작일/);
-  assert.match(modal, /종료일/);
-  assert.doesNotMatch(modal, /시작주|종료주/);
-  assert.match(repository, /updateTask\(scheduleSourceKey, \{ dueDate: patch\.endDate \}/);
-  assert.match(repository, /delete schedulePatch\.status/);
+  assert.doesNotMatch(modal, /onEditSchedule|scheduleForm|마일스톤 및 일정 수정/);
+  assert.match(rowEditor, /type="date"/);
+  assert.match(rowEditor, /시작일/);
+  assert.match(rowEditor, /종료일/);
+  assert.doesNotMatch(rowEditor, /시작주|종료주/);
+  assert.doesNotMatch(repository, /updateTask\(scheduleSourceKey|primaryTask/,
+    '일정 row 수정은 동일 sourceKey의 Task 납기·상태를 암묵적으로 변경하면 안 됩니다.');
   assert.doesNotMatch(repository, /updateTask\(scheduleSourceKey, \{[^}]*status:/);
-  assert.match(schedule, /const canCreateTask = !isReadOnly && member\?\.staff_name === '전기영' && user\?\.email\?\.toLowerCase\(\) === 'jk\.jeon@igisam\.com'/);
-  assert.match(schedule, /canCreateTask=\{canCreateTask\}/);
-  assert.match(modal, /\{canCreateTask && <button[\s\S]*?setActiveTab\('new'\)/);
-  assert.match(modal, /상태는 통합업무 상세의 상태 변경 기능에서 변경합니다/);
   assert.doesNotMatch(modal, /빠른 상태처리/, '제거된 본문 박스를 안내 문구가 다시 지칭하면 안 됩니다.');
-  assert.doesNotMatch(modal, /<select value=\{scheduleForm\.status\}/);
-  assert.match(repository, /primaryTask\?\.dueDate/);
-  assert.match(repository, /taskStatusToScheduleStatus\(primaryTask(?:\?|)\.status\)/);
+  assert.match(rowEditor, /<select value=\{form\.status\}/);
   assert.match(schedule, /getScheduleBarGeometry/);
-  assert.match(schedule, /taskStatusToScheduleStatus\(savedTask\.status\)/);
+  assert.doesNotMatch(schedule, /taskStatusToScheduleStatus\(savedTask\.status\)/,
+    '연결된 Task workflow 변경은 독립 일정 row의 상태를 덮어쓰면 안 됩니다.');
 });
 
 test('업무·댓글·대댓글·반응·변경이력은 localStorage 없이 송현 Supabase 원장으로만 작동한다', async () => {
@@ -1075,8 +1157,8 @@ test('상세 drawer는 본문 빠른 상태처리 박스를 제거하고 footer�
   assert.match(drawerFooter, /\{task\.status\s*!==\s*'완료'\s*&&\s*<button[\s\S]{0,350}?onClick=\{\(\) => setWorkflowTargetStatus\(workflowActions\[0\]\?\.status \|\| ''\)\}[\s\S]*?>상태 처리<\/button>\}/, '미완료 업무의 footer 상태 처리 경로는 유지해야 합니다.');
   assert.match(drawerFooter, /onClick=\{\(\) => setEditorOpen\(true\)\}[\s\S]{0,260}?>업무 수정하기<\/button>/, '상세 footer의 업무 수정 진입은 유지해야 합니다.');
   assert.match(editor, /isEditing\s*\?\s*<button[^>]*onClick=\{\(\) => setWorkflowOpen\(true\)\}[\s\S]{0,350}?>상태 변경<\/button>/, '본문 박스 제거 후에도 업무 수정 내부에서 상태를 변경할 수 있어야 합니다.');
-  assert.match(drawer, /\{workflowTargetStatus\s*&&\s*!isReadOnly\s*&&\s*<SonghyeonTaskWorkflowModal/, 'footer 상태 처리는 기존 workflow modal을 계속 열어야 합니다.');
-  assert.match(board, /isReadOnly\s*\|\|\s*task\.status\s*===\s*'완료'\s*\?\s*<span[\s\S]{0,450}?\{task\.status\}<\/span>\s*:\s*<button/, '보드의 완료 상태는 클릭 가능한 빠른 처리 버튼이 아니라 정적 네임택이어야 합니다.');
+  assert.match(drawer, /\{workflowTargetStatus\s*&&\s*!detailReadOnly\s*&&\s*<SonghyeonTaskWorkflowModal/, 'footer 상태 처리는 active 업무에서 기존 workflow modal을 계속 열어야 합니다.');
+  assert.match(board, /archived\s*\|\|\s*isReadOnly\s*\|\|\s*task\.status\s*===\s*'완료'\s*\?\s*<span[\s\S]{0,450}?\{task\.status\}<\/span>\s*:\s*<button/, '보드의 완료·보관 상태는 클릭 가능한 빠른 처리 버튼이 아니라 정적 네임택이어야 합니다.');
   assert.match(modal, /const isCompletion = targetStatus === '완료'/);
   assert.match(modal, /completeTask\(task\.sourceKey, \{ summary, evidenceUrl \}, actor\)/);
   assert.match(repository, /export const completeTask[\s\S]{0,800}?transitionTaskWorkflow\(sourceKey, 'complete'/, '완료 API action은 complete로 유지돼야 합니다.');
@@ -1143,13 +1225,13 @@ test('전기영만 신규 등록·보관 UI를 보고 다른 활성 멤버도 �
   assert.match(board, /actions=\{canCreateAndArchive \? <button[\s\S]{0,700}>\+ 새 업무 추가<\/button> : null\}/);
   assert.match(board, /\{isEditorOpen && canCreateAndArchive && <SonghyeonTaskEditorModal/);
   assert.match(board, /\{archiveTarget && canCreateAndArchive && \(/);
-  assert.match(board, /\{canCreateAndArchive && <><span[^>]*>\|<\/span><button[\s\S]{0,400}>보관<\/button><\/>\}/);
-  assert.match(board, /isReadOnly\s*\|\|\s*task\.status\s*===\s*'완료'\s*\?\s*<span[\s\S]{0,500}:\s*<button[\s\S]{0,350}setWorkflowTask\(task\)[\s\S]{0,350}aria-label=\{`\$\{task\.taskName\} 상태 처리/, '일반 멤버는 미완료 업무만 표에서 빠른 상태처리를 사용할 수 있어야 합니다.');
-  assert.match(board, /<button[\s\S]{0,350}openTask\(task\)[\s\S]{0,250}>\{isReadOnly \? '상세' : '수정'\}<\/button>/);
+  assert.match(board, /\{!archived && canCreateAndArchive && <><span[^>]*>\|<\/span><button[\s\S]{0,400}>보관<\/button><\/>\}/);
+  assert.match(board, /archived\s*\|\|\s*isReadOnly\s*\|\|\s*task\.status\s*===\s*'완료'\s*\?\s*<span[\s\S]{0,500}:\s*<button[\s\S]{0,350}setWorkflowTask\(task\)[\s\S]{0,350}aria-label=\{`\$\{task\.taskName\} 상태 처리/, '일반 멤버는 active 미완료 업무만 표에서 빠른 상태처리를 사용할 수 있어야 합니다.');
+  assert.match(board, /<button[\s\S]{0,350}if \(archived \|\| isReadOnly\) openTask\(task\); else setEditingTask\(task\);[\s\S]{0,250}>\{archived \|\| isReadOnly \? '상세' : '수정'\}<\/button>/);
   assert.doesNotMatch(board, /canCreateAndArchive && <button[\s\S]{0,300}setWorkflowTask\(task\)/, '일반 멤버의 상태 처리를 숨기면 안 됩니다.');
   assert.match(drawer, /<SonghyeonTaskWorkflowModal/);
   assert.match(drawer, />업무 수정하기<\/button>/);
-  assert.match(drawer, /\{canArchive && !isReadOnly \? <button[\s\S]{0,500}>업무 보관<\/button>/);
+  assert.match(drawer, /\{canArchive && !detailReadOnly \? <button[\s\S]{0,500}>업무 보관<\/button>/);
 
   assert.match(editor, /import SonghyeonTaskWorkflowModal from ['"]\.\/SonghyeonTaskWorkflowModal\.jsx['"]/);
   assert.match(editor, /const \[workflowOpen,\s*setWorkflowOpen\] = useState\(false\)/);

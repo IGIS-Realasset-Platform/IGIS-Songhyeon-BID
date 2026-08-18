@@ -1,5 +1,5 @@
--- Songhyeon feed contact autocomplete reads the approved IOTA stakeholder master.
--- The boundary is read-only: no Songhyeon write is allowed on IOTA objects.
+-- Songhyeon feed contact autocomplete reads the approved shared stakeholder master.
+-- This view is read-only; controlled feed writes use a separate audited sync trigger.
 
 create or replace view public.songhyeon_shared_stakeholder_contacts
 with (security_invoker = true)

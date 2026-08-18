@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { milestoneWeeks } from '../../../data/songhyeonMilestones';
 
-const statuses = [['not_started', '미착수'], ['in_progress', '진행중'], ['completed', '완료'], ['cancelled', '중단']];
 const inputClass = 'h-9 w-full rounded-[8px] border border-[#444] bg-[#292929] px-3 text-[13px] text-white outline-none focus:border-[#2997ff]';
 
 export default function SonghyeonScheduleTaskLinkModal({
@@ -11,51 +9,26 @@ export default function SonghyeonScheduleTaskLinkModal({
   links,
   busy,
   errorMessage,
-  canCreateTask,
+  canManageLinks = false,
   readOnly = false,
   onClose,
   onLink,
   onUnlink,
-  onCreateTask,
-  onEditSchedule,
   onOpenTask,
 }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
-  const [newTask, setNewTask] = useState({
-    taskName: item.displayName,
-    categoryMain: item.categoryMain,
-    leadDept: item.leadLabel,
-    taskPurpose: item.sourceText || '',
-    deliverables: '',
-    dueDate: milestoneWeeks[item.endIndex]?.endDate || '',
-    status: '미착수',
-    importanceLevel: '중간',
-    coopDepts: [],
-    gateStage: item.stage,
-    stage: item.stage,
-    nextAction: '',
-  });
-  const itemStartDate = item.startDate || milestoneWeeks[item.startIndex]?.startDate || '';
-  const itemEndDate = item.endDate || milestoneWeeks[item.endIndex]?.endDate || '';
+  const itemStartDate = item.startDate || '';
+  const itemEndDate = item.endDate || '';
   const formatDate = (value) => value ? value.replaceAll('-', '.') : '미정';
-  const [scheduleForm, setScheduleForm] = useState({
-    displayName: item.displayName,
-    leadLabel: item.leadLabel,
-    startDate: itemStartDate,
-    endDate: itemEndDate,
-    status: item.status,
-  });
   const explicitLinkKeys = new Set(links
     .filter((link) => link.scheduleSourceKey === item.sourceKey)
     .map((link) => link.taskSourceKey));
-  const linkedTasks = tasks.filter((task) => task.sourceKey === item.sourceKey || explicitLinkKeys.has(task.sourceKey));
+  const linkedTasks = tasks.filter((task) => explicitLinkKeys.has(task.sourceKey));
   const filteredTasks = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
     return tasks.filter((task) => !query || `${task.displayId} ${task.taskName} ${task.categoryMain} ${task.leadDept} ${task.assignee}`.toLowerCase().includes(query));
   }, [searchTerm, tasks]);
-  const setNew = (key, value) => setNewTask((current) => ({ ...current, [key]: value }));
-  const setSchedule = (key, value) => setScheduleForm((current) => ({ ...current, [key]: value }));
 
   const linkedList = (
     <section data-linked-task-list>
@@ -68,7 +41,7 @@ export default function SonghyeonScheduleTaskLinkModal({
           const link = links.find((entry) => entry.scheduleSourceKey === item.sourceKey && entry.taskSourceKey === task.sourceKey);
           return (
             <div key={task.sourceKey} className="flex items-center gap-3 rounded-[12px] border border-[#30d158]/25 bg-[#30d158]/5 px-3 py-3">
-              <button type="button" onClick={() => onOpenTask(task.sourceKey)} className="min-w-0 flex-1 text-left">
+              <button type="button" onClick={() => onOpenTask(task.sourceKey)} className="min-w-0 flex-1 cursor-pointer text-left">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-[13px] font-black text-[#60a5fa]">{task.displayId}</span>
                   <span className="truncate text-[15px] font-bold text-white">{task.taskName}</span>
@@ -76,7 +49,7 @@ export default function SonghyeonScheduleTaskLinkModal({
                 </div>
                 <div className="mt-1 text-[12px] text-[#86868B]">{task.categoryMain} · {task.leadDept || '실행주관 미정'}</div>
               </button>
-              {link && !readOnly && <button type="button" disabled={busy} onClick={() => onUnlink(link.id)} className="h-8 rounded-[7px] border border-[#555] px-2.5 text-[12px] font-bold text-[#a1a1aa] hover:text-[#ff7169]">연결 해제</button>}
+              {link && canManageLinks && <button type="button" disabled={busy} onClick={() => onUnlink(link.id)} className="h-8 cursor-pointer rounded-[7px] border border-[#555] px-2.5 text-[12px] font-bold text-[#a1a1aa] hover:text-[#ff7169] disabled:cursor-not-allowed disabled:opacity-45">연결 해제</button>}
             </div>
           );
         })}
@@ -93,11 +66,7 @@ export default function SonghyeonScheduleTaskLinkModal({
         <section className="mt-5">
           <h4 className="mb-1 text-[12px] font-bold text-white">관리 메뉴</h4>
           <p className="mb-3 text-[13px] text-[#86868B]">필요한 작업 하나를 선택하세요.</p>
-          <div className={`grid gap-2.5 ${canCreateTask ? 'grid-cols-3' : 'grid-cols-2'}`}>
-            <button type="button" onClick={() => setActiveTab('existing')} className="rounded-[13px] border border-[#36658d] bg-[#2997ff]/10 p-4 text-left"><b className="block text-[13px] text-[#7cc0ff]">기존 통합업무 연결</b><span className="mt-1.5 block text-[13px] text-[#8e8e93]">추천 또는 검색으로 통합업무를 찾습니다.</span></button>
-            {canCreateTask && <button type="button" onClick={() => setActiveTab('new')} className="rounded-[13px] border border-[#347247] bg-[#30d158]/8 p-4 text-left"><b className="block text-[13px] text-[#4ade80]">새 통합업무 등록</b><span className="mt-1.5 block text-[13px] text-[#8e8e93]">새 통합업무를 만들고 즉시 연결합니다.</span></button>}
-            <button type="button" onClick={() => setActiveTab('schedule')} className="rounded-[13px] border border-[#806329] bg-[#f59e0b]/8 p-4 text-left"><b className="block text-[13px] text-[#fbbf24]">마일스톤 및 일정 수정</b><span className="mt-1.5 block text-[13px] text-[#8e8e93]">업무명·실행주관·기간을 수정합니다. 상태는 업무 상세에서 처리합니다.</span></button>
-          </div>
+          {canManageLinks ? <button type="button" onClick={() => setActiveTab('existing')} className="w-full cursor-pointer rounded-[13px] border border-[#36658d] bg-[#2997ff]/10 p-4 text-left"><b className="block text-[13px] text-[#7cc0ff]">기존 통합업무 연결</b><span className="mt-1.5 block text-[13px] text-[#8e8e93]">추천 또는 검색으로 통합업무를 찾습니다.</span></button> : null}
         </section>
       )}
     </div>
@@ -105,37 +74,17 @@ export default function SonghyeonScheduleTaskLinkModal({
 
   const management = (
     <div className="timeline-scrollbar min-h-0 flex-1 overflow-y-auto p-5">
-      <button type="button" onClick={() => setActiveTab('overview')} className="mb-4 rounded-[7px] border border-[#444] px-3 py-2 text-[12px] font-bold text-[#a1a1aa]">← 요약으로</button>
+      <button type="button" onClick={() => setActiveTab('overview')} className="mb-4 cursor-pointer rounded-[7px] border border-[#444] px-3 py-2 text-[12px] font-bold text-[#a1a1aa]">← 요약으로</button>
       {activeTab === 'existing' && (
         <>
           <input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="업무명·담당자·실행주관·분류 검색" className={inputClass} />
           <div className="mt-3 grid grid-cols-2 gap-2.5">
             {filteredTasks.map((task) => {
               const linked = linkedTasks.some((entry) => entry.sourceKey === task.sourceKey);
-              return <div key={task.sourceKey} className="rounded-[13px] border border-[#40454b] bg-[#282b2f] p-3.5"><b className="text-[14px] text-white">{task.taskName}</b><p className="mt-1 text-[12px] text-[#86868B]">{task.displayId} · {task.categoryMain}</p><button type="button" disabled={linked || busy} onClick={() => onLink(task.sourceKey)} className="mt-3 h-8 rounded-[7px] border border-[#296da8] bg-[#2997ff]/15 px-3 text-[12px] font-bold text-[#7cc0ff] disabled:opacity-45">{linked ? '연결됨' : '연결'}</button></div>;
+              return <div key={task.sourceKey} className="rounded-[13px] border border-[#40454b] bg-[#282b2f] p-3.5"><b className="text-[14px] text-white">{task.taskName}</b><p className="mt-1 text-[12px] text-[#86868B]">{task.displayId} · {task.categoryMain}</p><button type="button" disabled={linked || busy} onClick={() => onLink(task.sourceKey)} className="mt-3 h-8 cursor-pointer rounded-[7px] border border-[#296da8] bg-[#2997ff]/15 px-3 text-[12px] font-bold text-[#7cc0ff] disabled:cursor-not-allowed disabled:opacity-45">{linked ? '연결됨' : '연결'}</button></div>;
             })}
           </div>
         </>
-      )}
-      {activeTab === 'new' && canCreateTask && (
-        <form onSubmit={(event) => { event.preventDefault(); onCreateTask(newTask); }} className="grid grid-cols-2 gap-4">
-          <label className="col-span-2 text-[12px] text-[#a1a1aa]">업무명<input value={newTask.taskName} onChange={(event) => setNew('taskName', event.target.value)} className={`${inputClass} mt-1`} required /></label>
-          <label className="text-[12px] text-[#a1a1aa]">업무분류<input value={newTask.categoryMain} onChange={(event) => setNew('categoryMain', event.target.value)} className={`${inputClass} mt-1`} required /></label>
-          <label className="text-[12px] text-[#a1a1aa]">실행주관<input value={newTask.leadDept} onChange={(event) => setNew('leadDept', event.target.value)} className={`${inputClass} mt-1`} required /></label>
-          <label className="col-span-2 text-[12px] text-[#a1a1aa]">업무 목적<textarea value={newTask.taskPurpose} onChange={(event) => setNew('taskPurpose', event.target.value)} className="mt-1 h-20 w-full rounded-[8px] border border-[#444] bg-[#292929] p-3 text-[13px] text-white" required /></label>
-          <label className="col-span-2 text-[12px] text-[#a1a1aa]">필요 산출물<textarea value={newTask.deliverables} onChange={(event) => setNew('deliverables', event.target.value)} className="mt-1 h-20 w-full rounded-[8px] border border-[#444] bg-[#292929] p-3 text-[13px] text-white" /></label>
-          <button type="submit" disabled={busy} className="col-span-2 justify-self-end rounded-[8px] bg-[#30d158] px-5 py-2 text-[13px] font-bold text-black">등록 후 연결</button>
-        </form>
-      )}
-      {activeTab === 'schedule' && (
-        <form onSubmit={(event) => { event.preventDefault(); onEditSchedule(scheduleForm); }} className="grid grid-cols-2 gap-4">
-          <label className="col-span-2 text-[12px] text-[#a1a1aa]">업무명<input value={scheduleForm.displayName} onChange={(event) => setSchedule('displayName', event.target.value)} className={`${inputClass} mt-1`} /></label>
-          <label className="col-span-2 text-[12px] text-[#a1a1aa]">실행주관<input value={scheduleForm.leadLabel} onChange={(event) => setSchedule('leadLabel', event.target.value)} className={`${inputClass} mt-1`} /></label>
-          <label className="text-[12px] text-[#a1a1aa]">시작일<input type="date" min={milestoneWeeks[0].startDate} max={milestoneWeeks.at(-1).endDate} value={scheduleForm.startDate} onChange={(event) => setSchedule('startDate', event.target.value)} className={`${inputClass} mt-1 [color-scheme:dark]`} required /></label>
-          <label className="text-[12px] text-[#a1a1aa]">종료일<input type="date" min={scheduleForm.startDate || milestoneWeeks[0].startDate} max={milestoneWeeks.at(-1).endDate} value={scheduleForm.endDate} onChange={(event) => setSchedule('endDate', event.target.value)} className={`${inputClass} mt-1 [color-scheme:dark]`} required /></label>
-          <div className="col-span-2 text-[12px] text-[#a1a1aa]">진행상태<div className={`${inputClass} mt-1 flex items-center`}>{statuses.find(([value]) => value === scheduleForm.status)?.[1] || '미착수'}</div><p className="mt-1 text-[11px] text-[#686868]">상태는 통합업무 상세의 상태 변경 기능에서 변경합니다.</p></div>
-          <button type="submit" disabled={busy} className="col-span-2 justify-self-end rounded-[8px] bg-[#f59e0b] px-5 py-2 text-[13px] font-bold text-black">일정 저장</button>
-        </form>
       )}
     </div>
   );
@@ -150,7 +99,7 @@ export default function SonghyeonScheduleTaskLinkModal({
             <div className="mt-2 flex items-center gap-4"><h3 className="min-w-0 flex-1 text-[22px] font-bold text-white">{item.displayName}</h3><div className="inline-flex shrink-0 items-center rounded-[7px] border border-[#454545] bg-white/[0.03] px-2.5 py-1.5 text-[12px] font-bold text-[#bdbba7]"><span className="mr-2 text-[#86868B]">기간</span>{formatDate(itemStartDate)} ~ {formatDate(itemEndDate)}</div></div>
             <p className="mt-1.5 text-[13px] text-[#86868B]">{item.leadLabel} · {item.categoryMain}</p>
           </div>
-          <button type="button" onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-full border border-[#444] text-[18px] text-[#a1a1aa]">×</button>
+          <button type="button" onClick={onClose} className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-[#444] text-[18px] text-[#a1a1aa]">×</button>
         </header>
         {errorMessage && <div className="mx-5 mt-4 rounded-[8px] border border-[#ff5f57]/40 bg-[#ff5f57]/10 px-3 py-2 text-[13px] text-[#ff7b74]">{errorMessage}</div>}
         {activeTab === 'overview' || readOnly ? overview : management}

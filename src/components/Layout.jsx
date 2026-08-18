@@ -144,7 +144,7 @@ function Section({ label, items, open, setOpen, collapsed }) {
 export default function Layout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname === '/data' || pathname.startsWith('/governance') || pathname.startsWith('/admin');
+  const isDarkWorkspace = pathname === '/home' || pathname === '/milestones' || pathname === '/tasks' || pathname.startsWith('/map-activities') || pathname === '/hypotheses' || pathname === '/feed' || pathname.startsWith('/feed/') || pathname === '/data' || pathname.startsWith('/data/') || pathname.startsWith('/governance') || pathname.startsWith('/admin');
   const { user, member, isGuest, isAdmin, exitGuestMode, signOut, updatePassword } = useSonghyeonAuth();
   const mainRef = useRef(null);
   const [collapsed, setCollapsed] = useState(false);

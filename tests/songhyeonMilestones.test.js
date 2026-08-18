@@ -179,7 +179,9 @@ test('Task 제목은 핵심 주제만 표시하고 행 전체 클릭으로 상�
   assert.match(page, /item\.itemType === 'task' \? 'cursor-pointer'/);
   assert.doesNotMatch(page, /<button[^>]*data-task-key=\{item\.sourceKey\}/);
   assert.match(page, /item=\{selectedItem\}/);
-  assert.match(modal, /taskPurpose: item\.sourceText \|\| ''/);
+  assert.doesNotMatch(modal, /taskPurpose: item\.sourceText|const \[newTask|onCreateTask/,
+    '일정 상세에서 신규 Task를 생성하는 독립 폼을 다시 추가하면 안 됩니다.');
+  assert.match(modal, /const linkedTasks = tasks\.filter\(\(task\) => explicitLinkKeys\.has\(task\.sourceKey\)\)/);
   assert.match(modal, /onOpenTask\(task\.sourceKey\)/);
   assert.match(modal, /상세보기 →/);
 });

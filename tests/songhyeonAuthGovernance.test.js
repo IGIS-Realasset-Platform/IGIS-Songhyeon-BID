@@ -225,7 +225,7 @@ test('9명의 IOTA 원본 프로필 이미지가 송현 저장소에 독립 복�
     await access(`public/songhyeon-members/${name}.webp`);
   }
   const page = await read('src/pages/governance/SonghyeonInternal.jsx');
-  assert.match(page, /songhyeon-members/);
+  assert.match(page, /songhyeonMemberPhotoSource/);
 });
 
 test('송현 거버넌스는 중복된 단계·R&R 메뉴 대신 최소 운영체계로 구성된다', async () => {

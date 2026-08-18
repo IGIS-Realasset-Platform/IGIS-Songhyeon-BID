@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { songhyeonSupabase } from '../../lib/songhyeonSupabase';
 import { songhyeonMemberFallback } from '../../data/songhyeonMembers';
+import { songhyeonMemberPhotoSource } from '../../components/iota-songhyeon/SonghyeonMemberAvatar';
 
 const GROUP_ORDER = ['공간솔루션센터', '기업마케팅', '기획추진센터'];
 
@@ -51,7 +52,10 @@ const normalize = (row) => ({
   title: DISPLAY_TITLES[row.staff_name || row.name] || row.title || '',
   roles: row.roles || [],
   responsibility: row.responsibility || '',
-  photoPath: row.photo_path || row.photoPath || `/songhyeon-members/${row.staff_name || row.name}.webp`,
+  photoPath: songhyeonMemberPhotoSource({
+    name: row.staff_name || row.name,
+    photoPath: row.photo_path || row.photoPath,
+  }),
   gateScope: row.gate_scope || row.gateScope || [],
   order: row.display_order ?? row.order ?? 999,
 });
@@ -150,7 +154,7 @@ export default function SonghyeonInternal() {
       className="pointer-events-none fixed z-[110] h-[128px] w-[128px] overflow-hidden rounded-full border border-[#333] bg-[#222] shadow-2xl"
       style={{ left: mousePos.x + 10, top: mousePos.y - 50 }}
     >
-      <img src={hoveredMember.photoPath} alt={`${hoveredMember.name} 확대`} className="h-full w-full object-cover" />
+      <img src={hoveredMember.photoPath} alt={`${hoveredMember.name} 확대`} onError={() => setHoveredMember(null)} className="h-full w-full object-cover" />
     </div>}
   </div>;
 }

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
 import {
   archiveTask,
+  loadArchivedTasks,
   loadTaskDiscussionUnreadSourceKeys,
   loadTasks,
   markTaskDiscussionRead,
@@ -20,6 +21,7 @@ import { WorkspacePageHeader } from '../../workspace/WorkspacePageLayout.jsx';
 import { importanceBadgeClass } from './songhyeonTaskBadgeClasses.js';
 
 const ALL = '전체보기';
+const ARCHIVED_TASKS = '보관된 업무';
 
 const asList = (value) => Array.isArray(value) ? value : String(value || '').split(/[;,]/).map((item) => item.trim()).filter(Boolean);
 const unique = (rows, getter) => [...new Set(rows.flatMap((row) => asList(getter(row))).filter(Boolean))];
@@ -107,6 +109,7 @@ function EmptyBoardRow({ isAll, children, pulse = false }) {
 export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
   const { user, member, isReadOnly } = useSonghyeonAuth();
   const [tasks, setTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [unreadTaskSourceKeys, setUnreadTaskSourceKeys] = useState(() => new Set());
   const [searchQuery, setSearchQuery] = useState('');
@@ -128,6 +131,7 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
   const [selectedImportanceLevel, setSelectedImportanceLevel] = useState(ALL);
 
   const [loading, setLoading] = useState(true);
+  const [archivedLoading, setArchivedLoading] = useState(false);
   const [repositoryError, setRepositoryError] = useState('');
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
@@ -142,6 +146,9 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
     name: member?.staff_name || user?.email || '송현 BID TF',
   }), [member?.staff_name, user?.email, user?.id]);
   const canCreateAndArchive = !isReadOnly && member?.staff_name === '전기영' && user?.email?.toLowerCase() === 'jk.jeon@igisam.com';
+  const canViewArchived = !isReadOnly && Boolean(actor.userId && member);
+  const showingArchived = selectedStatus === ARCHIVED_TASKS;
+  const tasksForCurrentView = showingArchived ? archivedTasks : tasks;
 
   const openTask = useCallback((task) => {
     setSelectedTask(task);
@@ -172,14 +179,14 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
       .map((element) => element.closest?.('[data-task-board-row]'))
       .find(Boolean);
     const nextTask = row?.dataset.taskKey
-      ? tasks.find((task) => task.sourceKey === row.dataset.taskKey)
+      ? tasksForCurrentView.find((task) => task.sourceKey === row.dataset.taskKey)
       : null;
     if (nextTask) {
       openTask(nextTask);
       return;
     }
     closeTask();
-  }, [closeTask, openTask, tasks]);
+  }, [closeTask, openTask, tasksForCurrentView]);
 
   useEffect(() => {
     let active = true;
@@ -199,6 +206,30 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
     }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [actor.userId, openTask, user?.id]);
+
+  useEffect(() => {
+    if (!showingArchived) return undefined;
+    if (!canViewArchived) {
+      setSelectedStatus(ALL);
+      return undefined;
+    }
+    let active = true;
+    setArchivedLoading(true);
+    setRepositoryError('');
+    loadArchivedTasks().then((rows) => {
+      if (active) setArchivedTasks(rows);
+    }).catch((error) => {
+      if (active) setRepositoryError(error.message || '보관된 업무를 불러오지 못했습니다.');
+    }).finally(() => {
+      if (active) setArchivedLoading(false);
+    });
+    return () => { active = false; };
+  }, [canViewArchived, showingArchived]);
+
+  useEffect(() => {
+    if (!selectedTask || Boolean(selectedTask.archivedAt) === showingArchived) return;
+    closeTask();
+  }, [closeTask, selectedTask, showingArchived]);
 
   useEffect(() => {
     if (!actor.userId) return undefined;
@@ -266,12 +297,12 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
 
   const options = useMemo(() => ({
     categories: songhyeonTaskCategories,
-    gates: mergeOptions(TASK_GATES, unique(tasks, (task) => task.gateStage || task.stage)),
-    leads: activeSonghyeonTaskLeads(tasks),
-    statuses: TASK_STATUSES,
+    gates: mergeOptions(TASK_GATES, unique(tasksForCurrentView, (task) => task.gateStage || task.stage)),
+    leads: activeSonghyeonTaskLeads(tasksForCurrentView),
+    statuses: canViewArchived ? [...TASK_STATUSES, ARCHIVED_TASKS] : TASK_STATUSES,
     importance: TASK_IMPORTANCE,
 
-  }), [tasks]);
+  }), [canViewArchived, tasksForCurrentView]);
 
   useEffect(() => {
     if (selectedCategoryMain !== ALL && !songhyeonTaskCategories.includes(selectedCategoryMain)) setSelectedCategoryMain(ALL);
@@ -286,19 +317,23 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
   }, [options.leads, selectedLeadDept]);
 
   useEffect(() => {
-    if (selectedStatus !== ALL && !TASK_STATUSES.includes(selectedStatus)) setSelectedStatus(ALL);
+    if (selectedStatus !== ALL && !options.statuses.includes(selectedStatus)) setSelectedStatus(ALL);
+  }, [options.statuses, selectedStatus]);
+
+  useEffect(() => {
+    setCurrentPage(1);
   }, [selectedStatus]);
 
   const sortedAndFilteredTasks = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    const rows = tasks.filter((task) => {
+    const rows = tasksForCurrentView.filter((task) => {
       if (selectedCategoryMain !== ALL && task.categoryMain !== selectedCategoryMain) return false;
       if (selectedGateStage !== ALL && (task.gateStage || task.stage) !== selectedGateStage) return false;
       if (selectedLeadDept !== ALL && task.leadDept !== selectedLeadDept) return false;
 
       if (selectedIsBlocker !== ALL && task.isBlocker !== (selectedIsBlocker === 'Y (예)')) return false;
       if (selectedNeedsDecision !== ALL && task.needsDecision !== (selectedNeedsDecision === 'Y (예)')) return false;
-      if (selectedStatus !== ALL && task.status !== selectedStatus) return false;
+      if (!showingArchived && selectedStatus !== ALL && task.status !== selectedStatus) return false;
       if (selectedImportanceLevel !== ALL && task.importanceLevel !== selectedImportanceLevel) return false;
 
       if (!query) return true;
@@ -308,11 +343,12 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
       ...rows.filter((task) => task.categoryMain === PINNED_TASK_CATEGORY),
       ...rows.filter((task) => task.categoryMain !== PINNED_TASK_CATEGORY),
     ];
-  }, [searchQuery, selectedCategoryMain, selectedGateStage, selectedImportanceLevel, selectedIsBlocker, selectedLeadDept, selectedNeedsDecision, selectedStatus, tasks]);
+  }, [searchQuery, selectedCategoryMain, selectedGateStage, selectedImportanceLevel, selectedIsBlocker, selectedLeadDept, selectedNeedsDecision, selectedStatus, showingArchived, tasksForCurrentView]);
 
   const totalPages = Math.max(1, Math.ceil(sortedAndFilteredTasks.length / pageSize));
   const visiblePage = Math.min(currentPage, totalPages);
   const paginatedTasks = sortedAndFilteredTasks.slice((visiblePage - 1) * pageSize, visiblePage * pageSize);
+  const viewLoading = loading || (showingArchived && archivedLoading);
   useEffect(() => {
     setCurrentPage((page) => Math.min(Math.max(page, 1), totalPages));
   }, [totalPages]);
@@ -321,12 +357,13 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
     setSelectedTask((current) => current?.sourceKey === updated.sourceKey ? updated : current);
   }, []);
   const requestArchive = useCallback((task) => {
+    if (!task || task.archivedAt) return;
     setArchiveTarget(task);
     setArchiveReason('');
   }, []);
   const confirmArchive = async () => {
     const reason = archiveReason.trim();
-    if (!archiveTarget || !reason || !canCreateAndArchive) return;
+    if (!archiveTarget || archiveTarget.archivedAt || !reason || !canCreateAndArchive) return;
     setArchiving(true);
     setRepositoryError('');
     try {
@@ -386,16 +423,18 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
                 <th className="w-[71px] min-w-[71px] max-w-[71px] border-l border-r border-[#3c3c3c] px-1 text-center">관리</th>
               </tr></thead>
               <tbody className="divide-y divide-[#3c3c3c] text-[13px] text-white">
-                {!loading && !paginatedTasks.length && <EmptyBoardRow isAll={isAll}>조건에 맞는 통합 업무가 없습니다.</EmptyBoardRow>}
-                {loading && <EmptyBoardRow isAll={isAll} pulse>원장 정보를 불러오는 중입니다...</EmptyBoardRow>}
+                {!viewLoading && !paginatedTasks.length && <EmptyBoardRow isAll={isAll}>{showingArchived ? '보관된 업무가 없습니다.' : '조건에 맞는 통합 업무가 없습니다.'}</EmptyBoardRow>}
+                {viewLoading && <EmptyBoardRow isAll={isAll} pulse>{showingArchived ? '보관된 업무를 불러오는 중입니다...' : '원장 정보를 불러오는 중입니다...'}</EmptyBoardRow>}
                 {paginatedTasks.map((task, index) => {
                   const selected = selectedTask?.sourceKey === task.sourceKey;
+                  const isNotStarted = task.status === '미착수';
+                  const archived = Boolean(task.archivedAt);
                   return <tr key={task.sourceKey} data-task-board-row data-task-key={task.sourceKey} aria-selected={selected} onClick={() => openTask(task)} className={`group h-[50px] cursor-pointer transition-colors [&>td]:bg-inherit ${selected ? 'bg-[#3c3c3a] hover:bg-[#3c3c3a]' : 'bg-[#272726] hover:bg-[#2d2d2c]'}`}>
                     <td className={`sticky left-0 z-10 w-[50px] min-w-[50px] max-w-[50px] truncate pl-[10px] text-center font-mono text-[11px] text-[#86868B] ${index === paginatedTasks.length - 1 ? 'rounded-bl-[24px]' : ''}`}>{task.displayId}</td>
                     <td className="sticky left-[50px] z-10 w-[102px] min-w-[102px] max-w-[102px] truncate px-2 text-center font-bold text-[#A1A1AA]" title={task.gateStage || task.stage}>{task.gateStage || task.stage}</td>
-                    <td className="sticky left-[152px] z-10 w-[106px] min-w-[106px] max-w-[106px] truncate text-center font-bold text-[#E5E5E5]">{task.categoryMain}</td>
+                    <td className={`sticky left-[152px] z-10 w-[106px] min-w-[106px] max-w-[106px] truncate text-center font-bold ${isNotStarted ? 'text-[#A8A9AD]' : 'text-[#E5E5E5]'}`}>{task.categoryMain}</td>
                     <td className={`sticky left-[258px] z-10 truncate text-[#A1A1AA] ${isAll ? 'w-[90px] min-w-[90px] max-w-[90px] pl-4 opacity-100' : 'hidden w-0 p-0 opacity-0'}`}>{task.sectorDetail || task.stage}</td>
-                    <td className={`sticky z-10 pl-4 font-bold text-[#bdbba7] ${isAll ? 'left-[348px] w-[347px] min-w-[347px] max-w-[347px]' : 'left-[258px] w-[325px] min-w-[325px] max-w-[325px]'}`}><div className="flex w-full min-w-0 items-center gap-[6px]"><span className="min-w-0 truncate">{task.taskName}</span>{unreadTaskSourceKeys.has(task.sourceKey) && <span aria-label="새 댓글" title="새 댓글이 있습니다" className="shrink-0 inline-flex items-center justify-center px-[4px] py-[2px] rounded-[3px] text-[10px] font-black bg-[#ff3b30] text-white leading-none tracking-wider relative top-[1px]">N</span>}</div></td>
+                    <td className={`sticky z-10 pl-4 ${isNotStarted ? 'font-normal' : 'font-bold'} ${isAll ? 'left-[348px] w-[347px] min-w-[347px] max-w-[347px]' : 'left-[258px] w-[325px] min-w-[325px] max-w-[325px]'}`}><div className="flex w-full min-w-0 items-center gap-[6px]"><span className="min-w-0 truncate" style={{ color: isNotStarted ? '#686868' : '#bdbba7' }}>{task.taskName}</span>{unreadTaskSourceKeys.has(task.sourceKey) && <span aria-label="새 댓글" title="새 댓글이 있습니다" className="shrink-0 inline-flex items-center justify-center px-[4px] py-[2px] rounded-[3px] text-[10px] font-black bg-[#ff3b30] text-white leading-none tracking-wider relative top-[1px]">N</span>}</div></td>
                     <td className={`${isAll ? 'w-[220px] min-w-[220px] max-w-[220px] pl-4 opacity-100' : 'hidden w-0 p-0 opacity-0'} truncate text-[#A1A1AA]`}>{task.taskPurpose || task.sourceText || '-'}</td>
                     <td className={`${isAll ? 'w-[220px] min-w-[220px] max-w-[220px] pl-4 opacity-100' : 'hidden w-0 p-0 opacity-0'} truncate text-[#A1A1AA]`}>{task.deliverables || '-'}</td>
                     <td className="w-[74px] min-w-[74px] max-w-[74px] truncate text-center font-mono text-[11px] text-[#A1A1AA]" title={task.dueDate || ''}>{formatTaskDueDate(task.dueDate)}</td>
@@ -407,12 +446,12 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
                     <td className="w-[46px] min-w-[46px] max-w-[46px] text-center"><span className={`rounded px-2 py-0.5 text-[11px] font-bold ${task.isBlocker ? 'border border-red-500/20 bg-red-500/10 text-red-400' : 'text-gray-500'}`}>{task.isBlocker ? 'Y' : 'N'}</span></td>
                     <td className="w-[48px] min-w-[48px] max-w-[48px] text-center"><span className={`rounded px-2 py-0.5 text-[11px] font-bold ${task.needsDecision ? 'border border-amber-500/20 bg-amber-500/10 text-amber-400' : 'text-gray-500'}`}>{task.needsDecision ? 'Y' : 'N'}</span></td>
                     <td className={`${isAll ? 'w-[200px] min-w-[200px] max-w-[200px] pl-4 opacity-100' : 'hidden w-0 p-0 opacity-0'} truncate text-[#A1A1AA]`}>{task.nextAction || '-'}</td>
-                    <td className="w-[56px] min-w-[56px] max-w-[56px] text-center">{isReadOnly || task.status === '완료' ? <span className={`inline-flex rounded px-2 py-0.5 text-[11px] font-bold ${statusBadgeClass(task.status)}`}>{task.status}</span> : <button type="button" onClick={(event) => { event.stopPropagation(); setWorkflowTask(task); }} aria-label={`${task.taskName} 상태 처리, 현재 ${task.status}`} title="상태 빠른 처리" className={`cursor-pointer rounded px-2 py-0.5 text-[11px] font-bold transition-[filter] hover:brightness-125 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#82add0] ${statusBadgeClass(task.status)}`}>{task.status}</button>}</td>
+                    <td className="w-[56px] min-w-[56px] max-w-[56px] text-center">{archived || isReadOnly || task.status === '완료' ? <span className={`inline-flex rounded px-2 py-0.5 text-[11px] font-bold ${statusBadgeClass(task.status)}`}>{task.status}</span> : <button type="button" onClick={(event) => { event.stopPropagation(); setWorkflowTask(task); }} aria-label={`${task.taskName} 상태 처리, 현재 ${task.status}`} title="상태 빠른 처리" className={`cursor-pointer rounded px-2 py-0.5 text-[11px] font-bold transition-[filter] hover:brightness-125 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#82add0] ${statusBadgeClass(task.status)}`}>{task.status}</button>}</td>
                     <td className="w-[56px] min-w-[56px] max-w-[56px] truncate text-center"><span className={`rounded px-2 py-0.5 text-[11px] font-bold ${importanceBadgeClass(task.importanceLevel)}`}>{task.importanceLevel}</span></td>
                     <td className="w-[71px] min-w-[71px] max-w-[71px] border-l border-r border-[#3c3c3c] px-1 text-center">
                       <div className="flex items-center justify-center gap-1">
-                        <button type="button" onClick={(event) => { event.stopPropagation(); if (isReadOnly) openTask(task); else setEditingTask(task); }} className="cursor-pointer text-[11px] font-bold text-[#6f9fc7] hover:text-[#82add0]">{isReadOnly ? '상세' : '수정'}</button>
-                        {canCreateAndArchive && <><span className="mx-[2px] select-none text-[#555]">|</span><button type="button" onClick={(event) => { event.stopPropagation(); requestArchive(task); }} className="cursor-pointer text-[11px] font-bold text-[#a78661] hover:text-[#b89a78]">보관</button></>}
+                        <button type="button" onClick={(event) => { event.stopPropagation(); if (archived || isReadOnly) openTask(task); else setEditingTask(task); }} className="cursor-pointer text-[11px] font-bold text-[#6f9fc7] hover:text-[#82add0]">{archived || isReadOnly ? '상세' : '수정'}</button>
+                        {!archived && canCreateAndArchive && <><span className="mx-[2px] select-none text-[#555]">|</span><button type="button" onClick={(event) => { event.stopPropagation(); requestArchive(task); }} className="cursor-pointer text-[11px] font-bold text-[#a78661] hover:text-[#b89a78]">보관</button></>}
                       </div>
                     </td>
                   </tr>;
@@ -424,10 +463,10 @@ export default function SonghyeonTaskBoard({ showWorkspaceHeader = true }) {
         </div>
         {totalPages > 1 && <div className="flex h-[46px] w-full select-none items-center justify-center rounded-b-[24px] border-t border-[#3c3c3c]/50 bg-[#272726]"><div className="flex items-center gap-1"><button type="button" disabled={visiblePage === 1} onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))} className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] border border-[#3c3c3c] text-[#86868B] hover:bg-white/5 hover:text-white disabled:cursor-not-allowed disabled:opacity-30">‹</button>{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => setCurrentPage(page)} className={`h-7 w-7 cursor-pointer rounded-[6px] text-[12px] font-bold ${page === visiblePage ? 'bg-[#bdbba7] text-black shadow-sm' : 'border border-transparent text-[#86868B] hover:border-[#3c3c3c] hover:bg-white/5 hover:text-white'}`}>{page}</button>)}<button type="button" disabled={visiblePage === totalPages} onClick={() => setCurrentPage((page) => Math.min(page + 1, totalPages))} className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] border border-[#3c3c3c] text-[#86868B] hover:bg-white/5 hover:text-white disabled:cursor-not-allowed disabled:opacity-30">›</button></div></div>}
       </div>
-      {selectedTask && <SonghyeonTaskDetailDrawer key={selectedTask.sourceKey} task={selectedTask} onClose={closeTask} onBackdropClick={handleTaskDetailBackdropClick} onSaved={replaceTask} canArchive={canCreateAndArchive} onArchiveRequest={requestArchive} />}
+      {selectedTask && <SonghyeonTaskDetailDrawer key={selectedTask.sourceKey} task={selectedTask} onClose={closeTask} onBackdropClick={handleTaskDetailBackdropClick} onSaved={replaceTask} forceReadOnly={Boolean(selectedTask.archivedAt)} canArchive={canCreateAndArchive && !selectedTask.archivedAt} onArchiveRequest={requestArchive} />}
       {isEditorOpen && canCreateAndArchive && <SonghyeonTaskEditorModal onClose={() => setIsEditorOpen(false)} onCreated={(created) => { setTasks((current) => [...current, created]); setIsEditorOpen(false); openTask(created); }} />}
-      {editingTask && !isReadOnly && <SonghyeonTaskEditorModal key={editingTask.sourceKey} task={editingTask} onClose={() => setEditingTask(null)} onSaved={(updated) => { replaceTask(updated); setEditingTask(null); }} onWorkflowSaved={replaceTask} />}
-      {workflowTask && !isReadOnly && <SonghyeonTaskWorkflowModal task={workflowTask} onClose={() => setWorkflowTask(null)} onSaved={async (updated) => { replaceTask(updated); setWorkflowTask(null); }} />}
+      {editingTask && !isReadOnly && !editingTask.archivedAt && <SonghyeonTaskEditorModal key={editingTask.sourceKey} task={editingTask} onClose={() => setEditingTask(null)} onSaved={(updated) => { replaceTask(updated); setEditingTask(null); }} onWorkflowSaved={replaceTask} />}
+      {workflowTask && !isReadOnly && !workflowTask.archivedAt && <SonghyeonTaskWorkflowModal task={workflowTask} onClose={() => setWorkflowTask(null)} onSaved={async (updated) => { replaceTask(updated); setWorkflowTask(null); }} />}
       {archiveTarget && canCreateAndArchive && (
         <div className="fixed inset-0 z-[210000] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget && !archiving) { setArchiveTarget(null); setArchiveReason(''); } }}>
           <div role="alertdialog" aria-modal="true" aria-labelledby="task-archive-title" aria-describedby="task-archive-description" className="w-full max-w-[440px] overflow-hidden rounded-[16px] border border-[#3c3c3c] bg-[#272726] text-left shadow-2xl">

@@ -10,6 +10,9 @@ import {
 
 const sharedPhases = workPlanPhases.filter((phase) => phase.track !== '기획추진 전담');
 const planningTrack = workPlanPhases.find((phase) => phase.track === '기획추진 전담');
+const currentStage = stages.find((stage) => stage.id === projectContext.currentStage.id);
+const nextStage = stages.find((stage) => stage.id === projectContext.currentStage.id + 1);
+const summaryPanelLayout = 'row-span-5 grid grid-rows-subgrid gap-y-3 p-6';
 
 const stageQuestions = {
   'WP-00': '무엇이 사실이며, 다음 판단에 필요한 어떤 근거가 아직 비어 있는가?',
@@ -53,42 +56,38 @@ export default function SonghyeonIntegratedExecutionPlan() {
   return (
     <section id="execution-framework" className="mx-auto w-[1200px] max-w-full bg-[#1F1F1E] pb-[20px] pt-[38px] text-[#E5E5E5]">
       <div className="mb-[32px]">
-        <div className="flex items-end justify-between gap-10">
-          <div>
-            <h1 className="text-[28px] font-bold leading-tight">송현 BID 종합실행계획</h1>
-            <p className="mt-3 max-w-[780px] text-[14px] leading-6 text-[#bbb9af]">
-              통합업무보드의 개별 업무가 어떤 목적과 순서 안에서 움직이는지 설명합니다.<br />
-              위에서 업무를 수행하고, 아래에서 현재 단계의 질문·수행업무·결과물·단계전환 기준을 함께 확인합니다.
-            </p>
-          </div>
-          <div className="grid min-w-[330px] grid-cols-2 overflow-hidden rounded-[12px] border border-[#3c3c3c] bg-[#272726]">
-            <div className="border-r border-[#3c3c3c] px-4 py-3">
-              <p className="text-[11px] font-bold text-[#686868]">현재 위치</p>
-              <p className="mt-1 text-[14px] font-bold text-[#2997FF]">{projectContext.currentStage.code}</p>
-              <p className="mt-0.5 text-[12px] text-[#bbb9af]">{projectContext.currentStage.name}</p>
-            </div>
-            <div className="px-4 py-3">
-              <p className="text-[11px] font-bold text-[#686868]">다음 단계</p>
-              <p className="mt-1 text-[14px] font-bold text-[#E5E5E5]">{projectContext.nextGate}</p>
-            </div>
-          </div>
+        <div>
+          <h1 className="text-[28px] font-bold leading-tight">송현 BID 종합실행계획</h1>
+          <p className="mt-3 max-w-[780px] text-[14px] leading-6 text-[#bbb9af]">
+            통합업무보드의 개별 업무가 어떤 목적과 순서 안에서 움직이는지 설명합니다.<br />
+            위에서 업무를 수행하고, 아래에서 현재 단계의 질문·수행업무·결과물·단계전환 기준을 함께 확인합니다.
+          </p>
         </div>
       </div>
 
       <section className="mb-[44px]">
         <SectionHeading title="현재 위치와 공동 목표" description="현재의 근거 구축이 궁극적인 장소·운영환경과 어떻게 연결되는지 먼저 확인합니다." />
-        <div className="grid grid-cols-[0.82fr_64px_1.18fr] items-stretch overflow-hidden rounded-[18px] border border-[#3c3c3c] bg-[#272726]">
-          <div className="bg-[#202a36] p-6">
-            <div className="mb-5 flex items-center gap-2 text-[#2997FF]"><CircleDot size={16} /><span className="text-[12px] font-bold">현재</span></div>
-            <p className="text-[13px] font-bold text-[#86868B]">{projectContext.currentStage.code}</p>
-            <h3 className="mt-2 text-[22px] font-bold">{projectContext.currentStage.name}</h3>
-            <p className="mt-4 text-[14px] leading-6 text-[#bbb9af]">{projectContext.currentStage.objective}</p>
+        <div data-current-goal-row className="grid grid-cols-[0.65fr_0.65fr_1fr] grid-rows-[auto_auto_auto_auto_auto] items-stretch overflow-hidden rounded-[18px] border border-[#3c3c3c] bg-[#272726]">
+          <div data-current-stage className={`${summaryPanelLayout} bg-[#202a36]`}>
+            <div data-summary-label className="flex items-center gap-2 text-[#2997FF]"><CircleDot size={16} /><span className="text-[12px] font-bold">현재</span></div>
+            <p data-summary-step className="text-[13px] font-bold text-[#86868B]">{projectContext.currentStage.code}</p>
+            <h3 data-summary-title className="text-[22px] font-bold">{projectContext.currentStage.name}</h3>
+            <p data-summary-description className="text-[14px] leading-6 text-[#bbb9af]">{projectContext.currentStage.objective}</p>
+            <p data-summary-gate className="text-[12px] font-bold text-[#86868B]">단계전환 기준 · {currentStage.gate}</p>
           </div>
-          <div className="flex items-center justify-center border-x border-[#3c3c3c] bg-[#242423] text-[#686868]"><ArrowRight size={24} /></div>
-          <div className="p-6">
-            <div className="mb-5 flex items-center gap-2 text-[#bdbba7]"><Route size={16} /><span className="text-[12px] font-bold">공동 목표</span></div>
-            <h3 className="max-w-[620px] whitespace-pre-line text-[22px] font-bold leading-8">{projectContext.coreValue}</h3>
-            <p className="mt-4 text-[14px] leading-6 text-[#bbb9af]">{projectContext.definition}</p>
+          <div data-next-stage className={`${summaryPanelLayout} border-x border-[#3c3c3c] bg-[#242423]`}>
+            <div data-summary-label className="flex items-center gap-2 text-[#a9c8e5]"><ArrowRight size={16} /><span className="text-[12px] font-bold">다음 단계</span></div>
+            <p data-summary-step className="text-[13px] font-bold text-[#86868B]">{nextStage.id}단계</p>
+            <h3 data-summary-title className="text-[22px] font-bold">{nextStage.title}</h3>
+            <p data-summary-description className="text-[14px] leading-6 text-[#bbb9af]">{nextStage.short}</p>
+            <p data-summary-gate className="text-[12px] font-bold text-[#86868B]">단계전환 기준 · {nextStage.gate}</p>
+          </div>
+          <div data-common-goal className={summaryPanelLayout}>
+            <div data-summary-label className="flex items-center gap-2 text-[#bdbba7]"><Route size={16} /><span className="text-[12px] font-bold">공동 목표</span></div>
+            <span data-summary-spacer aria-hidden="true" />
+            <h3 data-summary-title className="max-w-[620px] whitespace-pre-line text-[22px] font-bold leading-8">{projectContext.coreValue}</h3>
+            <p data-summary-description className="text-[14px] leading-6 text-[#bbb9af]">{projectContext.definition}</p>
+            <span data-summary-spacer aria-hidden="true" />
           </div>
         </div>
       </section>

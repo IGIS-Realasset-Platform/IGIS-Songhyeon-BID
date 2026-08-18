@@ -73,6 +73,17 @@ export async function loadDataRoomDocuments() {
   return rows.map(toDocument);
 }
 
+export async function loadDataRoomDocument(documentId) {
+  const client = requireSupabase();
+  const authenticated = await hasAuthenticatedSonghyeonSession(client);
+  const table = authenticated ? 'songhyeon_data_room_documents' : 'songhyeon_public_data_room_documents';
+  const row = await run(
+    client.from(table).select('*').eq('id', documentId).maybeSingle(),
+    'Data Room 문서를 불러오지 못했습니다.',
+  );
+  return row ? toDocument(row) : null;
+}
+
 export async function createDataRoomDocument(document, actor = {}) {
   assertActor(actor);
   const client = requireSupabase();

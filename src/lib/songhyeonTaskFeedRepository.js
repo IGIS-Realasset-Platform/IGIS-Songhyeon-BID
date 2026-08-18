@@ -83,7 +83,10 @@ const toComment = (row, reactionRows) => ({
 
 const stakeholderFor = (rows, postId) => {
   const row = rows.find((item) => item.post_id === postId);
-  return row ? { companyName: row.company_name, contactName: row.contact_name, category: row.category } : null;
+  return row ? {
+    companyName: text(row.company_name) || text(row.category),
+    contactName: text(row.contact_name),
+  } : null;
 };
 
 const stakeholderLabel = (stakeholder) => stakeholder
@@ -221,6 +224,18 @@ export async function loadTaskFeedOptions() {
   if (stakeholderResult.error) throw new SonghyeonTaskFeedRepositoryError('이해관계자 목록을 불러오지 못했습니다.', stakeholderResult.error);
   const members = (memberResult.data || []).map((row) => normalizeMember(row, authenticated));
   const groups = unique(members.map((member) => member.group));
+  const stakeholderOptions = (stakeholderResult.data || []).map((row) => ({
+    companyName: text(row.company_name || row.stakeholder_name || row.category),
+    contactName: text(row.contact_name),
+  })).filter((row) => row.companyName || row.contactName);
+  const stakeholderKey = (row) => `${row.companyName.toLocaleLowerCase()}|${row.contactName.toLocaleLowerCase()}`;
+  const stakeholderKeys = new Set();
+  const stakeholders = stakeholderOptions.filter((row) => {
+    const key = stakeholderKey(row);
+    if (stakeholderKeys.has(key)) return false;
+    stakeholderKeys.add(key);
+    return true;
+  });
   return {
     projects: SONGHYEON_FEED_PROJECTS,
     purposes: SONGHYEON_FEED_PURPOSES,
@@ -230,10 +245,7 @@ export async function loadTaskFeedOptions() {
     groups,
     members,
     tasks,
-    stakeholders: (stakeholderResult.data || []).map((row) => ({
-      companyName: row.company_name || row.stakeholder_name || '',
-      contactName: row.contact_name || '',
-    })),
+    stakeholders,
   };
 }
 

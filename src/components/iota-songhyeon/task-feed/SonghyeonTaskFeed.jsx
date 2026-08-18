@@ -9,6 +9,7 @@ import {
   CheckCircle2, ChevronDown, ChevronUp, Download, FileText, Heart,
   LockKeyhole, MessageSquare, Pencil, Search, Trash2, Users, X,
 } from 'lucide-react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
 import {
   addTaskFeedComment,
@@ -177,6 +178,10 @@ function LinkedTaskCard({ task, onOpen }) {
 
 export default function SonghyeonTaskFeed({ renderHeader }) {
   const { user, member, isReadOnly } = useSonghyeonAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { postId: routePostId = '' } = useParams();
+  const isDetailView = Boolean(routePostId);
   const actor = useMemo(() => ({
     userId: user?.id || '', email: user?.email || '', name: member?.staff_name || '', group: member?.staff_group || member?.group_name || '', photoPath: member?.photo_path || '',
   }), [member, user]);
@@ -188,8 +193,6 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
-  const [expanded, setExpanded] = useState({});
-  const [highlightedPostId, setHighlightedPostId] = useState('');
   const [editingPost, setEditingPost] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -197,7 +200,9 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const [commentPendingId, setCommentPendingId] = useState('');
   const [mentionPostId, setMentionPostId] = useState('');
   const [selectedTask, setSelectedTask] = useState(null);
+  const restoredListLocationKey = useRef('');
   const postRefs = useRef(new Map());
+  const scrolledDetailLocationKey = useRef('');
 
   const refresh = useCallback(async () => {
     setError('');
@@ -215,7 +220,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   useEffect(() => { refresh(); }, [refresh]);
 
   useEffect(() => {
-    if (!posts.length || typeof window === 'undefined') return;
+    if (routePostId || !posts.length || typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
     const targetPostId = params.get('postId');
     if (!targetPostId) return;
@@ -223,20 +228,36 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     setFilters({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
     setViewMode('full');
     const targetIndex = posts.findIndex((post) => String(post.id) === String(targetPostId));
-    if (targetIndex < 0) return;
-    setCurrentPage(Math.floor(targetIndex / FULL_PAGE_SIZE) + 1);
-    setExpanded((current) => ({ ...current, [targetPostId]: true }));
-    setHighlightedPostId(targetPostId);
-    window.setTimeout(() => {
-      postRefs.current.get(targetPostId)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      window.setTimeout(() => setHighlightedPostId(''), 1800);
-    }, 80);
+    const targetPage = targetIndex < 0 ? 1 : Math.floor(targetIndex / FULL_PAGE_SIZE) + 1;
+    setCurrentPage(targetPage);
     params.delete('postId');
     const query = params.toString();
-    window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
-  }, [posts]);
+    navigate(`/feed/${encodeURIComponent(targetPostId)}${query ? `?${query}` : ''}`, {
+      replace: true,
+      state: {
+        from: '/feed',
+        feedListState: { searchQuery: '', filters: { stakeholder: '', cell: '', purpose: '', status: '', priority: '' }, viewMode: 'full', currentPage: targetPage },
+      },
+    });
+  }, [navigate, posts, routePostId]);
+
+  useEffect(() => {
+    if (restoredListLocationKey.current === location.key) return;
+    const saved = location.state?.feedListState;
+    if (!saved) return;
+    restoredListLocationKey.current = location.key;
+    setSearchQuery(saved.searchQuery || '');
+    setFilters({ stakeholder: '', cell: '', purpose: '', status: '', priority: '', ...(saved.filters || {}) });
+    setViewMode(saved.viewMode === 'full' ? 'full' : 'summary');
+    setCurrentPage(Math.max(1, Number(saved.currentPage) || 1));
+  }, [location.key, location.state, routePostId]);
+
+  const closeDetailRoute = useCallback(() => {
+    if (routePostId) navigate('/feed', { replace: true });
+  }, [navigate, routePostId]);
 
   const updateFilter = (key, value) => {
+    closeDetailRoute();
     setFilters((current) => ({ ...current, [key]: value }));
     setCurrentPage(1);
   };
@@ -263,7 +284,59 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const pageSize = viewMode === 'summary' ? SUMMARY_PAGE_SIZE : FULL_PAGE_SIZE;
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
   const normalizedPage = Math.min(currentPage, totalPages);
+  const detailPost = useMemo(
+    () => routePostId ? posts.find((post) => String(post.id) === String(routePostId)) || null : null,
+    [posts, routePostId],
+  );
   const displayedPosts = filteredPosts.slice((normalizedPage - 1) * pageSize, normalizedPage * pageSize);
+
+  useEffect(() => {
+    if (!routePostId || !posts.length) return;
+    const filteredTargetIndex = filteredPosts.findIndex((post) => String(post.id) === String(routePostId));
+    if (filteredTargetIndex >= 0) {
+      const targetPage = Math.floor(filteredTargetIndex / pageSize) + 1;
+      if (currentPage !== targetPage) setCurrentPage(targetPage);
+      return;
+    }
+
+    const targetIndex = posts.findIndex((post) => String(post.id) === String(routePostId));
+    if (targetIndex < 0) return;
+    setSearchQuery('');
+    setFilters({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
+    setCurrentPage(Math.floor(targetIndex / pageSize) + 1);
+  }, [currentPage, filteredPosts, pageSize, posts, routePostId]);
+
+  useEffect(() => {
+    if (!routePostId || !detailPost) return undefined;
+    const targetIsVisible = displayedPosts.some((post) => String(post.id) === String(routePostId));
+    if (!targetIsVisible) return undefined;
+    const scrollKey = `${location.key}:${routePostId}`;
+    if (scrolledDetailLocationKey.current === scrollKey) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      const target = postRefs.current.get(String(routePostId));
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      scrolledDetailLocationKey.current = scrollKey;
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [detailPost, displayedPosts, location.key, routePostId]);
+
+  const feedListState = useMemo(() => ({
+    searchQuery,
+    filters,
+    viewMode,
+    currentPage: normalizedPage,
+  }), [filters, normalizedPage, searchQuery, viewMode]);
+
+  const openPostDetail = useCallback((postId) => {
+    navigate(`/feed/${encodeURIComponent(postId)}`, {
+      state: {
+        from: `${location.pathname}${location.search}`,
+        feedListState,
+      },
+    });
+  }, [feedListState, location.pathname, location.search, navigate]);
 
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages);
@@ -309,6 +382,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
       await deleteTaskFeedPost(postId, actor);
       setDeleteTarget(null);
       await refresh();
+      if (String(routePostId) === String(postId)) navigate('/feed', { replace: true });
     } catch (mutationError) { setError(mutationError?.message || '게시글을 삭제하지 못했습니다.'); }
     finally { setIsDeleting(false); }
   };
@@ -333,9 +407,9 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
       <label className="relative block">
         <span className="sr-only">업무 피드 검색</span>
         <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#86868B]" />
-        <input value={searchQuery} onChange={(event) => { setSearchQuery(event.target.value); setCurrentPage(1); }} placeholder="검색어 입력..." className="h-[37px] w-[230px] rounded-[10px] border border-[#3A3A3C] bg-[#222] pl-9 pr-3 text-[13px] text-white outline-none transition-colors focus:border-[#6f9fc7]" />
+        <input value={searchQuery} onChange={(event) => { closeDetailRoute(); setSearchQuery(event.target.value); setCurrentPage(1); }} placeholder="검색어 입력..." className="h-[37px] w-[230px] rounded-[10px] border border-[#3A3A3C] bg-[#222] pl-9 pr-3 text-[13px] text-white outline-none transition-colors focus:border-[#6f9fc7]" />
       </label>
-      <button type="button" onClick={() => { setViewMode((mode) => mode === 'summary' ? 'full' : 'summary'); setCurrentPage(1); }} className="h-[37px] rounded-[10px] border border-[#3A3A3C] bg-[#222] px-4 text-[13px] font-semibold text-[#A1A1AA] hover:border-[#555] hover:text-white">{viewMode === 'summary' ? '전체보기' : '간략히 보기'}</button>
+      <button type="button" onClick={() => { closeDetailRoute(); setViewMode((mode) => mode === 'summary' ? 'full' : 'summary'); setCurrentPage(1); }} className="h-[37px] rounded-[10px] border border-[#3A3A3C] bg-[#222] px-4 text-[13px] font-semibold text-[#A1A1AA] hover:border-[#555] hover:text-white">{viewMode === 'summary' ? '전체보기' : '간략히 보기'}</button>
     </div>
   );
 
@@ -357,11 +431,12 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
           </div>
 
           {isLoading ? <div className="p-12 text-center text-[14px] text-[#86868B]">업무 피드를 불러오는 중...</div> : null}
+          {!isLoading && isDetailView && !detailPost ? <div role="alert" className="border-b border-[#4a4030] bg-[#332d24] px-5 py-3 text-[13px] text-[#d6b47b]">요청한 게시글을 찾을 수 없어 업무 피드 목록을 표시합니다.</div> : null}
           {!isLoading && !displayedPosts.length ? <div className="p-12 text-center text-[14px] text-[#86868B]">조건에 맞는 업무 메시지가 없습니다.</div> : null}
           {error ? <div role="alert" className="border-b border-[#513332] bg-[#3a2423] px-5 py-3 text-[13px] text-[#e09a96]">{error}</div> : null}
 
           {displayedPosts.map((post, index) => {
-            const isExpanded = Boolean(expanded[post.id]);
+            const isExpanded = Boolean(routePostId && String(post.id) === String(routePostId));
             const isAuthor = Boolean(actor.userId && post.authorId === actor.userId);
             const restricted = Boolean(post.permissions?.groups?.length || post.permissions?.individuals?.length);
             const postLike = reactionEntries(post.reactions, 'like');
@@ -370,15 +445,18 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
               <article
                 key={post.id}
                 id={`feed-post-${post.id}`}
-                ref={(node) => { if (node) postRefs.current.set(post.id, node); else postRefs.current.delete(post.id); }}
-                data-feed-highlight={highlightedPostId === post.id ? 'true' : undefined}
-                className={`transition-colors ${index ? 'border-t border-[#3c3c3c]' : ''} ${highlightedPostId === post.id ? 'bg-[#6f9fc7]/12 ring-1 ring-inset ring-[#6f9fc7]/50' : 'hover:bg-white/[0.025]'}`}
+                ref={(node) => {
+                  const key = String(post.id);
+                  if (node) postRefs.current.set(key, node);
+                  else postRefs.current.delete(key);
+                }}
+                className={`transition-colors ${index ? 'border-t border-[#3c3c3c]' : ''} hover:bg-white/[0.025]`}
               >
-                <button type="button" onClick={() => setExpanded((current) => ({ ...current, [post.id]: !isExpanded }))} className="grid w-full min-w-[1080px] cursor-pointer grid-cols-[116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px] items-center px-5 py-4 text-[13px] text-[#A1A1AA]">
+                <button type="button" aria-expanded={isExpanded} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-[1080px] cursor-pointer grid-cols-[116px_90px_126px_minmax(260px,1fr)_100px_118px_72px_82px_68px_76px] items-center px-5 py-4 text-[13px] text-[#A1A1AA]">
                   <span className="mx-auto rounded-[8px] border border-[#444] px-3 py-2 font-bold text-[#D1D1D6]">{post.project}</span>
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>
-                  <span className="min-w-0 pr-4 text-left"><span className="flex items-center gap-1.5"><strong className="truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || post.content}</strong>{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span><span className="mt-1 block truncate text-[12px] text-[#86868B]">{post.content}</span></span>
+                  <span className="min-w-0 pr-4 text-left"><span className="flex items-center gap-1.5"><strong className="truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || '제목 없음'}</strong>{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span></span>
                   <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={[...postLike, ...postCheck].filter((entry, itemIndex, array) => array.findIndex((candidate) => (candidate.userId || candidate.email) === (entry.userId || entry.email)) === itemIndex)} label="게시글" /></span>
                   <span className="truncate text-center">{post.stakeholderLabel || '-'}</span><span>{post.purpose || '-'}</span><span className={statusClass(post.status)}>{post.status || '-'}</span><span className={`font-bold ${priorityClass(post.priority)}`}>{post.priority || '-'}</span><span>{shortDate(post.workDate)}</span>
                 </button>
@@ -425,7 +503,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         </div>
       </div>
 
-      {viewMode === 'full' && totalPages > 1 ? <nav className="mt-4 flex items-center justify-center gap-1" aria-label="업무 피드 페이지">{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => setCurrentPage(page)} className={`h-8 min-w-8 rounded-[7px] px-2 text-[12px] ${page === normalizedPage ? 'bg-[#3279b4] font-bold text-white' : 'border border-[#3A3A3C] text-[#86868B] hover:text-white'}`}>{page}</button>)}</nav> : null}
+      {viewMode === 'full' && totalPages > 1 ? <nav className="mt-4 flex items-center justify-center gap-1" aria-label="업무 피드 페이지">{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => { closeDetailRoute(); setCurrentPage(page); }} className={`h-8 min-w-8 rounded-[7px] px-2 text-[12px] ${page === normalizedPage ? 'bg-[#3279b4] font-bold text-white' : 'border border-[#3A3A3C] text-[#86868B] hover:text-white'}`}>{page}</button>)}</nav> : null}
 
       {editingPost ? <div className="fixed inset-0 z-[110000] grid place-items-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-label="업무 메시지 수정"><div className="max-h-[calc(100vh-48px)] w-[940px] max-w-full overflow-y-auto rounded-[20px] border border-[#444] bg-[#202020] p-2 shadow-2xl"><div className="flex justify-end p-2"><button type="button" aria-label="닫기" onClick={() => setEditingPost(null)} className="grid h-9 w-9 cursor-pointer place-items-center rounded-[8px] text-[#86868B] hover:bg-[#333] hover:text-white"><X size={18} /></button></div><SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} initialPost={editingPost} onSaved={() => { setEditingPost(null); void refresh(); }} onCancel={() => setEditingPost(null)} /></div></div> : null}
 

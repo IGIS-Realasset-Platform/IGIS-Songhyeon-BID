@@ -141,6 +141,23 @@ export async function loadTasks() {
   return rows.map(taskPayload);
 }
 
+export async function loadArchivedTasks() {
+  const client = requireSupabase();
+  const authenticated = await hasAuthenticatedSonghyeonSession(client);
+  if (!authenticated) {
+    throw new SonghyeonTaskRepositoryError('보관된 업무는 인증된 송현 BID 멤버만 확인할 수 있습니다.');
+  }
+  const rows = await run(
+    client.from('songhyeon_tasks')
+      .select('*')
+      .not('archived_at', 'is', null)
+      .order('archived_at', { ascending: false })
+      .order('display_order', { ascending: true }),
+    '보관된 송현 통합업무를 불러오지 못했습니다.',
+  );
+  return rows.map(taskPayload);
+}
+
 export function subscribeToTasks(userId, onChange) {
   if (!userId) throw new SonghyeonTaskRepositoryError('인증된 송현 BID 멤버만 업무 변경을 확인할 수 있습니다.');
   const client = requireSupabase();

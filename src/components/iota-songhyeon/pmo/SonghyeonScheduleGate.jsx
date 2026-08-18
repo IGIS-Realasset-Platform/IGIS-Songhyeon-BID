@@ -42,21 +42,18 @@ const Filter = ({ value, onChange, options, label }) => (
 
 export default function SonghyeonScheduleGate() {
     const [timelineView, setTimelineView] = useState('detail');
-    const [major, setMajor] = useState('전체보기');
     const [category, setCategory] = useState('전체보기');
     const [lead, setLead] = useState('전체보기');
     const [coop, setCoop] = useState('전체보기');
 
-    const majors = ['전체보기', ...new Set(RR_DATA.map((item) => item.majorCategory))];
     const categories = ['전체보기', ...new Set(RR_DATA.map((item) => item.category))];
     const leads = ['전체보기', ...new Set(RR_DATA.map((item) => item.lead))];
     const coops = ['전체보기', ...new Set(RR_DATA.flatMap((item) => item.coop))];
     const filteredRr = useMemo(() => RR_DATA.filter((item) =>
-        (major === '전체보기' || item.majorCategory === major)
-        && (category === '전체보기' || item.category === category)
+        (category === '전체보기' || item.category === category)
         && (lead === '전체보기' || item.lead === lead)
         && (coop === '전체보기' || item.coop.includes(coop))
-    ), [category, coop, lead, major]);
+    ), [category, coop, lead]);
 
     const renderCategoryName = (name) => {
         const [code, ...rest] = name.split(' ');
@@ -117,27 +114,25 @@ export default function SonghyeonScheduleGate() {
             <div className="timeline-scrollbar relative mb-[40px] h-auto w-full overflow-x-auto rounded-[32px] border border-[#3c3c3c] bg-[#272726]">
                 <table className="w-[1198px] min-w-[1198px] max-w-[1198px] table-fixed border-collapse bg-[#272726] text-left">
                     <thead><tr className="h-[56px] border-b border-[#3c3c3c] bg-[#272726] text-[12px] font-bold text-[#86868B]">
-                        <th className="w-[80px] min-w-[80px] max-w-[80px] rounded-tl-[31px] bg-[#272726] px-1 text-center"><Filter value={major} onChange={setMajor} options={majors} label="대분류" /></th>
-                        <th className="w-[100px] min-w-[100px] max-w-[100px] bg-[#272726] px-1 text-center"><Filter value={category} onChange={setCategory} options={categories} label="업무분류" /></th>
-                        <th className="w-[70px] min-w-[70px] max-w-[70px] bg-[#272726] px-1 text-center">Gate</th>
-                        <th className="w-[200px] min-w-[200px] max-w-[200px] border-r border-[#3c3c3c] bg-[#272726] pl-3">대표 업무</th>
-                        <th className="w-[85px] min-w-[85px] max-w-[85px] bg-[#272726] text-center"><Filter value={lead} onChange={setLead} options={leads} label="실행주관" /></th>
+                        <th className="w-[100px] min-w-[100px] max-w-[100px] rounded-tl-[31px] bg-[#272726] px-1 text-center"><Filter value={category} onChange={setCategory} options={categories} label="업무분류" /></th>
+                        <th className="w-[60px] min-w-[60px] max-w-[60px] bg-[#272726] px-1 text-center">Gate</th>
+                        <th className="w-[230px] min-w-[230px] max-w-[230px] border-r border-[#3c3c3c] bg-[#272726] pl-3">대표 업무</th>
+                        <th className="w-[95px] min-w-[95px] max-w-[95px] bg-[#272726] text-center"><Filter value={lead} onChange={setLead} options={leads} label="실행주관" /></th>
                         <th className="w-[210px] min-w-[210px] max-w-[210px] border-r border-[#3c3c3c] bg-[#272726] pl-3 text-left"><Filter value={coop} onChange={setCoop} options={coops} label="협업 부서" /></th>
-                        <th className="w-[90px] min-w-[90px] max-w-[90px] bg-[#272726] px-1 text-center">외부 상대방</th>
-                        <th className="w-[150px] min-w-[150px] max-w-[150px] bg-[#272726] px-2 text-left">필요산출물</th>
-                        <th className="w-[213px] min-w-[213px] max-w-[213px] rounded-tr-[31px] bg-[#272726] px-3 text-left">Gate 관리 포인트</th>
+                        <th className="w-[105px] min-w-[105px] max-w-[105px] bg-[#272726] px-1 text-center">외부 상대방</th>
+                        <th className="w-[170px] min-w-[170px] max-w-[170px] bg-[#272726] px-2 text-left">필요산출물</th>
+                        <th className="w-[228px] min-w-[228px] max-w-[228px] rounded-tr-[31px] bg-[#272726] px-3 text-left">Gate 관리 포인트</th>
                     </tr></thead>
                     <tbody className="divide-y divide-[#3c3c3c]/60 text-[12px]">
                         {filteredRr.map((item, index) => <tr key={item.id} className="group h-12 bg-[#272726] transition-colors hover:bg-[#333]">
-                            <td className={`w-[80px] min-w-[80px] max-w-[80px] bg-[#272726] px-2 text-center text-[12px] font-bold text-[#60a5fa] group-hover:bg-[#333] ${index === filteredRr.length - 1 ? 'rounded-bl-[31px]' : ''}`}>{item.majorCategory}</td>
-                            <td className="w-[100px] min-w-[100px] max-w-[100px] bg-[#272726] px-2 text-center text-[12px] font-bold text-[#E5E5E5] group-hover:bg-[#333]">{item.category}</td>
-                            <td className="w-[70px] min-w-[70px] max-w-[70px] bg-[#272726] px-1 text-center text-[12px] font-bold text-[#E5E5E5] group-hover:bg-[#333]">{item.stage}</td>
-                            <td className="w-[200px] min-w-[200px] max-w-[200px] whitespace-normal break-words border-r border-[#3c3c3c] bg-[#272726] pl-3 pr-2 text-left text-[13px] font-bold leading-snug text-[#bdbba7] group-hover:bg-[#333]">{item.task}</td>
-                            <td className="w-[85px] min-w-[85px] max-w-[85px] bg-[#272726] text-center group-hover:bg-[#333]"><span className="inline-block whitespace-nowrap rounded border border-[#2997ff]/20 bg-[#2997ff]/10 px-2 py-0.5 text-[11px] font-bold text-[#E5E5E5]">{item.lead}</span></td>
+                            <td className={`w-[100px] min-w-[100px] max-w-[100px] bg-[#272726] px-2 text-center text-[12px] font-bold text-[#E5E5E5] group-hover:bg-[#333] ${index === filteredRr.length - 1 ? 'rounded-bl-[31px]' : ''}`}>{item.category}</td>
+                            <td className="w-[60px] min-w-[60px] max-w-[60px] bg-[#272726] px-1 text-center text-[12px] font-bold text-[#E5E5E5] group-hover:bg-[#333]">{item.stage}</td>
+                            <td className="w-[230px] min-w-[230px] max-w-[230px] whitespace-normal break-words border-r border-[#3c3c3c] bg-[#272726] pl-3 pr-2 text-left text-[13px] font-bold leading-snug text-[#bdbba7] group-hover:bg-[#333]">{item.task}</td>
+                            <td className="w-[95px] min-w-[95px] max-w-[95px] bg-[#272726] text-center group-hover:bg-[#333]"><span className="inline-block whitespace-nowrap rounded border border-[#2997ff]/20 bg-[#2997ff]/10 px-2 py-0.5 text-[11px] font-bold text-[#E5E5E5]">{item.lead}</span></td>
                             <td className="w-[210px] min-w-[210px] max-w-[210px] border-r border-[#3c3c3c] bg-[#272726] pl-3 pr-2 text-left leading-tight text-[#E5E5E5] group-hover:bg-[#333]"><div className="flex flex-wrap items-center gap-1.5">{item.coop.map((value) => <span key={value} className="whitespace-nowrap rounded border border-[#3c3c3c] bg-[#1F1F1E] px-2 py-0.5 text-[11px] text-[#bdbba7]">{value}</span>)}</div></td>
-                            <td className="w-[90px] min-w-[90px] max-w-[90px] whitespace-normal break-words bg-[#272726] px-1 text-center font-semibold text-[#86868B] group-hover:bg-[#333]">{item.partner}</td>
-                            <td className="w-[150px] min-w-[150px] max-w-[150px] whitespace-normal break-words bg-[#272726] px-2 text-left font-semibold text-[#F59E0B] group-hover:bg-[#333]">{item.need}</td>
-                            <td className={`w-[213px] min-w-[213px] max-w-[213px] whitespace-normal break-words bg-[#272726] px-3 text-left font-normal text-[#86868B] group-hover:bg-[#333] ${index === filteredRr.length - 1 ? 'rounded-br-[31px]' : ''}`}>{item.point}</td>
+                            <td className="w-[105px] min-w-[105px] max-w-[105px] whitespace-normal break-words bg-[#272726] px-1 text-center font-semibold text-[#86868B] group-hover:bg-[#333]">{item.partner}</td>
+                            <td className="w-[170px] min-w-[170px] max-w-[170px] whitespace-normal break-words bg-[#272726] px-2 text-left font-semibold text-[#F59E0B] group-hover:bg-[#333]">{item.need}</td>
+                            <td className={`w-[228px] min-w-[228px] max-w-[228px] whitespace-normal break-words bg-[#272726] px-3 text-left font-normal text-[#86868B] group-hover:bg-[#333] ${index === filteredRr.length - 1 ? 'rounded-br-[31px]' : ''}`}>{item.point}</td>
                         </tr>)}
                     </tbody>
                 </table>
