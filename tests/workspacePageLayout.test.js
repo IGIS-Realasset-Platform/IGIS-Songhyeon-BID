@@ -91,6 +91,27 @@ test('표준 5개 페이지 제목은 자체 h1·상단 간격을 만들지 않�
   }
 });
 
+test('업무 피드 본문은 다른 표준 페이지와 같은 WorkspacePageFrame 1200px 폭을 그대로 사용한다', async () => {
+  const [common, feed] = await Promise.all([
+    read(WORKSPACE_LAYOUT_PATH),
+    read('src/pages/TaskFeed.jsx'),
+  ]);
+
+  assert.match(
+    common,
+    /fluidContent\s*\?\s*'w-full'\s*:\s*'mx-auto w-\[1200px\] max-w-full'/,
+    '표준 WorkspacePageFrame의 기본 본문 폭은 1200px이어야 합니다.',
+  );
+
+  const frameInvocation = feed.match(/<WorkspacePageFrame\b[^>]*>/)?.[0] || '';
+  assert.ok(frameInvocation, '업무 피드의 WorkspacePageFrame 호출을 찾을 수 없습니다.');
+  assert.doesNotMatch(
+    frameInvocation,
+    /\b(?:contentClassName|fluidContent|className)\b/,
+    '업무 피드가 공통 1200px 폭을 줄이거나 확장하는 페이지 전용 Frame 설정을 두면 안 됩니다.',
+  );
+});
+
 test('서비스·운영 가설과 업무 피드는 공용 Header에서 제목·설명 하단선을 동일하게 맞춘다', async () => {
   const [common, hypotheses, feed] = await Promise.all([
     read(WORKSPACE_LAYOUT_PATH),

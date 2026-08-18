@@ -3,7 +3,7 @@ import { WorkspacePageFrame, WorkspacePageHeader } from '../components/workspace
 
 export default function TaskFeed() {
   return (
-    <WorkspacePageFrame contentClassName="px-[60px]">
+    <WorkspacePageFrame>
       <SonghyeonTaskFeed
         renderHeader={(actions) => (
           <WorkspacePageHeader
