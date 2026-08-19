@@ -41,6 +41,22 @@ test('홈 문구는 프로젝트의 현황과 다음 판단을 방문자 관점�
   assert.doesNotMatch(source, /분리해 보여줍니다|같은 숫자로 포장하지 않습니다|홈은 결과를 복제하지 않습니다|핵심 콘텐츠를 바로 소개합니다/);
 });
 
+test('홈 첫 화면은 송현 BID의 정의와 이지스가 추진하는 이유를 먼저 설명한다', () => {
+  const source = read('src/pages/Dashboard.jsx');
+  const continuousCopy = source.replace(/<br \/>\s*/g, '');
+
+  assert.match(source, /프로젝트 정의/);
+  assert.match(source, /이지스가 추진하는 이유/);
+  assert.match(continuousCopy, /열린송현녹지광장과 주변의 자산·상권·기관을하나의 운영 체계로 연결/);
+  assert.match(continuousCopy, /송현 일대 자산의 운영 경험과 데이터를 바탕으로/);
+  assert.match(continuousCopy, /민관 협력의 실행 구조를 만들기위해 이 프로젝트를 추진합니다/);
+  assert.match(source, /자산·상권·기관을<br \/>\s*하나의 운영 체계/);
+  assert.match(source, /도심 운영모델을<br \/>\s*설계·검증/);
+  assert.match(source, /개별 자산을<br \/>\s*넘어 지역 전체/);
+  assert.match(source, /실행 구조를 만들기<br \/>\s*위해 이 프로젝트/);
+  assert.doesNotMatch(source, /자산·공간·이용자·기업·지역·공공의 근거를 연결해 실행 가능한 서비스 가설/);
+});
+
 test('홈의 파란 섹션 제목은 15px로 선명하게 표시한다', () => {
   const source = read('src/pages/Dashboard.jsx');
   const sectionHeading = source.match(/function SectionHeading[\s\S]*?\n}/)?.[0] || '';

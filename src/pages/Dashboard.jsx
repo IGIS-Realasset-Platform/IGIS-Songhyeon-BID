@@ -243,10 +243,24 @@ export default function Dashboard() {
             송현 BID 프로젝트 방향 &amp; 실행계획_260813.pdf
             <ArrowUpRight size={15} />
           </a>
-          <p className="mt-8 max-w-[1080px] text-[19px] leading-[1.7] text-[#b0b0b5]">
-            <span className="whitespace-nowrap">자산·공간·이용자·기업·지역·공공의 근거를 연결해 실행 가능한 서비스 가설을 만들고, 현장 검증을 거쳐</span><br />
-            반복 가능한 BID 운영모델로 전환합니다.
-          </p>
+          <div className="mt-8 grid max-w-[1080px] grid-cols-2 gap-8">
+            <article>
+              <p className="text-[14px] font-bold text-[#8fc7ff]">프로젝트 정의</p>
+              <p className="mt-3 text-[17px] leading-[1.7] text-[#b0b0b5]">
+                송현 BID 프로젝트는 열린송현녹지광장과 주변의 자산·상권·기관을<br />
+                하나의 운영 체계로 연결해, 장소의 가치를 지속적으로 만들고 관리하는 도심 운영모델을<br />
+                설계·검증하는 프로젝트입니다.
+              </p>
+            </article>
+            <article className="border-l border-white/[0.14] pl-8">
+              <p className="text-[14px] font-bold text-[#8fc7ff]">이지스가 추진하는 이유</p>
+              <p className="mt-3 text-[17px] leading-[1.7] text-[#b0b0b5]">
+                이지스는 송현 일대 자산의 운영 경험과 데이터를 바탕으로, 개별 자산을<br />
+                넘어 지역 전체의 이용 경험과 경쟁력을 높일 수 있는 민관 협력의 실행 구조를 만들기<br />
+                위해 이 프로젝트를 추진합니다.
+              </p>
+            </article>
+          </div>
           <div className="mb-8 mt-10 flex items-center gap-3">
             <Link to={stageHref} className="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-white px-6 text-[14px] font-bold text-[#171717] transition-transform hover:scale-[1.02]">
               현재 마일스톤 <ArrowUpRight size={16} />
