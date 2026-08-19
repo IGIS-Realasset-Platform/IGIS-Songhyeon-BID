@@ -494,7 +494,7 @@ test('공유 이해관계자 연락처는 인증 사용자에게만 읽기 전�
     'repository 옵션은 DB snake_case를 UI의 companyName/contactName으로 매핑해야 합니다.');
 });
 
-test('검색과 요약·전체보기 전환은 최상단 WorkspacePageHeader actions에서 기존 피드 상태를 제어한다', async () => {
+test('검색은 최상단 WorkspacePageHeader actions에서 기존 피드 상태를 제어한다', async () => {
   const [page, feed, workspaceLayout] = await Promise.all([
     read(PAGE_PATH),
     read(FEED_PATH),
@@ -512,7 +512,7 @@ test('검색과 요약·전체보기 전환은 최상단 WorkspacePageHeader act
   assert.match(pageHeader, /<WorkspacePageHeader\b/);
   assert.match(pageHeader, /title="업무 피드"/);
   assert.match(pageHeader, /\bactions=\{actions\}/,
-    '검색·보기 전환 UI는 WorkspacePageHeader의 우측 actions로 전달되어야 합니다.');
+    '검색 UI는 WorkspacePageHeader의 우측 actions로 전달되어야 합니다.');
 
   assert.match(feed, /export default function SonghyeonTaskFeed\(\{\s*renderHeader\s*\}\)/);
   const headerActionsStart = feed.indexOf('const headerActions =');
@@ -525,11 +525,11 @@ test('검색과 요약·전체보기 전환은 최상단 WorkspacePageHeader act
   assert.match(headerControls, /value=\{searchQuery\}/);
   assert.match(headerControls, /setSearchQuery\(event\.target\.value\)/);
   assert.match(headerControls, /setCurrentPage\(1\)/,
-    '헤더 검색 변경과 보기 전환은 기존 페이지를 1쪽으로 되돌려야 합니다.');
-  assert.match(headerControls, /setViewMode\(\(mode\)\s*=>\s*mode === ['"]summary['"]\s*\?\s*['"]full['"]\s*:\s*['"]summary['"]\)/);
-  assert.match(headerControls, /viewMode === ['"]summary['"]\s*\?\s*['"]전체보기['"]\s*:\s*['"]간략히 보기['"]/);
-  assert.equal((headerControls.match(/h-\[37px\]/g) || []).length, 2,
-    '검색 입력과 보기 전환 버튼은 37px 제목행 높이에 맞아야 합니다.');
+    '헤더 검색 변경은 기존 페이지를 1쪽으로 되돌려야 합니다.');
+  assert.equal((headerControls.match(/h-\[37px\]/g) || []).length, 1,
+    '헤더에는 37px 검색 입력만 있어야 합니다.');
+  assert.doesNotMatch(headerControls, /setViewMode|전체보기|간략히 보기/,
+    '업무 원장에서 목록을 5개로 줄이는 보기 전환을 제공하면 안 됩니다.');
 
   const renderCallStart = feed.indexOf('renderHeader?.(headerActions)', feedReturnStart);
   const feedSectionStart = feed.indexOf('<section', renderCallStart);
@@ -539,25 +539,21 @@ test('검색과 요약·전체보기 전환은 최상단 WorkspacePageHeader act
   assert.doesNotMatch(feed, /송현 BID 업무 메시지|<h2\b[^>]*>\s*송현 BID/,
     '피드 본문에 예전 내부 제목을 남기면 안 됩니다.');
   assert.match(feed, /const \[searchQuery, setSearchQuery\] = useState\(['"]{2}\)/);
-  assert.match(feed, /const \[viewMode, setViewMode\] = useState\(['"]summary['"]\)/);
   assert.match(feed, /const \[currentPage, setCurrentPage\] = useState\(1\)/);
   assert.match(feed, /const query = searchQuery\.trim\(\)\.toLowerCase\(\)/);
-  assert.match(feed, /const pageSize = viewMode === ['"]summary['"] \? SUMMARY_PAGE_SIZE : FULL_PAGE_SIZE/);
-  assert.match(feed, /setViewMode\(['"]full['"]\)/,
-    'postId deep-link는 기존처럼 전체보기로 전환되어야 합니다.');
+  assert.match(feed, /const pageSize = FULL_PAGE_SIZE/);
+  assert.doesNotMatch(feed, /viewMode|setViewMode|SUMMARY_PAGE_SIZE/);
 });
 
-test('피드 목록은 원본의 검색·5개 요약·20개 전체보기와 다섯 필터를 실제 데이터에 적용한다', async () => {
+test('피드 목록은 항상 20개 단위 전체 목록과 다섯 필터를 실제 데이터에 적용한다', async () => {
   const [page, feed, repository] = await Promise.all([read(PAGE_PATH), read(FEED_PATH), read(REPOSITORY_PATH)]);
 
   assert.match(feed, /loadTaskFeedPosts/);
   assert.match(feed, /loadTaskFeedOptions/);
   assert.match(repository, exportedFunction(repository, 'loadTaskFeedPosts'));
   assert.match(repository, exportedFunction(repository, 'loadTaskFeedOptions'));
-  assert.match(feed, /(?:SUMMARY_PAGE_SIZE|summaryPageSize|summary[^\n]{0,40})\s*=\s*5/i);
   assert.match(feed, /(?:FULL_PAGE_SIZE|fullPageSize|full[^\n]{0,40})\s*=\s*20/i);
-  assert.match(`${page}\n${feed}`, /전체보기/);
-  assert.match(`${page}\n${feed}`, /간략히 보기/);
+  assert.doesNotMatch(feed, /SUMMARY_PAGE_SIZE|간략히 보기|viewMode|setViewMode/);
   assert.match(`${page}\n${feed}`, /검색어 입력/);
 
   for (const filter of ['stakeholder', 'cell', 'purpose', 'status', 'priority']) {
@@ -581,7 +577,7 @@ test('legacy postId query 딥링크는 목록 상태를 담아 canonical 상세 
   assert.match(feed, /(?:searchParams|params)\.delete\(['"]postId['"]\)/);
   assert.match(feed, /navigate\(`\/feed\/\$\{encodeURIComponent\(targetPostId\)\}\$\{query \? `\?\$\{query\}` : ['"]{2}\}`/);
   assert.match(feed, /replace:\s*true/);
-  assert.match(feed, /feedListState:\s*\{\s*searchQuery:\s*['"]{2},\s*filters:[\s\S]{0,280}?viewMode:\s*['"]full['"],\s*currentPage:\s*targetPage\s*\}/);
+  assert.match(feed, /feedListState:\s*\{\s*searchQuery:\s*['"]{2},\s*filters:[\s\S]{0,280}?currentPage:\s*targetPage\s*\}/);
   assert.doesNotMatch(feed, /history\.replaceState|data-feed-highlight|highlightedPostId/,
     'legacy query URL 정리는 Router navigate로 처리하고 예전 강조·직접 history 조작을 남기면 안 됩니다.');
 });

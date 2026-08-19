@@ -27,7 +27,6 @@ import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
 import SonghyeonMemberAvatar from '../SonghyeonMemberAvatar';
 import SonghyeonTaskFeedWriteBox from './SonghyeonTaskFeedWriteBox';
 
-const SUMMARY_PAGE_SIZE = 5;
 const FULL_PAGE_SIZE = 20;
 const FEED_STATUS_OPTIONS = ['신규', '검토중', '진행중', '중단', '완료'];
 const NEW_MARKER_EPOCH = new Date('2026-07-13T09:02:39Z').getTime();
@@ -257,7 +256,6 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const [options, setOptions] = useState({ projects: [], cells: [], stakeholders: [], members: [], groups: [], tasks: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [viewMode, setViewMode] = useState('summary');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
@@ -298,7 +296,6 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     if (!targetPostId) return;
     setSearchQuery('');
     setFilters({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
-    setViewMode('full');
     const targetIndex = posts.findIndex((post) => String(post.id) === String(targetPostId));
     const targetPage = targetIndex < 0 ? 1 : Math.floor(targetIndex / FULL_PAGE_SIZE) + 1;
     setCurrentPage(targetPage);
@@ -308,7 +305,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
       replace: true,
       state: {
         from: '/feed',
-        feedListState: { searchQuery: '', filters: { stakeholder: '', cell: '', purpose: '', status: '', priority: '' }, viewMode: 'full', currentPage: targetPage },
+        feedListState: { searchQuery: '', filters: { stakeholder: '', cell: '', purpose: '', status: '', priority: '' }, currentPage: targetPage },
       },
     });
   }, [navigate, posts, routePostId]);
@@ -320,7 +317,6 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     restoredListLocationKey.current = location.key;
     setSearchQuery(saved.searchQuery || '');
     setFilters({ stakeholder: '', cell: '', purpose: '', status: '', priority: '', ...(saved.filters || {}) });
-    setViewMode(saved.viewMode === 'full' ? 'full' : 'summary');
     setCurrentPage(Math.max(1, Number(saved.currentPage) || 1));
   }, [location.key, location.state, routePostId]);
 
@@ -353,7 +349,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     });
   }, [filters, posts, searchQuery]);
 
-  const pageSize = viewMode === 'summary' ? SUMMARY_PAGE_SIZE : FULL_PAGE_SIZE;
+  const pageSize = FULL_PAGE_SIZE;
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
   const normalizedPage = Math.min(currentPage, totalPages);
   const detailPost = useMemo(
@@ -397,9 +393,8 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const feedListState = useMemo(() => ({
     searchQuery,
     filters,
-    viewMode,
     currentPage: normalizedPage,
-  }), [filters, normalizedPage, searchQuery, viewMode]);
+  }), [filters, normalizedPage, searchQuery]);
 
   const openPostDetail = useCallback((postId) => {
     navigate(`/feed/${encodeURIComponent(postId)}`, {
@@ -516,7 +511,6 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#86868B]" />
         <input value={searchQuery} onChange={(event) => { closeDetailRoute(); setSearchQuery(event.target.value); setCurrentPage(1); }} placeholder="검색어 입력..." className="h-[37px] w-[230px] rounded-[10px] border border-[#3A3A3C] bg-[#222] pl-9 pr-3 text-[13px] text-white outline-none transition-colors focus:border-[#6f9fc7]" />
       </label>
-      <button type="button" onClick={() => { closeDetailRoute(); setViewMode((mode) => mode === 'summary' ? 'full' : 'summary'); setCurrentPage(1); }} className="h-[37px] rounded-[10px] border border-[#3A3A3C] bg-[#222] px-4 text-[13px] font-semibold text-[#A1A1AA] hover:border-[#555] hover:text-white">{viewMode === 'summary' ? '전체보기' : '간략히 보기'}</button>
     </div>
   );
 
@@ -623,7 +617,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         </div>
       </div>
 
-      {viewMode === 'full' && totalPages > 1 ? <nav className="mt-4 flex items-center justify-center gap-1" aria-label="업무 피드 페이지">{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => { closeDetailRoute(); setCurrentPage(page); }} className={`h-8 min-w-8 rounded-[7px] px-2 text-[12px] ${page === normalizedPage ? 'bg-[#3279b4] font-bold text-white' : 'border border-[#3A3A3C] text-[#86868B] hover:text-white'}`}>{page}</button>)}</nav> : null}
+      {totalPages > 1 ? <nav className="mt-4 flex items-center justify-center gap-1" aria-label="업무 피드 페이지">{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => { closeDetailRoute(); setCurrentPage(page); }} className={`h-8 min-w-8 rounded-[7px] px-2 text-[12px] ${page === normalizedPage ? 'bg-[#3279b4] font-bold text-white' : 'border border-[#3A3A3C] text-[#86868B] hover:text-white'}`}>{page}</button>)}</nav> : null}
 
       {editingPost ? <div className="fixed inset-0 z-[110000] grid place-items-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-label="업무 메시지 수정"><div className="max-h-[calc(100vh-48px)] w-[940px] max-w-full overflow-y-auto rounded-[20px] border border-[#444] bg-[#202020] p-2 shadow-2xl"><div className="flex justify-end p-2"><button type="button" aria-label="닫기" onClick={() => setEditingPost(null)} className="grid h-9 w-9 cursor-pointer place-items-center rounded-[8px] text-[#86868B] hover:bg-[#333] hover:text-white"><X size={18} /></button></div><SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} initialPost={editingPost} onSaved={() => { setEditingPost(null); void refresh(); }} onCancel={() => setEditingPost(null)} /></div></div> : null}
 

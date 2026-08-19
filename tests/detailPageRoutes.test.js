@@ -146,7 +146,7 @@ test('업무 피드 상세 route는 전체 목록 UI를 유지하고 대상 행�
   assert.ok(paginationStart >= 0, '업무 피드 pagination을 찾을 수 없습니다.');
   const paginationGuard = feed.slice(Math.max(rowRenderStart, paginationStart - 120), paginationStart);
   assert.doesNotMatch(paginationGuard, /!isDetailView/,
-    '상세 URL에서도 전체보기 pagination을 유지해야 합니다.');
+    '상세 URL에서도 전체 목록 pagination을 유지해야 합니다.');
 
   assert.match(feed, /params\.get\(['"]postId['"]\)/,
     '기존 ?postId= 공유 링크도 계속 인식해야 합니다.');
@@ -193,7 +193,7 @@ test('업무 피드 목록의 내용 열은 제목만 보이고 본문 미리보
     '본문은 펼쳐진 inline 상세 안에서만 보이고 목록 행에서는 미리보기로 노출하면 안 됩니다.');
 });
 
-test('펼쳐진 피드에서 검색·필터·보기·페이지를 바꾸면 상세 URL을 닫고 목록 조작을 계속한다', async () => {
+test('펼쳐진 피드에서 검색·필터·페이지를 바꾸면 상세 URL을 닫고 목록 조작을 계속한다', async () => {
   const feed = await read(FEED_PATH);
 
   const updateFilterStart = feed.indexOf('const updateFilter =');
@@ -207,8 +207,8 @@ test('펼쳐진 피드에서 검색·필터·보기·페이지를 바꾸면 상�
   const headerActions = feed.slice(headerActionsStart, feedReturnStart);
   assert.match(headerActions, /onChange=\{\(event\)\s*=>\s*\{\s*closeDetailRoute\(\);\s*setSearchQuery\(event\.target\.value\)/,
     '검색어를 바꾸면 상세 URL을 닫고 검색을 적용해야 합니다.');
-  assert.match(headerActions, /onClick=\{\(\)\s*=>\s*\{\s*closeDetailRoute\(\);\s*setViewMode\(/,
-    '요약·전체보기 전환은 상세 URL을 닫고 실행해야 합니다.');
+  assert.doesNotMatch(headerActions, /setViewMode|전체보기|간략히 보기/,
+    '업무 피드는 5개 요약 보기 없이 전체 목록을 유지해야 합니다.');
 
   const paginationStart = feed.indexOf('<nav className=', feedReturnStart);
   const paginationEnd = feed.indexOf('</nav>', paginationStart);
