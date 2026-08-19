@@ -243,7 +243,7 @@ export default function Dashboard() {
             송현 BID 프로젝트 방향 &amp; 실행계획_260813.pdf
             <ArrowUpRight size={15} />
           </a>
-          <div className="mt-8 grid max-w-[1080px] grid-cols-2 gap-8">
+          <div className="mt-8 max-w-[1080px] space-y-6">
             <article>
               <p className="text-[14px] font-bold text-[#8fc7ff]">프로젝트 정의</p>
               <p className="mt-3 text-[17px] leading-[1.7] text-[#b0b0b5]">
@@ -252,7 +252,7 @@ export default function Dashboard() {
                 설계·검증하는 프로젝트입니다.
               </p>
             </article>
-            <article className="border-l border-white/[0.14] pl-8">
+            <article className="border-t border-white/[0.14] pt-6">
               <p className="text-[14px] font-bold text-[#8fc7ff]">이지스가 추진하는 이유</p>
               <p className="mt-3 text-[17px] leading-[1.7] text-[#b0b0b5]">
                 이지스는 송현 일대 자산의 운영 경험과 데이터를 바탕으로, 개별 자산을<br />

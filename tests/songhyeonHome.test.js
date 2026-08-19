@@ -54,6 +54,9 @@ test('홈 첫 화면은 송현 BID의 정의와 이지스가 추진하는 이유
   assert.match(source, /도심 운영모델을<br \/>\s*설계·검증/);
   assert.match(source, /개별 자산을<br \/>\s*넘어 지역 전체/);
   assert.match(source, /실행 구조를 만들기<br \/>\s*위해 이 프로젝트/);
+  assert.match(source, /mt-8 max-w-\[1080px\] space-y-6/);
+  assert.match(source, /border-t border-white\/\[0\.14\] pt-6/);
+  assert.doesNotMatch(source, /max-w-\[1080px\] grid-cols-2/);
   assert.doesNotMatch(source, /자산·공간·이용자·기업·지역·공공의 근거를 연결해 실행 가능한 서비스 가설/);
 });
 
