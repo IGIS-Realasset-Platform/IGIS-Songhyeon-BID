@@ -10,15 +10,35 @@ const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'u
 test('홈은 프로젝트 서사부터 최근 기록까지 이어지는 스크롤형 랜딩이다', () => {
   const source = read('src/pages/Dashboard.jsx');
   assert.match(source, /data-songhyeon-home/);
-  assert.match(source, /Songhyeon BID Project/);
-  assert.match(source, /Where we are/);
-  assert.match(source, /How we work/);
-  assert.match(source, /One project, connected views/);
-  assert.match(source, /Latest signals/);
+  assert.match(source, /송현 BID 프로젝트/);
+  assert.match(source, /프로젝트 현재 위치/);
+  assert.match(source, /일하는 방식/);
+  assert.match(source, /프로젝트 통합 현황/);
+  assert.match(source, /최근 업무와 문서/);
   assert.match(source, /hypothesisPipeline\.map/);
   assert.match(source, /milestoneStages\.map/);
   assert.doesNotMatch(source, /tracking-/u);
   assert.doesNotMatch(source, /<Sparkles/u);
+});
+
+test('홈 문구는 프로젝트의 현황과 다음 판단을 방문자 관점에서 설명한다', () => {
+  const source = read('src/pages/Dashboard.jsx');
+
+  for (const phrase of [
+    '전체 프로젝트 여정 속에서, 현재 과업의 위치를 확인합니다.',
+    '전체 일정에서 얼마나 시간이 지났는지, 실제 업무는 어디까지 완료됐는지 확인할 수 있습니다.',
+    '가정으로 시작하지 않고, 근거에서 앞으로 나아갑니다.',
+    '계획과 실행, 장소의 근거를 하나의 흐름으로 연결합니다.',
+    '현재 단계와 Gate별 상세 일정, 실행주관, 연결된 업무를 확인하고 다음 의사결정 시점을 파악할 수 있습니다.',
+    '누가 무엇을 언제까지 수행하는지, 현재 상태와 필요한 결정을 하나의 업무 원장에서 확인합니다.',
+    '7개의 관점으로 송현의 실행 조건을 확인합니다.',
+    '최근의 기록에서 다음 결정을 확인합니다.',
+  ]) assert.ok(source.includes(phrase), `홈에 확정 문구가 필요합니다: ${phrase}`);
+
+  for (const englishEyebrow of ['Songhyeon BID Project', 'Where we are', 'How we work', 'One project, connected views', 'Latest signals']) {
+    assert.ok(!source.includes(englishEyebrow), `파란 섹션명은 한글로 표시해야 합니다: ${englishEyebrow}`);
+  }
+  assert.doesNotMatch(source, /분리해 보여줍니다|같은 숫자로 포장하지 않습니다|홈은 결과를 복제하지 않습니다|핵심 콘텐츠를 바로 소개합니다/);
 });
 
 test('홈의 주요 컴포넌트는 실제 상세 랜딩으로 연결된다', () => {
@@ -40,7 +60,8 @@ test('홈의 공간 화면 소개 카드는 작은 글씨를 피하고 구분선
 
   assert.ok(mapSection, '공간 화면 소개 카드 영역을 찾을 수 없습니다.');
   assert.match(mapSection, /text-\[15px\] font-bold text-\[#8fc1ba\]/, '통합지도·운영구역 등의 분류명은 15px 이상이어야 합니다.');
-  assert.match(mapSection, /text-\[23px\] font-semibold text-white/, '각 공간 화면 제목은 충분히 크게 보여야 합니다.');
+  assert.match(mapSection, /text-\[23px\] font-semibold[^"\n]*text-white/, '각 공간 화면 제목은 충분히 크게 보여야 합니다.');
+  assert.match(mapSection, /break-keep text-\[23px\][^"\n]*leading-\[1\.35\]/, '긴 한글 제목은 카드 밖으로 넘치지 않고 단어 단위로 줄바꿈되어야 합니다.');
   assert.match(mapSection, /text-\[15px\] leading-\[1\.65\]/, '카드 설명은 15px 이상이어야 합니다.');
   assert.match(mapSection, /border-t[^"\n]*pt-5 text-\[14px\]/, '하단 선과 데이터 문구 사이에 충분한 위쪽 여백이 필요합니다.');
   assert.doesNotMatch(mapSection, /text-\[(?:10|11|12|13)px\]/, '공간 화면 카드에 지나치게 작은 글씨를 다시 사용하면 안 됩니다.');

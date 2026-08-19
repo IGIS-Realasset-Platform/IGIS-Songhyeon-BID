@@ -7,9 +7,10 @@ test('홈은 송현 BID 프로젝트의 스크롤형 홈페이지를 제공한�
 
   assert.match(dashboard, /data-songhyeon-home/u);
   assert.match(dashboard, /송현을 하나의 장소가 아니라/u);
-  assert.match(dashboard, /Where we are/u);
-  assert.match(dashboard, /How we work/u);
-  assert.match(dashboard, /Latest signals/u);
+  assert.match(dashboard, /프로젝트 현재 위치/u);
+  assert.match(dashboard, /일하는 방식/u);
+  assert.match(dashboard, /프로젝트 통합 현황/u);
+  assert.match(dashboard, /최근 업무와 문서/u);
   assert.match(dashboard, /\bbg-\[#1F1F1E\]/u, '홈은 송현 워크스페이스 배경색을 직접 사용해야 합니다.');
 });
 

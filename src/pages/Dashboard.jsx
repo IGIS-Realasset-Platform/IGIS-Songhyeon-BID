@@ -152,7 +152,7 @@ export default function Dashboard() {
       path: '/map-activities/integrated-map',
       label: '통합지도',
       title: '송현을 한 장의 지도에서',
-      description: '운영구역·자산·점포·기관을 겹쳐 보며 장소의 조건과 관계를 함께 읽습니다.',
+      description: '운영구역·자산·점포·기관 데이터를 한곳에 연결해 장소의 조건과 관계를 입체적으로 확인합니다.',
       meta: '21개 데이터셋 · 공간 통합 탐색',
       icon: <Layers3 size={21} />,
       className: 'col-span-6 bg-gradient-to-br from-[#263640] to-[#222625]',
@@ -160,17 +160,17 @@ export default function Dashboard() {
     {
       path: '/map-activities/boundary',
       label: '운영구역',
-      title: '운영 범위를 비교',
-      description: '도로와 필지, 보행 흐름을 기준으로 BID 운영 범위의 대안을 비교합니다.',
+      title: 'BID 운영구역의 대안을 비교합니다.',
+      description: '도로·필지·보행 흐름을 기준으로 세 가지 운영구역 대안과 각각의 판단 근거를 비교합니다.',
       meta: unavailable.has('map') ? '운영 범위 비교' : `${data.mapOverview?.boundaries?.length || 0}개 운영 대안`,
       icon: <ScanSearch size={21} />,
       className: 'col-span-3 bg-[#242625]',
     },
     {
       path: '/map-activities/assets-leases',
-      label: '자산·임차',
-      title: '자산·임차 관계',
-      description: '주요 자산의 위치와 운영 관계, 임대차 현황을 공간 위에서 확인합니다.',
+      label: '이지스 자산 현황',
+      title: '이지스 자산과 임차 관계를 함께 확인합니다.',
+      description: '주요 자산의 위치와 운영 관계, 임대차 현황을 지도 위에서 연결해 확인합니다.',
       meta: unavailable.has('map') ? '자산 관계 탐색' : `${mapCatalog.assets?.length || 0}개 주요 자산`,
       icon: <Building2 size={21} />,
       className: 'col-span-3 bg-[#262526]',
@@ -178,8 +178,8 @@ export default function Dashboard() {
     {
       path: '/map-activities/igis-retail',
       label: '이지스 리테일',
-      title: '운영 자산 연결',
-      description: '이지스 자산과 주변 상권을 함께 보며 협업 가능한 운영 네트워크를 찾습니다.',
+      title: '운영 자산과 주변 상권을 연결합니다.',
+      description: '이지스 자산의 리테일 현황과 주변 상권을 함께 살펴보고, 공동 운영이 가능한 접점을 확인합니다.',
       meta: '자산 포트폴리오 · 운영 접점',
       icon: <Store size={21} />,
       className: 'col-span-3 bg-[#252524]',
@@ -187,8 +187,8 @@ export default function Dashboard() {
     {
       path: '/map-activities/market-activities',
       label: '상권·활동',
-      title: '상권과 활동 밀도',
-      description: '점포 구성과 유동, 시간대별 활동을 통해 실제 도시 경험의 패턴을 봅니다.',
+      title: '상권과 활동의 흐름을 확인합니다.',
+      description: '점포 구성·유동·시간대별 활동 데이터를 통해 사람들이 실제로 움직이고 머무르는 패턴을 확인합니다.',
       meta: '10,571개 점포 · 상권 활동',
       icon: <Activity size={21} />,
       className: 'col-span-3 bg-[#232526]',
@@ -196,8 +196,8 @@ export default function Dashboard() {
     {
       path: '/map-activities/hotel',
       label: '호텔',
-      title: '도심 체류 수요',
-      description: '숙박시설의 등급과 분포, 객실 공급을 비교해 방문객 체류 조건을 읽습니다.',
+      title: '도심 체류 수요와 공급을 확인합니다.',
+      description: '숙박시설의 등급·분포·객실 공급을 비교해 방문객이 머무를 수 있는 조건과 수용력을 확인합니다.',
       meta: '266개 숙박시설 · 공급 구성',
       icon: <Hotel size={21} />,
       className: 'col-span-3 bg-[#252425]',
@@ -206,7 +206,7 @@ export default function Dashboard() {
       path: '/map-activities/institutions-community',
       label: '제도·공동체',
       title: '제도와 관계자',
-      description: '관련 계획·정책과 기관·공동체를 연결해 협의 순서와 실행 조건을 확인합니다.',
+      description: '관련 계획·정책·기관·공동체를 연결해 누구와 무엇을 협의해야 하는지, 실행에 필요한 조건은 무엇인지 확인합니다.',
       meta: unavailable.has('map') ? '제도와 관계자 탐색' : `${mapCatalog.plans?.length || 0}개 계획 · ${mapCatalog.organizations?.length || 0}개 기관`,
       icon: <Landmark size={21} />,
       className: 'col-span-3 bg-[#242624]',
@@ -229,7 +229,7 @@ export default function Dashboard() {
         </div>
 
         <div className="mx-auto flex min-h-[720px] w-[1200px] max-w-full flex-col px-6 pb-12 pt-[92px]">
-          <div className="text-[14px] font-bold text-[#8fc7ff]">Songhyeon BID Project</div>
+          <div className="text-[14px] font-bold text-[#8fc7ff]">송현 BID 프로젝트</div>
           <h1 className="mt-8 max-w-[990px] text-[70px] font-semibold leading-[1.02] text-white">
             송현을 하나의 장소가 아니라,<br />함께 운영되는 <span className="bg-gradient-to-r from-[#badaf5] via-[#9bc9ef] to-[#7ca9d3] bg-clip-text text-transparent">도시 경험</span>으로.
           </h1>
@@ -274,9 +274,9 @@ export default function Dashboard() {
 
       <section id="where-we-are" className="mx-auto w-[1200px] max-w-full px-6 py-[112px]">
         <SectionHeading
-          eyebrow="Where we are"
-          title="전체 프로젝트 여정 속에서, 지금의 위치를 정확히 봅니다."
-          description="시간이 얼마나 흘렀는지와 실제 상세 일정이 얼마나 완료됐는지를 분리해 보여줍니다. 일정의 속도와 업무의 진척을 같은 숫자로 포장하지 않습니다."
+          eyebrow="프로젝트 현재 위치"
+          title="전체 프로젝트 여정 속에서, 현재 과업의 위치를 확인합니다."
+          description="전체 일정에서 얼마나 시간이 지났는지, 실제 업무는 어디까지 완료됐는지 확인할 수 있습니다. 계획의 경과와 실행의 성과를 정확한 지표로 확인하고, 다음에 집중해야 할 과제를 판단합니다."
         />
 
         <Link to={stageHref} className="group mt-12 block cursor-pointer overflow-hidden rounded-[28px] border border-white/[0.1] bg-[#252524] transition-colors hover:border-white/[0.18] hover:bg-[#282827]">
@@ -322,9 +322,9 @@ export default function Dashboard() {
       <section id="how-we-work" className="border-y border-white/[0.08] bg-[#181818]">
         <div className="mx-auto w-[1200px] max-w-full px-6 py-[112px]">
           <SectionHeading
-            eyebrow="How we work"
+            eyebrow="일하는 방식"
             title="가정으로 시작하지 않고, 근거에서 앞으로 나아갑니다."
-            description="기존 서비스·운영 가설의 핵심을 다섯 단계로 압축했습니다. 각 단계는 다음 단계로 넘어가기 위한 명확한 완료조건을 가집니다."
+            description="기존 서비스·운영 가설의 핵심을 다섯 단계로 압축했습니다. 현장의 조건을 확인하고, 실행 가능한 가설을 세우며, 실증 결과를 다음 결정으로 연결합니다. 각 단계는 명확한 완료 기준을 충족한 뒤 다음 단계로 이어집니다."
           />
           <div className="mt-14 grid grid-cols-5 overflow-hidden rounded-[26px] border border-white/[0.12] bg-[#222221]">
             {hypothesisPipeline.map((stage, index) => {
@@ -353,9 +353,9 @@ export default function Dashboard() {
 
       <section className="mx-auto w-[1200px] max-w-full px-6 py-[112px]">
         <SectionHeading
-          eyebrow="One project, connected views"
-          title="계획과 실행, 장소의 근거를 하나의 흐름으로 봅니다."
-          description="홈은 결과를 복제하지 않습니다. 각 원장의 현재 상태를 요약하고, 클릭하면 실제 업무가 이루어지는 화면으로 바로 이어집니다."
+          eyebrow="프로젝트 통합 현황"
+          title="계획과 실행, 장소의 근거를 하나의 흐름으로 연결합니다."
+          description="마일스톤의 계획, 통합업무보드의 실행, 지도 위의 장소 데이터를 연결해 프로젝트의 현재 상황과 다음 행동을 한 흐름에서 확인할 수 있습니다."
         />
 
         <div className="mt-14 grid grid-cols-12 gap-4">
@@ -365,9 +365,9 @@ export default function Dashboard() {
               <ArrowUpRight size={19} className="text-[#66666b] transition-colors group-hover:text-white" />
             </div>
             <div className="mt-auto">
-              <p className="text-[12px] font-bold uppercase text-[#77777c]">Milestone</p>
+              <p className="text-[12px] font-bold text-[#77777c]">마일스톤</p>
               <h3 className="mt-3 whitespace-nowrap text-[31px] font-semibold text-white">{overview.currentStage.code} · {overview.currentStage.shortTitle}</h3>
-              <p className="mt-3 max-w-[560px] text-[14px] leading-[1.65] text-[#8d8d92]">전체 계획에서 현재 위치와 Gate별 상세 일정, 실행주관 및 연결 업무를 확인합니다.</p>
+              <p className="mt-3 max-w-[560px] text-[14px] leading-[1.65] text-[#8d8d92]">현재 단계와 Gate별 상세 일정, 실행주관, 연결된 업무를 확인하고 다음 의사결정 시점을 파악할 수 있습니다.</p>
               <div className="mt-7 grid grid-cols-4 gap-3">
                 {Object.entries(STATUS_LABELS).map(([key, label]) => (
                   <div key={key} className="rounded-[13px] bg-black/20 px-4 py-3">
@@ -385,9 +385,9 @@ export default function Dashboard() {
               <ArrowUpRight size={19} className="text-[#6f7780] transition-colors group-hover:text-white" />
             </div>
             <div className="mt-auto">
-              <p className="text-[12px] font-bold uppercase text-[#7d858c]">Integrated task board</p>
+              <p className="text-[12px] font-bold text-[#7d858c]">통합업무보드</p>
               <h3 className="mt-3 whitespace-nowrap text-[31px] font-semibold text-white">실행은 업무 단위로.</h3>
-              <p className="mt-3 text-[14px] leading-[1.65] text-[#979da2]">담당·기한·상태·결정사항을 하나의 원장에서 관리합니다.</p>
+              <p className="mt-3 text-[14px] leading-[1.65] text-[#979da2]">누가 무엇을 언제까지 수행하는지, 현재 상태와 필요한 결정을 하나의 업무 원장에서 확인합니다.</p>
               <div className="mt-7 flex gap-6 border-t border-white/[0.1] pt-5">
                 <Metric label="진행 중" value={loading ? <LoadingLine /> : `${overview.taskCounts['진행중'] || 0}`} note="실행 업무" accent />
                 <Metric label="완료" value={loading ? <LoadingLine /> : `${overview.taskCounts['완료'] || 0}`} note="누적 업무" />
@@ -398,9 +398,9 @@ export default function Dashboard() {
           <div className="col-span-12 mt-2 overflow-hidden rounded-[28px] border border-white/[0.11] bg-[#202120]">
             <div className="flex items-end justify-between gap-10 border-b border-white/[0.09] px-8 py-7">
               <div>
-                <div className="flex items-center gap-3 text-[#8fc5bc]"><MapPinned size={21} /><p className="text-[15px] font-bold uppercase">Map & Activities</p></div>
-                <h3 className="mt-4 text-[30px] font-semibold text-white">장소를 이해하는 일곱 개의 관점</h3>
-                <p className="mt-3 text-[16px] leading-[1.65] text-[#929297]">숫자만 요약하지 않고, 각 공간 화면에서 실제로 확인할 수 있는 핵심 콘텐츠를 바로 소개합니다.</p>
+                <div className="flex items-center gap-3 text-[#8fc5bc]"><MapPinned size={21} /><p className="text-[15px] font-bold">공간·활동 현황</p></div>
+                <h3 className="mt-4 text-[30px] font-semibold text-white">7개의 관점으로 송현의 실행 조건을 확인합니다.</h3>
+                <p className="mt-3 text-[16px] leading-[1.65] text-[#929297]">운영구역·자산·상권·활동·기관 데이터를 연결해 송현의 현재 조건과 실행 가능성을 구체적으로 확인합니다.</p>
               </div>
               <Link to="/map-activities/integrated-map" className="inline-flex shrink-0 cursor-pointer items-center gap-2 text-[15px] font-bold text-[#9ccfca] hover:text-white">전체 지도에서 시작 <ArrowUpRight size={16} /></Link>
             </div>
@@ -414,7 +414,7 @@ export default function Dashboard() {
                   </div>
                   <div className="mt-8">
                     <p className="text-[15px] font-bold text-[#8fc1ba]">{label}</p>
-                    <h4 className="mt-2.5 whitespace-nowrap text-[23px] font-semibold text-white">{title}</h4>
+                    <h4 className="mt-2.5 break-keep text-[23px] font-semibold leading-[1.35] text-white">{title}</h4>
                     <p className="mt-3.5 text-[15px] leading-[1.65] text-[#a0a0a5]">{description}</p>
                   </div>
                   <p className="mt-auto border-t border-white/[0.08] pt-5 text-[14px] font-semibold text-[#85898c]">{meta}</p>
@@ -428,9 +428,9 @@ export default function Dashboard() {
       <section className="border-t border-white/[0.08] bg-[#181818]">
         <div className="mx-auto w-[1200px] max-w-full px-6 py-[112px]">
           <SectionHeading
-            eyebrow="Latest signals"
-            title="최근의 기록이 다음 결정을 만듭니다."
-            description="업무 메시지와 문서가 각자의 원장에 쌓이고, 홈에서는 가장 최근의 흐름만 빠르게 확인합니다."
+            eyebrow="최근 업무와 문서"
+            title="최근의 기록에서 다음 결정을 확인합니다."
+            description="최근 공유된 업무와 문서를 통해 무엇이 바뀌었고, 어떤 판단과 후속 조치가 필요한지 빠르게 확인할 수 있습니다."
           />
           <div className="mt-14 grid grid-cols-2 gap-5">
             <div className="overflow-hidden rounded-[26px] border border-white/[0.1] bg-[#232322]">
