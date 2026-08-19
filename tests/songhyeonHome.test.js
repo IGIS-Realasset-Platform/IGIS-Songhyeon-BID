@@ -41,6 +41,14 @@ test('홈 문구는 프로젝트의 현황과 다음 판단을 방문자 관점�
   assert.doesNotMatch(source, /분리해 보여줍니다|같은 숫자로 포장하지 않습니다|홈은 결과를 복제하지 않습니다|핵심 콘텐츠를 바로 소개합니다/);
 });
 
+test('홈의 파란 섹션 제목은 15px로 선명하게 표시한다', () => {
+  const source = read('src/pages/Dashboard.jsx');
+  const sectionHeading = source.match(/function SectionHeading[\s\S]*?\n}/)?.[0] || '';
+
+  assert.match(sectionHeading, /text-\[15px\] font-bold uppercase text-\[#7eb5e4\]/);
+  assert.doesNotMatch(sectionHeading, /text-\[13px\] font-bold uppercase text-\[#7eb5e4\]/);
+});
+
 test('홈의 주요 컴포넌트는 실제 상세 랜딩으로 연결된다', () => {
   const source = read('src/pages/Dashboard.jsx');
   assert.match(source, /`\/milestones\?stage=\$\{overview\.currentStage\.code\}&focus=current`/);

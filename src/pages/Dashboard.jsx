@@ -52,7 +52,7 @@ const formatDate = (value) => {
 function SectionHeading({ eyebrow, title, description }) {
   return (
     <div className="max-w-[1120px]">
-      <p className="text-[13px] font-bold uppercase text-[#7eb5e4]">{eyebrow}</p>
+      <p className="text-[15px] font-bold uppercase text-[#7eb5e4]">{eyebrow}</p>
       <h2 className="mt-4 whitespace-nowrap text-[42px] font-semibold leading-[1.08] text-white">{title}</h2>
       {description && <p className="mt-5 max-w-[1080px] text-[17px] leading-[1.75] text-[#96969c]">{description}</p>}
     </div>
