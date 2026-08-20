@@ -137,7 +137,7 @@ test('업무 피드 상세 route는 전체 목록 UI를 유지하고 대상 행�
   const listChrome = feed.slice(renderStart, rowRenderStart);
   assert.match(listChrome, /<SonghyeonTaskFeedWriteBox\b/,
     '상세 URL에서도 작성 UI를 계속 보여야 합니다.');
-  assert.match(listChrome, /<div className="grid w-full min-w-0 grid-cols-\[96px_126px_minmax\(0,1fr\)_92px_120px_72px_84px_68px_84px\]/,
+  assert.match(listChrome, /<div className="grid w-full min-w-0 grid-cols-\[96px_126px_minmax\(0,1fr\)_104px_120px_72px_84px_68px_84px\]/,
     '상세 URL에서도 목록 table header와 필터를 계속 보여야 합니다.');
   assert.doesNotMatch(listChrome, /!isDetailView\s*\?\s*<(?:SonghyeonTaskFeedWriteBox|div className="grid w-full min-w-0)/,
     '작성 UI와 table header를 상세 URL에서 숨기면 안 됩니다.');

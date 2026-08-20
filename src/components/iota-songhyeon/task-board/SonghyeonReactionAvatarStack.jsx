@@ -21,10 +21,11 @@ export default function SonghyeonReactionAvatarStack({
   reactors = [],
   label = '반응',
   sizeClass = 'w-[20px] h-[20px]',
+  maxVisible = 3,
 }) {
   if (!reactors.length) return null;
 
-  const displayedReactors = reactors.slice(0, 3);
+  const displayedReactors = reactors.slice(0, maxVisible);
   const extraCount = reactors.length - displayedReactors.length;
 
   return (

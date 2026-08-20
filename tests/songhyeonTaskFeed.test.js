@@ -137,7 +137,7 @@ test('업무 피드 header와 row는 프로젝트를 제외한 동일한 9열 gr
   assert.ok(rowStart >= 0 && rowEnd > rowStart, '피드 table row grid를 찾을 수 없습니다.');
   const headerGrid = header.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
   const rowGrid = row.match(/grid-cols-\[([^\]]+)\]/)?.[1] || '';
-  const expectedGrid = '96px_126px_minmax(0,1fr)_92px_120px_72px_84px_68px_84px';
+  const expectedGrid = '96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px';
   assert.equal(headerGrid, expectedGrid, '9개 열은 우측 등록일까지 테이블 폭 안에 맞는 반응형 grid여야 합니다.');
   assert.equal(rowGrid, headerGrid, 'row는 header와 정확히 같은 grid template을 사용해야 합니다.');
   assert.equal(headerGrid.split('_').length, 9, '프로젝트를 제외한 9개 열만 렌더해야 합니다.');
@@ -206,14 +206,17 @@ test('업무 피드 목록은 본문과 댓글의 좋아요·체크 사용자를
     '반응자 프로필은 게시글과 모든 댓글의 좋아요·체크 사용자를 모두 합쳐야 합니다.');
   assert.match(feed, /entry\.userId \|\| entry\.email \|\| entry\.name[\s\S]*?array\.findIndex/,
     '한 사용자가 여러 위치·종류에 반응해도 프로필은 한 번만 표시해야 합니다.');
-  assert.match(row, /<SonghyeonReactionAvatarStack reactors=\{reactionReactors\} label="본문과 댓글 반응" \/>/,
+  assert.match(row, /<SonghyeonReactionAvatarStack reactors=\{reactionReactors\} label="본문과 댓글 반응" maxVisible=\{5\} \/>/,
     '합친 좋아요·체크 사용자는 목록 우측 반응자 열에 프로필 스택으로 표시해야 합니다.');
   assert.doesNotMatch(row, /totalLikeCount|본문과 댓글 좋아요 합계|<Heart size=\{12\}/,
     '제목 옆에는 좋아요 숫자나 하트 배지를 표시하면 안 됩니다.');
   const avatarStack = await read(REACTION_AVATAR_STACK_PATH);
-  assert.match(avatarStack, /reactors\.slice\(0, 3\)/);
+  assert.match(avatarStack, /maxVisible\s*=\s*3/);
+  assert.match(avatarStack, /reactors\.slice\(0, maxVisible\)/);
   assert.match(avatarStack, />\+\{extraCount\}<\/span>/,
-    '프로필이 많아지면 3명 이후 인원을 +N으로 표시해야 합니다.');
+    '프로필이 많아지면 지정한 노출 인원 이후를 +N으로 표시해야 합니다.');
+  assert.match(feed, /<span aria-label="반응자"[^>]*><Heart size=\{15\}[^>]*\/><\/span>/,
+    '반응자 열 헤더에는 텍스트 없이 하트 아이콘을 표시해야 합니다.');
 });
 
 test('펼쳐진 업무 피드 본문은 관리 버튼 열과 분리되어 행 전체 폭을 사용한다', async () => {

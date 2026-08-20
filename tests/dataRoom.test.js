@@ -39,6 +39,8 @@ test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 
 
   assert.match(repository, /authorName:\s*row\.created_by_name/,
     'DB가 반환한 created_by_name을 목록 모델에 매핑해야 합니다.');
+  assert.match(repository, /row\.created_by_name\s*\|\|\s*['"]작성자 미확인['"]/,
+    '작성자가 없는 문서를 팀 이름으로 위장하지 않아야 합니다.');
   assert.doesNotMatch(repository, /created_by_name:\s*actor\.(?:name|staffName)/,
     '클라이언트가 전달한 이름을 원장 작성자로 신뢰하면 안 됩니다.');
   assert.match(page, /<th[^>]*>작성자<\/th>/,
@@ -49,6 +51,20 @@ test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 
     '표시된 작성자도 Data Room 검색 대상이어야 합니다.');
   assert.match(page, /colSpan=\{8\}/,
     '작성자 열 추가 후 로딩·빈 결과 행이 전체 8열을 사용해야 합니다.');
+});
+
+test('초기 Data Room 문서 두 건은 실제 등록자인 전기영으로 보정한다', async () => {
+  const migration = await readFile('supabase/migrations/202608200004_songhyeon_data_room_seed_authors.sql', 'utf8');
+  const lower = migration.toLowerCase();
+
+  assert.match(migration, /SH-BID-PREREAD-260728/);
+  assert.match(migration, /SH-BID-STRATEGY-260811/);
+  assert.match(lower, /lower\(author\.email\)\s*=\s*'jk\.jeon@igisam\.com'/);
+  assert.match(migration, /author\.staff_name\s*=\s*'전기영'/);
+  assert.match(lower, /created_by_name\s*=\s*author\.staff_name/);
+  assert.match(lower, /created_by\s*=\s*coalesce\(document\.created_by,\s*author\.auth_id\)/);
+  assert.match(lower, /disable trigger set_songhyeon_data_room_author[\s\S]*enable trigger set_songhyeon_data_room_author/,
+    '기존 작성자 보존 trigger를 우회하는 보정 범위는 migration 안에서 다시 원상복구해야 합니다.');
 });
 
 test('Data Room 목록은 문서명과 설명을 한 줄 말줄임하고 각 문서 행 높이를 6px 줄인다', async () => {

@@ -546,8 +546,8 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         <SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} onSaved={refresh} />
 
         <div className="overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#252525]">
-          <div className="grid w-full min-w-0 grid-cols-[96px_126px_minmax(0,1fr)_92px_120px_72px_84px_68px_84px] items-center border-b border-[#3c3c3c] px-[14px] py-3 text-center text-[13px] font-bold text-[#86868B]">
-            <FilterSelect label="기능셀" value={filters.cell} options={options.cells || []} onChange={(value) => updateFilter('cell', value)} /><span>등록자</span><span className="text-left">내용</span><span aria-label="반응자" />
+          <div className="grid w-full min-w-0 grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center border-b border-[#3c3c3c] px-[14px] py-3 text-center text-[13px] font-bold text-[#86868B]">
+            <FilterSelect label="기능셀" value={filters.cell} options={options.cells || []} onChange={(value) => updateFilter('cell', value)} /><span>등록자</span><span className="text-left">내용</span><span aria-label="반응자" title="좋아요·체크 반응자" className="flex items-center justify-center text-[#86868B]"><Heart size={15} strokeWidth={1.8} /></span>
             <FilterSelect label="이해관계자" value={filters.stakeholder} options={options.stakeholders || []} onChange={(value) => updateFilter('stakeholder', value)} />
             <FilterSelect label="목적" value={filters.purpose} options={['공유', '협업', '리스크 판단', '의사결정']} onChange={(value) => updateFilter('purpose', value)} />
             <FilterSelect label="진행상태" value={filters.status} options={FEED_STATUS_OPTIONS} onChange={(value) => updateFilter('status', value)} />
@@ -589,11 +589,11 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                 }}
                 className={`transition-colors ${index ? 'border-t border-[#3c3c3c]' : ''} hover:bg-white/[0.025]`}
               >
-                <button type="button" aria-expanded={isExpanded} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-0 cursor-pointer grid-cols-[96px_126px_minmax(0,1fr)_92px_120px_72px_84px_68px_84px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA]">
+                <button type="button" aria-expanded={isExpanded} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-0 cursor-pointer grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA]">
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>
                   <span className="min-w-0 pr-4 text-left"><span className="flex min-w-0 items-center gap-1.5"><strong className="min-w-0 truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || '제목 없음'}</strong>{post.comments.length > 0 ? <span aria-label={`댓글 ${post.comments.length}개`} title={`댓글 ${post.comments.length}개`} className="inline-flex h-[22px] shrink-0 items-center gap-1 rounded-full border border-[#45484b] bg-[#2b2d2f] px-2 text-[12px] font-bold text-[#a6aaae]"><MessageSquare size={12} />{post.comments.length}</span> : null}{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span></span>
-                  <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={reactionReactors} label="본문과 댓글 반응" /></span>
+                  <span className="flex items-center justify-center"><SonghyeonReactionAvatarStack reactors={reactionReactors} label="본문과 댓글 반응" maxVisible={5} /></span>
                   <span className="truncate text-center">{post.stakeholderLabel || '-'}</span><span>{post.purpose || '-'}</span><span className={statusClass(post.status)}>{post.status || '-'}</span><span className={`font-bold ${priorityClass(post.priority)}`}>{post.priority || '-'}</span><span>{shortDate(post.workDate)}</span>
                 </button>
 

@@ -33,7 +33,7 @@ const toDocument = (row) => ({
   date: row.reference_date?.replaceAll('-', '.') || '',
   href: row.url,
   viewCount: row.view_count || 0,
-  authorName: row.created_by_name || '송현 BID TF',
+  authorName: row.created_by_name || '작성자 미확인',
 });
 
 const toReferenceDate = (value) => {

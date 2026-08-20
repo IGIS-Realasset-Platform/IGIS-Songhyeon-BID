@@ -208,13 +208,13 @@ export default function DataRoom() {
             <thead>
               <tr className="border-b border-[#3c3c3c] bg-[#272726]">
                 <th className="px-[20px] py-[14px] text-[13px] font-bold text-[#86868B]">문서명</th>
-                <th className="w-[112px] px-[14px] py-[14px] text-[13px] font-bold text-[#86868B]">작성자</th>
-                <th className="w-[140px] px-[18px] py-[14px] text-[13px] font-bold text-[#86868B]">분류</th>
-                <th className="w-[88px] px-[16px] py-[14px] text-[13px] font-bold text-[#86868B]">형식</th>
-                <th className="w-[120px] px-[14px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">기준일</th>
-                <th className="w-[76px] px-[10px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">조회수</th>
-                <th className="w-[136px] px-[12px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">원본</th>
-                <th className="w-[92px] px-[12px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">관리</th>
+                <th className="w-[96px] px-[8px] py-[14px] text-[13px] font-bold text-[#86868B]">작성자</th>
+                <th className="w-[112px] px-[8px] py-[14px] text-[13px] font-bold text-[#86868B]">분류</th>
+                <th className="w-[72px] px-[8px] py-[14px] text-[13px] font-bold text-[#86868B]">형식</th>
+                <th className="w-[104px] px-[8px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">기준일</th>
+                <th className="w-[60px] px-[4px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">조회수</th>
+                <th className="w-[128px] px-[8px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">원본</th>
+                <th className="w-[84px] px-[8px] py-[14px] text-center text-[13px] font-bold text-[#86868B]">관리</th>
               </tr>
             </thead>
             <tbody>
@@ -244,12 +244,12 @@ export default function DataRoom() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-[14px] py-[15px] align-middle text-[13px] font-semibold text-[#D1D1D6]">{document.authorName || '송현 BID TF'}</td>
-                  <td className="px-[18px] py-[15px] align-middle text-[13px] text-[#bbb9af]">{document.category}</td>
-                  <td className="px-[16px] py-[15px] align-middle text-[13px] text-[#bbb9af]">{document.type}</td>
-                  <td className="px-[14px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
-                  <td className="px-[10px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.viewCount || 0}</td>
-                  <td className="px-[12px] py-[15px] text-center align-middle">
+                  <td className="truncate px-[8px] py-[15px] align-middle text-[13px] font-semibold text-[#D1D1D6]" title={document.authorName || '작성자 미확인'}>{document.authorName || '작성자 미확인'}</td>
+                  <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.category}>{document.category}</td>
+                  <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.type}>{document.type}</td>
+                  <td className="whitespace-nowrap px-[8px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
+                  <td className="px-[4px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.viewCount || 0}</td>
+                  <td className="px-[8px] py-[15px] text-center align-middle">
                     <a
                       href={document.href}
                       target="_blank"
@@ -262,7 +262,7 @@ export default function DataRoom() {
                       원문 열기
                     </a>
                   </td>
-                  <td className="px-[12px] py-[15px] text-center align-middle">
+                  <td className="px-[8px] py-[15px] text-center align-middle">
                     {!isReadOnly ? <div className="flex items-center justify-center gap-1">
                       <button type="button" onClick={(event) => { event.stopPropagation(); setEditingDocument({ ...document }); }} aria-label={`${document.title} 수정`} title="수정" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#454544] hover:text-white">
                         <Pencil size={14} strokeWidth={1.8} />
