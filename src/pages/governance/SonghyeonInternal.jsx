@@ -3,9 +3,10 @@ import { songhyeonSupabase } from '../../lib/songhyeonSupabase';
 import { songhyeonMemberFallback } from '../../data/songhyeonMembers';
 import { songhyeonMemberPhotoSource } from '../../components/iota-songhyeon/SonghyeonMemberAvatar';
 
-const GROUP_ORDER = ['공간솔루션센터', '기업마케팅', '기획추진센터'];
+const GROUP_ORDER = ['부문대표', '공간솔루션센터', '기업마케팅', '기획추진센터'];
 
 const DISPLAY_TITLES = {
+  이철승: '부문대표',
   김현수: '센터장',
   이시정: '센터장',
   김민지: '리더',
@@ -16,6 +17,12 @@ const DISPLAY_TITLES = {
 };
 
 const GROUP_META = {
+  부문대표: {
+    affiliation: '부문대표',
+    responsibilities: [
+      ['통합 의사결정', '자산별 개발·금융·상품 쟁점을 취합하고 프로젝트의 주요 의사결정을 총괄함'],
+    ],
+  },
   공간솔루션센터: {
     affiliation: 'SSC',
     responsibilities: [
@@ -136,7 +143,7 @@ export default function SonghyeonInternal() {
         </tr></thead>
         <tbody>{rows.map((row) => <tr
           key={row.group}
-          className={`cursor-default border-b border-[#333] transition-colors last:border-b-0 ${row.group !== '공간솔루션센터' ? 'h-[220px]' : ''} ${hoveredRow === row.group ? 'bg-white/5' : ''}`}
+          className={`cursor-default border-b border-[#333] transition-colors last:border-b-0 ${row.group === '부문대표' ? 'h-[110px]' : row.group !== '공간솔루션센터' ? 'h-[220px]' : ''} ${hoveredRow === row.group ? 'bg-white/5' : ''}`}
           onMouseEnter={() => setHoveredRow(row.group)}
           onMouseLeave={() => { setHoveredRow(null); setHoveredMember(null); }}
         >

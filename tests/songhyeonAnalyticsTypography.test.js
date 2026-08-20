@@ -32,7 +32,7 @@ test('Analytics의 기본·작은 글씨는 기존보다 2px 커지고 큰 지�
   assert.match(page, /descriptionClassName=["']!text-\[16px\]["']/);
   assert.match(page, /className=["']text-\[13px\] font-bold text-\[#86868B\]["']>\{label\}/);
   assert.match(page, /note && <div className=["']mt-2 text-\[12px\] text-\[#686868\]["']/);
-  assert.match(page, /analytics-daily-title[\s\S]*?text-\[16px\][\s\S]*?일별 이용 추이/);
+  assert.match(page, /analytics-daily-title[\s\S]*?text-\[16px\][\s\S]*?일별 방문자·페이지뷰/);
   assert.match(page, /text-\[10px\] text-\[#686868\]["']>\{showLabel \? shortDate/);
 
   // 요약 카드의 핵심 수치 크기는 강조 계층을 유지한다.

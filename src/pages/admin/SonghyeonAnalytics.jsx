@@ -109,7 +109,7 @@ export default function SonghyeonAnalytics() {
     return () => { active = false; };
   }, [days, isMemberView, reloadKey, selectedMemberId, setSearchParams]);
 
-  const maximumDailyViews = useMemo(() => Math.max(1, ...analytics.daily.map((item) => Number(item.views) || 0)), [analytics.daily]);
+  const maximumDailyActivity = useMemo(() => Math.max(1, ...analytics.daily.flatMap((item) => [Number(item.views) || 0, Number(item.visitors) || 0])), [analytics.daily]);
   const maximumMemberDailyViews = useMemo(() => Math.max(1, ...memberDetail.daily.map((item) => Number(item.views) || 0)), [memberDetail.daily]);
   const summary = analytics.summary || {};
   const memberSummary = memberDetail.summary || {};
@@ -171,10 +171,11 @@ export default function SonghyeonAnalytics() {
       {error && <div role="alert" className="mb-3 flex items-center justify-between rounded-[12px] border border-[#ff453a]/25 bg-[#ff453a]/10 px-4 py-3 text-[14px] text-[#ff8a82]"><span>{error}</span><button type="button" onClick={retry} className="cursor-pointer rounded-[6px] border border-[#ff8a82]/25 px-2.5 py-1 text-[13px] font-bold hover:bg-[#ff453a]/10">다시 불러오기</button></div>}
 
       {!isMemberView ? <>
-      <section aria-label="요약 지표" className="grid grid-cols-6 gap-3">
-        <SummaryCard label="전체 조회" value={summary.totalViews} note={`최근 ${summary.periodDays || days}일`} />
-        <SummaryCard label="오늘 조회" value={summary.todayViews} />
-        <SummaryCard label="방문자" value={summary.uniqueVisitors} note="익명 기기 기준" />
+      <section aria-label="요약 지표" className="grid grid-cols-7 gap-3">
+        <SummaryCard label="전체 페이지뷰" value={summary.totalViews} note={`최근 ${summary.periodDays || days}일`} />
+        <SummaryCard label="오늘 페이지뷰" value={summary.todayViews} />
+        <SummaryCard label="오늘 이용자" value={summary.todayVisitors} note="중복 제외" />
+        <SummaryCard label="기간 방문자" value={summary.uniqueVisitors} note="게스트 기기·TF 계정" />
         <SummaryCard label="세션" value={summary.uniqueSessions} note="브라우저 세션 기준" />
         <SummaryCard label="게스트 조회" value={summary.guestViews} />
         <SummaryCard label="회원 조회" value={summary.memberViews} />
@@ -182,12 +183,13 @@ export default function SonghyeonAnalytics() {
 
       <div className="mt-3 grid grid-cols-[1.4fr_1fr] gap-3">
         <section className="rounded-[20px] border border-[#3c3c3c] bg-[#272726] p-5" aria-labelledby="analytics-daily-title">
-          <div className="flex items-center justify-between"><h2 id="analytics-daily-title" className="text-[16px] font-bold text-white">일별 이용 추이</h2><span className="text-[12px] text-[#686868]">조회수 기준</span></div>
-          <div className="mt-5 flex h-[176px] items-end gap-1" role="img" aria-label={`최근 ${days}일의 일별 페이지 조회수 막대 그래프`}>
+          <div className="flex items-center justify-between"><h2 id="analytics-daily-title" className="text-[16px] font-bold text-white">일별 방문자·페이지뷰</h2><div className="flex items-center gap-3 text-[12px] text-[#86868B]"><span className="flex items-center gap-1.5"><i className="h-2 w-2 rounded-[2px] bg-[#6f9fc7]" />페이지뷰</span><span className="flex items-center gap-1.5"><i className="h-2 w-2 rounded-[2px] bg-[#65b97a]" />방문자</span></div></div>
+          <div className="mt-5 flex h-[176px] items-end gap-1" role="img" aria-label={`최근 ${days}일의 일별 방문자와 페이지뷰 막대 그래프`}>
             {analytics.daily.map((item, index) => {
-              const height = Math.max(3, ((Number(item.views) || 0) / maximumDailyViews) * 138);
+              const viewHeight = Math.max(3, ((Number(item.views) || 0) / maximumDailyActivity) * 138);
+              const visitorHeight = Math.max(3, ((Number(item.visitors) || 0) / maximumDailyActivity) * 138);
               const showLabel = analytics.daily.length <= 14 || index % Math.ceil(analytics.daily.length / 8) === 0 || index === analytics.daily.length - 1;
-              return <div key={item.date} className="group relative flex min-w-0 flex-1 flex-col items-center justify-end" title={`${item.date} · 조회 ${number(item.views)} · 방문자 ${number(item.visitors)}`}><span className="pointer-events-none absolute bottom-[calc(100%+6px)] z-10 hidden whitespace-nowrap rounded-[6px] border border-[#454545] bg-[#1c1c1e] px-2 py-1 text-[12px] text-[#C7C7CC] shadow-lg group-hover:block">조회 {number(item.views)} · 방문자 {number(item.visitors)}</span><div className="w-full max-w-[18px] rounded-t-[4px] bg-[#6f9fc7]/70 transition-colors group-hover:bg-[#82add0]" style={{ height }} /><span className="mt-2 h-3 truncate text-[10px] text-[#686868]">{showLabel ? shortDate(item.date) : ''}</span></div>;
+              return <div key={item.date} className="group relative flex min-w-0 flex-1 flex-col items-center justify-end" title={`${item.date} · 페이지뷰 ${number(item.views)} · 방문자 ${number(item.visitors)}`}><span className="pointer-events-none absolute bottom-[calc(100%+6px)] z-10 hidden whitespace-nowrap rounded-[6px] border border-[#454545] bg-[#1c1c1e] px-2 py-1 text-[12px] text-[#C7C7CC] shadow-lg group-hover:block">페이지뷰 {number(item.views)} · 방문자 {number(item.visitors)}</span><div className="flex h-[138px] w-full items-end justify-center gap-[2px]"><div className="w-[40%] max-w-[8px] rounded-t-[3px] bg-[#6f9fc7]/80 transition-colors group-hover:bg-[#82add0]" style={{ height: viewHeight }} /><div className="w-[40%] max-w-[8px] rounded-t-[3px] bg-[#65b97a]/75 transition-colors group-hover:bg-[#7fc18e]" style={{ height: visitorHeight }} /></div><span className="mt-2 h-3 truncate text-[10px] text-[#686868]">{showLabel ? shortDate(item.date) : ''}</span></div>;
             })}
             {!loading && analytics.daily.length === 0 && <div className="grid h-full w-full place-items-center text-[14px] text-[#686868]">아직 집계된 이용 기록이 없습니다.</div>}
           </div>

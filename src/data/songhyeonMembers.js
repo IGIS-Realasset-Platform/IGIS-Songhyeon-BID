@@ -1,5 +1,11 @@
 export const songhyeonMemberFallback = [
   {
+    group: '부문대표', name: '이철승', title: '부문대표',
+    roles: ['송현 BID TF', '부문대표'], responsibility: '통합 의사결정 총괄',
+    email: 'ethan.lee@igisam.com', phone: '', photoPath: '/이철승.webp',
+    gateScope: ['G0', 'G1', 'G2', 'G3', 'G4', 'G5', 'G6'], order: 0,
+  },
+  {
     group: '기획추진센터', name: '이시정', title: '센터장',
     roles: ['기획추진센터/리더', '송현 BID TF'], responsibility: '사업방향·서울시 협력·사업구조 및 주요 승인 지원',
     email: '', phone: '', gateScope: ['G0', 'G1', 'G2', 'G3', 'G4', 'G5', 'G6'], order: 10,

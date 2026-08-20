@@ -1,6 +1,7 @@
 insert into public.songhyeon_members
 (email, staff_name, group_name, title, roles, responsibility, photo_path, gate_scope, platform_role, display_order, is_active)
 values
+('ethan.lee@igisam.com','이철승','부문대표','부문대표',array['송현 BID TF','부문대표'],'통합 의사결정 총괄','/이철승.webp',array['G0','G1','G2','G3','G4','G5','G6'],'manager',0,true),
 ('sjlee@igisam.com','이시정','기획추진센터','기획추진센터 리더',array['송현 BID TF'],'기획추진센터 총괄','/songhyeon-members/이시정.webp',array['G0','G1','G2','G3','G4','G5','G6'],'manager',1,true),
 ('kylee@igisam.com','이관용','기획추진센터','기획추진센터',array['송현 BID TF'],'기획추진 실행지원','/songhyeon-members/이관용.webp',array['G0','G1','G2','G3','G4','G5','G6'],'member',2,true),
 ('jk.jeon@igisam.com','전기영','기획추진센터','기획추진센터',array['송현 BID TF'],'사업방향·서울시 협력·사업구조 및 주요 승인','/songhyeon-members/전기영.webp',array['G0','G1','G2','G3','G4','G5','G6'],'admin',3,true),

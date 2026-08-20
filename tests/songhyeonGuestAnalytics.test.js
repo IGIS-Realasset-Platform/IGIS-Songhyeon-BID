@@ -42,7 +42,7 @@ test('관리자 화면은 전기영 exact 계정에만 노출되고 페이지뷰
   assert.match(layout, /isAdmin &&[\s\S]*이용 현황/);
   assert.match(layout, /<SonghyeonPageViewTracker/);
   assert.match(tracker, /recordSonghyeonPageView\(normalizeSonghyeonAnalyticsPath\(pathname\)\)/);
-  for (const text of ['전체 조회', '오늘 조회', '방문자', '세션', '게스트 조회', '회원 조회', '일별 이용 추이', '페이지 순위']) {
+  for (const text of ['전체 페이지뷰', '오늘 페이지뷰', '오늘 이용자', '기간 방문자', '세션', '게스트 조회', '회원 조회', '일별 방문자·페이지뷰', '페이지 순위']) {
     assert.match(page, new RegExp(text));
   }
   assert.match(repository, /track_songhyeon_page_view/);

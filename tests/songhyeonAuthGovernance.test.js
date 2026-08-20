@@ -142,9 +142,9 @@ test('좌측 하단 계정 카드는 프로필 사진·이름·이메일과 비�
   assert.match(layout, />로그인<\/button>/);
 });
 
-test('송현 11명 전체 이메일이 승인 roster로 seed된다', async () => {
+test('송현 12명 전체 이메일이 승인 roster로 seed된다', async () => {
   const seed = await read('supabase/seed.sql');
-  const emails = ['sjlee@igisam.com', 'kylee@igisam.com', 'jk.jeon@igisam.com', 'minjik@igisam.com', 'argoh@igisam.com', 'hyunsoo.kim@igisam.com', 'ghlee@igisam.com', 'smchung@igisam.com', 'subin.yim@igisam.com', 'chaemi.bang@igisam.com', 'jiwon.lee@igisam.com'];
+  const emails = ['ethan.lee@igisam.com', 'sjlee@igisam.com', 'kylee@igisam.com', 'jk.jeon@igisam.com', 'minjik@igisam.com', 'argoh@igisam.com', 'hyunsoo.kim@igisam.com', 'ghlee@igisam.com', 'smchung@igisam.com', 'subin.yim@igisam.com', 'chaemi.bang@igisam.com', 'jiwon.lee@igisam.com'];
   for (const email of emails) assert.match(seed, new RegExp(email.replace('.', '\\.')));
 });
 
@@ -172,7 +172,7 @@ test('송현 멤버 화면은 DB 연결과 송현 TF fallback을 제공한다', 
   assert.doesNotMatch(page, /기준 조직안/);
 });
 
-test('송현 조직도는 IOTA 상단 여백·표 동작과 11명 통합 명단을 유지한다', async () => {
+test('송현 조직도는 IOTA 상단 여백·표 동작과 12명 통합 명단을 유지한다', async () => {
   const page = await read('src/pages/governance/SonghyeonInternal.jsx');
   const layout = await read('src/components/Layout.jsx');
   assert.match(layout, /workspace-content px-\[60px\] pt-\[8px\]/);
@@ -184,7 +184,7 @@ test('송현 조직도는 IOTA 상단 여백·표 동작과 11명 통합 명단�
   assert.match(page, /mb-\[8px\]/);
   assert.match(page, /mb-\[24px\]/);
   assert.match(page, /mb-\[12px\]/);
-  assert.match(page, /const GROUP_ORDER = \['공간솔루션센터', '기업마케팅', '기획추진센터'\]/);
+  assert.match(page, /const GROUP_ORDER = \['부문대표', '공간솔루션센터', '기업마케팅', '기획추진센터'\]/);
   assert.match(page, />부문 내 소속</);
   assert.doesNotMatch(page, />담당 Gate</);
   assert.match(page, />인력</);
@@ -208,17 +208,32 @@ test('송현 조직도는 IOTA 상단 여백·표 동작과 11명 통합 명단�
   }
   assert.equal((page.match(/align-middle/g) || []).length, 4);
   assert.doesNotMatch(page, /align-top/);
-  assert.match(page, /row\.group !== '공간솔루션센터' \? 'h-\[220px\]'/);
+  assert.match(page, /row\.group === '부문대표' \? 'h-\[110px\]' : row\.group !== '공간솔루션센터' \? 'h-\[220px\]'/);
 });
 
-test('송현 멤버는 지정된 3개 조직 11명으로 구성된다', () => {
-  const expected = ['이시정', '이관용', '전기영', '김민지', '고아라', '김현수', '이가현', '정수명', '임수빈', '방채미', '이지원'];
+test('송현 멤버는 부문대표를 포함한 4개 조직 12명으로 구성된다', () => {
+  const expected = ['이철승', '이시정', '이관용', '전기영', '김민지', '고아라', '김현수', '이가현', '정수명', '임수빈', '방채미', '이지원'];
   assert.deepEqual(songhyeonMemberFallback.map((member) => member.name), expected);
   assert.deepEqual(
-    Object.fromEntries(['기획추진센터', '기업마케팅', '공간솔루션센터'].map((group) => [group, songhyeonMemberFallback.filter((member) => member.group === group).length])),
-    { 기획추진센터: 3, 기업마케팅: 2, 공간솔루션센터: 6 },
+    Object.fromEntries(['부문대표', '기획추진센터', '기업마케팅', '공간솔루션센터'].map((group) => [group, songhyeonMemberFallback.filter((member) => member.group === group).length])),
+    { 부문대표: 1, 기획추진센터: 3, 기업마케팅: 2, 공간솔루션센터: 6 },
   );
   assert.equal(songhyeonMemberFallback.some((member) => member.name.includes('예정')), false);
+});
+
+test('이철승 대표는 새 Auth 계정 생성 없이 기존 IOTA 계정 UUID로 송현에 연결된다', async () => {
+  const [seed, migration] = await Promise.all([
+    read('supabase/seed.sql'),
+    read('supabase/migrations/202608200001_songhyeon_add_lee_cheolseung_member.sql'),
+  ]);
+
+  assert.match(seed, /\('ethan\.lee@igisam\.com','이철승','부문대표','부문대표'/);
+  assert.match(migration, /from auth\.users as account/);
+  assert.match(migration, /lower\(btrim\(account\.email\)\) = 'ethan\.lee@igisam\.com'/);
+  assert.match(migration, /auth_id = excluded\.auth_id/);
+  assert.match(migration, /'통합 의사결정 총괄'/);
+  assert.match(migration, /'\/이철승\.webp'/);
+  assert.doesNotMatch(migration, /insert\s+into\s+auth\.users|signUp|password/iu);
 });
 
 test('방채미·이지원 직책은 거버넌스 표시값·fallback·Supabase seed와 운영 migration에서 모두 사원으로 유지된다', async () => {

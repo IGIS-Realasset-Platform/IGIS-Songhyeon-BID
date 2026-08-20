@@ -255,9 +255,9 @@ export default function Dashboard() {
             <article className="border-t border-white/[0.14] pt-6">
               <p className="text-[14px] font-bold text-[#8fc7ff]">이지스가 추진하는 이유</p>
               <p className="mt-3 text-[17px] leading-[1.7] text-[#b0b0b5]">
-                이지스는 송현 일대 자산의 운영 경험과 데이터를 바탕으로, 개별 자산을<br />
-                넘어 지역 전체의 이용 경험과 경쟁력을 높일 수 있는 민관 협력의 실행 구조를 만들기<br />
-                위해 이 프로젝트를 추진합니다.
+                이지스는 송현 일대 자산의 운영 경험과 데이터를 바탕으로, 개별 자산을 넘어<br />
+                지역 전체의 이용 경험과 경쟁력을 높일 수 있는 민관 협력의 실행 구조를 만들기 위해<br />
+                이 프로젝트를 추진합니다.
               </p>
             </article>
           </div>
@@ -287,10 +287,15 @@ export default function Dashboard() {
       </section>
 
       <section id="where-we-are" className="mx-auto w-[1200px] max-w-full px-6 py-[112px]">
-        <SectionHeading
-          eyebrow="프로젝트 현재 위치"
-          title="전체 프로젝트 여정 속에서, 현재 과업의 위치를 확인합니다."
-          description="전체 일정에서 얼마나 시간이 지났는지, 실제 업무는 어디까지 완료됐는지 확인할 수 있습니다. 계획의 경과와 실행의 성과를 정확한 지표로 확인하고, 다음에 집중해야 할 과제를 판단합니다."
+          <SectionHeading
+            eyebrow="프로젝트 현재 위치"
+            title="전체 프로젝트 여정 속에서, 현재 과업의 위치를 확인합니다."
+            description={(
+              <>
+                전체 일정에서 얼마나 시간이 지났는지, 실제 업무는 어디까지 완료됐는지 확인할 수 있습니다.<br />
+                계획의 경과와 실행의 성과를 정확한 지표로 확인하고, 다음에 집중해야 할 과제를 판단합니다.
+              </>
+            )}
         />
 
         <Link to={stageHref} className="group mt-12 block cursor-pointer overflow-hidden rounded-[28px] border border-white/[0.1] bg-[#252524] transition-colors hover:border-white/[0.18] hover:bg-[#282827]">
@@ -338,7 +343,12 @@ export default function Dashboard() {
           <SectionHeading
             eyebrow="일하는 방식"
             title="가정으로 시작하지 않고, 근거에서 앞으로 나아갑니다."
-            description="기존 서비스·운영 가설의 핵심을 다섯 단계로 압축했습니다. 현장의 조건을 확인하고, 실행 가능한 가설을 세우며, 실증 결과를 다음 결정으로 연결합니다. 각 단계는 명확한 완료 기준을 충족한 뒤 다음 단계로 이어집니다."
+            description={(
+              <>
+                기존 서비스·운영 가설의 핵심을 다섯 단계로 압축했습니다. 현장의 조건을 확인하고, 실행 가능한 가설을 세우며, 실증 결과를 다음 결정으로 연결합니다.<br />
+                각 단계는 명확한 완료 기준을 충족한 뒤 다음 단계로 이어집니다.
+              </>
+            )}
           />
           <div className="mt-14 grid grid-cols-5 overflow-hidden rounded-[26px] border border-white/[0.12] bg-[#222221]">
             {hypothesisPipeline.map((stage, index) => {

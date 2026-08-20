@@ -35,6 +35,9 @@ test('홈 문구는 프로젝트의 현황과 다음 판단을 방문자 관점�
     '최근의 기록에서 다음 결정을 확인합니다.',
   ]) assert.ok(source.includes(phrase), `홈에 확정 문구가 필요합니다: ${phrase}`);
 
+  assert.match(source, /실제 업무는 어디까지 완료됐는지 확인할 수 있습니다\.<br \/>\s*계획의 경과와 실행의 성과/);
+  assert.match(source, /실증 결과를 다음 결정으로 연결합니다\.<br \/>\s*각 단계는 명확한 완료 기준/);
+
   for (const englishEyebrow of ['Songhyeon BID Project', 'Where we are', 'How we work', 'One project, connected views', 'Latest signals']) {
     assert.ok(!source.includes(englishEyebrow), `파란 섹션명은 한글로 표시해야 합니다: ${englishEyebrow}`);
   }
@@ -43,17 +46,17 @@ test('홈 문구는 프로젝트의 현황과 다음 판단을 방문자 관점�
 
 test('홈 첫 화면은 송현 BID의 정의와 이지스가 추진하는 이유를 먼저 설명한다', () => {
   const source = read('src/pages/Dashboard.jsx');
-  const continuousCopy = source.replace(/<br \/>\s*/g, '');
+  const continuousCopy = source.replace(/<br \/>\s*/g, ' ');
 
   assert.match(source, /프로젝트 정의/);
   assert.match(source, /이지스가 추진하는 이유/);
-  assert.match(continuousCopy, /열린송현녹지광장과 주변의 자산·상권·기관을하나의 운영 체계로 연결/);
+  assert.match(continuousCopy, /열린송현녹지광장과 주변의 자산·상권·기관을 하나의 운영 체계로 연결/);
   assert.match(continuousCopy, /송현 일대 자산의 운영 경험과 데이터를 바탕으로/);
-  assert.match(continuousCopy, /민관 협력의 실행 구조를 만들기위해 이 프로젝트를 추진합니다/);
+  assert.match(continuousCopy, /민관 협력의 실행 구조를 만들기 위해 이 프로젝트를 추진합니다/);
   assert.match(source, /자산·상권·기관을<br \/>\s*하나의 운영 체계/);
   assert.match(source, /도심 운영모델을<br \/>\s*설계·검증/);
-  assert.match(source, /개별 자산을<br \/>\s*넘어 지역 전체/);
-  assert.match(source, /실행 구조를 만들기<br \/>\s*위해 이 프로젝트/);
+  assert.match(source, /개별 자산을 넘어<br \/>\s*지역 전체/);
+  assert.match(source, /실행 구조를 만들기 위해<br \/>\s*이 프로젝트/);
   assert.match(source, /mt-8 max-w-\[1080px\] space-y-6/);
   assert.match(source, /border-t border-white\/\[0\.14\] pt-6/);
   assert.doesNotMatch(source, /max-w-\[1080px\] grid-cols-2/);
