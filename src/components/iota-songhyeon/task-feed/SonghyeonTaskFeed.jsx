@@ -7,7 +7,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CheckCircle2, ChevronDown, ChevronUp, Download, FileText, Heart,
-  LockKeyhole, MessageSquare, Pencil, Search, Trash2, Users, X,
+  LockKeyhole, MessageSquare, Pencil, Search, Trash2, X,
 } from 'lucide-react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
@@ -33,6 +33,7 @@ const NEW_MARKER_EPOCH = new Date('2026-07-13T09:02:39Z').getTime();
 const NEW_MARKER_WINDOW = 48 * 60 * 60 * 1000;
 const URL_CANDIDATE_PATTERN = /https?:\/\/[^\s<>"']+/giu;
 const URL_TRAILING_PUNCTUATION = /[.,!?;:。！？；：]/u;
+const escapeRegularExpression = (value) => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const valueOf = (value, fallback = '') => value ?? fallback;
 const postIdOf = (post) => post?.id || post?.postId || post?.post_id || '';
@@ -73,13 +74,36 @@ const trimUrlPunctuation = (candidate) => {
   return { url, trailing };
 };
 
-function LinkifiedText({ text }) {
+function LinkifiedText({ text, mentions = [] }) {
   const source = String(text || '');
+  const mentionLabels = [...new Set(mentions
+    .map((mention) => String(mention?.name || mention?.label || mention || '').trim())
+    .filter(Boolean))]
+    .sort((left, right) => right.length - left.length);
+  const mentionPattern = mentionLabels.length
+    ? new RegExp(`@(${mentionLabels.map(escapeRegularExpression).join('|')})`, 'gu')
+    : null;
+  const tokenPattern = mentionPattern
+    ? new RegExp(`${URL_CANDIDATE_PATTERN.source}|${mentionPattern.source}`, 'giu')
+    : URL_CANDIDATE_PATTERN;
   const nodes = [];
   let cursor = 0;
-  for (const [index, match] of [...source.matchAll(URL_CANDIDATE_PATTERN)].entries()) {
+  for (const [index, match] of [...source.matchAll(tokenPattern)].entries()) {
     const start = match.index ?? 0;
     if (start > cursor) nodes.push(source.slice(cursor, start));
+    if (match[0].startsWith('@')) {
+      nodes.push(
+        <strong
+          key={`mention-${start}-${index}`}
+          data-feed-mention
+          className="font-bold text-[#8fc7ff]"
+        >
+          {match[0].slice(1)}
+        </strong>,
+      );
+      cursor = start + match[0].length;
+      continue;
+    }
     const { url, trailing } = trimUrlPunctuation(match[0]);
     let isSafeExternalUrl = false;
     try {
@@ -581,8 +605,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                     </div>
                     <div data-feed-detail-content className="w-full min-w-0">
                       <h3 className="mt-5 text-[18px] font-bold leading-7 text-white">{post.title || '업무 메시지'}</h3>
-                      <div className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-7 text-[#D1D1D6]"><LinkifiedText text={post.content} /></div>
-                      {post.mentions?.length ? <div className="mt-4 flex flex-wrap gap-1.5" aria-label="멘션"><Users size={14} className="mt-1 text-[#7fa6c8]" />{post.mentions.map((mention) => <span key={mention.id || mention.memberId || mention.member_id || mention.name || mention} className="rounded-[6px] bg-[#6f9fc7]/10 px-2 py-1 text-[12px] text-[#9cc4e6]">@{mention.name || mention.label || mention}</span>)}</div> : null}
+                      <div className="mt-3 whitespace-pre-wrap break-words text-[14px] leading-7 text-[#D1D1D6]"><LinkifiedText text={post.content} mentions={post.mentions} /></div>
                     </div>
 
                     {post.attachments.length ? <div className="mt-5 flex flex-wrap gap-2 border-t border-[#333] pt-4">{post.attachments.map((file) => <button key={file.id || file.path || file.name} type="button" onClick={() => handleDownloadAttachment(file)} className="flex items-center gap-2 rounded-[8px] border border-[#444] bg-[#272727] px-3 py-2 text-[12px] text-[#D1D1D6] hover:border-[#666]"><FileText size={14} />{file.name}<Download size={13} className="text-[#86868B]" /></button>)}</div> : null}
@@ -604,7 +627,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                         const isCommentAuthor = Boolean(actor.userId && actor.userId === commentAuthorId);
                         const isEditingComment = editingComment?.postId === post.id && editingComment?.commentId === commentId;
                         const wasEdited = Boolean(comment.updatedAt && comment.createdAt && comment.updatedAt !== comment.createdAt);
-                        return <div key={commentId} className="rounded-[10px] border border-[#333] bg-white/[0.02] p-3"><div className="flex items-start gap-3"><Avatar profile={{ name: commentAuthorName, photoPath: comment.author?.photoPath || comment.authorPhotoPath || comment.author_photo_path }} size="h-7 w-7" /><div className="min-w-0 flex-1"><div className="flex items-center gap-2"><strong className="text-[12px] text-white">{commentAuthorName}</strong>{isRecent(comment.createdAt || comment.created_at, comment.updatedAt || comment.updated_at) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="text-[11px] text-[#86868B]">{displayDateTime(comment.createdAt || comment.created_at)}</span>{wasEdited ? <span className="text-[10px] text-[#686868]">수정됨</span> : null}{isCommentAuthor && !isReadOnly ? <div className="ml-auto flex items-center gap-3"><button type="button" onClick={() => startEditingComment(post.id, commentId, commentContent)} className="text-[11px] text-[#8eb8dc] hover:text-[#b7d7f2]">수정</button><button type="button" onClick={() => setDeleteTarget({ type: 'comment', postId: post.id, commentId })} className="text-[11px] text-[#bd716d] hover:text-[#dd8b86]">삭제</button></div> : null}</div>{isEditingComment ? <div className="mt-2"><textarea aria-label="댓글 수정" autoFocus value={commentEditDraft} onChange={(event) => setCommentEditDraft(event.target.value)} className="min-h-[88px] w-full resize-y rounded-[8px] border border-[#4b5965] bg-[#29292B] px-3 py-2 text-[13px] leading-6 text-white outline-none focus:border-[#6f9fc7]" /><div className="mt-2 flex justify-end gap-2"><button type="button" onClick={cancelEditingComment} disabled={commentEditPendingId === commentId} className="h-8 rounded-[7px] border border-[#444] px-3 text-[11px] text-[#A1A1AA] disabled:opacity-40">취소</button><button type="button" onClick={handleUpdateComment} disabled={commentEditPendingId === commentId || !commentEditDraft.trim()} className="h-8 rounded-[7px] bg-[#3279b4] px-3 text-[11px] font-bold text-white disabled:opacity-40">{commentEditPendingId === commentId ? '저장 중...' : '저장'}</button></div></div> : <p className="mt-1 whitespace-pre-wrap break-words text-[13px] leading-6 text-[#B8B8BD]"><LinkifiedText text={commentContent} /></p>}<div className="mt-2 flex gap-3"><ReactionButton compact type="like" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'like', commentId)} /><ReactionButton compact type="check" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'check', commentId)} /></div></div></div></div>;
+                        return <div key={commentId} className="rounded-[10px] border border-[#333] bg-white/[0.02] p-3"><div className="flex items-start gap-3"><Avatar profile={{ name: commentAuthorName, photoPath: comment.author?.photoPath || comment.authorPhotoPath || comment.author_photo_path }} size="h-7 w-7" /><div className="min-w-0 flex-1"><div className="flex items-center gap-2"><strong className="text-[12px] text-white">{commentAuthorName}</strong>{isRecent(comment.createdAt || comment.created_at, comment.updatedAt || comment.updated_at) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}<span className="text-[11px] text-[#86868B]">{displayDateTime(comment.createdAt || comment.created_at)}</span>{wasEdited ? <span className="text-[10px] text-[#686868]">수정됨</span> : null}{isCommentAuthor && !isReadOnly ? <div className="ml-auto flex items-center gap-3"><button type="button" onClick={() => startEditingComment(post.id, commentId, commentContent)} className="text-[11px] text-[#8eb8dc] hover:text-[#b7d7f2]">수정</button><button type="button" onClick={() => setDeleteTarget({ type: 'comment', postId: post.id, commentId })} className="text-[11px] text-[#bd716d] hover:text-[#dd8b86]">삭제</button></div> : null}</div>{isEditingComment ? <div className="mt-2"><textarea aria-label="댓글 수정" autoFocus value={commentEditDraft} onChange={(event) => setCommentEditDraft(event.target.value)} className="min-h-[88px] w-full resize-y rounded-[8px] border border-[#4b5965] bg-[#29292B] px-3 py-2 text-[13px] leading-6 text-white outline-none focus:border-[#6f9fc7]" /><div className="mt-2 flex justify-end gap-2"><button type="button" onClick={cancelEditingComment} disabled={commentEditPendingId === commentId} className="h-8 rounded-[7px] border border-[#444] px-3 text-[11px] text-[#A1A1AA] disabled:opacity-40">취소</button><button type="button" onClick={handleUpdateComment} disabled={commentEditPendingId === commentId || !commentEditDraft.trim()} className="h-8 rounded-[7px] bg-[#3279b4] px-3 text-[11px] font-bold text-white disabled:opacity-40">{commentEditPendingId === commentId ? '저장 중...' : '저장'}</button></div></div> : <p className="mt-1 whitespace-pre-wrap break-words text-[14px] leading-6 text-[#B8B8BD]"><LinkifiedText text={commentContent} /></p>}<div className="mt-2 flex gap-3"><ReactionButton compact type="like" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'like', commentId)} /><ReactionButton compact type="check" reactions={comment.reactions} actorEmail={actor.email} disabled={isReadOnly} onToggle={() => handleToggleReaction(post.id, 'check', commentId)} /></div></div></div></div>;
                       })}
                     </div>
 

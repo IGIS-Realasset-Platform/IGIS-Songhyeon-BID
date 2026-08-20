@@ -246,7 +246,7 @@ test('펼쳐진 업무 피드 본문은 관리 버튼 열과 분리되어 행 �
   const detailContent = expanded.slice(contentPosition);
   assert.match(detailContent, /\{post\.title\s*\|\|\s*['"](?:업무 메시지|제목 없음)['"]\}/,
     '제목은 전체 폭 본문 구간 안에 있어야 합니다.');
-  assert.match(detailContent, /className="[^"]*whitespace-pre-wrap[^"]*break-words[^"]*"[^>]*>\s*<LinkifiedText\s+text=\{post\.content\}\s*\/>\s*<\/div>/,
+  assert.match(detailContent, /className="[^"]*whitespace-pre-wrap[^"]*break-words[^"]*"[^>]*>\s*<LinkifiedText\s+text=\{post\.content\}\s+mentions=\{post\.mentions\}\s*\/>\s*<\/div>/,
     '본문은 작성자가 넣은 단락은 보존하고 긴 문장은 사용 가능한 전체 폭에서만 자연스럽게 줄바꿈되어야 합니다.');
   assert.doesNotMatch(expanded.slice(headerPosition, contentPosition), /post\.content/,
     '본문을 수정·삭제 버튼이 폭을 차지하는 header flex 안에 두면 안 됩니다.');
@@ -812,6 +812,8 @@ test('댓글은 @멘션 가능한 단일 계층이며 작성자 본인이 인라
   }
   assert.match(feed, /댓글을 입력하세요|@를 입력하여/);
   assert.match(feed, /mention/i);
+  assert.match(feed, /<p\s+className="[^"]*whitespace-pre-wrap[^"]*text-\[14px\][^"]*"[^>]*><LinkifiedText\s+text=\{commentContent\}\s*\/><\/p>/,
+    '등록된 댓글 본문은 14px로 표시해야 합니다.');
   assert.match(feed, /aria-label="댓글 수정"/);
   assert.match(feed, /startEditingComment/);
   assert.match(feed, /handleUpdateComment/);
@@ -926,7 +928,7 @@ test('원본처럼 명시적 재조회로 동기화하며 존재하지 않는 Su
 
 test('업무 피드 본문·댓글의 http/https URL만 안전한 새 탭 링크로 렌더링한다', async () => {
   const feed = await read(FEED_PATH);
-  const componentStart = feed.search(/function\s+LinkifiedText\s*\(\{\s*text\s*\}\)/);
+  const componentStart = feed.search(/function\s+LinkifiedText\s*\(\{\s*text\s*,\s*mentions\s*=\s*\[\]\s*\}\)/);
   const nextComponent = componentStart >= 0
     ? feed.slice(componentStart + 1).search(/\n(?:function|const)\s+[A-Z][A-Za-z0-9]*\s*(?:=\s*)?\(/)
     : -1;
@@ -955,6 +957,25 @@ test('업무 피드 본문·댓글의 http/https URL만 안전한 새 탭 링크
     '외부 링크 클릭이 게시글 행 열기·닫기 이벤트로 전파되면 안 됩니다.');
   assert.doesNotMatch(linkifiedText, /dangerouslySetInnerHTML/,
     '사용자 입력을 HTML 문자열로 주입하지 말고 React node로 렌더링해야 합니다.');
+});
+
+test('자동완성으로 선택한 본문 멘션은 골뱅이 없이 이름만 굵고 파란색으로 표시한다', async () => {
+  const feed = await read(FEED_PATH);
+  const componentStart = feed.search(/function\s+LinkifiedText\s*\(\{\s*text\s*,\s*mentions\s*=\s*\[\]\s*\}\)/);
+  const componentEnd = feed.indexOf('\nconst normalizePost', componentStart);
+  const component = feed.slice(componentStart, componentEnd);
+
+  assert.ok(componentStart >= 0 && componentEnd > componentStart,
+    '본문 표시 컴포넌트에서 저장된 멘션 정보를 함께 처리해야 합니다.');
+  assert.match(component, /mentionLabels[\s\S]*mention\?\.(?:name|label)[\s\S]*mentionPattern/,
+    '자동완성으로 저장된 멘션 이름만 표시 대상으로 사용해야 합니다.');
+  assert.match(component, /data-feed-mention/);
+  assert.match(component, /<strong[\s\S]*font-bold[\s\S]*text-\[#[0-9a-fA-F]{6}\][\s\S]*\{match\[0\]\.slice\(1\)\}[\s\S]*<\/strong>/,
+    '멘션은 @를 제거한 이름만 굵고 구분되는 색으로 렌더링해야 합니다.');
+  assert.match(feed, /<LinkifiedText\s+text=\{post\.content\}\s+mentions=\{post\.mentions\}\s*\/>/,
+    '게시글 본문 렌더링에 저장된 멘션 목록을 전달해야 합니다.');
+  assert.doesNotMatch(feed, /aria-label=['"]멘션['"][\s\S]{0,300}@\{mention\./,
+    '본문 아래에 @이름 태그를 중복 표시하지 않아야 합니다.');
 });
 
 test('URL 뒤 문장부호는 링크에서 분리하고 본문·댓글의 줄바꿈과 일반 텍스트를 유지한다', async () => {
@@ -986,7 +1007,7 @@ test('URL 뒤 문장부호는 링크에서 분리하고 본문·댓글의 줄바
 
   const detailRegion = feed.slice(detailStart, commentsStart);
   assert.match(detailRegion,
-    /className=['"][^'"]*whitespace-pre-wrap[^'"]*break-words[^'"]*['"][^>]*>[\s\S]{0,180}<LinkifiedText\s+text=\{post\.content\}\s*\/>/,
+    /className=['"][^'"]*whitespace-pre-wrap[^'"]*break-words[^'"]*['"][^>]*>[\s\S]{0,180}<LinkifiedText\s+text=\{post\.content\}\s+mentions=\{post\.mentions\}\s*\/>/,
     '게시글 본문은 기존 줄바꿈·일반 텍스트 스타일 안에서 URL만 링크로 바꿔야 합니다.');
   const commentRegion = feed.slice(commentsStart, feed.indexOf('</article>', commentsStart));
   assert.match(commentRegion,
