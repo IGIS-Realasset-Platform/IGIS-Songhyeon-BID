@@ -812,7 +812,7 @@ test('댓글은 @멘션 가능한 단일 계층이며 작성자 본인이 인라
   }
   assert.match(feed, /댓글을 입력하세요|@를 입력하여/);
   assert.match(feed, /mention/i);
-  assert.match(feed, /<p\s+className="[^"]*whitespace-pre-wrap[^"]*text-\[14px\][^"]*"[^>]*><LinkifiedText\s+text=\{commentContent\}\s*\/><\/p>/,
+  assert.match(feed, /<p\s+className="[^"]*whitespace-pre-wrap[^"]*text-\[14px\][^"]*"[^>]*><LinkifiedText\s+text=\{commentContent\}\s+mentions=\{mentionOptions\}\s*\/><\/p>/,
     '등록된 댓글 본문은 14px로 표시해야 합니다.');
   assert.match(feed, /aria-label="댓글 수정"/);
   assert.match(feed, /startEditingComment/);
@@ -959,7 +959,7 @@ test('업무 피드 본문·댓글의 http/https URL만 안전한 새 탭 링크
     '사용자 입력을 HTML 문자열로 주입하지 말고 React node로 렌더링해야 합니다.');
 });
 
-test('자동완성으로 선택한 본문 멘션은 골뱅이 없이 이름만 굵고 파란색으로 표시한다', async () => {
+test('자동완성으로 선택한 본문·댓글 멘션은 골뱅이 없이 차분한 강조색으로 표시한다', async () => {
   const feed = await read(FEED_PATH);
   const componentStart = feed.search(/function\s+LinkifiedText\s*\(\{\s*text\s*,\s*mentions\s*=\s*\[\]\s*\}\)/);
   const componentEnd = feed.indexOf('\nconst normalizePost', componentStart);
@@ -970,10 +970,14 @@ test('자동완성으로 선택한 본문 멘션은 골뱅이 없이 이름만 �
   assert.match(component, /mentionLabels[\s\S]*mention\?\.(?:name|label)[\s\S]*mentionPattern/,
     '자동완성으로 저장된 멘션 이름만 표시 대상으로 사용해야 합니다.');
   assert.match(component, /data-feed-mention/);
-  assert.match(component, /<strong[\s\S]*font-bold[\s\S]*text-\[#[0-9a-fA-F]{6}\][\s\S]*\{match\[0\]\.slice\(1\)\}[\s\S]*<\/strong>/,
-    '멘션은 @를 제거한 이름만 굵고 구분되는 색으로 렌더링해야 합니다.');
+  assert.match(component, /<span[\s\S]*data-feed-mention[\s\S]*text-\[#9ab8b1\][\s\S]*\{match\[0\]\.slice\(1\)\}[\s\S]*<\/span>/,
+    '멘션은 @를 제거하고 본문과 어울리는 차분한 색으로 렌더링해야 합니다.');
+  assert.doesNotMatch(component, /data-feed-mention[\s\S]{0,120}(?:font-bold|<strong)/,
+    '멘션 이름에 굵은 글꼴을 강제하지 않아야 합니다.');
   assert.match(feed, /<LinkifiedText\s+text=\{post\.content\}\s+mentions=\{post\.mentions\}\s*\/>/,
     '게시글 본문 렌더링에 저장된 멘션 목록을 전달해야 합니다.');
+  assert.match(feed, /<LinkifiedText\s+text=\{commentContent\}\s+mentions=\{mentionOptions\}\s*\/>/,
+    '댓글도 자동완성 후보를 기준으로 기존 @이름을 멘션으로 표시해야 합니다.');
   assert.doesNotMatch(feed, /aria-label=['"]멘션['"][\s\S]{0,300}@\{mention\./,
     '본문 아래에 @이름 태그를 중복 표시하지 않아야 합니다.');
 });
@@ -1011,7 +1015,7 @@ test('URL 뒤 문장부호는 링크에서 분리하고 본문·댓글의 줄바
     '게시글 본문은 기존 줄바꿈·일반 텍스트 스타일 안에서 URL만 링크로 바꿔야 합니다.');
   const commentRegion = feed.slice(commentsStart, feed.indexOf('</article>', commentsStart));
   assert.match(commentRegion,
-    /className=['"][^'"]*whitespace-pre-wrap[^'"]*break-words[^'"]*['"][^>]*>[\s\S]{0,180}<LinkifiedText\s+text=\{commentContent\}\s*\/>/,
+    /className=['"][^'"]*whitespace-pre-wrap[^'"]*break-words[^'"]*['"][^>]*>[\s\S]{0,180}<LinkifiedText\s+text=\{commentContent\}\s+mentions=\{mentionOptions\}\s*\/>/,
     '댓글도 줄바꿈을 유지하면서 본문과 같은 링크 변환을 사용해야 합니다.');
 });
 
