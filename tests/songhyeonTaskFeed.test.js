@@ -814,6 +814,12 @@ test('댓글은 @멘션 가능한 단일 계층이며 작성자 본인이 인라
   assert.match(feed, /mention/i);
   assert.match(feed, /<p\s+className="[^"]*whitespace-pre-wrap[^"]*text-\[14px\][^"]*"[^>]*><LinkifiedText\s+text=\{commentContent\}\s+mentions=\{mentionOptions\}\s*\/><\/p>/,
     '등록된 댓글 본문은 14px로 표시해야 합니다.');
+  assert.match(feed, /key=\{commentId\}\s+className="[^"]*px-4[^"]*pb-3[^"]*pt-4[^"]*"/,
+    '댓글 카드의 위·좌우 안쪽 여백은 기존보다 4px 넓어야 합니다.');
+  assert.match(feed, /<p\s+className="mt-2[^"]*"[^>]*><LinkifiedText\s+text=\{commentContent\}/,
+    '작성자 정보와 댓글 본문 사이는 기존보다 4px 넓어야 합니다.');
+  assert.match(feed, /mentions=\{mentionOptions\}\s*\/><\/p>\}<div\s+className="mt-3 flex gap-3">/,
+    '댓글 본문과 반응 버튼 사이는 기존보다 4px 넓어야 합니다.');
   assert.match(feed, /aria-label="댓글 수정"/);
   assert.match(feed, /startEditingComment/);
   assert.match(feed, /handleUpdateComment/);
@@ -970,10 +976,8 @@ test('자동완성으로 선택한 본문·댓글 멘션은 골뱅이 없이 차
   assert.match(component, /mentionLabels[\s\S]*mention\?\.(?:name|label)[\s\S]*mentionPattern/,
     '자동완성으로 저장된 멘션 이름만 표시 대상으로 사용해야 합니다.');
   assert.match(component, /data-feed-mention/);
-  assert.match(component, /<span[\s\S]*data-feed-mention[\s\S]*text-\[#9ab8b1\][\s\S]*\{match\[0\]\.slice\(1\)\}[\s\S]*<\/span>/,
-    '멘션은 @를 제거하고 본문과 어울리는 차분한 색으로 렌더링해야 합니다.');
-  assert.doesNotMatch(component, /data-feed-mention[\s\S]{0,120}(?:font-bold|<strong)/,
-    '멘션 이름에 굵은 글꼴을 강제하지 않아야 합니다.');
+  assert.match(component, /<span[\s\S]*data-feed-mention[\s\S]*font-bold[\s\S]*text-\[#9ab8b1\][\s\S]*\{match\[0\]\.slice\(1\)\}[\s\S]*<\/span>/,
+    '멘션은 @를 제거하고 이름을 굵고 차분한 강조색으로 렌더링해야 합니다.');
   assert.match(feed, /<LinkifiedText\s+text=\{post\.content\}\s+mentions=\{post\.mentions\}\s*\/>/,
     '게시글 본문 렌더링에 저장된 멘션 목록을 전달해야 합니다.');
   assert.match(feed, /<LinkifiedText\s+text=\{commentContent\}\s+mentions=\{mentionOptions\}\s*\/>/,
