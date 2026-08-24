@@ -12,8 +12,9 @@ const CONTENT_ROUTES = [
   { path: 'assets/annyeong', component: 'Annyeong', file: 'src/pages/assets/Annyeong.jsx' },
   { path: 'assets/new-assets', component: 'NewAssets', file: 'src/pages/assets/NewAssets.jsx' },
   { path: 'assets/market-data', component: 'MarketData', file: 'src/pages/assets/MarketData.jsx' },
-  { path: 'cases/us', component: 'UsCases', file: 'src/pages/UsCases.jsx' },
-  { path: 'cases/japan', component: 'JapanCases', file: 'src/pages/JapanCases.jsx' },
+  { path: 'cases/city-partnership', component: 'CityPartnership', file: 'src/pages/cases/CityPartnership.jsx' },
+  { path: 'cases/global-evaluation', component: 'CaseTbdPage', file: 'src/pages/cases/CaseTbdPage.jsx' },
+  { path: 'cases/songhyeon-application', component: 'CaseTbdPage', file: 'src/pages/cases/CaseTbdPage.jsx' },
 ];
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -30,7 +31,7 @@ test('주요 자산과 BID 구축사례의 실제 route/page 인벤토리를 빠
   for (const route of CONTENT_ROUTES) {
     assert.match(
       app,
-      new RegExp(`<Route\\s+path=["']${escapeRegex(route.path)}["']\\s+element=\\{<${route.component}\\s*/>\\}`),
+      new RegExp(`<Route\\s+path=["']${escapeRegex(route.path)}["']\\s+element=\\{<${route.component}[^>]*\\s/>\\}`),
       `/${route.path} 라우트는 ${route.component} 페이지와 계속 연결되어야 합니다.`,
     );
   }

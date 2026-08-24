@@ -13,8 +13,8 @@ import Ssamzigil from './pages/assets/Ssamzigil';
 import Annyeong from './pages/assets/Annyeong';
 import NewAssets from './pages/assets/NewAssets';
 import MarketData from './pages/assets/MarketData';
-import UsCases from './pages/UsCases';
-import JapanCases from './pages/JapanCases';
+import CityPartnership from './pages/cases/CityPartnership';
+import CaseTbdPage from './pages/cases/CaseTbdPage';
 import TaskFeed from './pages/TaskFeed';
 import DataRoom from './pages/DataRoom';
 import DataRoomDetail from './pages/DataRoomDetail';
@@ -52,8 +52,12 @@ export default function App() {
           <Route path="assets/annyeong" element={<Annyeong />} />
           <Route path="assets/new-assets" element={<NewAssets />} />
           <Route path="assets/market-data" element={<MarketData />} />
-          <Route path="cases/us" element={<UsCases />} />
-          <Route path="cases/japan" element={<JapanCases />} />
+          <Route path="cases" element={<Navigate replace to="/cases/city-partnership" />} />
+          <Route path="cases/city-partnership" element={<CityPartnership />} />
+          <Route path="cases/global-evaluation" element={<CaseTbdPage title="국내외 BID 전수조사" description="전 사례 정량평가와 유형별 비교 결과를 홈페이지 콘텐츠로 재구성할 예정입니다." />} />
+          <Route path="cases/songhyeon-application" element={<CaseTbdPage title="송현 매칭사례 심층조사" description="후속 심층조사 대상과 송현의 운영조건·검증질문을 연결할 예정입니다." />} />
+          <Route path="cases/us" element={<Navigate replace to="/cases/city-partnership" />} />
+          <Route path="cases/japan" element={<Navigate replace to="/cases/city-partnership" />} />
           <Route path="milestones" element={<SonghyeonScheduleGate />} />
           <Route path="hypotheses" element={<Navigate replace to="/#how-we-work" />} />
           <Route path="membership" element={<Navigate replace to="/#how-we-work" />} />
