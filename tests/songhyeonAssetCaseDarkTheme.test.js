@@ -13,8 +13,8 @@ const CONTENT_ROUTES = [
   { path: 'assets/new-assets', component: 'NewAssets', file: 'src/pages/assets/NewAssets.jsx' },
   { path: 'assets/market-data', component: 'MarketData', file: 'src/pages/assets/MarketData.jsx' },
   { path: 'cases/city-partnership', component: 'CityPartnership', file: 'src/pages/cases/CityPartnership.jsx' },
-  { path: 'cases/global-evaluation', component: 'CaseTbdPage', file: 'src/pages/cases/CaseTbdPage.jsx' },
-  { path: 'cases/songhyeon-application', component: 'CaseTbdPage', file: 'src/pages/cases/CaseTbdPage.jsx' },
+  { path: 'cases/global-evaluation', component: 'GlobalEvaluation', file: 'src/pages/cases/GlobalEvaluation.jsx' },
+  { path: 'cases/operating-insights', component: 'OperatingInsights', file: 'src/pages/cases/OperatingInsights.jsx' },
 ];
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -75,14 +75,17 @@ const scopedRulesForToken = (css, token) => {
 };
 
 test('모든 reference page는 scoped dark wrapper와 black surface/light text 계약을 사용한다', async () => {
-  const [css, ...pages] = await Promise.all([
+  const [css, reportFrame, ...pages] = await Promise.all([
     read('src/index.css'),
+    read('src/components/cases/CaseReportFrame.jsx'),
     ...CONTENT_ROUTES.map(async (route) => ({ ...route, source: await read(route.file) })),
   ]);
 
   for (const page of pages) {
-    assert.match(page.source, /\bsonghyeon-reference-dark\b/, `${page.file}의 route root에 scoped dark wrapper가 있어야 합니다.`);
+    if (page.file.startsWith('src/pages/cases/')) assert.match(page.source, /<CaseReportFrame current=/);
+    else assert.match(page.source, /\bsonghyeon-reference-dark\b/, `${page.file}의 route root에 scoped dark wrapper가 있어야 합니다.`);
   }
+  assert.match(reportFrame, /\bsonghyeon-reference-dark\b/);
 
   const cssWithoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
   const rootRule = [...cssWithoutComments.matchAll(/([^{}]+)\{([^{}]*)\}/g)].find((match) => match[1].trim() === '.songhyeon-reference-dark');

@@ -1,4 +1,5 @@
 import { thoughtsRaw } from '../../data/cityPartnershipNotionContent';
+import CaseReportFrame from '../../components/cases/CaseReportFrame';
 import { sectionNarratives } from '../../data/cityPartnershipNarrative';
 import { sectionImages } from '../../data/cityPartnershipReportImages';
 import {
@@ -320,7 +321,8 @@ function Chapter({ chapter, isLast }) {
 
 export default function CityPartnership() {
   return (
-    <article data-city-partnership-story className="songhyeon-reference-dark mx-auto w-[920px] max-w-full animate-fade-in px-6 pb-28">
+    <CaseReportFrame current="context">
+    <article data-city-partnership-story className="mx-auto w-[920px] max-w-full px-6 pb-28">
       <header className="pb-[128px] pt-16">
         <p className="text-[15px] font-bold text-[#7EB5E4]">국가별 제도 비교 · 서울형 사업 운영진단</p>
         <h1 className="mt-8 text-[54px] font-semibold leading-[1.12] tracking-[-0.035em] text-white">
@@ -376,5 +378,6 @@ export default function CityPartnership() {
 
       <footer className="mt-24 pb-8 text-[13px] leading-[1.8] text-[#747479]">출처: 윤서연·정상혁·이슬이(2022), 「서울형 타운매니지먼트사업 현황 진단과 개선방향」, 서울연구원, 과제코드 2021-PR-25.</footer>
     </article>
+    </CaseReportFrame>
   );
 }

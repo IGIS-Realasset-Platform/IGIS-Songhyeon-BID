@@ -41,9 +41,7 @@ const assetItems = [
 ];
 
 const caseItems = [
-  { name: '도시 차원의 민관협력', path: '/cases/city-partnership' },
-  { name: '국내외 BID 전수조사', path: '/cases/global-evaluation' },
-  { name: '송현 매칭사례 심층조사', path: '/cases/songhyeon-application' },
+  { name: '도시차원 민관협력 & 공통 인사이트', path: '/cases' },
 ];
 
 const governanceItems = [
@@ -216,7 +214,7 @@ export default function Layout() {
             ) : <MainLink key={item.path} item={item} collapsed={collapsed} />)}
           </div>
 
-          <Section label="민관협력 사례연구" items={caseItems} open={casesOpen} setOpen={setCasesOpen} collapsed={collapsed} />
+          <Section label="민관협력 사례조사" items={caseItems} open={casesOpen} setOpen={setCasesOpen} collapsed={collapsed} />
           <Section label="이지스 주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} />
           <Section label="송현 BID 거버넌스" items={governanceItems} open={governanceOpen} setOpen={setGovernanceOpen} collapsed={collapsed} />
         </nav>
