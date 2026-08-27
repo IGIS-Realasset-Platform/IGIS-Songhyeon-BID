@@ -76,9 +76,10 @@ test('업무분류 필터는 Supabase 과거 분류를 합치지 않고 정식 1
   assert.match(repository, /categoryMain: payload\.sourceType === 'manual' \? payload\.categoryMain : categoryForSonghyeonTask/);
 });
 
-test('자료전수조사 업무는 필터·검색 뒤 항상 최상단이며 각 그룹의 원본 순서를 보존한다', async () => {
+test('통합업무보드는 분류를 임의로 고정하지 않고 저장된 displayOrder 순서를 그대로 보존한다', async () => {
   const board = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskBoard.jsx', 'utf8');
-  assert.match(board, /const PINNED_TASK_CATEGORY = '자료전수조사';/);
+  assert.doesNotMatch(board, /PINNED_TASK_CATEGORY|categoryMain === ['"]자료전수조사['"]/);
+  assert.match(board, /const sortTasksByDisplayOrder = \(rows\) => rows\.toSorted/);
 
   const start = board.indexOf('const sortedAndFilteredTasks = useMemo(() => {');
   const end = board.indexOf('  const totalPages =', start);
@@ -86,32 +87,10 @@ test('자료전수조사 업무는 필터·검색 뒤 항상 최상단이며 각
   const orderingBlock = board.slice(start, end);
   const filterIndex = orderingBlock.indexOf('const rows = tasksForCurrentView.filter((task) => {');
   const searchIndex = orderingBlock.indexOf("if (!query) return true;");
-  const partitionIndex = orderingBlock.indexOf('...rows.filter((task) => task.categoryMain === PINNED_TASK_CATEGORY)');
-  assert.ok(filterIndex >= 0, '정렬 전에 현재 active/archived view를 filter한 새 결과 배열을 만들어야 합니다.');
+  assert.ok(filterIndex >= 0, '현재 active/archived view를 filter한 새 결과 배열을 만들어야 합니다.');
   assert.ok(searchIndex > filterIndex, '검색 조건은 rows 생성 과정에 포함돼야 합니다.');
-  assert.ok(partitionIndex > searchIndex, '자료전수조사 우선 정렬은 모든 필터와 검색이 끝난 rows에 적용돼야 합니다.');
-  assert.match(orderingBlock, /return \[\s*\.\.\.rows\.filter\(\(task\) => task\.categoryMain === PINNED_TASK_CATEGORY\),\s*\.\.\.rows\.filter\(\(task\) => task\.categoryMain !== PINNED_TASK_CATEGORY\),\s*\];/);
+  assert.match(orderingBlock, /return rows;/);
   assert.doesNotMatch(orderingBlock, /\b(?:tasks|rows)\.sort\s*\(/, '원본 tasks나 필터 결과를 제자리 정렬하면 안 됩니다.');
-  assert.doesNotMatch(orderingBlock, /\.sort\s*\(/, 'stable partition 대신 sort comparator에 의존하면 안 됩니다.');
-
-  const originalRows = [
-    { id: 'other-1', categoryMain: '사례조사·현장질문' },
-    { id: 'pinned-1', categoryMain: '자료전수조사' },
-    { id: 'other-2', categoryMain: '기회영역' },
-    { id: 'pinned-2', categoryMain: '자료전수조사' },
-    { id: 'pinned-3', categoryMain: '자료전수조사' },
-    { id: 'other-3', categoryMain: '실증·평가' },
-  ];
-  const originalIds = originalRows.map((row) => row.id);
-  const filteredRows = originalRows.filter((row) => row.id !== 'other-2');
-  const orderedRows = [
-    ...filteredRows.filter((row) => row.categoryMain === '자료전수조사'),
-    ...filteredRows.filter((row) => row.categoryMain !== '자료전수조사'),
-  ];
-  assert.deepEqual(orderedRows.map((row) => row.id), ['pinned-1', 'pinned-2', 'pinned-3', 'other-1', 'other-3']);
-  assert.deepEqual(originalRows.map((row) => row.id), originalIds, '우선 정렬이 원본 tasks 순서를 mutate하면 안 됩니다.');
-  assert.deepEqual(orderedRows.filter((row) => row.categoryMain === '자료전수조사').map((row) => row.id), ['pinned-1', 'pinned-2', 'pinned-3']);
-  assert.deepEqual(orderedRows.filter((row) => row.categoryMain !== '자료전수조사').map((row) => row.id), ['other-1', 'other-3']);
 });
 
 test('중요도는 송현 전용 핵심·중간·낮음만 사용하고 과거값을 일괄 정규화한다', async () => {
@@ -268,7 +247,7 @@ test('상태·중요도·실행주관 네임택은 정식 값마다 서로 다�
 
 test('관리열 수정·보관은 기본 원색 대신 muted 정적 색상과 hover 색상을 사용한다', async () => {
   const board = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskBoard.jsx', 'utf8');
-  const managementCell = board.match(/<td className="w-\[71px\] min-w-\[71px\] max-w-\[71px\] border-l border-r border-\[#3c3c3c\] px-1 text-center">\s*<div className="flex items-center justify-center gap-1">[\s\S]*?<\/td>/)?.[0] || '';
+  const managementCell = board.match(/<td data-task-management-cell[\s\S]*?<\/td>/)?.[0] || '';
   assert.ok(managementCell, '관리열 셀을 찾을 수 없습니다.');
 
   const editButton = managementCell.match(/if \(archived \|\| isReadOnly\) openTask\(task\); else setEditingTask\(task\); \}\} className="([^"]+)">\{archived \|\| isReadOnly \? '상세' : '수정'\}<\/button>/)?.[1] || '';
@@ -478,7 +457,7 @@ test('댓글·대댓글의 좋아요·확인은 사용자별로 토글되고 반
   assert.match(drawer, /SonghyeonReactionAvatarStack/);
   assert.match(drawer, /ml-auto/);
   assert.match(avatarStack, /reactor\?\.photoPath/);
-  assert.match(avatarStack, /reactors\.slice\(0, 3\)/);
+  assert.match(avatarStack, /reactors\.slice\(0, maxVisible\)/);
   assert.match(avatarStack, /extraCount/);
   assert.match(avatarStack, /role="list"/);
   assert.match(avatarStack, /aria-label=\{`\$\{name\}, \$\{group\}`\}/);

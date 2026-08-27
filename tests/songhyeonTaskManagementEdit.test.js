@@ -78,6 +78,6 @@ test('전기영 전용 새 업무 추가 경로는 관리 열 직접 수정과 �
   assert.doesNotMatch(createEditor, /\btask=|editingTask/,
     '신규 editor에 수정 대상을 전달하면 안 됩니다.');
   assert.match(createEditor, /onClose=\{\(\) => setIsEditorOpen\(false\)\}/);
-  assert.match(createEditor, /onCreated=\{\(created\) => \{[\s\S]*?setTasks\(\(current\) => \[\.\.\.current, created\]\);[\s\S]*?setIsEditorOpen\(false\);[\s\S]*?openTask\(created\);[\s\S]*?\}\}/,
+  assert.match(createEditor, /onCreated=\{\(created\) => \{[\s\S]*?setTasks\(\(current\) => sortTasksByDisplayOrder\(\[\.\.\.current, created\]\)\);[\s\S]*?setCurrentPage\(1\);[\s\S]*?setIsEditorOpen\(false\);[\s\S]*?openTask\(created\);[\s\S]*?\}\}/,
     '새 업무는 목록에 추가한 뒤 신규 editor를 닫고 생성된 상세를 열어야 합니다.');
 });

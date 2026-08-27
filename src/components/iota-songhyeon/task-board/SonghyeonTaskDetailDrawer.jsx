@@ -41,6 +41,7 @@ const activityDescription = (item) => {
   if (item.action === 'task_resumed') return `업무 재개${item.payload?.reason ? ` · ${item.payload.reason}` : ''}`;
   if (item.action === 'task_stopped') return `업무 중단${item.payload?.reason ? ` · ${item.payload.reason}` : ''}`;
   if (item.action === 'task_archived') return `업무 보관${item.payload?.reason ? ` · ${item.payload.reason}` : ''}`;
+  if (item.action === 'task_reordered') return '업무 순서 변경';
   return '업무 기록 변경';
 };
 

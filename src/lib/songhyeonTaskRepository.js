@@ -258,6 +258,18 @@ export async function createTask(task, actor = {}) {
   return taskPayload(Array.isArray(row) ? row[0] : row);
 }
 
+export async function reorderTask(sourceKey, adjacentSourceKey, actor = {}) {
+  assertTaskOwner(actor, '순서 변경');
+  if (!String(sourceKey || '').trim() || !String(adjacentSourceKey || '').trim()) {
+    throw new SonghyeonTaskRepositoryError('순서를 바꿀 업무를 확인해 주세요.');
+  }
+  const rows = await run(requireSupabase().rpc('reorder_songhyeon_tasks', {
+    target_source_key: sourceKey,
+    adjacent_source_key: adjacentSourceKey,
+  }), '업무 순서를 변경하지 못했습니다.');
+  return (rows || []).map(taskPayload);
+}
+
 export async function updateTask(sourceKey, patch, actor = {}) {
   assertActor(actor);
   const client = requireSupabase();
