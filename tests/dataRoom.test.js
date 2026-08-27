@@ -69,9 +69,13 @@ test('초기 Data Room 문서 두 건은 실제 등록자인 전기영으로 보
 
 test('Data Room 목록은 문서명과 설명을 한 줄 말줄임하고 각 문서 행 높이를 6px 줄인다', async () => {
   const page = await readFile('src/pages/DataRoom.jsx', 'utf8');
-  const documentRow = page.match(
-    /\{filteredDocuments\.map\(\(document\) => \([\s\S]*?<tr[\s\S]*?<\/tr>\s*\)\)\}/,
-  )?.[0] || '';
+  const mapStart = page.indexOf('{filteredDocuments.map((document) => {');
+  const relativeRowStart = page.slice(mapStart).search(/<tr\s+ref=\{isExpanded \? expandedRowRef : null\}/);
+  const rowStart = relativeRowStart >= 0 ? mapStart + relativeRowStart : -1;
+  const rowEnd = page.indexOf('</tr>', rowStart);
+  const documentRow = mapStart >= 0 && rowStart > mapStart && rowEnd > rowStart
+    ? page.slice(rowStart, rowEnd)
+    : '';
 
   assert.ok(documentRow, 'Data Room 문서 목록 행을 찾을 수 있어야 합니다.');
   assert.match(documentRow, /<div className="[^"]*\bmin-w-0\b[^"]*">\s*<div\b[^>]*className="[^"]*\btruncate\b[^"]*"[^>]*>\{document\.title\}<\/div>/,

@@ -18,7 +18,6 @@ import GlobalEvaluation from './pages/cases/GlobalEvaluation';
 import OperatingInsights from './pages/cases/OperatingInsights';
 import TaskFeed from './pages/TaskFeed';
 import DataRoom from './pages/DataRoom';
-import DataRoomDetail from './pages/DataRoomDetail';
 import SonghyeonScheduleGate from './components/iota-songhyeon/pmo/SonghyeonScheduleGate';
 import Login from './pages/Login';
 import SonghyeonInternal from './pages/governance/SonghyeonInternal';
@@ -67,7 +66,7 @@ export default function App() {
           <Route path="feed" element={<TaskFeed />} />
           <Route path="feed/:postId" element={<TaskFeed />} />
           <Route path="data" element={<DataRoom />} />
-          <Route path="data/:documentId" element={<DataRoomDetail />} />
+          <Route path="data/:documentId" element={<DataRoom />} />
           <Route path="governance/internal" element={<SonghyeonInternal />} />
           <Route path="governance/principles" element={<SonghyeonPrinciples />} />
           <Route path="governance/interfaces" element={<SonghyeonInterfaces />} />

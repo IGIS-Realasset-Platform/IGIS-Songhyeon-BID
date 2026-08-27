@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { ExternalLink, FileText, Pencil, Plus, Search, Trash2, X } from 'lucide-react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import { WorkspacePageFrame, WorkspacePageHeader } from '../components/workspace/WorkspacePageLayout';
 import {
@@ -105,9 +105,70 @@ function DocumentEditor({ document, onClose, onSave }) {
   );
 }
 
+function DataRoomInlineDetail({ document, isReadOnly, onOpenOriginal }) {
+  return (
+    <div data-data-room-inline-detail className="bg-[#202020] px-[28px] py-[24px]">
+      <div className="flex items-start gap-[16px]">
+        <span className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded-[11px] border border-[#3c3c3c] bg-[#1A1A1A] text-[#86868B]">
+          <FileText size={20} strokeWidth={1.6} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-[20px] font-bold leading-[28px] text-white">{document.title}</h2>
+          {document.description && (
+            <p className="mt-[8px] whitespace-pre-wrap text-[14px] leading-[23px] text-[#A1A1A6]">
+              {document.description}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <dl className="mt-[20px] grid grid-cols-4 overflow-hidden rounded-[12px] border border-[#383838] bg-[#242424]">
+        {[
+          ['분류', document.category],
+          ['형식', document.type],
+          ['기준일', document.date],
+          ['조회수', document.viewCount || 0],
+        ].map(([label, value], index) => (
+          <div key={label} className={`px-[18px] py-[15px] ${index > 0 ? 'border-l border-[#383838]' : ''}`}>
+            <dt className="text-[12px] font-bold text-[#86868B]">{label}</dt>
+            <dd className="mt-[6px] text-[13px] font-semibold text-[#D1D1D6]">{value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div
+        data-data-room-source-actions
+        className="mt-[18px] flex min-w-0 items-center gap-[16px]"
+      >
+        <a
+          data-data-room-source-url
+          href={document.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => { if (!isReadOnly) onOpenOriginal(document.id); }}
+          title={document.href}
+          className="min-w-0 flex-1 cursor-pointer truncate text-[13px] font-medium text-[#8FC7FF] underline decoration-[#8FC7FF]/40 underline-offset-[3px] transition-colors hover:text-[#B9DCFA]"
+        >
+          {document.href}
+        </a>
+        <a
+          href={document.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => { if (!isReadOnly) onOpenOriginal(document.id); }}
+          className="inline-flex h-[40px] shrink-0 cursor-pointer items-center justify-center gap-[7px] whitespace-nowrap rounded-[9px] border border-[#555] bg-white/[0.06] px-5 text-[13px] font-bold text-white transition-colors hover:border-[#666] hover:bg-white/[0.10]"
+        >
+          <ExternalLink size={15} strokeWidth={1.7} /> 원문 열기
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function DataRoom() {
   const { user, member, isReadOnly } = useSonghyeonAuth();
   const navigate = useNavigate();
+  const { documentId: routeDocumentId = '' } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const [documents, setDocuments] = useState([]);
@@ -115,6 +176,7 @@ export default function DataRoom() {
   const [loading, setLoading] = useState(true);
   const [repositoryError, setRepositoryError] = useState('');
   const [deletingId, setDeletingId] = useState('');
+  const expandedRowRef = useRef(null);
   const actor = useMemo(() => ({ userId: user?.id, name: member?.staff_name || '', email: user?.email || '' }), [member?.staff_name, user?.email, user?.id]);
 
   useEffect(() => {
@@ -171,11 +233,28 @@ export default function DataRoom() {
     const nextParams = new URLSearchParams(searchParams);
     if (value) nextParams.set('q', value);
     else nextParams.delete('q');
+    if (routeDocumentId) {
+      navigate(`/data${nextParams.toString() ? `?${nextParams.toString()}` : ''}`, { replace: true });
+      return;
+    }
     setSearchParams(nextParams, { replace: true });
   };
-  const openDocument = (document) => navigate(`/data/${encodeURIComponent(document.id)}`, {
-    state: { dataRoomListSearch: searchParams.toString() },
-  });
+  const openDocument = (document) => {
+    const listSearch = searchParams.toString();
+    if (String(routeDocumentId) === String(document.id)) {
+      navigate(`/data${listSearch ? `?${listSearch}` : ''}`, { replace: true });
+      return;
+    }
+    navigate(`/data/${encodeURIComponent(document.id)}${listSearch ? `?${listSearch}` : ''}`);
+  };
+  const routeDocumentMissing = Boolean(
+    !loading && routeDocumentId && !documents.some((document) => String(document.id) === String(routeDocumentId)),
+  );
+
+  useEffect(() => {
+    if (!routeDocumentId || !expandedRowRef.current) return;
+    expandedRowRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }, [loading, routeDocumentId]);
 
   return (
     <>
@@ -204,6 +283,7 @@ export default function DataRoom() {
 
         <div className="overflow-hidden rounded-[32px] border border-[#3c3c3c] bg-[#272726]">
           {repositoryError && <div role="alert" className="border-b border-[#FF453A]/25 bg-[#FF453A]/10 px-5 py-3 text-[12px] text-[#FF8A82]">{repositoryError}</div>}
+          {routeDocumentMissing && <div role="alert" className="border-b border-[#FF453A]/25 bg-[#FF453A]/10 px-5 py-3 text-[12px] text-[#FF8A82]">선택한 문서를 찾을 수 없습니다.</div>}
           <table className="w-full table-fixed border-collapse text-left">
             <thead>
               <tr className="border-b border-[#3c3c3c] bg-[#272726]">
@@ -218,62 +298,79 @@ export default function DataRoom() {
               </tr>
             </thead>
             <tbody>
-              {filteredDocuments.map((document) => (
-                <tr
-                  key={document.id}
-                  tabIndex={0}
-                  role="link"
-                  aria-label={`${document.title} 상세 보기`}
-                  onClick={() => openDocument(document)}
-                  onKeyDown={(event) => {
-                    if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
-                      event.preventDefault();
-                      openDocument(document);
-                    }
-                  }}
-                  className="cursor-pointer border-b border-[#3c3c3c] bg-[#272726] transition-colors last:border-b-0 hover:bg-[#333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#6f9fc7]"
-                >
-                  <td className="px-[20px] py-[15px] align-middle">
-                    <div className="flex items-center gap-[12px]">
-                      <span className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-[10px] border border-[#3c3c3c] bg-[#1F1F1E] text-[#86868B]">
-                        <FileText size={17} strokeWidth={1.6} />
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <div title={document.title} className="truncate text-[14px] font-bold text-white">{document.title}</div>
-                        <div title={document.description} className="mt-[3px] truncate text-[12px] leading-[18px] text-[#86868B]">{document.description}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="truncate px-[8px] py-[15px] align-middle text-[13px] font-semibold text-[#D1D1D6]" title={document.authorName || '작성자 미확인'}>{document.authorName || '작성자 미확인'}</td>
-                  <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.category}>{document.category}</td>
-                  <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.type}>{document.type}</td>
-                  <td className="whitespace-nowrap px-[8px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
-                  <td className="px-[4px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.viewCount || 0}</td>
-                  <td className="px-[8px] py-[15px] text-center align-middle">
-                    <a
-                      href={document.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(event) => { event.stopPropagation(); if (!isReadOnly) recordView(document.id); }}
-                      className="inline-flex h-[36px] w-[112px] cursor-pointer items-center justify-center gap-[6px] whitespace-nowrap rounded-[8px] border border-[#555] bg-white/[0.06] text-[12px] font-bold text-white transition-colors hover:border-[#666] hover:bg-white/[0.10]"
-                      aria-label={`${document.title} 원문 열기`}
+              {filteredDocuments.map((document) => {
+                const isExpanded = Boolean(routeDocumentId && String(document.id) === String(routeDocumentId));
+                return (
+                  <Fragment key={document.id}>
+                    <tr
+                      ref={isExpanded ? expandedRowRef : null}
+                      tabIndex={0}
+                      role="link"
+                      aria-label={`${document.title} 상세 보기`}
+                      aria-expanded={isExpanded}
+                      onClick={() => openDocument(document)}
+                      onKeyDown={(event) => {
+                        if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+                          event.preventDefault();
+                          openDocument(document);
+                        }
+                      }}
+                      className={`cursor-pointer border-b border-[#3c3c3c] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#6f9fc7] ${isExpanded ? 'bg-[#30302F]' : 'bg-[#272726] hover:bg-[#333]'}`}
                     >
-                      <ExternalLink size={14} strokeWidth={1.7} />
-                      원문 열기
-                    </a>
-                  </td>
-                  <td className="px-[8px] py-[15px] text-center align-middle">
-                    {!isReadOnly ? <div className="flex items-center justify-center gap-1">
-                      <button type="button" onClick={(event) => { event.stopPropagation(); setEditingDocument({ ...document }); }} aria-label={`${document.title} 수정`} title="수정" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#454544] hover:text-white">
-                        <Pencil size={14} strokeWidth={1.8} />
-                      </button>
-                      <button type="button" disabled={deletingId === document.id} onClick={(event) => { event.stopPropagation(); deleteDocument(document); }} aria-label={`${document.title} 삭제`} title="삭제" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#FF453A]/15 hover:text-[#FF6961] disabled:cursor-wait disabled:opacity-40">
-                        <Trash2 size={14} strokeWidth={1.8} />
-                      </button>
-                    </div> : <span className="text-[11px] font-bold text-[#6f9fc7]">읽기 전용</span>}
-                  </td>
-                </tr>
-              ))}
+                      <td className="px-[20px] py-[15px] align-middle">
+                        <div className="flex items-center gap-[12px]">
+                          <span className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-[10px] border border-[#3c3c3c] bg-[#1F1F1E] text-[#86868B]">
+                            <FileText size={17} strokeWidth={1.6} />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div title={document.title} className="truncate text-[14px] font-bold text-white">{document.title}</div>
+                            <div title={document.description} className="mt-[3px] truncate text-[12px] leading-[18px] text-[#86868B]">{document.description}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="truncate px-[8px] py-[15px] align-middle text-[13px] font-semibold text-[#D1D1D6]" title={document.authorName || '작성자 미확인'}>{document.authorName || '작성자 미확인'}</td>
+                      <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.category}>{document.category}</td>
+                      <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.type}>{document.type}</td>
+                      <td className="whitespace-nowrap px-[8px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
+                      <td className="px-[4px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.viewCount || 0}</td>
+                      <td className="px-[8px] py-[15px] text-center align-middle">
+                        <a
+                          href={document.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => { event.stopPropagation(); if (!isReadOnly) recordView(document.id); }}
+                          className="inline-flex h-[36px] w-[112px] cursor-pointer items-center justify-center gap-[6px] whitespace-nowrap rounded-[8px] border border-[#555] bg-white/[0.06] text-[12px] font-bold text-white transition-colors hover:border-[#666] hover:bg-white/[0.10]"
+                          aria-label={`${document.title} 원문 열기`}
+                        >
+                          <ExternalLink size={14} strokeWidth={1.7} />
+                          원문 열기
+                        </a>
+                      </td>
+                      <td className="px-[8px] py-[15px] text-center align-middle">
+                        {!isReadOnly ? <div className="flex items-center justify-center gap-1">
+                          <button type="button" onClick={(event) => { event.stopPropagation(); setEditingDocument({ ...document }); }} aria-label={`${document.title} 수정`} title="수정" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#454544] hover:text-white">
+                            <Pencil size={14} strokeWidth={1.8} />
+                          </button>
+                          <button type="button" disabled={deletingId === document.id} onClick={(event) => { event.stopPropagation(); deleteDocument(document); }} aria-label={`${document.title} 삭제`} title="삭제" className="grid h-8 w-8 cursor-pointer place-items-center rounded-[8px] text-[#A1A1A6] hover:bg-[#FF453A]/15 hover:text-[#FF6961] disabled:cursor-wait disabled:opacity-40">
+                            <Trash2 size={14} strokeWidth={1.8} />
+                          </button>
+                        </div> : <span className="text-[11px] font-bold text-[#6f9fc7]">읽기 전용</span>}
+                      </td>
+                    </tr>
+                    {isExpanded && (
+                      <tr className="border-b border-[#3c3c3c]">
+                        <td colSpan={8} className="p-0">
+                          <DataRoomInlineDetail
+                            document={document}
+                            isReadOnly={isReadOnly}
+                            onOpenOriginal={recordView}
+                          />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                );
+              })}
               {!loading && filteredDocuments.length === 0 && (
                 <tr>
                   <td colSpan={8} className="px-[20px] py-[48px] text-center text-[13px] text-[#86868B]">검색 결과가 없습니다.</td>

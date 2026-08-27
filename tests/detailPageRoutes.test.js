@@ -6,63 +6,66 @@ const read = (path) => readFile(path, 'utf8');
 
 const APP_PATH = 'src/App.jsx';
 const DATA_LIST_PATH = 'src/pages/DataRoom.jsx';
-const DATA_DETAIL_PATH = 'src/pages/DataRoomDetail.jsx';
-const DATA_REPOSITORY_PATH = 'src/lib/songhyeonDataRoomRepository.js';
 const FEED_PATH = 'src/components/iota-songhyeon/task-feed/SonghyeonTaskFeed.jsx';
 
-test('Data Room 목록의 모든 행은 문서 ID 기반 고유 pathname으로 이동하고 행 내부 action을 보존한다', async () => {
+test('Data Room 목록 행은 문서 URL을 열고 같은 행을 다시 누르면 inline 상세를 닫는다', async () => {
   const list = await read(DATA_LIST_PATH);
 
-  assert.match(list, /import\s+\{[^}]*\buseNavigate\b[^}]*\}\s+from\s+['"]react-router-dom['"]/);
+  assert.match(list, /import\s+\{[^}]*\buseNavigate\b[^}]*\buseParams\b[^}]*\}\s+from\s+['"]react-router-dom['"]/);
   assert.match(list, /const\s+navigate\s*=\s*useNavigate\(\)/);
+  assert.match(list, /const\s+\{\s*documentId:\s*routeDocumentId\s*=\s*['"]{2}\s*\}\s*=\s*useParams\(\)/);
   assert.match(
     list,
-    /const\s+openDocument\s*=\s*\(document\)\s*=>\s*navigate\(`\/data\/\$\{encodeURIComponent\(document\.id\)\}`/,
+    /navigate\(`\/data\/\$\{encodeURIComponent\(document\.id\)\}\$\{listSearch\s*\?\s*`\?\$\{listSearch\}`\s*:\s*['"]{2}\}`\)/,
     '행마다 document.id를 URL-safe pathname segment로 사용해야 합니다.',
   );
+  assert.match(list, /if\s*\(String\(routeDocumentId\)\s*===\s*String\(document\.id\)\)[\s\S]*?navigate\(`\/data\$\{listSearch[\s\S]*?replace:\s*true/,
+    '현재 펼쳐진 행을 다시 누르면 history를 추가하지 않고 Data Room 목록 URL로 닫아야 합니다.');
 
-  const rowStart = list.indexOf('<tr\n                  key={document.id}');
+  const rowStart = list.search(/<tr\s+ref=\{isExpanded \? expandedRowRef : null\}/);
   const rowEnd = list.indexOf('</tr>', rowStart);
   assert.ok(rowStart >= 0 && rowEnd > rowStart, 'Data Room 문서 행을 찾을 수 없습니다.');
   const row = list.slice(rowStart, rowEnd);
   assert.match(row, /role="link"/);
   assert.match(row, /tabIndex=\{0\}/);
   assert.match(row, /onClick=\{\(\)\s*=>\s*openDocument\(document\)\}/);
+  assert.match(row, /aria-expanded=\{isExpanded\}/);
   assert.match(row, /event\.key === ['"]Enter['"][\s\S]{0,100}event\.key === ['"] ['"]/,
     '키보드 사용자도 같은 문서 상세 pathname을 열 수 있어야 합니다.');
 
   const stoppedActions = row.match(/event\.stopPropagation\(\)/g) || [];
   assert.ok(stoppedActions.length >= 3,
     '원문·수정·삭제 action은 행의 상세 이동으로 이벤트가 전파되지 않아야 합니다.');
-  assert.match(list, /state:\s*\{\s*dataRoomListSearch:\s*searchParams\.toString\(\)\s*\}/,
-    '상세에서 목록으로 돌아올 때 기존 Data Room 검색 상태를 복원할 수 있어야 합니다.');
+  assert.match(list, /<DataRoomInlineDetail[\s\S]*?document=\{document\}[\s\S]*?onOpenOriginal=\{recordView\}/,
+    '선택된 문서의 상세 내용은 목록 행 바로 아래에서 펼쳐져야 합니다.');
 });
 
-test('Data Room 상세 route는 URL의 ID를 직접 조회하고 미존재 문서와 목록 복귀를 처리한다', async () => {
-  const [app, detail, repository] = await Promise.all([
-    read(APP_PATH),
-    read(DATA_DETAIL_PATH),
-    read(DATA_REPOSITORY_PATH),
-  ]);
+test('Data Room 상세 URL도 전체 목록을 유지하고 대상 행만 펼쳐 URL과 원문 버튼을 표시한다', async () => {
+  const [app, dataRoom] = await Promise.all([read(APP_PATH), read(DATA_LIST_PATH)]);
 
-  assert.match(app, /import\s+DataRoomDetail\s+from\s+['"]\.\/pages\/DataRoomDetail['"]/);
-  assert.match(app, /<Route\s+path=['"]data\/:documentId['"]\s+element=\{<DataRoomDetail\s*\/>\}\s*\/>/);
-  assert.match(detail, /const\s+\{\s*documentId\s*=\s*['"]{2}\s*\}\s*=\s*useParams\(\)/);
-  assert.match(detail, /loadDataRoomDocument\(documentId\)/,
-    '직접 URL 진입은 목록 state가 아니라 pathname의 documentId로 단건을 조회해야 합니다.');
-  assert.doesNotMatch(detail, /loadDataRoomDocuments\(/,
-    '상세 직접 진입을 위해 전체 목록을 다시 불러오면 안 됩니다.');
+  assert.match(app, /<Route\s+path=['"]data\/:documentId['"]\s+element=\{<DataRoom\s*\/>\}\s*\/>/);
+  assert.doesNotMatch(app, /DataRoomDetail/,
+    '상세 URL이 목록을 대체하는 별도 페이지를 사용하면 안 됩니다.');
+  assert.match(dataRoom, /const\s+isExpanded\s*=\s*Boolean\(routeDocumentId\s*&&\s*String\(document\.id\)\s*===\s*String\(routeDocumentId\)\)/);
+  assert.match(dataRoom, /\{isExpanded\s*&&\s*\([\s\S]*?<tr[\s\S]*?<td\s+colSpan=\{8\}[\s\S]*?<DataRoomInlineDetail/,
+    'URL과 일치하는 문서 행 아래에만 상세 행을 추가해야 합니다.');
+  assert.match(dataRoom, /expandedRowRef\.current\.scrollIntoView\(\{\s*behavior:\s*['"]auto['"],\s*block:\s*['"]start['"]\s*\}\)/,
+    '직접 상세 URL 진입 시 선택된 문서 행을 화면 상단으로 이동해야 합니다.');
+  assert.match(dataRoom, /선택한 문서를 찾을 수 없습니다\./);
 
-  assert.match(repository, /export\s+async\s+function\s+loadDataRoomDocument\(documentId\)/);
-  assert.match(repository, /authenticated\s*\?\s*['"]songhyeon_data_room_documents['"]\s*:\s*['"]songhyeon_public_data_room_documents['"]/,
-    '인증·게스트 직접 진입 모두 기존 공개 범위 계약을 유지해야 합니다.');
-  assert.match(repository, /\.select\(['"]\*['"]\)\.eq\(['"]id['"],\s*documentId\)\.maybeSingle\(\)/);
-  assert.match(repository, /return\s+row\s*\?\s*toDocument\(row\)\s*:\s*null/);
-
-  assert.match(detail, /문서를 찾을 수 없습니다\./);
-  assert.match(detail, /const\s+listHref\s*=\s*state\?\.dataRoomListSearch\s*\?\s*`\/data\?\$\{state\.dataRoomListSearch\}`\s*:\s*['"]\/data['"]/);
-  assert.ok((detail.match(/<Link\s+to=\{(?:to|listHref)\}/g) || []).length >= 2,
-    '정상 상세와 미존재 상세 모두 Data Room 목록으로 복귀할 수 있어야 합니다.');
+  const sourceActionsStart = dataRoom.indexOf('data-data-room-source-actions');
+  const sourceActionsEnd = dataRoom.indexOf('</div>', sourceActionsStart);
+  assert.ok(sourceActionsStart >= 0 && sourceActionsEnd > sourceActionsStart,
+    'inline 상세의 원문 링크 영역을 찾을 수 있어야 합니다.');
+  const sourceActions = dataRoom.slice(sourceActionsStart, sourceActionsEnd);
+  assert.match(sourceActions, /data-data-room-source-url[\s\S]*?href=\{document\.href\}[\s\S]*?\{document\.href\}/,
+    '원문 열기 버튼 왼쪽에 실제 URL을 같은 링크로 표시해야 합니다.');
+  assert.match(sourceActions, /data-data-room-source-url[\s\S]*?\btruncate\b/,
+    '긴 원문 URL은 상세 화면의 폭을 깨뜨리지 않도록 한 줄 말줄임해야 합니다.');
+  assert.ok(sourceActions.indexOf('data-data-room-source-url') < sourceActions.indexOf('원문 열기'),
+    '원문 URL 텍스트는 원문 열기 버튼보다 왼쪽에 먼저 배치되어야 합니다.');
+  assert.ok((sourceActions.match(/target="_blank"/g) || []).length >= 2,
+    'URL 텍스트와 원문 열기 버튼 모두 새 창에서 원문을 열어야 합니다.');
 });
 
 test('업무 피드 행은 다른 게시글 URL을 열고 현재 펼쳐진 행을 다시 누르면 닫는다', async () => {
