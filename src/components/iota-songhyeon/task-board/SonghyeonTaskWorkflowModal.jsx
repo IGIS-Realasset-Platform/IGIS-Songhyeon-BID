@@ -2,6 +2,7 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
 import {
   completeTask,
+  resetTask,
   resumeTask,
   startTask,
   stopTask,
@@ -32,8 +33,9 @@ export default function SonghyeonTaskWorkflowModal({ task, initialTargetStatus =
   const selectedAction = actions.find((action) => action.status === targetStatus) || actions[0];
   const isCompletion = targetStatus === '완료';
   const isStop = targetStatus === '중단';
+  const isReset = targetStatus === '미착수';
   const requiresReason = isStop || selectedAction?.requiresReason;
-  const reasonLabel = isStop ? '중단 사유' : '재개 사유';
+  const reasonLabel = isStop ? '중단 사유' : isReset ? '되돌림 사유' : '재개 사유';
 
   useEffect(() => {
     const previouslyFocused = document.activeElement;
@@ -95,6 +97,7 @@ export default function SonghyeonTaskWorkflowModal({ task, initialTargetStatus =
       let updated;
       if (isCompletion) updated = await completeTask(task.sourceKey, { summary, evidenceUrl }, actor);
       else if (isStop) updated = await stopTask(task.sourceKey, { reason }, actor);
+      else if (isReset) updated = await resetTask(task.sourceKey, { reason }, actor);
       else if (task.status === '미착수') updated = await startTask(task.sourceKey, actor);
       else updated = await resumeTask(task.sourceKey, { reason }, actor);
       await onSaved?.(updated);
@@ -122,7 +125,7 @@ export default function SonghyeonTaskWorkflowModal({ task, initialTargetStatus =
             {error && <div role="alert" className="rounded-[9px] border border-[#bd5f5a]/30 bg-[#bd5f5a]/10 px-3 py-2 text-[12px] text-[#d98a85]">{error}</div>}
 
             <fieldset>
-              <legend className="mb-2 text-[11px] font-bold text-[#86868B]">다음 상태 선택</legend>
+              <legend className="mb-2 text-[11px] font-bold text-[#86868B]">변경할 상태 선택</legend>
               <div className={`grid gap-2 ${actions.length === 3 ? 'grid-cols-3' : actions.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                 {actions.map((action, index) => {
                   const selected = targetStatus === action.status;
@@ -153,7 +156,7 @@ export default function SonghyeonTaskWorkflowModal({ task, initialTargetStatus =
             {requiresReason && (
               <label className="block rounded-[12px] border border-[#3c3c3c] bg-white/[0.02] p-4">
                 <span className="mb-1.5 block text-[11px] font-bold text-[#9c9ca1]">{reasonLabel} <span className="text-[#d98a85]">필수</span></span>
-                <textarea value={transitionReason} onChange={(event) => setTransitionReason(event.target.value)} rows={3} placeholder={isStop ? '업무를 중단하는 이유를 입력하세요.' : '업무를 다시 진행하는 이유를 입력하세요.'} className={`${inputClassName} resize-y`} />
+                <textarea value={transitionReason} onChange={(event) => setTransitionReason(event.target.value)} rows={3} placeholder={isStop ? '업무를 중단하는 이유를 입력하세요.' : isReset ? '업무를 미착수 상태로 되돌리는 이유를 입력하세요.' : '업무를 다시 진행하는 이유를 입력하세요.'} className={`${inputClassName} resize-y`} />
               </label>
             )}
 

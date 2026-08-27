@@ -324,6 +324,7 @@ const transitionWithReason = (sourceKey, action, reason, actor) => {
 };
 export const stopTask = (sourceKey, { reason = '' } = {}, actor = {}) => transitionWithReason(sourceKey, 'stop', reason, actor);
 export const resumeTask = (sourceKey, { reason = '' } = {}, actor = {}) => transitionWithReason(sourceKey, 'resume', reason, actor);
+export const resetTask = (sourceKey, { reason = '' } = {}, actor = {}) => transitionWithReason(sourceKey, 'reset', reason, actor);
 
 export async function archiveTask(sourceKey, { reason = '' } = {}, actor = {}) {
   assertTaskOwner(actor, '보관');

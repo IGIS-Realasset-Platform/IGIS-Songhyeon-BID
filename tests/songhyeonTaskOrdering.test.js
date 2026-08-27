@@ -44,3 +44,33 @@ test('업무 위아래 이동은 전기영 전용 원자적 RPC로 두 행의 �
   assert.match(board, /reorderTask\(task\.sourceKey, adjacentTask\.sourceKey, actor\)/);
   assert.match(board, /!archived && canCreateAndArchive/);
 });
+
+test('신규 업무 표시 ID는 DB에서 순차 발급되고 기존 빈 ID도 보정된다', async () => {
+  const migration = await read('supabase/migrations/202608270002_songhyeon_task_ids_and_status_rollback.sql');
+  const createFunction = migration.match(/create or replace function public\.create_songhyeon_task_atomic[\s\S]*?\n\$\$;/i)?.[0] || '';
+
+  assert.match(migration, /where nullif\(btrim\(task\.payload ->> 'displayId'\), ''\) is null/i);
+  assert.match(migration, /row_number\(\) over \(order by task\.created_at, task\.source_key\)/i);
+  assert.match(migration, /jsonb_set\([\s\S]*'\{displayId\}'/i);
+  assert.match(createFunction, /pg_advisory_xact_lock/i);
+  assert.match(createFunction, /max\(\(substring\(task\.payload ->> 'displayId'[\s\S]*\)\)::integer\)[\s\S]*\+ 1/i);
+  assert.match(createFunction, /'displayId', generated_display_id/i);
+  assert.match(createFunction, /'BID-'[\s\S]*lpad\(next_display_number::text, 3, '0'\)/i);
+});
+
+test('진행중 업무는 사유와 이력을 남기고 미착수로 되돌릴 수 있다', async () => {
+  const [migration, repository, modal] = await Promise.all([
+    read('supabase/migrations/202608270002_songhyeon_task_ids_and_status_rollback.sql'),
+    read('src/lib/songhyeonTaskRepository.js'),
+    read('src/components/iota-songhyeon/task-board/SonghyeonTaskWorkflowModal.jsx'),
+  ]);
+  const transitionFunction = migration.match(/create or replace function public\.transition_songhyeon_task_workflow[\s\S]*?\n\$\$;/i)?.[0] || '';
+
+  assert.match(transitionFunction, /when 'reset'[\s\S]*from_status <> '진행중'[\s\S]*reason_text = ''[\s\S]*to_status := '미착수'[\s\S]*activity_action := 'task_reverted'/i);
+  assert.match(transitionFunction, /workflow_action = 'reset'[\s\S]*- 'startedAt' - 'startedBy'/i);
+  assert.match(transitionFunction, /when workflow_action = 'reset' then null/i);
+  assert.match(migration, /'task_reverted'/);
+  assert.match(repository, /export const resetTask[\s\S]*transitionWithReason\(sourceKey, 'reset'/);
+  assert.match(modal, /const isReset = targetStatus === '미착수'/);
+  assert.match(modal, /resetTask\(task\.sourceKey, \{ reason \}, actor\)/);
+});

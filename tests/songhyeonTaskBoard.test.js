@@ -1092,11 +1092,12 @@ test('완료 업무의 재개 action은 편집 workflow용으로 유지하되 �
   const statuses = (status) => taskWorkflowActions(status).map((action) => action.status);
 
   assert.deepEqual(statuses('미착수'), ['진행중']);
-  assert.deepEqual(statuses('진행중'), ['완료', '중단']);
+  assert.deepEqual(statuses('진행중'), ['미착수', '완료', '중단']);
   assert.deepEqual(statuses('완료'), ['진행중'], '완료 업무는 업무 수정 내부 workflow modal에서만 재개할 수 있어야 합니다.');
   assert.deepEqual(statuses('중단'), ['진행중']);
   assert.ok(statuses('보류').every((status) => status !== '보류'), 'legacy 입력에서도 보류 action을 다시 만들면 안 됩니다.');
-  assert.deepEqual(statuses('지연'), ['완료', '중단'], 'legacy 지연은 진행중으로 정규화한 뒤 현재 action을 제공해야 합니다.');
+  assert.deepEqual(statuses('지연'), ['미착수', '완료', '중단'], 'legacy 지연은 진행중으로 정규화한 뒤 현재 action을 제공해야 합니다.');
+  assert.ok(taskWorkflowActions('진행중').find((action) => action.status === '미착수')?.requiresReason);
   assert.ok(taskWorkflowActions('중단').find((action) => action.status === '진행중')?.requiresReason);
 
   const actions = await readFile('src/components/iota-songhyeon/task-board/songhyeonTaskWorkflowActions.js', 'utf8');
@@ -1124,7 +1125,7 @@ test('상세 drawer는 본문 빠른 상태처리 박스를 제거하고 footer�
   const completionAction = progressingActions.find((action) => action.status === '완료');
   assert.ok(completionAction, '진행중 업무의 완료 action이 유지돼야 합니다.');
   assert.equal(completionAction.label, '완료 처리', '진행중 업무에서 누르는 action과 완료 상태 안내 문구를 혼동하면 안 됩니다.');
-  assert.deepEqual(progressingActions.map((action) => action.status), ['완료', '중단'], 'label 변경이 workflow 순서·목표 상태를 바꾸면 안 됩니다.');
+  assert.deepEqual(progressingActions.map((action) => action.status), ['미착수', '완료', '중단'], '진행중 업무는 미착수로 되돌리거나 완료·중단 처리할 수 있어야 합니다.');
   assert.deepEqual(taskWorkflowActions('완료').map((action) => action.status), ['진행중'], '업무 수정 내부의 안전한 재개 경로는 유지해야 합니다.');
   assert.match(actionSource, /\{\s*status:\s*'완료',\s*label:\s*'완료 처리'/);
   assert.doesNotMatch(actionSource, /Task가 완료\s+되었습니다/);
@@ -1175,7 +1176,7 @@ test('완료는 내용을 필수로, 증빙 URL을 선택으로 받고 중단·�
   const modal = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskWorkflowModal.jsx', 'utf8');
   const drawer = await readFile('src/components/iota-songhyeon/task-board/SonghyeonTaskDetailDrawer.jsx', 'utf8');
 
-  for (const api of ['startTask', 'completeTask', 'stopTask', 'resumeTask']) {
+  for (const api of ['startTask', 'completeTask', 'stopTask', 'resumeTask', 'resetTask']) {
     assert.match(modal, new RegExp(`\\b${api}\\b`), `상태 처리 API 연결 누락: ${api}`);
   }
   assert.doesNotMatch(modal, /holdTask|isHold|보류/, '상태 처리 modal에 보류 분기나 문구가 남으면 안 됩니다.');
@@ -1189,6 +1190,7 @@ test('완료는 내용을 필수로, 증빙 URL을 선택으로 받고 중단·�
   assert.match(modal, /if \(requiresReason && !reason\)/);
   assert.match(modal, /completeTask\(task\.sourceKey, \{ summary, evidenceUrl \}, actor\)/);
   assert.match(modal, /stopTask\(task\.sourceKey, \{ reason \}, actor\)/);
+  assert.match(modal, /resetTask\(task\.sourceKey, \{ reason \}, actor\)/);
   assert.match(modal, /resumeTask\(task\.sourceKey, \{ reason \}, actor\)/);
   for (const action of ['task_started', 'task_completed', 'task_held', 'task_stopped', 'task_resumed', 'task_archived']) {
     assert.match(drawer, new RegExp(`item\\.action === '${action}'`), `상태 처리 이력 표시 누락: ${action}`);
@@ -1236,7 +1238,7 @@ test('업무 수정에서 바꾼 상태는 직접 DML 없이 RPC로 저장되고
   assert.doesNotMatch(updateBlock, /from\('songhyeon_tasks'\)\.update\(|addActivity\(/, '상태와 이력을 클라이언트의 분리된 직접 요청으로 저장하면 안 됩니다.');
   assert.match(updateBlock, /rpc\('update_songhyeon_task_atomic'/, '일반 수정도 DB RPC를 통과해야 합니다.');
   assert.match(updateBlock, /normalizedPatch\.status\s*!==\s*undefined\s*&&\s*normalizedPatch\.status\s*!==\s*current\.status[\s\S]{0,180}?상태는 전용 상태 변경 기능에서 변경해 주세요\./, '일반 updateTask의 status 우회 차단을 유지해야 합니다.');
-  assert.match(modal, /completeTask\(|resumeTask\(|startTask\(|stopTask\(/, '편집 상태 변경 modal은 기존 workflow repository API를 재사용해야 합니다.');
+  assert.match(modal, /completeTask\(|resumeTask\(|resetTask\(|startTask\(|stopTask\(/, '편집 상태 변경 modal은 workflow repository API를 재사용해야 합니다.');
   assert.match(repository, /rpc\('transition_songhyeon_task_workflow'/);
   assert.ok(transitionFunction, '최종 workflow RPC SQL을 찾을 수 없습니다.');
   assert.match(transitionFunction, /expected_version/i, '상태 변경은 version 충돌을 검사해야 합니다.');
@@ -1255,7 +1257,7 @@ test('업무 workflow repository는 RPC 트랜잭션만 사용하고 보관 업�
   const repository = await readFile('src/lib/songhyeonTaskRepository.js', 'utf8');
 
   assert.match(repository, /from\('songhyeon_tasks'\)\.select\('\*'\)\.is\('archived_at', null\)\.order\('display_order'\)/);
-  for (const api of ['startTask', 'completeTask', 'stopTask', 'resumeTask', 'archiveTask']) {
+  for (const api of ['startTask', 'completeTask', 'stopTask', 'resumeTask', 'resetTask', 'archiveTask']) {
     assert.match(repository, new RegExp(`export (?:async function|const) ${api}\\b`), `repository wrapper 누락: ${api}`);
   }
   assert.doesNotMatch(repository, /export (?:async function|const) holdTask\b|transitionWithReason\([^\n]*['"]hold['"]/, 'repository가 보류 workflow를 노출하면 안 됩니다.');
