@@ -41,6 +41,18 @@ test('Layout의 통합업무보드부터 Data Room까지 상위 메뉴 순서와
   }
 });
 
+test('좌측 메뉴 접기·펼치기 버튼은 가로형 직사각형 컨트롤로 표시한다', async () => {
+  const layout = await read('src/components/Layout.jsx');
+  const toggleButton = layout.match(/aria-label=\{collapsed \? '좌측 메뉴 펼치기' : '좌측 메뉴 접기'\}[\s\S]*?<\/button>/)?.[0] || '';
+
+  assert.match(toggleButton, /\bh-8\b/);
+  assert.match(toggleButton, /\bw-10\b/);
+  assert.match(toggleButton, /rounded-\[8px\]/);
+  assert.match(toggleButton, /border-\[#3A3A3C\]/);
+  assert.match(toggleButton, /bg-\[#242424\]/);
+  assert.match(toggleButton, /shadow-\[0_2px_8px_rgba\(0,0,0,0\.22\)\]/);
+});
+
 test('WorkspacePageFrame과 WorkspacePageHeader가 상단·본문 폭·제목 간격 토큰을 한곳에서 소유한다', async () => {
   const common = await read(WORKSPACE_LAYOUT_PATH);
 

@@ -195,7 +195,7 @@ export default function Layout() {
             type="button"
             onClick={() => setCollapsed(!collapsed)}
             aria-label={collapsed ? '좌측 메뉴 펼치기' : '좌측 메뉴 접기'}
-            className={`absolute top-[10px] grid h-9 w-9 cursor-pointer place-items-center rounded-[10px] text-[#86868B] transition-colors hover:bg-[#2A2A2A] hover:text-white ${collapsed ? 'left-[10px]' : 'left-[224px]'}`}
+            className={`absolute top-[13px] grid h-8 w-10 cursor-pointer place-items-center rounded-[8px] border border-[#3A3A3C] bg-[#242424] text-[#929297] shadow-[0_2px_8px_rgba(0,0,0,0.22)] transition-[border-color,background-color,color,box-shadow] hover:border-[#55555A] hover:bg-[#2D2D2D] hover:text-white hover:shadow-[0_3px_10px_rgba(0,0,0,0.3)] ${collapsed ? 'left-[8px]' : 'left-[222px]'}`}
           >
             {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
           </button>
