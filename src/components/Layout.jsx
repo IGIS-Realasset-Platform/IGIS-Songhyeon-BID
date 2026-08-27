@@ -2,12 +2,21 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home, CalendarDays, MapPinned, ListChecks, BarChart3,
-  FolderOpen, MessageSquareText, ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen,
+  FolderOpen, MessageSquareText, ChevronDown, ChevronRight,
   KeyRound, Mail, LogOut,
 } from 'lucide-react';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 import SonghyeonPageViewTracker from './analytics/SonghyeonPageViewTracker';
 import SonghyeonMemberAvatar from './iota-songhyeon/SonghyeonMemberAvatar';
+
+function SidebarPanelIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <rect x="2.5" y="3.5" width="17" height="15" rx="4" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M9 4.25V17.75" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
 
 const primaryItems = [
   { name: '홈', path: '/', icon: Home },
@@ -195,9 +204,9 @@ export default function Layout() {
             type="button"
             onClick={() => setCollapsed(!collapsed)}
             aria-label={collapsed ? '좌측 메뉴 펼치기' : '좌측 메뉴 접기'}
-            className={`absolute top-[13px] grid h-8 w-10 cursor-pointer place-items-center rounded-[8px] border border-[#3A3A3C] bg-[#242424] text-[#929297] shadow-[0_2px_8px_rgba(0,0,0,0.22)] transition-[border-color,background-color,color,box-shadow] hover:border-[#55555A] hover:bg-[#2D2D2D] hover:text-white hover:shadow-[0_3px_10px_rgba(0,0,0,0.3)] ${collapsed ? 'left-[8px]' : 'left-[222px]'}`}
+            className={`absolute top-[13px] grid h-8 w-10 cursor-pointer place-items-center text-[#929297] transition-colors hover:text-white ${collapsed ? 'left-[8px]' : 'left-[222px]'}`}
           >
-            {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+            <SidebarPanelIcon />
           </button>
         </div>
 
