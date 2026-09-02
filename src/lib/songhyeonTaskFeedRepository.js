@@ -133,7 +133,7 @@ const postFromRow = (row, related) => {
     id: row.id,
     workDate: row.work_date,
     title: row.title,
-    content: row.body,
+    content: row.body || '',
     projectCode: row.project_code,
     projectName: SONGHYEON_FEED_PROJECTS.find((project) => project.value === row.project_code)?.label || row.project_code,
     purpose: row.purpose,
@@ -169,14 +169,14 @@ export async function loadTaskFeedPosts(filters = {}) {
   const table = (name) => authenticated ? `songhyeon_feed_${name}` : `songhyeon_public_feed_${name}`;
   const queries = [
     filteredPostQuery(client, table('posts'), filters),
-    client.from(table('post_tasks')).select('*'),
+    authenticated ? client.from(table('post_tasks')).select('*') : Promise.resolve({ data: [], error: null }),
     client.from(table('post_stakeholders')).select('*'),
     authenticated ? client.from('songhyeon_feed_post_permissions').select('*') : Promise.resolve({ data: [], error: null }),
-    client.from(table('post_mentions')).select('*'),
-    client.from(table('attachments')).select('*'),
+    authenticated ? client.from(table('post_mentions')).select('*') : Promise.resolve({ data: [], error: null }),
+    authenticated ? client.from(table('attachments')).select('*') : Promise.resolve({ data: [], error: null }),
     client.from(table('comments')).select('*').order('created_at'),
     client.from(table('reactions')).select('*').order('created_at'),
-    loadTasks(),
+    authenticated ? loadTasks() : Promise.resolve([]),
   ];
   const results = await Promise.all(queries);
   const labels = ['게시글', '연결 업무', '이해관계자', '열람 권한', '멘션', '첨부파일', '댓글', '반응'];
@@ -261,7 +261,7 @@ export async function loadTaskFeedOptions() {
     authenticated
       ? client.from('songhyeon_members').select('id,auth_id,email,staff_name,group_name,title,photo_path,display_order').eq('is_active', true).order('display_order')
       : client.from('songhyeon_public_profiles').select('*').order('display_order'),
-    loadTasks(),
+    authenticated ? loadTasks() : Promise.resolve([]),
     loadSharedStakeholderContacts(client, authenticated),
   ]);
   if (memberResult.error) throw new SonghyeonTaskFeedRepositoryError('송현 멤버 목록을 불러오지 못했습니다.', memberResult.error);

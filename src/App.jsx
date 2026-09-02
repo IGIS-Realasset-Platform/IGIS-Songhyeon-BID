@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminRoute from './components/auth/AdminRoute';
+import MemberRoute from './components/auth/MemberRoute';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import TaskBoard from './pages/TaskBoard';
@@ -39,19 +40,19 @@ export default function App() {
             <Route index element={<Navigate replace to="integrated-map" />} />
             <Route path="integrated-map" element={<MapActivities />} />
             <Route path="boundary" element={<MapActivities />} />
-            <Route path="assets-leases" element={<MapActivities />} />
-            <Route path="igis-retail" element={<MapActivities />} />
+            <Route path="assets-leases" element={<MemberRoute><MapActivities /></MemberRoute>} />
+            <Route path="igis-retail" element={<MemberRoute><MapActivities /></MemberRoute>} />
             <Route path="market-activities" element={<MapActivities />} />
             <Route path="hotel" element={<MapActivities />} />
             <Route path="institutions-community" element={<MapActivities />} />
           </Route>
-          <Route path="assets" element={<AssetPortfolio />} />
-          <Route path="assets/k-twin" element={<KTwin />} />
-          <Route path="assets/twin-tree" element={<TwinTree />} />
-          <Route path="assets/ssamzigil" element={<Ssamzigil />} />
-          <Route path="assets/annyeong" element={<Annyeong />} />
-          <Route path="assets/new-assets" element={<NewAssets />} />
-          <Route path="assets/market-data" element={<MarketData />} />
+          <Route path="assets" element={<MemberRoute><AssetPortfolio /></MemberRoute>} />
+          <Route path="assets/k-twin" element={<MemberRoute><KTwin /></MemberRoute>} />
+          <Route path="assets/twin-tree" element={<MemberRoute><TwinTree /></MemberRoute>} />
+          <Route path="assets/ssamzigil" element={<MemberRoute><Ssamzigil /></MemberRoute>} />
+          <Route path="assets/annyeong" element={<MemberRoute><Annyeong /></MemberRoute>} />
+          <Route path="assets/new-assets" element={<MemberRoute><NewAssets /></MemberRoute>} />
+          <Route path="assets/market-data" element={<MemberRoute><MarketData /></MemberRoute>} />
           <Route path="cases" element={<Navigate replace to="/cases/city-partnership" />} />
           <Route path="cases/city-partnership" element={<CityPartnership />} />
           <Route path="cases/global-evaluation" element={<GlobalEvaluation />} />
@@ -64,7 +65,7 @@ export default function App() {
           <Route path="hypotheses" element={<Navigate replace to="/#how-we-work" />} />
           <Route path="membership" element={<Navigate replace to="/#how-we-work" />} />
           <Route path="feed" element={<TaskFeed />} />
-          <Route path="feed/:postId" element={<TaskFeed />} />
+          <Route path="feed/:postId" element={<MemberRoute guestRedirect="/feed"><TaskFeed /></MemberRoute>} />
           <Route path="data" element={<DataRoom />} />
           <Route path="data/:documentId" element={<DataRoom />} />
           <Route path="governance/internal" element={<SonghyeonInternal />} />

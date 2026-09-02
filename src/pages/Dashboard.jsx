@@ -24,6 +24,7 @@ import { loadTasks } from '../lib/songhyeonTaskRepository';
 import { loadSonghyeonMapActivitiesOverview } from '../lib/songhyeonMapActivitiesRepository';
 import { loadRecentTaskFeedPosts } from '../lib/songhyeonTaskFeedRepository';
 import { loadRecentDataRoomDocuments } from '../lib/songhyeonDataRoomRepository';
+import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
 
 const EMPTY_HOME_DATA = Object.freeze({
   scheduleRows: [],
@@ -75,6 +76,7 @@ function LoadingLine() {
 
 export default function Dashboard() {
   const { hash } = useLocation();
+  const { isGuest } = useSonghyeonAuth();
   const [data, setData] = useState(EMPTY_HOME_DATA);
   const [loading, setLoading] = useState(true);
   const [unavailable, setUnavailable] = useState(new Set());
@@ -168,6 +170,7 @@ export default function Dashboard() {
     },
     {
       path: '/map-activities/assets-leases',
+      memberOnly: true,
       label: '이지스 자산 현황',
       title: '이지스 자산과 임차 관계를 함께 확인합니다.',
       description: '주요 자산의 위치와 운영 관계, 임대차 현황을 지도 위에서 연결해 확인합니다.',
@@ -177,6 +180,7 @@ export default function Dashboard() {
     },
     {
       path: '/map-activities/igis-retail',
+      memberOnly: true,
       label: '이지스 리테일',
       title: '운영 자산과 주변 상권을 연결합니다.',
       description: '이지스 자산의 리테일 현황과 주변 상권을 함께 살펴보고, 공동 운영이 가능한 접점을 확인합니다.',
@@ -430,7 +434,7 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-12 gap-px bg-white/[0.09]">
-              {mapViews.map(({ path, label, title, description, meta, icon, className }) => (
+              {mapViews.filter((item) => !isGuest || !item.memberOnly).map(({ path, label, title, description, meta, icon, className }) => (
                 <Link key={path} to={path} className={`${className} group flex min-h-[260px] cursor-pointer flex-col p-8 transition-colors hover:bg-[#2c3435]`}>
                   <div className="flex items-start justify-between">
                     <span className="grid h-10 w-10 place-items-center rounded-[12px] border border-white/[0.08] bg-white/[0.055] text-[#91c9c1]">{icon}</span>
@@ -464,7 +468,7 @@ export default function Dashboard() {
               </div>
               <div>
                 {data.posts.length ? data.posts.map((post) => (
-                  <Link key={post.id} to={`/feed/${encodeURIComponent(post.id)}`} className="group grid min-h-[76px] cursor-pointer grid-cols-[1fr_auto] items-center gap-5 border-b border-white/[0.07] px-6 py-4 last:border-b-0 hover:bg-white/[0.035]">
+                  <Link key={post.id} to={isGuest ? '/feed' : `/feed/${encodeURIComponent(post.id)}`} className="group grid min-h-[76px] cursor-pointer grid-cols-[1fr_auto] items-center gap-5 border-b border-white/[0.07] px-6 py-4 last:border-b-0 hover:bg-white/[0.035]">
                     <div className="min-w-0">
                       <p className="truncate text-[17px] font-semibold text-[#dedee1] group-hover:text-white">{post.title || '제목 없음'}</p>
                       <p className="mt-1.5 truncate text-[12px] text-[#7f7f84]">{post.author?.name || '송현 BID TF'} · {post.status}</p>

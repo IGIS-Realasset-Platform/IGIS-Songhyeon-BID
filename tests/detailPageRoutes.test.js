@@ -108,7 +108,8 @@ test('업무 피드 행은 다른 게시글 URL을 열고 현재 펼쳐진 행�
 test('업무 피드 상세 route는 전체 목록 UI를 유지하고 대상 행만 inline으로 펼친다', async () => {
   const [app, feed] = await Promise.all([read(APP_PATH), read(FEED_PATH)]);
 
-  assert.match(app, /<Route\s+path=['"]feed\/:postId['"]\s+element=\{<TaskFeed\s*\/>\}\s*\/>/);
+  assert.match(app, /<Route\s+path=['"]feed\/:postId['"]\s+element=\{<MemberRoute\s+guestRedirect=['"]\/feed['"]><TaskFeed\s*\/><\/MemberRoute>\}\s*\/>/,
+    '업무 피드 상세 URL은 활성 멤버만 열 수 있어야 합니다.');
   assert.match(feed, /const\s+\{\s*postId:\s*routePostId\s*=\s*['"]{2}\s*\}\s*=\s*useParams\(\)/);
   const displayedPostsStart = feed.indexOf('const displayedPosts =');
   const feedListStateStart = feed.indexOf('const feedListState =', displayedPostsStart);

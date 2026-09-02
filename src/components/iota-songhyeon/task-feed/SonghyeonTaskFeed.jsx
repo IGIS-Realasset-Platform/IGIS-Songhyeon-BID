@@ -318,6 +318,12 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     const params = new URLSearchParams(window.location.search);
     const targetPostId = params.get('postId');
     if (!targetPostId) return;
+    if (isReadOnly) {
+      params.delete('postId');
+      const guestQuery = params.toString();
+      navigate(`/feed${guestQuery ? `?${guestQuery}` : ''}`, { replace: true });
+      return;
+    }
     setSearchQuery('');
     setFilters({ stakeholder: '', cell: '', purpose: '', status: '', priority: '' });
     const targetIndex = posts.findIndex((post) => String(post.id) === String(targetPostId));
@@ -332,7 +338,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         feedListState: { searchQuery: '', filters: { stakeholder: '', cell: '', purpose: '', status: '', priority: '' }, currentPage: targetPage },
       },
     });
-  }, [navigate, posts, routePostId]);
+  }, [isReadOnly, navigate, posts, routePostId]);
 
   useEffect(() => {
     if (restoredListLocationKey.current === location.key) return;
@@ -421,13 +427,14 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   }), [filters, normalizedPage, searchQuery]);
 
   const openPostDetail = useCallback((postId) => {
+    if (isReadOnly) return;
     navigate(`/feed/${encodeURIComponent(postId)}`, {
       state: {
         from: `${location.pathname}${location.search}`,
         feedListState,
       },
     });
-  }, [feedListState, location.pathname, location.search, navigate]);
+  }, [feedListState, isReadOnly, location.pathname, location.search, navigate]);
 
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages);
@@ -589,7 +596,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                 }}
                 className={`transition-colors ${index ? 'border-t border-[#3c3c3c]' : ''} hover:bg-white/[0.025]`}
               >
-                <button type="button" aria-expanded={isExpanded} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-0 cursor-pointer grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA]">
+                <button type="button" aria-expanded={isExpanded} disabled={isReadOnly} title={isReadOnly ? '상세 내용은 멤버 로그인 후 확인할 수 있습니다.' : undefined} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-0 cursor-pointer grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA] disabled:cursor-default">
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>
                   <span className="min-w-0 pr-4 text-left"><span className="flex min-w-0 items-center gap-1.5"><strong className="min-w-0 truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || '제목 없음'}</strong>{post.comments.length > 0 ? <span aria-label={`댓글 ${post.comments.length}개`} title={`댓글 ${post.comments.length}개`} className="inline-flex h-[22px] shrink-0 items-center gap-1 rounded-full border border-[#45484b] bg-[#2b2d2f] px-2 text-[12px] font-bold text-[#a6aaae]"><MessageSquare size={12} />{post.comments.length}</span> : null}{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span></span>

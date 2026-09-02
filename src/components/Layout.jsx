@@ -28,8 +28,8 @@ const primaryItems = [
     children: [
       { name: '통합지도', path: '/map-activities/integrated-map' },
       { name: '운영구역', path: '/map-activities/boundary' },
-      { name: '자산·임차', path: '/map-activities/assets-leases' },
-      { name: '이지스 리테일', path: '/map-activities/igis-retail' },
+      { name: '자산·임차', path: '/map-activities/assets-leases', memberOnly: true },
+      { name: '이지스 리테일', path: '/map-activities/igis-retail', memberOnly: true },
       { name: '상권·활동', path: '/map-activities/market-activities' },
       { name: '호텔', path: '/map-activities/hotel' },
       { name: '제도·공동체', path: '/map-activities/institutions-community' },
@@ -166,6 +166,10 @@ export default function Layout() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const mapActivitiesActive = pathname.startsWith('/map-activities');
+  const visiblePrimaryItems = primaryItems.map((item) => item.children ? {
+    ...item,
+    children: item.children.filter((child) => !isGuest || !child.memberOnly),
+  } : item);
 
   useLayoutEffect(() => {
     if (!mainRef.current) return;
@@ -212,7 +216,7 @@ export default function Layout() {
 
         <nav className={`${collapsed ? 'px-[9px]' : 'w-[275px] px-[11px]'} hide-scrollbar min-h-0 flex-1 overflow-y-auto pb-5`}>
           <div className="flex flex-col gap-0">
-            {primaryItems.map((item) => item.children ? (
+            {visiblePrimaryItems.map((item) => item.children ? (
               <ExpandableMainMenu
                 key={`${item.path}-${mapActivitiesActive ? 'active' : 'inactive'}`}
                 item={item}
@@ -224,7 +228,7 @@ export default function Layout() {
           </div>
 
           <Section label="민관협력 사례조사" items={caseItems} open={casesOpen} setOpen={setCasesOpen} collapsed={collapsed} />
-          <Section label="이지스 주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} />
+          {!isGuest ? <Section label="이지스 주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} /> : null}
           <Section label="송현 BID 거버넌스" items={governanceItems} open={governanceOpen} setOpen={setGovernanceOpen} collapsed={collapsed} />
         </nav>
 
