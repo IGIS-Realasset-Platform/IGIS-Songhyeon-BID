@@ -176,10 +176,29 @@ const filteredPostQuery = (client, table, filters) => {
   return query;
 };
 
-export async function loadTaskFeedPosts(filters = {}) {
-  const client = requireSupabase();
-  const authenticated = await hasAuthenticatedSonghyeonSession(client);
-  const table = (name) => authenticated ? `songhyeon_feed_${name}` : `songhyeon_public_feed_${name}`;
+const authenticatedFeedBundle = async (client, filters) => {
+  const { data, error } = await client.rpc('get_songhyeon_task_feed_bundle', {
+    filter_purpose: text(filters.purpose) || null,
+    filter_status: text(filters.status) || null,
+    filter_priority: text(filters.priority) || null,
+  });
+  // Keep a deployment-order fallback: an older API node may briefly retain
+  // its schema cache while the additive migration is being rolled out.
+  if (error?.code === 'PGRST202') return null;
+  if (error) throw new SonghyeonTaskFeedRepositoryError('업무 피드를 불러오지 못했습니다.', error);
+  return {
+    posts: array(data?.posts),
+    taskLinks: array(data?.taskLinks),
+    stakeholders: array(data?.stakeholders),
+    permissions: array(data?.permissions),
+    mentions: array(data?.mentions),
+    attachments: array(data?.attachments),
+    comments: array(data?.comments),
+    reactions: array(data?.reactions),
+  };
+};
+
+const legacyFeedRelations = async (client, table, filters, authenticated) => {
   const queries = [
     filteredPostQuery(client, table('posts'), filters),
     authenticated ? client.from(table('post_tasks')).select('*') : Promise.resolve({ data: [], error: null }),
@@ -189,20 +208,39 @@ export async function loadTaskFeedPosts(filters = {}) {
     authenticated ? client.from(table('attachments')).select('*') : Promise.resolve({ data: [], error: null }),
     client.from(table('comments')).select('*').order('created_at'),
     client.from(table('reactions')).select('*').order('created_at'),
-    authenticated ? loadTaskFeedTasks() : Promise.resolve([]),
   ];
   const results = await Promise.all(queries);
   const labels = ['게시글', '연결 업무', '이해관계자', '열람 권한', '멘션', '첨부파일', '댓글', '반응'];
-  for (let index = 0; index < 8; index += 1) {
+  for (let index = 0; index < results.length; index += 1) {
     if (results[index].error) throw new SonghyeonTaskFeedRepositoryError(`업무 피드 ${labels[index]}을(를) 불러오지 못했습니다.`, results[index].error);
   }
-  const [postResult, taskLinkResult, stakeholderResult, permissionResult, mentionResult, attachmentResult, commentResult, reactionResult, tasks] = results;
+  return {
+    posts: results[0].data || [],
+    taskLinks: results[1].data || [],
+    stakeholders: results[2].data || [],
+    permissions: results[3].data || [],
+    mentions: results[4].data || [],
+    attachments: results[5].data || [],
+    comments: results[6].data || [],
+    reactions: results[7].data || [],
+  };
+};
+
+export async function loadTaskFeedPosts(filters = {}) {
+  const client = requireSupabase();
+  const authenticated = await hasAuthenticatedSonghyeonSession(client);
+  const table = (name) => authenticated ? `songhyeon_feed_${name}` : `songhyeon_public_feed_${name}`;
+  const [bundle, tasks] = await Promise.all([
+    authenticated ? authenticatedFeedBundle(client, filters) : Promise.resolve(null),
+    authenticated ? loadTaskFeedTasks() : Promise.resolve([]),
+  ]);
+  const relatedRows = bundle || await legacyFeedRelations(client, table, filters, authenticated);
   const tasksByKey = new Map(tasks.map((task) => [task.sourceKey, task]));
   const related = {
-    taskLinks: taskLinkResult.data || [], stakeholders: stakeholderResult.data || [], permissions: permissionResult.data || [],
-    mentions: mentionResult.data || [], attachments: attachmentResult.data || [], comments: commentResult.data || [], reactions: reactionResult.data || [], tasksByKey,
+    taskLinks: relatedRows.taskLinks, stakeholders: relatedRows.stakeholders, permissions: relatedRows.permissions,
+    mentions: relatedRows.mentions, attachments: relatedRows.attachments, comments: relatedRows.comments, reactions: relatedRows.reactions, tasksByKey,
   };
-  let posts = (postResult.data || []).map((row) => postFromRow(row, related));
+  let posts = relatedRows.posts.map((row) => postFromRow(row, related));
   if (filters.stakeholder) posts = posts.filter((post) => post.stakeholderLabel === filters.stakeholder);
   if (filters.cell) posts = posts.filter((post) => post.cell === filters.cell);
   if (filters.search) {

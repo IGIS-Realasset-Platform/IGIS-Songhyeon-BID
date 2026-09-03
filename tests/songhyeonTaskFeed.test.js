@@ -23,6 +23,7 @@ const COMMENT_EDIT_MIGRATION_PATH = 'supabase/migrations/202608180013_songhyeon_
 const STATUS_MANAGEMENT_MIGRATION_PATH = 'supabase/migrations/202608180014_songhyeon_feed_status_management.sql';
 const SHARED_CONTACTS_MIGRATION_PATH = 'supabase/migrations/202608180003_songhyeon_shared_stakeholder_contacts.sql';
 const STAKEHOLDER_MASTER_SYNC_MIGRATION_PATH = 'supabase/migrations/202608180005_songhyeon_feed_stakeholder_master_sync.sql';
+const FEED_READ_BUNDLE_MIGRATION_PATH = 'supabase/migrations/202609030002_songhyeon_task_feed_read_bundle.sql';
 
 const exportedFunction = (source, name) => new RegExp(`export\\s+(?:async\\s+)?function\\s+${name}\\b|export\\s+const\\s+${name}\\s*=`);
 
@@ -964,6 +965,31 @@ test('최초 업무 피드는 작성 옵션을 기다리지 않고 표시하며 
     '동시에 필요한 통합업무는 하나의 in-flight 요청으로 공유해야 합니다.');
   assert.equal((repository.match(/authenticated \? loadTaskFeedTasks\(\) : Promise\.resolve\(\[\]\)/g) || []).length, 2,
     '게시글 관계와 작성 옵션이 동일한 통합업무 요청을 재사용해야 합니다.');
+});
+
+test('로그인 멤버의 업무 피드 관계 데이터는 RLS를 유지한 단일 RPC로 불러온다', async () => {
+  const [repository, migration] = await Promise.all([
+    read(REPOSITORY_PATH),
+    read(FEED_READ_BUNDLE_MIGRATION_PATH),
+  ]);
+
+  assert.match(repository, /client\.rpc\('get_songhyeon_task_feed_bundle'/,
+    '로그인 목록은 여러 관계 테이블을 각각 요청하지 않고 묶음 RPC를 사용해야 합니다.');
+  assert.match(repository, /authenticated \? authenticatedFeedBundle\(client, filters\) : Promise\.resolve\(null\)/,
+    '게스트 공개 목록과 로그인 멤버의 상세 데이터 경계를 유지해야 합니다.');
+  assert.match(repository, /error\?\.code === 'PGRST202'/,
+    'DB 배포 직후 schema cache 전환 중에도 기존 조회 경로로 안전하게 복구해야 합니다.');
+
+  assert.match(migration, /create or replace function public\.get_songhyeon_task_feed_bundle\(/i);
+  assert.match(migration, /security invoker/i,
+    '묶음 조회도 기존 행 단위 열람 권한을 호출자 기준으로 적용해야 합니다.');
+  for (const key of ['posts', 'taskLinks', 'stakeholders', 'permissions', 'mentions', 'attachments', 'comments', 'reactions']) {
+    assert.match(migration, new RegExp(`'${key}'`), `${key} 데이터가 묶음 응답에 포함돼야 합니다.`);
+  }
+  assert.match(migration, /revoke all on function public\.get_songhyeon_task_feed_bundle\(text,text,text\) from public, anon, authenticated/i);
+  assert.match(migration, /grant execute on function public\.get_songhyeon_task_feed_bundle\(text,text,text\) to authenticated/i);
+  assert.doesNotMatch(migration, /grant execute[\s\S]*?to anon/i,
+    '게스트에게 로그인 멤버용 상세 묶음 RPC를 노출하면 안 됩니다.');
 });
 
 test('업무 피드 본문·댓글의 http/https URL만 안전한 새 탭 링크로 렌더링한다', async () => {
