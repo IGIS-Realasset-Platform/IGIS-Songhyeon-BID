@@ -58,3 +58,15 @@ test('업무피드 게스트는 목록만 보고 상세 URL·본문·댓글·첨
   assert.match(sql, /drop policy if exists "guests read public feed attachment objects"/);
   assert.doesNotMatch(sql, /grant select on public\.songhyeon_public_feed_(?:post_tasks|post_mentions|attachments) to anon/);
 });
+
+test('Data Room 게스트는 목록만 보고 문서 상세에는 로그인 안내를 받는다', async () => {
+  const [app, dataRoom] = await Promise.all([
+    read('src/App.jsx'),
+    read('src/pages/DataRoom.jsx'),
+  ]);
+
+  assert.match(app, /path="data"\s+element=\{<DataRoom\s*\/>\}/);
+  assert.match(app, /path="data\/:documentId"[^\n]*<MemberRoute\s+guestRedirect="\/data"><DataRoom\s*\/><\/MemberRoute>/);
+  assert.match(dataRoom, /if \(isReadOnly\) \{\s*setShowMemberLoginPrompt\(true\);\s*return;/);
+  assert.match(dataRoom, /description="Data Room의 문서 상세 내용은 송현 BID 멤버 로그인 후 확인할 수 있습니다\."/);
+});

@@ -67,7 +67,7 @@ export default function App() {
           <Route path="feed" element={<TaskFeed />} />
           <Route path="feed/:postId" element={<MemberRoute guestRedirect="/feed"><TaskFeed /></MemberRoute>} />
           <Route path="data" element={<DataRoom />} />
-          <Route path="data/:documentId" element={<DataRoom />} />
+          <Route path="data/:documentId" element={<MemberRoute guestRedirect="/data"><DataRoom /></MemberRoute>} />
           <Route path="governance/internal" element={<SonghyeonInternal />} />
           <Route path="governance/principles" element={<SonghyeonPrinciples />} />
           <Route path="governance/interfaces" element={<SonghyeonInterfaces />} />

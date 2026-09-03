@@ -31,7 +31,7 @@ test('Data Room은 문서 추가·수정·삭제와 Supabase 공동 저장을 �
   assert.match(page, /label="문서명" className="col-span-2"[\s\S]*?label="기준일"[\s\S]*?label="설명" className="col-span-3"/);
 });
 
-test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 검색값으로 사용한다', async () => {
+test('Data Room 목록과 상세는 서버가 확정한 작성자를 프로필 사진·이름으로 표시한다', async () => {
   const [page, repository] = await Promise.all([
     readFile('src/pages/DataRoom.jsx', 'utf8'),
     readFile('src/lib/songhyeonDataRoomRepository.js', 'utf8'),
@@ -45,12 +45,37 @@ test('Data Room 목록은 서버가 확정한 작성자 이름을 별도 열과 
     '클라이언트가 전달한 이름을 원장 작성자로 신뢰하면 안 됩니다.');
   assert.match(page, /<th[^>]*>작성자<\/th>/,
     '문서 목록 헤더에 작성자 열이 있어야 합니다.');
-  assert.match(page, /\{document\.authorName\s*\|\|/,
-    '각 문서 행에 작성자 이름을 표시해야 합니다.');
+  assert.match(page, /import SonghyeonMemberAvatar from ['"]\.\.\/components\/iota-songhyeon\/SonghyeonMemberAvatar['"]/,
+    '업무피드와 같은 공용 멤버 프로필 사진을 사용해야 합니다.');
+  assert.match(page, /function DataRoomAuthor\(\{ document, detail = false \}\)[\s\S]*?<SonghyeonMemberAvatar[\s\S]*?\{authorName\}/,
+    '작성자 사진과 이름을 함께 표시하는 공용 표현을 사용해야 합니다.');
+  assert.match(page, /data-data-room-author=\{detail \? ['"]detail['"] : ['"]list['"]\}/,
+    '목록과 상세의 작성자 표현을 구분해 확인할 수 있어야 합니다.');
+  assert.match(page, /<DataRoomAuthor document=\{document\} \/>/,
+    '각 문서 목록 행에 작성자 사진과 이름을 표시해야 합니다.');
+  assert.match(page, />작성자<\/span>\s*<DataRoomAuthor document=\{document\} detail \/>/,
+    '펼쳐진 상세에도 작성자 란과 프로필 사진·이름을 표시해야 합니다.');
   assert.match(page, /\[document\.title,\s*document\.description,\s*document\.category,\s*document\.type,\s*document\.date,\s*document\.authorName\]/,
     '표시된 작성자도 Data Room 검색 대상이어야 합니다.');
   assert.match(page, /colSpan=\{8\}/,
     '작성자 열 추가 후 로딩·빈 결과 행이 전체 8열을 사용해야 합니다.');
+});
+
+test('Data Room 게스트는 목록만 보고 상세 클릭 시 로그인 안내를 받는다', async () => {
+  const [app, page] = await Promise.all([
+    readFile('src/App.jsx', 'utf8'),
+    readFile('src/pages/DataRoom.jsx', 'utf8'),
+  ]);
+
+  assert.match(app, /path="data"\s+element=\{<DataRoom\s*\/>\}/,
+    '게스트도 Data Room 목록은 볼 수 있어야 합니다.');
+  assert.match(app, /path="data\/:documentId"[^\n]*<MemberRoute\s+guestRedirect="\/data"><DataRoom\s*\/><\/MemberRoute>/,
+    '게스트가 상세 URL로 직접 진입하면 목록으로 돌아가야 합니다.');
+  assert.match(page, /const openDocument = \(document\) => \{\s*if \(isReadOnly\) \{\s*setShowMemberLoginPrompt\(true\);\s*return;/,
+    '게스트가 목록 행을 눌렀을 때 상세 URL로 이동하지 않아야 합니다.');
+  assert.match(page, /aria-haspopup=\{isReadOnly \? 'dialog' : undefined\}/);
+  assert.match(page, /<MemberLoginPrompt[\s\S]*?description="Data Room의 문서 상세 내용은 송현 BID 멤버 로그인 후 확인할 수 있습니다\."/,
+    '무반응 대신 로그인 안내 팝업을 표시해야 합니다.');
 });
 
 test('초기 Data Room 문서 두 건은 실제 등록자인 전기영으로 보정한다', async () => {

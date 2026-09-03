@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { ExternalLink, FileText, Pencil, Plus, Search, Trash2, X } from 'lucide-react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
+import MemberLoginPrompt from '../components/auth/MemberLoginPrompt';
+import SonghyeonMemberAvatar from '../components/iota-songhyeon/SonghyeonMemberAvatar';
 import { WorkspacePageFrame, WorkspacePageHeader } from '../components/workspace/WorkspacePageLayout';
 import {
   createDataRoomDocument,
@@ -30,6 +32,29 @@ function EditorField({ label, children, className = '' }) {
       <span className="mb-1.5 block text-[12px] font-semibold text-[#A1A1A6]">{label}</span>
       {children}
     </label>
+  );
+}
+
+function DataRoomAuthor({ document, detail = false }) {
+  const authorName = document.authorName || '작성자 미확인';
+  const avatarName = document.authorName && document.authorName !== '작성자 미확인'
+    ? document.authorName
+    : '';
+
+  return (
+    <span
+      data-data-room-author={detail ? 'detail' : 'list'}
+      className={`flex min-w-0 items-center ${detail ? 'gap-[9px]' : 'gap-[7px]'}`}
+      title={authorName}
+    >
+      <SonghyeonMemberAvatar
+        name={avatarName}
+        className={`${detail ? 'h-8 w-8' : 'h-7 w-7'} shrink-0 border border-[#484848]`}
+      />
+      <span className={`truncate font-semibold text-[#D1D1D6] ${detail ? 'text-[14px]' : 'text-[13px]'}`}>
+        {authorName}
+      </span>
+    </span>
   );
 }
 
@@ -119,6 +144,10 @@ function DataRoomInlineDetail({ document, isReadOnly, onOpenOriginal }) {
               {document.description}
             </p>
           )}
+          <div className="mt-[14px] flex items-center gap-[12px]">
+            <span className="text-[12px] font-bold text-[#86868B]">작성자</span>
+            <DataRoomAuthor document={document} detail />
+          </div>
         </div>
       </div>
 
@@ -166,7 +195,7 @@ function DataRoomInlineDetail({ document, isReadOnly, onOpenOriginal }) {
 }
 
 export default function DataRoom() {
-  const { user, member, isReadOnly } = useSonghyeonAuth();
+  const { user, member, isReadOnly, exitGuestMode } = useSonghyeonAuth();
   const navigate = useNavigate();
   const { documentId: routeDocumentId = '' } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -176,6 +205,7 @@ export default function DataRoom() {
   const [loading, setLoading] = useState(true);
   const [repositoryError, setRepositoryError] = useState('');
   const [deletingId, setDeletingId] = useState('');
+  const [showMemberLoginPrompt, setShowMemberLoginPrompt] = useState(false);
   const expandedRowRef = useRef(null);
   const actor = useMemo(() => ({ userId: user?.id, name: member?.staff_name || '', email: user?.email || '' }), [member?.staff_name, user?.email, user?.id]);
 
@@ -240,6 +270,10 @@ export default function DataRoom() {
     setSearchParams(nextParams, { replace: true });
   };
   const openDocument = (document) => {
+    if (isReadOnly) {
+      setShowMemberLoginPrompt(true);
+      return;
+    }
     const listSearch = searchParams.toString();
     if (String(routeDocumentId) === String(document.id)) {
       navigate(`/data${listSearch ? `?${listSearch}` : ''}`, { replace: true });
@@ -308,6 +342,8 @@ export default function DataRoom() {
                       role="link"
                       aria-label={`${document.title} 상세 보기`}
                       aria-expanded={isExpanded}
+                      aria-haspopup={isReadOnly ? 'dialog' : undefined}
+                      title={isReadOnly ? '상세 내용은 멤버 로그인 후 확인할 수 있습니다.' : undefined}
                       onClick={() => openDocument(document)}
                       onKeyDown={(event) => {
                         if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
@@ -328,7 +364,9 @@ export default function DataRoom() {
                           </div>
                         </div>
                       </td>
-                      <td className="truncate px-[8px] py-[15px] align-middle text-[13px] font-semibold text-[#D1D1D6]" title={document.authorName || '작성자 미확인'}>{document.authorName || '작성자 미확인'}</td>
+                      <td className="px-[8px] py-[15px] align-middle">
+                        <DataRoomAuthor document={document} />
+                      </td>
                       <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.category}>{document.category}</td>
                       <td className="truncate px-[8px] py-[15px] align-middle text-[13px] text-[#bbb9af]" title={document.type}>{document.type}</td>
                       <td className="whitespace-nowrap px-[8px] py-[15px] text-center align-middle tabular-nums text-[13px] text-[#bbb9af]">{document.date}</td>
@@ -389,6 +427,16 @@ export default function DataRoom() {
       {editingDocument && !isReadOnly && (
         <DocumentEditor document={editingDocument} onClose={() => setEditingDocument(null)} onSave={saveDocument} />
       )}
+
+      <MemberLoginPrompt
+        open={showMemberLoginPrompt}
+        onClose={() => setShowMemberLoginPrompt(false)}
+        onLogin={() => {
+          exitGuestMode();
+          navigate('/login');
+        }}
+        description="Data Room의 문서 상세 내용은 송현 BID 멤버 로그인 후 확인할 수 있습니다."
+      />
     </>
   );
 }

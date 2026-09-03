@@ -43,7 +43,8 @@ test('Data Room 목록 행은 문서 URL을 열고 같은 행을 다시 누르�
 test('Data Room 상세 URL도 전체 목록을 유지하고 대상 행만 펼쳐 URL과 원문 버튼을 표시한다', async () => {
   const [app, dataRoom] = await Promise.all([read(APP_PATH), read(DATA_LIST_PATH)]);
 
-  assert.match(app, /<Route\s+path=['"]data\/:documentId['"]\s+element=\{<DataRoom\s*\/>\}\s*\/>/);
+  assert.match(app, /<Route\s+path=['"]data\/:documentId['"]\s+element=\{<MemberRoute\s+guestRedirect=['"]\/data['"]><DataRoom\s*\/><\/MemberRoute>\}\s*\/>/,
+    'Data Room 상세 URL은 활성 멤버만 열 수 있어야 합니다.');
   assert.doesNotMatch(app, /DataRoomDetail/,
     '상세 URL이 목록을 대체하는 별도 페이지를 사용하면 안 됩니다.');
   assert.match(dataRoom, /const\s+isExpanded\s*=\s*Boolean\(routeDocumentId\s*&&\s*String\(document\.id\)\s*===\s*String\(routeDocumentId\)\)/);
