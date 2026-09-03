@@ -303,9 +303,8 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const refresh = useCallback(async () => {
     setError('');
     try {
-      const [postRows, optionRows] = await Promise.all([loadTaskFeedPosts({}), loadTaskFeedOptions()]);
+      const postRows = await loadTaskFeedPosts({});
       setPosts((postRows || []).map(normalizePost));
-      setOptions((current) => ({ ...current, ...(optionRows || {}) }));
     } catch (loadError) {
       setError(loadError?.message || '업무 피드를 불러오지 못했습니다.');
     } finally {
@@ -313,7 +312,24 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     }
   }, []);
 
-  useEffect(() => { refresh(); }, [refresh]);
+  const refreshOptions = useCallback(async () => {
+    try {
+      const optionRows = await loadTaskFeedOptions();
+      setOptions((current) => ({ ...current, ...(optionRows || {}) }));
+    } catch (loadError) {
+      setError((current) => current || loadError?.message || '업무 피드 작성 옵션을 불러오지 못했습니다.');
+    }
+  }, []);
+
+  useEffect(() => {
+    void refresh();
+    void refreshOptions();
+  }, [refresh, refreshOptions]);
+
+  const handlePostSaved = useCallback(() => {
+    void refresh();
+    void refreshOptions();
+  }, [refresh, refreshOptions]);
 
   useEffect(() => {
     if (routePostId || !posts.length || typeof window === 'undefined') return;
@@ -555,7 +571,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
       {renderHeader?.(headerActions)}
       <section className="w-full" aria-label="업무 피드 게시판">
       <div className="rounded-[30px] border border-[#333] p-[6px]">
-        <SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} onSaved={refresh} />
+        <SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} onSaved={handlePostSaved} />
 
         <div className="overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#252525]">
           <div className="grid w-full min-w-0 grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center border-b border-[#3c3c3c] px-[14px] py-3 text-center text-[13px] font-bold text-[#86868B]">
@@ -654,7 +670,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
 
       {totalPages > 1 ? <nav className="mt-4 flex items-center justify-center gap-1" aria-label="업무 피드 페이지">{Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => <button type="button" key={page} onClick={() => { closeDetailRoute(); setCurrentPage(page); }} className={`h-8 min-w-8 rounded-[7px] px-2 text-[12px] ${page === normalizedPage ? 'bg-[#3279b4] font-bold text-white' : 'border border-[#3A3A3C] text-[#86868B] hover:text-white'}`}>{page}</button>)}</nav> : null}
 
-      {editingPost ? <div className="fixed inset-0 z-[110000] grid place-items-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-label="업무 메시지 수정"><div className="max-h-[calc(100vh-48px)] w-[940px] max-w-full overflow-y-auto rounded-[20px] border border-[#444] bg-[#202020] p-2 shadow-2xl"><div className="flex justify-end p-2"><button type="button" aria-label="닫기" onClick={() => setEditingPost(null)} className="grid h-9 w-9 cursor-pointer place-items-center rounded-[8px] text-[#86868B] hover:bg-[#333] hover:text-white"><X size={18} /></button></div><SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} initialPost={editingPost} onSaved={() => { setEditingPost(null); void refresh(); }} onCancel={() => setEditingPost(null)} /></div></div> : null}
+      {editingPost ? <div className="fixed inset-0 z-[110000] grid place-items-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-label="업무 메시지 수정"><div className="max-h-[calc(100vh-48px)] w-[940px] max-w-full overflow-y-auto rounded-[20px] border border-[#444] bg-[#202020] p-2 shadow-2xl"><div className="flex justify-end p-2"><button type="button" aria-label="닫기" onClick={() => setEditingPost(null)} className="grid h-9 w-9 cursor-pointer place-items-center rounded-[8px] text-[#86868B] hover:bg-[#333] hover:text-white"><X size={18} /></button></div><SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} initialPost={editingPost} onSaved={() => { setEditingPost(null); void refresh(); void refreshOptions(); }} onCancel={() => setEditingPost(null)} /></div></div> : null}
 
       {deleteTarget ? <ConfirmDialog title={deleteTarget.type === 'post' ? '게시글을 삭제할까요?' : '댓글을 삭제할까요?'} description="삭제한 내용은 되돌릴 수 없습니다." pending={isDeleting} onClose={() => setDeleteTarget(null)} onConfirm={() => deleteTarget.type === 'post' ? handleDeletePost(deleteTarget.post.id) : handleDeleteComment(deleteTarget.postId, deleteTarget.commentId)} /> : null}
 

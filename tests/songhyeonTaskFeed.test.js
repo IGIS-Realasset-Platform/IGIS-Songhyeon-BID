@@ -935,6 +935,37 @@ test('원본처럼 명시적 재조회로 동기화하며 존재하지 않는 Su
   assert.doesNotMatch(combined, /\.channel\(|postgres_changes|subscribeToTaskFeed|\.subscribe\(/);
 });
 
+test('최초 업무 피드는 작성 옵션을 기다리지 않고 표시하며 중복 통합업무 조회를 공유한다', async () => {
+  const [feed, repository] = await Promise.all([read(FEED_PATH), read(REPOSITORY_PATH)]);
+
+  const refreshStart = feed.indexOf('const refresh = useCallback');
+  const optionsStart = feed.indexOf('const refreshOptions = useCallback', refreshStart);
+  const effectStart = feed.indexOf('useEffect(() => {', optionsStart);
+  assert.ok(refreshStart >= 0 && optionsStart > refreshStart && effectStart > optionsStart,
+    '게시글과 작성 옵션의 로딩 경로를 분리해야 합니다.');
+  const postRefresh = feed.slice(refreshStart, optionsStart);
+  const optionRefresh = feed.slice(optionsStart, effectStart);
+  assert.match(postRefresh, /await loadTaskFeedPosts\(\{\}\)/,
+    '목록 로딩 완료 시 게시글을 즉시 반영해야 합니다.');
+  assert.match(postRefresh, /finally[\s\S]*?setIsLoading\(false\)/,
+    '게시글 조회만 완료되면 목록 로딩 상태를 종료해야 합니다.');
+  assert.doesNotMatch(postRefresh, /loadTaskFeedOptions|Promise\.all/,
+    '게시글 첫 표시는 작성 옵션이나 통합 대기열에 묶이면 안 됩니다.');
+  assert.match(optionRefresh, /await loadTaskFeedOptions\(\)/,
+    '작성·필터 옵션은 별도 비동기 경로로 불러와야 합니다.');
+
+  const initialEffect = feed.slice(effectStart, feed.indexOf('useEffect(() => {', effectStart + 1));
+  assert.match(initialEffect, /void refresh\(\)/);
+  assert.match(initialEffect, /void refreshOptions\(\)/,
+    '게시글과 옵션 조회는 서로 기다리지 않고 함께 시작해야 합니다.');
+
+  assert.match(repository, /let taskFeedTasksInFlight = null/);
+  assert.match(repository, /const loadTaskFeedTasks = \(\) => \{[\s\S]*?taskFeedTasksInFlight = loadTasks\(\)\.finally/,
+    '동시에 필요한 통합업무는 하나의 in-flight 요청으로 공유해야 합니다.');
+  assert.equal((repository.match(/authenticated \? loadTaskFeedTasks\(\) : Promise\.resolve\(\[\]\)/g) || []).length, 2,
+    '게시글 관계와 작성 옵션이 동일한 통합업무 요청을 재사용해야 합니다.');
+});
+
 test('업무 피드 본문·댓글의 http/https URL만 안전한 새 탭 링크로 렌더링한다', async () => {
   const feed = await read(FEED_PATH);
   const componentStart = feed.search(/function\s+LinkifiedText\s*\(\{\s*text\s*,\s*mentions\s*=\s*\[\]\s*\}\)/);

@@ -59,6 +59,19 @@ const unique = (values) => [...new Set(values.map(text).filter(Boolean))];
 const isUuid = (value) => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 const uid = (prefix) => `${prefix}-${crypto.randomUUID()}`;
 
+// The feed rows and the write/filter options both need the active task list.
+// Share only the in-flight request so concurrent initial loads use one query,
+// while later refreshes still receive current task data.
+let taskFeedTasksInFlight = null;
+const loadTaskFeedTasks = () => {
+  if (!taskFeedTasksInFlight) {
+    taskFeedTasksInFlight = loadTasks().finally(() => {
+      taskFeedTasksInFlight = null;
+    });
+  }
+  return taskFeedTasksInFlight;
+};
+
 const toProfile = (row, prefix) => ({
   userId: row[`${prefix}_id`] || null,
   memberId: row[`${prefix}_member_id`] || row[`${prefix}_profile_id`] || null,
@@ -176,7 +189,7 @@ export async function loadTaskFeedPosts(filters = {}) {
     authenticated ? client.from(table('attachments')).select('*') : Promise.resolve({ data: [], error: null }),
     client.from(table('comments')).select('*').order('created_at'),
     client.from(table('reactions')).select('*').order('created_at'),
-    authenticated ? loadTasks() : Promise.resolve([]),
+    authenticated ? loadTaskFeedTasks() : Promise.resolve([]),
   ];
   const results = await Promise.all(queries);
   const labels = ['게시글', '연결 업무', '이해관계자', '열람 권한', '멘션', '첨부파일', '댓글', '반응'];
@@ -261,7 +274,7 @@ export async function loadTaskFeedOptions() {
     authenticated
       ? client.from('songhyeon_members').select('id,auth_id,email,staff_name,group_name,title,photo_path,display_order').eq('is_active', true).order('display_order')
       : client.from('songhyeon_public_profiles').select('*').order('display_order'),
-    authenticated ? loadTasks() : Promise.resolve([]),
+    authenticated ? loadTaskFeedTasks() : Promise.resolve([]),
     loadSharedStakeholderContacts(client, authenticated),
   ]);
   if (memberResult.error) throw new SonghyeonTaskFeedRepositoryError('송현 멤버 목록을 불러오지 못했습니다.', memberResult.error);
