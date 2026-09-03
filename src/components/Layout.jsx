@@ -3,9 +3,10 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home, CalendarDays, MapPinned, ListChecks, BarChart3,
   FolderOpen, MessageSquareText, ChevronDown, ChevronRight,
-  KeyRound, Mail, LogOut,
+  KeyRound, LockKeyhole, Mail, LogOut,
 } from 'lucide-react';
 import { useSonghyeonAuth } from '../context/SonghyeonAuthContext';
+import MemberLoginPrompt from './auth/MemberLoginPrompt';
 import SonghyeonPageViewTracker from './analytics/SonghyeonPageViewTracker';
 import SonghyeonMemberAvatar from './iota-songhyeon/SonghyeonMemberAvatar';
 
@@ -123,7 +124,7 @@ function ExpandableMainMenu({ item, collapsed, active, onCollapsedOpen }) {
   );
 }
 
-function Section({ label, items, open, setOpen, collapsed }) {
+function Section({ label, items, open, setOpen, collapsed, locked = false, onLockedClick }) {
   if (collapsed) return null;
   return (
     <div className="mt-6 mb-2">
@@ -133,7 +134,18 @@ function Section({ label, items, open, setOpen, collapsed }) {
       </button>
       {open && (
         <div className="mt-2 flex flex-col gap-0">
-          {items.map((item) => (
+          {items.map((item) => locked ? (
+            <button
+              key={item.path + item.name}
+              type="button"
+              aria-haspopup="dialog"
+              onClick={() => onLockedClick?.(item)}
+              className="flex w-full cursor-pointer items-center justify-between rounded-xl px-[7px] py-[7px] text-left text-[14px] font-light text-white transition-colors hover:bg-[#151515]"
+            >
+              <span className="truncate">{item.name}</span>
+              <LockKeyhole size={12} className="shrink-0 text-[#68686D]" />
+            </button>
+          ) : (
             <NavLink
               key={item.path + item.name}
               to={item.path}
@@ -164,6 +176,7 @@ export default function Layout() {
   const [showContactModal, setShowContactModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showMemberLoginPrompt, setShowMemberLoginPrompt] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const mapActivitiesActive = pathname.startsWith('/map-activities');
   const visiblePrimaryItems = primaryItems.map((item) => item.children ? {
@@ -228,7 +241,7 @@ export default function Layout() {
           </div>
 
           <Section label="민관협력 사례조사" items={caseItems} open={casesOpen} setOpen={setCasesOpen} collapsed={collapsed} />
-          {!isGuest ? <Section label="이지스 주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} /> : null}
+          <Section label="이지스 주요 자산" items={assetItems} open={assetsOpen} setOpen={setAssetsOpen} collapsed={collapsed} locked={isGuest} onLockedClick={() => setShowMemberLoginPrompt(true)} />
           <Section label="송현 BID 거버넌스" items={governanceItems} open={governanceOpen} setOpen={setGovernanceOpen} collapsed={collapsed} />
         </nav>
 
@@ -326,6 +339,13 @@ export default function Layout() {
             </div>
           </div>
         )}
+
+        <MemberLoginPrompt
+          open={showMemberLoginPrompt}
+          onClose={() => setShowMemberLoginPrompt(false)}
+          onLogin={leaveGuestMode}
+          description="이지스 주요 자산은 송현 BID 멤버 로그인 후 확인할 수 있습니다."
+        />
       </aside>
 
       <main ref={mainRef} className={`min-w-0 flex-1 overflow-x-hidden ${mapActivitiesActive ? 'overflow-hidden' : 'overflow-y-auto'} ${isDarkWorkspace ? 'bg-[#1F1F1E]' : 'bg-[#F3F4F6]'}`}>

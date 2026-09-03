@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 const read = (path) => readFile(path, 'utf8');
 
-test('이지스 자산 화면은 활성 멤버 전용 라우트이며 게스트 메뉴와 홈에서 숨긴다', async () => {
+test('이지스 자산 화면은 활성 멤버 전용이며 게스트 메뉴 클릭 시 로그인 안내를 표시한다', async () => {
   const [app, memberRoute, layout, dashboard] = await Promise.all([
     read('src/App.jsx'),
     read('src/components/auth/MemberRoute.jsx'),
@@ -24,7 +24,8 @@ test('이지스 자산 화면은 활성 멤버 전용 라우트이며 게스트 
   }
   assert.match(layout, /memberOnly:\s*true/);
   assert.match(layout, /children\.filter\(\(child\)\s*=>\s*!isGuest\s*\|\|\s*!child\.memberOnly\)/);
-  assert.match(layout, /!isGuest\s*\?\s*<Section\s+label="이지스 주요 자산"/);
+  assert.match(layout, /<Section\s+label="이지스 주요 자산"[^>]*locked=\{isGuest\}[^>]*onLockedClick=\{\(\)\s*=>\s*setShowMemberLoginPrompt\(true\)\}/);
+  assert.match(layout, /description="이지스 주요 자산은 송현 BID 멤버 로그인 후 확인할 수 있습니다\."/);
   assert.match(dashboard, /mapViews\.filter\(\(item\)\s*=>\s*!isGuest\s*\|\|\s*!item\.memberOnly\)/);
 });
 
@@ -40,8 +41,10 @@ test('업무피드 게스트는 목록만 보고 상세 URL·본문·댓글·첨
 
   assert.match(app, /path="feed"\s+element=\{<TaskFeed\s*\/>\}/);
   assert.match(app, /path="feed\/:postId"[^\n]*<MemberRoute\s+guestRedirect="\/feed"><TaskFeed\s*\/><\/MemberRoute>/);
-  assert.match(feed, /if\s*\(isReadOnly\)\s*return;[\s\S]{0,200}navigate\(`\/feed\/\$\{encodeURIComponent\(postId\)\}`/);
-  assert.match(feed, /disabled=\{isReadOnly\}/);
+  assert.match(feed, /if\s*\(isReadOnly\)\s*\{[\s\S]{0,100}setShowMemberLoginPrompt\(true\);[\s\S]{0,50}return;[\s\S]{0,200}navigate\(`\/feed\/\$\{encodeURIComponent\(postId\)\}`/);
+  assert.doesNotMatch(feed, /data-feed-row-link[^>]*disabled=\{isReadOnly\}/);
+  assert.match(feed, /aria-haspopup=\{isReadOnly\s*\?\s*'dialog'\s*:\s*undefined\}/);
+  assert.match(feed, /description="업무피드의 상세 내용과 댓글은 송현 BID 멤버 로그인 후 확인할 수 있습니다\."/);
   assert.match(feed, /상세 내용은 멤버 로그인 후 확인할 수 있습니다\./);
   assert.match(dashboard, /to=\{isGuest\s*\?\s*'\/feed'\s*:\s*`\/feed\/\$\{encodeURIComponent\(post\.id\)\}`\}/);
 

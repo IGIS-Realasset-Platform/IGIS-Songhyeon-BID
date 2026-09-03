@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSonghyeonAuth } from '../../../context/SonghyeonAuthContext';
+import MemberLoginPrompt from '../../auth/MemberLoginPrompt';
 import {
   addTaskFeedComment,
   deleteTaskFeedComment,
@@ -268,7 +269,7 @@ function LinkedTaskCard({ task, onOpen }) {
 }
 
 export default function SonghyeonTaskFeed({ renderHeader }) {
-  const { user, member, isReadOnly } = useSonghyeonAuth();
+  const { user, member, isReadOnly, exitGuestMode } = useSonghyeonAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { postId: routePostId = '' } = useParams();
@@ -294,6 +295,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   const [commentEditPendingId, setCommentEditPendingId] = useState('');
   const [mentionPostId, setMentionPostId] = useState('');
   const [selectedTask, setSelectedTask] = useState(null);
+  const [showMemberLoginPrompt, setShowMemberLoginPrompt] = useState(false);
   const restoredListLocationKey = useRef('');
   const postRefs = useRef(new Map());
   const scrolledDetailLocationKey = useRef('');
@@ -427,7 +429,10 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
   }), [filters, normalizedPage, searchQuery]);
 
   const openPostDetail = useCallback((postId) => {
-    if (isReadOnly) return;
+    if (isReadOnly) {
+      setShowMemberLoginPrompt(true);
+      return;
+    }
     navigate(`/feed/${encodeURIComponent(postId)}`, {
       state: {
         from: `${location.pathname}${location.search}`,
@@ -596,7 +601,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
                 }}
                 className={`transition-colors ${index ? 'border-t border-[#3c3c3c]' : ''} hover:bg-white/[0.025]`}
               >
-                <button type="button" aria-expanded={isExpanded} disabled={isReadOnly} title={isReadOnly ? '상세 내용은 멤버 로그인 후 확인할 수 있습니다.' : undefined} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-0 cursor-pointer grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA] disabled:cursor-default">
+                <button type="button" aria-expanded={isExpanded} aria-haspopup={isReadOnly ? 'dialog' : undefined} title={isReadOnly ? '상세 내용은 멤버 로그인 후 확인할 수 있습니다.' : undefined} onClick={() => { if (isExpanded) closeDetailRoute(); else openPostDetail(post.id); }} data-feed-row-link className="grid w-full min-w-0 cursor-pointer grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center px-[14px] py-[13px] text-[13px] text-[#A1A1AA]">
                   <span className="truncate px-1 text-center">{post.cell || '-'}</span>
                   <span className="flex min-w-0 items-center justify-center gap-2 text-left"><Avatar profile={{ name: post.authorName, photoPath: post.authorPhotoPath }} /><span className="min-w-0 truncate font-bold text-[#E5E5E5]">{post.authorName || '-'}</span></span>
                   <span className="min-w-0 pr-4 text-left"><span className="flex min-w-0 items-center gap-1.5"><strong className="min-w-0 truncate text-[14px] font-medium text-[#E5E5E5]">{post.title || '제목 없음'}</strong>{post.comments.length > 0 ? <span aria-label={`댓글 ${post.comments.length}개`} title={`댓글 ${post.comments.length}개`} className="inline-flex h-[22px] shrink-0 items-center gap-1 rounded-full border border-[#45484b] bg-[#2b2d2f] px-2 text-[12px] font-bold text-[#a6aaae]"><MessageSquare size={12} />{post.comments.length}</span> : null}{isRecent(post.createdAt, post.updatedAt) ? <b className="rounded-[3px] bg-[#ff3b30] px-1 py-0.5 text-[10px] leading-none text-white">N</b> : null}{restricted ? <LockKeyhole size={12} className="shrink-0 text-[#bd716d]" /> : null}</span></span>
@@ -652,6 +657,16 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
       {editingPost ? <div className="fixed inset-0 z-[110000] grid place-items-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-label="업무 메시지 수정"><div className="max-h-[calc(100vh-48px)] w-[940px] max-w-full overflow-y-auto rounded-[20px] border border-[#444] bg-[#202020] p-2 shadow-2xl"><div className="flex justify-end p-2"><button type="button" aria-label="닫기" onClick={() => setEditingPost(null)} className="grid h-9 w-9 cursor-pointer place-items-center rounded-[8px] text-[#86868B] hover:bg-[#333] hover:text-white"><X size={18} /></button></div><SonghyeonTaskFeedWriteBox actor={actor} options={options} tasks={options.tasks || []} isReadOnly={isReadOnly} initialPost={editingPost} onSaved={() => { setEditingPost(null); void refresh(); }} onCancel={() => setEditingPost(null)} /></div></div> : null}
 
       {deleteTarget ? <ConfirmDialog title={deleteTarget.type === 'post' ? '게시글을 삭제할까요?' : '댓글을 삭제할까요?'} description="삭제한 내용은 되돌릴 수 없습니다." pending={isDeleting} onClose={() => setDeleteTarget(null)} onConfirm={() => deleteTarget.type === 'post' ? handleDeletePost(deleteTarget.post.id) : handleDeleteComment(deleteTarget.postId, deleteTarget.commentId)} /> : null}
+
+      <MemberLoginPrompt
+        open={showMemberLoginPrompt}
+        onClose={() => setShowMemberLoginPrompt(false)}
+        onLogin={() => {
+          exitGuestMode();
+          navigate('/login');
+        }}
+        description="업무피드의 상세 내용과 댓글은 송현 BID 멤버 로그인 후 확인할 수 있습니다."
+      />
 
         {selectedTask ? <SonghyeonTaskDetailDrawer key={taskKeyOf(selectedTask)} task={selectedTask} onClose={() => setSelectedTask(null)} onSaved={(updated) => setSelectedTask(updated)} /> : null}
       </section>
