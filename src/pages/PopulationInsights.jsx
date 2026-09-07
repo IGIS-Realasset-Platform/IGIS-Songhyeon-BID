@@ -162,10 +162,12 @@ function FullAnalysis() {
 export default function PopulationInsights() {
   return (
     <div data-population-insights className="h-full min-h-0 overflow-y-auto bg-[#1F1F1E] text-[#e5e5e5]">
-      <header className="sticky top-0 z-20 flex h-[58px] items-center gap-3 border-b border-[#333331] bg-[#1F1F1E]/95 px-8 backdrop-blur">
-        <span className="text-[16px] font-semibold text-white">Map &amp; Activities</span>
-        <span className="text-[#5f5f63]">/</span>
-        <span className="text-[16px] text-[#aaaab0]">인구·이용패턴</span>
+      <header className="sticky top-0 z-20 flex h-[58px] items-center border-b border-[#303235] bg-[#222325] px-5">
+        <div className="flex min-w-0 items-center gap-2">
+          <h1 className="text-[22px] font-bold tracking-tight text-white">Map &amp; Activities</h1>
+          <span className="text-[16px] text-[#606165]">/</span>
+          <span className="text-[17px] font-bold text-[#B8C3CB]">인구·이용패턴</span>
+        </div>
       </header>
 
       <main className="mx-auto w-full max-w-[1440px] px-10 pb-16 pt-10">
