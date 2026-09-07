@@ -19,6 +19,7 @@ const MAP_SECTIONS = [
   { label: '제도·공동체', slug: 'institutions-community' },
 ];
 const HOTEL_SECTION = { label: '호텔', slug: 'hotel' };
+const POPULATION_SECTION = { label: '인구·이용패턴', slug: 'population' };
 const EXPECTED_SOURCE_SHA256 = 'ab022062d28812bbc39fa34bd81dd894450ffebfb4c61eaf6e05d39c0c7f8b02';
 const EXPECTED_LEGACY_RUNTIME_BUNDLE_SHA256 = {
   'integrated-map': '12084d31b51652df2502f718bd48d6899b08fda39376016151c179939d88a3da',
@@ -217,7 +218,7 @@ test('Map & Activities는 좌측 세 번째 expandable parent와 원본의 6개 
   assert.ok(taskIndex >= 0 && taskIndex < mapIndex && mapIndex < milestoneIndex, 'Map & Activities parent는 통합업무보드 다음 세 번째 주 메뉴여야 합니다.');
   assert.match(primaryItems, /name:\s*'Map & Activities'[\s\S]{0,180}?path:\s*'\/map-activities'[\s\S]{0,180}?children:\s*\[/);
   for (const { label, slug } of MAP_SECTIONS) {
-    assert.match(primaryItems, new RegExp(`\\{\\s*name:\\s*'${label}',\\s*path:\\s*'/map-activities/${slug}'\\s*\\}`), `${label} 하위 메뉴 누락`);
+    assert.match(primaryItems, new RegExp(`\\{\\s*name:\\s*'${label}',\\s*path:\\s*'/map-activities/${slug}'[^}]*\\}`), `${label} 하위 메뉴 누락`);
   }
 
   assert.match(layout, /function ExpandableMainMenu\b/);
@@ -233,7 +234,10 @@ test('Map & Activities는 좌측 세 번째 expandable parent와 원본의 6개 
   assert.match(app, /import MapActivities from ['"]\.\/pages\/MapActivities['"]/);
   assert.match(app, /<Route path="map-activities">[\s\S]{0,180}?<Route index element=\{<Navigate replace to="integrated-map" \/>\}/, 'parent URL은 첫 섹션으로 replace redirect해야 합니다.');
   for (const { slug } of MAP_SECTIONS) {
-    assert.match(app, new RegExp(`<Route path=["']${slug}["'] element=\\{<MapActivities \\/>\\}`), `${slug} nested route 누락`);
+    const routePattern = ['assets-leases', 'igis-retail'].includes(slug)
+      ? new RegExp(`<Route path=["']${slug}["'] element=\\{<MemberRoute><MapActivities \\/><\\/MemberRoute>\\}`)
+      : new RegExp(`<Route path=["']${slug}["'] element=\\{<MapActivities \\/>\\}`);
+    assert.match(app, routePattern, `${slug} nested route 누락`);
   }
   assert.doesNotMatch(app, /<Route path=['"]map-activities['"] element=\{<MapActivities \/>\}/, 'parent와 section route를 하나의 평면 route로 합치면 안 됩니다.');
   assert.ok(page.includes('Map & Activities'));
@@ -874,7 +878,7 @@ test('원본 6개 화면의 주요 콘텐츠와 상호작용을 축약·삭제�
   assert.doesNotMatch(sources, /데이터 연결 전|검수 전|STRUCTURE PREVIEW|NOT LIVE DATA|UI 구조만 준비/);
 });
 
-test('호텔은 기존 6개 순서를 보존하면서 일곱 번째 nested route와 메뉴로만 추가된다', async () => {
+test('호텔과 인구·이용패턴은 기존 6개 순서를 보존하면서 독립 메뉴로 추가된다', async () => {
   const [layout, app, page, repository] = await Promise.all([
     read('src/components/Layout.jsx'),
     read('src/App.jsx'),
@@ -885,13 +889,13 @@ test('호텔은 기존 6개 순서를 보존하면서 일곱 번째 nested route
   const primaryItems = layout.match(/const primaryItems\s*=\s*\[([\s\S]*?)\n\];/)?.[1] || '';
   const mapMenu = primaryItems.match(/name:\s*['"]Map & Activities['"][\s\S]*?children:\s*\[([\s\S]*?)\]\s*,?\s*\}/)?.[1] || '';
   assert.ok(mapMenu, 'Map & Activities 하위 메뉴를 찾을 수 없습니다.');
-  const menuItems = [...mapMenu.matchAll(/\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*path:\s*['"](\/map-activities\/[^'"]+)['"]\s*\}/g)]
+  const menuItems = [...mapMenu.matchAll(/\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*path:\s*['"](\/map-activities\/[^'"]+)['"][^}]*\}/g)]
     .map((match) => ({ label: match[1], slug: match[2].split('/').at(-1) }));
-  assert.equal(menuItems.length, 7, '호텔을 포함한 하위 메뉴는 정확히 7개여야 합니다.');
+  assert.equal(menuItems.length, 8, '호텔과 인구·이용패턴을 포함한 하위 메뉴는 정확히 8개여야 합니다.');
   assert.deepEqual(
-    menuItems.filter(({ slug }) => slug !== HOTEL_SECTION.slug),
+    menuItems.filter(({ slug }) => ![HOTEL_SECTION.slug, POPULATION_SECTION.slug].includes(slug)),
     MAP_SECTIONS,
-    '호텔 추가 전의 6개 메뉴명·경로·상대 순서를 바꾸면 안 됩니다.',
+    '신규 화면 추가 전의 6개 메뉴명·경로·상대 순서를 바꾸면 안 됩니다.',
   );
   assert.deepEqual(menuItems.map(({ slug }) => slug), [
     'integrated-map',
@@ -899,16 +903,22 @@ test('호텔은 기존 6개 순서를 보존하면서 일곱 번째 nested route
     'assets-leases',
     'igis-retail',
     'market-activities',
+    'population',
     'hotel',
     'institutions-community',
-  ], 'v1.2 원본처럼 상권·활동 다음, 제도·공동체 앞에 호텔을 배치해야 합니다.');
+  ], '인구·이용패턴은 상권·활동 다음에, 호텔은 제도·공동체 앞에 배치해야 합니다.');
   assert.deepEqual(menuItems.find(({ slug }) => slug === HOTEL_SECTION.slug), HOTEL_SECTION);
+  assert.deepEqual(menuItems.find(({ slug }) => slug === POPULATION_SECTION.slug), POPULATION_SECTION);
 
   for (const { slug } of [...MAP_SECTIONS, HOTEL_SECTION]) {
-    assert.match(app, new RegExp(`<Route path=["']${slug}["'] element=\\{<MapActivities \\/>\\}`), `${slug} nested route 누락`);
+    const routePattern = ['assets-leases', 'igis-retail'].includes(slug)
+      ? new RegExp(`<Route path=["']${slug}["'] element=\\{<MemberRoute><MapActivities \\/><\\/MemberRoute>\\}`)
+      : new RegExp(`<Route path=["']${slug}["'] element=\\{<MapActivities \\/>\\}`);
+    assert.match(app, routePattern, `${slug} nested route 누락`);
   }
-  const nestedRoutes = [...app.matchAll(/<Route path=["']([^"']+)["'] element=\{<MapActivities \/>\}/g)].map((match) => match[1]);
-  assert.deepEqual(nestedRoutes, menuItems.map(({ slug }) => slug), 'App route와 좌측 메뉴의 7개 경로·순서가 일치해야 합니다.');
+  const routeOrder = [...app.matchAll(/<Route path=["']([^"']+)["'] element=\{(?:<MemberRoute>)?<MapActivities \/>(?:<\/MemberRoute>)?\}/g)].map((match) => match[1]);
+  assert.deepEqual(routeOrder, menuItems.filter(({ slug }) => slug !== POPULATION_SECTION.slug).map(({ slug }) => slug), '기존 MapActivities route와 좌측 메뉴의 상대 순서가 일치해야 합니다.');
+  assert.match(app, /<Route path=["']population["'] element=\{<PopulationInsights \/>\}/, '인구·이용패턴 독립 route 누락');
   assert.match(page, /\{\s*id:\s*['"]hotel['"]\s*,\s*label:\s*['"]호텔['"]\s*\}/, '호텔 section model 누락');
   assert.match(page, /section\.id\s*===\s*['"]hotel['"][\s\S]{0,500}?<SonghyeonHotelWorkspace\b/, '호텔 URL은 전용 workspace를 렌더해야 합니다.');
   assert.match(page, /hotel:\s*\[[^\]]*(?:hotel|hotels)[^\]]*operatingBoundaries|hotel:\s*\[[^\]]*operatingBoundaries[^\]]*(?:hotel|hotels)/, '호텔 route는 호텔 데이터와 운영경계만 별도로 불러와야 합니다.');

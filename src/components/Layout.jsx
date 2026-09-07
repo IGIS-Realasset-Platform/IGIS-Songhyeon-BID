@@ -32,6 +32,7 @@ const primaryItems = [
       { name: '자산·임차', path: '/map-activities/assets-leases', memberOnly: true },
       { name: '이지스 리테일', path: '/map-activities/igis-retail', memberOnly: true },
       { name: '상권·활동', path: '/map-activities/market-activities' },
+      { name: '인구·이용패턴', path: '/map-activities/population' },
       { name: '호텔', path: '/map-activities/hotel' },
       { name: '제도·공동체', path: '/map-activities/institutions-community' },
     ],

@@ -16,6 +16,7 @@ import {
   ScanSearch,
   Store,
   Target,
+  UsersRound,
 } from 'lucide-react';
 import { getSonghyeonTodayMarker, milestoneStages, milestoneWeeks } from '../data/songhyeonMilestones';
 import { hypothesisPipeline } from '../data/songhyeonServiceHypotheses';
@@ -196,6 +197,15 @@ export default function Dashboard() {
       meta: '10,571개 점포 · 상권 활동',
       icon: <Activity size={21} />,
       className: 'col-span-3 bg-[#232526]',
+    },
+    {
+      path: '/map-activities/population',
+      label: '인구·이용패턴',
+      title: '시간대에 따라 달라지는 이용을 확인합니다.',
+      description: '내국인과 외국인의 지역별·시간대별 생활·체류인구를 비교해 송현과 주변 권역의 연결 가능성을 확인합니다.',
+      meta: '4개 지역 · 40개 격자 · 606일',
+      icon: <UsersRound size={21} />,
+      className: 'col-span-3 bg-[#222728]',
     },
     {
       path: '/map-activities/hotel',
@@ -427,8 +437,8 @@ export default function Dashboard() {
             <div className="flex items-end justify-between gap-10 border-b border-white/[0.09] px-8 py-7">
               <div>
                 <div className="flex items-center gap-3 text-[#8fc5bc]"><MapPinned size={21} /><p className="text-[15px] font-bold">공간·활동 현황</p></div>
-                <h3 className="mt-4 text-[30px] font-semibold text-white">7개의 관점으로 송현의 실행 조건을 확인합니다.</h3>
-                <p className="mt-3 text-[16px] leading-[1.65] text-[#929297]">운영구역·자산·상권·활동·기관 데이터를 연결해 송현의 현재 조건과 실행 가능성을 구체적으로 확인합니다.</p>
+                <h3 className="mt-4 text-[30px] font-semibold text-white">8개의 관점으로 송현의 실행 조건을 확인합니다.</h3>
+                <p className="mt-3 text-[16px] leading-[1.65] text-[#929297]">운영구역·자산·상권·활동·인구·기관 데이터를 연결해 송현의 현재 조건과 실행 가능성을 구체적으로 확인합니다.</p>
               </div>
               <Link to="/map-activities/integrated-map" className="inline-flex shrink-0 cursor-pointer items-center gap-2 text-[15px] font-bold text-[#9ccfca] hover:text-white">전체 지도에서 시작 <ArrowUpRight size={16} /></Link>
             </div>

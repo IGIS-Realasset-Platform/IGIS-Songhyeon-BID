@@ -31,7 +31,7 @@ test('홈 문구는 프로젝트의 현황과 다음 판단을 방문자 관점�
     '계획과 실행, 장소의 근거를 하나의 흐름으로 연결합니다.',
     '현재 단계와 Gate별 상세 일정, 실행주관, 연결된 업무를 확인하고 다음 의사결정 시점을 파악할 수 있습니다.',
     '누가 무엇을 언제까지 수행하는지, 현재 상태와 필요한 결정을 하나의 업무 원장에서 확인합니다.',
-    '7개의 관점으로 송현의 실행 조건을 확인합니다.',
+    '8개의 관점으로 송현의 실행 조건을 확인합니다.',
     '최근의 기록에서 다음 결정을 확인합니다.',
   ]) assert.ok(source.includes(phrase), `홈에 확정 문구가 필요합니다: ${phrase}`);
 
@@ -77,10 +77,10 @@ test('홈의 주요 컴포넌트는 실제 상세 랜딩으로 연결된다', ()
   assert.match(source, /to="\/tasks"[\s\S]{0,260}?진행 중 업무/u);
   assert.match(source, /to="\/tasks\?status=진행중"[\s\S]{0,260}?현재 상세 업무 보기/u);
   assert.match(source, /to="\/map-activities\/integrated-map"/);
-  for (const path of ['boundary', 'assets-leases', 'igis-retail', 'market-activities', 'hotel', 'institutions-community']) {
+  for (const path of ['boundary', 'assets-leases', 'igis-retail', 'market-activities', 'population', 'hotel', 'institutions-community']) {
     assert.match(source, new RegExp(`path: '/map-activities/${path}'`));
   }
-  assert.match(source, /to=\{`\/feed\/\$\{encodeURIComponent\(post\.id\)\}`\}/);
+  assert.match(source, /to=\{isGuest \? '\/feed' : `\/feed\/\$\{encodeURIComponent\(post\.id\)\}`\}/);
   assert.match(source, /to=\{`\/data\/\$\{encodeURIComponent\(document\.id\)\}`\}/);
 });
 
