@@ -27,6 +27,10 @@ import SonghyeonReactionAvatarStack from '../task-board/SonghyeonReactionAvatarS
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
 import SonghyeonMemberAvatar from '../SonghyeonMemberAvatar';
 import SonghyeonTaskFeedWriteBox from './SonghyeonTaskFeedWriteBox';
+import {
+  buildTaskFeedStakeholderFilterOptions,
+  formatTaskFeedStakeholder as stakeholderText,
+} from '../../../lib/songhyeonTaskFeedStakeholders.js';
 
 const FULL_PAGE_SIZE = 20;
 const FEED_STATUS_OPTIONS = ['신규', '검토중', '진행중', '중단', '완료'];
@@ -40,12 +44,6 @@ const valueOf = (value, fallback = '') => value ?? fallback;
 const postIdOf = (post) => post?.id || post?.postId || post?.post_id || '';
 const commentIdOf = (comment) => comment?.id || comment?.commentId || comment?.comment_id || '';
 const taskKeyOf = (task) => task?.sourceKey || task?.source_key || task?.id || '';
-const stakeholderText = (stakeholder) => {
-  if (!stakeholder) return '';
-  if (typeof stakeholder === 'string') return stakeholder;
-  return [stakeholder.companyName || stakeholder.company_name || stakeholder.name, stakeholder.contactName || stakeholder.contact_name]
-    .map((value) => String(value || '').trim()).filter(Boolean).join(' - ') || stakeholder.category || '';
-};
 
 const trimUrlPunctuation = (candidate) => {
   let url = candidate;
@@ -378,6 +376,11 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
     setCurrentPage(1);
   };
 
+  const stakeholderFilterOptions = useMemo(
+    () => buildTaskFeedStakeholderFilterOptions(options.stakeholders, posts),
+    [options.stakeholders, posts],
+  );
+
   const filteredPosts = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     return posts.filter((post) => {
@@ -576,7 +579,7 @@ export default function SonghyeonTaskFeed({ renderHeader }) {
         <div className="overflow-hidden rounded-[24px] border border-[#3c3c3c] bg-[#252525]">
           <div className="grid w-full min-w-0 grid-cols-[96px_126px_minmax(0,1fr)_104px_120px_72px_84px_68px_84px] items-center border-b border-[#3c3c3c] px-[14px] py-3 text-center text-[13px] font-bold text-[#86868B]">
             <FilterSelect label="기능셀" value={filters.cell} options={options.cells || []} onChange={(value) => updateFilter('cell', value)} /><span>등록자</span><span className="text-left">내용</span><span aria-label="반응자" title="좋아요·체크 반응자" className="flex items-center justify-center text-[#86868B]"><Heart size={15} strokeWidth={1.8} /></span>
-            <FilterSelect label="이해관계자" value={filters.stakeholder} options={options.stakeholders || []} onChange={(value) => updateFilter('stakeholder', value)} />
+            <FilterSelect label="이해관계자" value={filters.stakeholder} options={stakeholderFilterOptions} onChange={(value) => updateFilter('stakeholder', value)} />
             <FilterSelect label="목적" value={filters.purpose} options={['공유', '협업', '리스크 판단', '의사결정']} onChange={(value) => updateFilter('purpose', value)} />
             <FilterSelect label="진행상태" value={filters.status} options={FEED_STATUS_OPTIONS} onChange={(value) => updateFilter('status', value)} />
             <FilterSelect label="중요도" value={filters.priority} options={['높음', '중간', '낮음']} onChange={(value) => updateFilter('priority', value)} />
