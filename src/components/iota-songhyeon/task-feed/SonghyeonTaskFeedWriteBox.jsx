@@ -1,6 +1,7 @@
 import { useId, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
+  Bold,
   CalendarDays,
   Check,
   ChevronDown,
@@ -29,6 +30,7 @@ import {
   SONGHYEON_FEED_STATUSES,
 } from '../../../data/songhyeonTaskFeedOptions.js';
 import SonghyeonMemberAvatar from '../SonghyeonMemberAvatar.jsx';
+import { toggleFeedBold } from '../../../lib/songhyeonFeedBold.js';
 
 // IOTA WorkspaceActivityLog/LogWriteBox를 송현 데이터 계약에 맞춰 이식한 작성 폼입니다.
 // 댓글·반응은 목록 상세에서 다루며, 첨부파일은 게시글에만 연결합니다.
@@ -460,6 +462,18 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
     }
   };
 
+  const applyBold = () => {
+    const field = textareaRef.current;
+    if (!field) return;
+    const next = toggleFeedBold(content, field.selectionStart, field.selectionEnd);
+    setContent(next.content);
+    setShowMentions(false);
+    requestAnimationFrame(() => {
+      field.focus();
+      field.setSelectionRange(next.start, next.end);
+    });
+  };
+
   const selectMention = (candidate) => {
     const cursor = textareaRef.current?.selectionStart ?? content.length;
     const nextContent = `${content.slice(0, mentionStart)}@${candidate.label} ${content.slice(cursor)}`;
@@ -621,11 +635,31 @@ function TaskFeedWriteBoxForm({ actor, options = {}, tasks = [], initialPost = n
             className="w-full border-b border-[#3a3a3a] bg-transparent pb-3 text-[17px] font-black text-[#ededed] outline-none placeholder:text-[#777]"
           />
           <div className="relative mt-4">
+            <div className="mb-2 flex items-center gap-2">
+              <button
+                type="button"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={applyBold}
+                aria-label="굵게 적용 또는 해제"
+                aria-keyshortcuts="Control+b Meta+b"
+                title="굵게 적용/해제 (⌘B / Ctrl+B)"
+                className="grid h-8 w-8 place-items-center rounded-[6px] border border-[#454545] text-[#ddd] hover:bg-[#363636] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#78add6]"
+              >
+                <Bold size={16} />
+              </button>
+              <span className="text-[12px] text-[#999]">문장 선택 후 B · **강조할 내용**은 등록 시 굵게 표시</span>
+            </div>
             <textarea
               ref={textareaRef}
               value={content}
               onChange={updateMentionQuery}
-              onKeyDown={(event) => { if (event.key === 'Escape') setShowMentions(false); }}
+              onKeyDown={(event) => {
+                if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'b' && !event.nativeEvent.isComposing) {
+                  event.preventDefault();
+                  applyBold();
+                }
+                if (event.key === 'Escape') setShowMentions(false);
+              }}
               placeholder={'진행 이력, 협업 요청, 리스크 판단 필요사항, 의사결정 필요항목을 입력하세요.\n(@로 담당부서 또는 담당자를 멘션할 수 있습니다)'}
               className="min-h-[150px] w-full resize-y bg-transparent text-[15px] leading-7 text-[#e5e5e5] outline-none placeholder:text-[#8f8d87]"
             />

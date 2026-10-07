@@ -27,6 +27,7 @@ import SonghyeonReactionAvatarStack from '../task-board/SonghyeonReactionAvatarS
 import SonghyeonTaskDetailDrawer from '../task-board/SonghyeonTaskDetailDrawer';
 import SonghyeonMemberAvatar from '../SonghyeonMemberAvatar';
 import SonghyeonTaskFeedWriteBox from './SonghyeonTaskFeedWriteBox';
+import { splitFeedBold } from '../../../lib/songhyeonFeedBold.js';
 import {
   buildTaskFeedStakeholderFilterOptions,
   formatTaskFeedStakeholder as stakeholderText,
@@ -75,6 +76,14 @@ const trimUrlPunctuation = (candidate) => {
 
 function LinkifiedText({ text, mentions = [] }) {
   const source = String(text || '');
+  const parts = splitFeedBold(source);
+  if (parts.some((part) => part.bold)) {
+    return parts.map((part, index) => part.bold ? (
+      <strong key={index} className="font-bold">
+        <LinkifiedText text={part.text} mentions={mentions} />
+      </strong>
+    ) : <LinkifiedText key={index} text={part.text} mentions={mentions} />);
+  }
   const mentionLabels = [...new Set(mentions
     .map((mention) => String(mention?.name || mention?.label || mention || '').trim())
     .filter(Boolean))]
