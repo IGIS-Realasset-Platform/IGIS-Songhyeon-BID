@@ -603,12 +603,13 @@ test('모든 공간 화면은 SVG 격자 대체물이 아니라 원본과 같은
     leafletMap.includes('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'),
     '원본 Positron 상세 배경지도 URL을 그대로 제공해야 합니다.',
   );
-  const attributionMatches = [...leafletMap.matchAll(/attribution:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
-  assert.ok(attributionMatches.length >= 2, '두 CARTO 배경지도 모두 출처 표기를 제공해야 합니다.');
+  const attributionMatches = [...leafletMap.matchAll(/attribution:\s*'([^']+)'/g)].map((match) => match[1]);
+  assert.equal(attributionMatches.length, 3, '기본 지도와 두 CARTO 배경지도 모두 출처 표기를 제공해야 합니다.');
   assert.ok(
-    attributionMatches.every((attribution) => attribution === '&copy; OpenStreetMap contributors &copy; CARTO'),
-    '배경지도 attribution은 원본의 OpenStreetMap/CARTO 표기를 정확히 유지해야 합니다.',
+    attributionMatches.filter((attribution) => attribution === '&copy; OpenStreetMap contributors &copy; CARTO').length === 2,
+    'CARTO 배경지도 출처는 기존대로 유지해야 합니다.',
   );
+  assert.ok(attributionMatches.some((attribution) => attribution.includes('https://www.openstreetmap.org/copyright')));
 
   const mapOptions = leafletMap.match(/L\.map\(containerRef\.current,\s*\{([\s\S]*?)\n\s*\}\);/)?.[1] || '';
   assert.ok(mapOptions, 'Leaflet map 초기화 옵션을 찾을 수 없습니다.');
@@ -627,7 +628,7 @@ test('모든 공간 화면은 SVG 격자 대체물이 아니라 원본과 같은
     ['src/components/map-activities/SonghyeonMarketGovernanceViews.jsx', marketGovernanceViews, 2],
   ];
   for (const [file, source, minimumMapCount] of viewSources) {
-    assert.match(source, /import\s+SonghyeonLeafletMap\s+from\s+['"][^'"]*SonghyeonLeafletMap['"]/, `${file}은 공통 상세 Leaflet 지도를 사용해야 합니다.`);
+    assert.match(source, /import\s+SonghyeonLeafletMap(?:,\s*\{[^}]*\})?\s+from\s+['"][^'"]*SonghyeonLeafletMap['"]/, `${file}은 공통 상세 Leaflet 지도를 사용해야 합니다.`);
     const mapCount = (source.match(/<SonghyeonLeafletMap\b/g) || []).length;
     assert.ok(mapCount >= minimumMapCount, `${file}의 모든 지도 화면을 Leaflet으로 교체해야 합니다. 예상 ${minimumMapCount}개 이상, 현재 ${mapCount}개`);
     assert.doesNotMatch(source, /Songhyeon(?:Full)?AreaMap/, `${file}에서 SVG 대체 지도를 다시 사용하면 안 됩니다.`);
@@ -1050,7 +1051,7 @@ test('호텔 workspace는 필터·Leaflet·차트·목록·상세표·두 모달
   }
   assert.match(sources, /\.filter\([\s\S]{0,900}?(?:lodging_type|grade)[\s\S]{0,900}?(?:query|search)/, '숙박 유형·성급·검색어를 실제 시설 배열에 적용해야 합니다.');
 
-  assert.match(component, /import\s+SonghyeonLeafletMap\s+from\s+['"][^'"]*SonghyeonLeafletMap['"]/);
+  assert.match(component, /import\s+SonghyeonLeafletMap(?:,\s*\{[^}]*\})?\s+from\s+['"][^'"]*SonghyeonLeafletMap['"]/);
   const hotelMap = component.match(/<SonghyeonLeafletMap\b[\s\S]*?\/>/)?.[0] || '';
   assert.ok(hotelMap, '호텔 화면에 실제 공통 Leaflet 지도가 필요합니다.');
   assert.match(hotelMap, /boundaryGeojson=\{/);

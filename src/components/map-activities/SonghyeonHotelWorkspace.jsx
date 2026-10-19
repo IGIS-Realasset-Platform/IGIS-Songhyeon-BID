@@ -6,7 +6,7 @@ import {
   Table2,
   X,
 } from 'lucide-react';
-import SonghyeonLeafletMap from './SonghyeonLeafletMap';
+import SonghyeonLeafletMap, { DEFAULT_BASEMAP } from './SonghyeonLeafletMap';
 
 const nf = new Intl.NumberFormat('ko-KR');
 const EMPTY_HOTELS = Object.freeze([]);
@@ -330,7 +330,7 @@ export default function SonghyeonHotelWorkspace({ hotelData, boundaryData }) {
   const [type, setType] = useState('all');
   const [grade, setGrade] = useState('all');
   const [query, setQuery] = useState('');
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const [selectedFacilityId, setSelectedFacilityId] = useState(null);
   const [viewportTarget, setViewportTarget] = useState('boundary');
   const [modal, setModal] = useState(null);
@@ -465,7 +465,7 @@ export default function SonghyeonHotelWorkspace({ hotelData, boundaryData }) {
             ariaLabel={`송현 권역 숙박시설 ${nf.format(filteredHotels.length)}개 상세 지도`}
           />
           <div className="absolute left-[56px] top-4 z-[1000]">
-            <select aria-label="배경지도" value={basemap} onChange={(event) => setBasemap(event.target.value)} className="h-8 rounded-[7px] border border-[#44474a] bg-[#242628] px-2.5 text-[13px] font-bold text-[#c1c1c6] outline-none focus:border-[#7299b7]"><option value="voyager">Voyager</option><option value="positron">Positron</option></select>
+            <select aria-label="배경지도" value={basemap} onChange={(event) => setBasemap(event.target.value)} className="h-8 rounded-[7px] border border-[#44474a] bg-[#242628] px-2.5 text-[13px] font-bold text-[#c1c1c6] outline-none focus:border-[#7299b7]"><option value={DEFAULT_BASEMAP}>기본 지도</option><option value="voyager">Voyager</option><option value="positron">Positron</option></select>
           </div>
           <HotelLegend typeRows={typeRows} gradeRows={gradeRows} type={type} grade={grade} onType={(value) => setFacet('type', value)} onGrade={(value) => setFacet('grade', value)} />
         </div>

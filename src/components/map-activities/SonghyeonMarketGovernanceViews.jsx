@@ -18,7 +18,7 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import SonghyeonLeafletMap from './SonghyeonLeafletMap';
+import SonghyeonLeafletMap, { DEFAULT_BASEMAP } from './SonghyeonLeafletMap';
 
 const STORE_PAGE_SIZE = 100;
 const STORE_CATEGORY_COLORS = {
@@ -97,6 +97,7 @@ function BasemapControl({ value, onChange, label = '배경지도' }) {
       onChange={(event) => onChange(event.target.value)}
       className="h-8 rounded-[7px] border border-[#44474a] bg-[#242628] px-2.5 text-[14px] font-bold text-[#c1c1c6] shadow-lg outline-none focus:border-[#7299b7]"
     >
+      <option value={DEFAULT_BASEMAP}>기본 지도</option>
       <option value="voyager">Voyager</option>
       <option value="positron">Positron</option>
     </select>
@@ -205,7 +206,7 @@ function marketSubareaFeatures(boundaryGeojson, boundaryAnalysis) {
 function StoreMap({ stores, boundaryMode, boundaryData, selectedGroup, onSelectGroup, activeSubarea, onSelectSubarea }) {
   const boundaryGeojson = objectOf(boundaryData, 'boundary_geojson');
   const boundaryAnalysis = objectOf(boundaryData, 'boundary_analysis');
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const groups = useMemo(() => {
     const map = new Map();
     stores.forEach((store) => {
@@ -623,7 +624,7 @@ function RelatedSpaceDialog({
     programJongno: true,
     programCommunity: true,
   });
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const [selectedMapItem, setSelectedMapItem] = useState(null);
   const visiblePlanGeojson = useMemo(() => Object.fromEntries(
     Object.entries(planGeojson).filter(([id]) => visible[id]),

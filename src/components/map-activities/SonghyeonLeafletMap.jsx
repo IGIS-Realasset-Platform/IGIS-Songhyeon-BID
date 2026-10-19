@@ -2,12 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+export const DEFAULT_BASEMAP = 'standard';
+
 const DEFAULT_BOUNDS = [
   [37.5706, 126.9776],
   [37.5844, 126.9900],
 ];
 
 const TILE_LAYERS = {
+  standard: {
+    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+  },
   voyager: {
     url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
@@ -419,7 +425,7 @@ function bindInteraction(layer, {
 }
 
 function createTileLayer(name) {
-  const source = TILE_LAYERS[name] || TILE_LAYERS.voyager;
+  const source = TILE_LAYERS[name] || TILE_LAYERS[DEFAULT_BASEMAP];
   return L.tileLayer(source.url, {
     attribution: source.attribution,
     subdomains: 'abcd',
@@ -427,6 +433,7 @@ function createTileLayer(name) {
     maxZoom: 19,
     maxNativeZoom: 19,
     crossOrigin: true,
+    referrerPolicy: 'strict-origin-when-cross-origin',
   });
 }
 
@@ -444,7 +451,7 @@ export default function SonghyeonLeafletMap({
   onSelect = NOOP,
   onStoreGroupAction = NOOP,
   onMarkerAction = NOOP,
-  basemap = 'voyager',
+  basemap = DEFAULT_BASEMAP,
   fitVisible = false,
   fitVisibleMaxZoom = 17,
   focusSelected = false,

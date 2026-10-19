@@ -8,7 +8,7 @@ import {
   Search,
   X,
 } from 'lucide-react';
-import SonghyeonLeafletMap from './SonghyeonLeafletMap';
+import SonghyeonLeafletMap, { DEFAULT_BASEMAP } from './SonghyeonLeafletMap';
 
 const nf = new Intl.NumberFormat('ko-KR');
 const ASSET_COLORS = {
@@ -27,6 +27,7 @@ const ASSET_BOUNDARY_VISIBILITY = Object.freeze({
 function MapBasemapSelect({ value, onChange }) {
   return (
     <select aria-label="배경지도" value={value} onChange={(event) => onChange(event.target.value)} className="h-8 rounded-[7px] border border-[#44474a] bg-[#242628] px-2.5 text-[14px] font-bold text-[#c1c1c6] outline-none focus:border-[#7299b7]">
+      <option value={DEFAULT_BASEMAP}>기본 지도</option>
       <option value="voyager">Voyager</option>
       <option value="positron">Positron</option>
     </select>
@@ -86,7 +87,7 @@ function useModalControls(open, onClose, initialFocusRef) {
 }
 
 function AssetLocationPlot({ assets, markers, landmarks, boundaryData, onOpen }) {
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const assetById = useMemo(() => new Map(assets.map((asset) => [asset.id, asset])), [assets]);
   const mapMarkers = useMemo(() => [
     ...markers.map((marker, index) => ({
@@ -435,7 +436,7 @@ function RetailChart({ title, rows, segmented = false, valueFormatter, highlight
 }
 
 function RetailMap({ items, records, selectedAsset, highlightedAsset, onSelect, onAssetHighlight }) {
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const featureLayers = useMemo(() => items.map((item) => {
     const color = ASSET_COLORS[item.asset] || '#315f52';
     const selected = selectedAsset === '전체' || selectedAsset === item.asset;

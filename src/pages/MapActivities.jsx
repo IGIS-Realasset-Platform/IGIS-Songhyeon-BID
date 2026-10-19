@@ -4,7 +4,7 @@ import {
   ChevronDown,
   Map as MapIcon,
 } from 'lucide-react';
-import SonghyeonLeafletMap from '../components/map-activities/SonghyeonLeafletMap';
+import SonghyeonLeafletMap, { DEFAULT_BASEMAP } from '../components/map-activities/SonghyeonLeafletMap';
 import SonghyeonHotelWorkspace from '../components/map-activities/SonghyeonHotelWorkspace';
 import {
   AssetLeaseWorkspace,
@@ -233,6 +233,7 @@ function LayerCluster({ title, items, state, onChange, defaultOpen = false }) {
 function BasemapSelect({ value, onChange }) {
   return (
     <select aria-label="배경지도" value={value} onChange={(event) => onChange(event.target.value)} className="h-8 rounded-[7px] border border-[#44474a] bg-[#242628] px-2.5 text-[14px] font-bold text-[#C1C1C6] outline-none focus:border-[#7299b7]">
+      <option value={DEFAULT_BASEMAP}>기본 지도</option>
       <option value="voyager">Voyager</option>
       <option value="positron">Positron</option>
     </select>
@@ -247,7 +248,7 @@ function IntegratedWorkspace({ data, stores, loadStores, loadingStores }) {
   const assets = assetsLeases.datasets.assets;
   const market = marketActivities.datasets;
   const institutions = institutionsCommunity.datasets;
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const [storeDialog, setStoreDialog] = useState(null);
   const [layers, setLayers] = useState({
     compact_core: true,
@@ -370,7 +371,7 @@ function BoundaryWorkspace({ operatingBoundaries, integratedMap }) {
   const navigate = useNavigate();
   const boundary = operatingBoundaries.datasets;
   const integrated = integratedMap.datasets;
-  const [basemap, setBasemap] = useState('voyager');
+  const [basemap, setBasemap] = useState(DEFAULT_BASEMAP);
   const [layers, setLayers] = useState({
     compact_core: true,
     songhyeon_bukchon: true,
