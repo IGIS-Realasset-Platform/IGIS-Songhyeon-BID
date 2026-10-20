@@ -20,6 +20,7 @@ const PAGE_LABELS = {
   '/map-activities/igis-retail': '이지스 리테일',
   '/map-activities/market-activities': '상권·활동',
   '/map-activities/population': '인구·이용패턴',
+  '/map-activities/shop-research': '상점 조사·TOP 10',
   '/map-activities/hotel': '호텔',
   '/map-activities/institutions-community': '제도·공동체',
   '/milestones': '마일스톤 및 R&R',

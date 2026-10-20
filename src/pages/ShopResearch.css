@@ -1,0 +1,14 @@
+/* The host owns the page width, header, navigation and Pretendard font. */
+.songhyeon-shop-research .sr-root {
+  min-width: 0;
+  font-family: inherit;
+  background: transparent;
+}
+.songhyeon-shop-research .sr-root .sr-page {
+  padding: 0;
+}
+.songhyeon-shop-research .sr-root h1,
+.songhyeon-shop-research .sr-root h2,
+.songhyeon-shop-research .sr-root h3 {
+  letter-spacing: normal;
+}

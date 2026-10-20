@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import TaskBoard from './pages/TaskBoard';
 import MapActivities from './pages/MapActivities';
 import PopulationInsights from './pages/PopulationInsights';
+import ShopResearch from './pages/ShopResearch';
 import AssetPortfolio from './pages/AssetPortfolio';
 import KTwin from './pages/assets/KTwin';
 import TwinTree from './pages/assets/TwinTree';
@@ -44,6 +45,7 @@ export default function App() {
             <Route path="assets-leases" element={<MemberRoute><MapActivities /></MemberRoute>} />
             <Route path="igis-retail" element={<MemberRoute><MapActivities /></MemberRoute>} />
             <Route path="market-activities" element={<MapActivities />} />
+            <Route path="shop-research" element={<MemberRoute><ShopResearch /></MemberRoute>} />
             <Route path="population" element={<PopulationInsights />} />
             <Route path="hotel" element={<MapActivities />} />
             <Route path="institutions-community" element={<MapActivities />} />

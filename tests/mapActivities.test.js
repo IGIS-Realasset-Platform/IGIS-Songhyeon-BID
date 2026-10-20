@@ -879,7 +879,7 @@ test('원본 6개 화면의 주요 콘텐츠와 상호작용을 축약·삭제�
   assert.doesNotMatch(sources, /데이터 연결 전|검수 전|STRUCTURE PREVIEW|NOT LIVE DATA|UI 구조만 준비/);
 });
 
-test('호텔과 인구·이용패턴은 기존 6개 순서를 보존하면서 독립 메뉴로 추가된다', async () => {
+test('호텔·인구·상점 조사는 기존 6개 순서를 보존하면서 독립 메뉴로 추가된다', async () => {
   const [layout, app, page, repository] = await Promise.all([
     read('src/components/Layout.jsx'),
     read('src/App.jsx'),
@@ -892,9 +892,9 @@ test('호텔과 인구·이용패턴은 기존 6개 순서를 보존하면서 �
   assert.ok(mapMenu, 'Map & Activities 하위 메뉴를 찾을 수 없습니다.');
   const menuItems = [...mapMenu.matchAll(/\{\s*name:\s*['"]([^'"]+)['"]\s*,\s*path:\s*['"](\/map-activities\/[^'"]+)['"][^}]*\}/g)]
     .map((match) => ({ label: match[1], slug: match[2].split('/').at(-1) }));
-  assert.equal(menuItems.length, 8, '호텔과 인구·이용패턴을 포함한 하위 메뉴는 정확히 8개여야 합니다.');
+  assert.equal(menuItems.length, 9, '호텔·인구·상점 조사를 포함한 하위 메뉴는 정확히 9개여야 합니다.');
   assert.deepEqual(
-    menuItems.filter(({ slug }) => ![HOTEL_SECTION.slug, POPULATION_SECTION.slug].includes(slug)),
+    menuItems.filter(({ slug }) => ![HOTEL_SECTION.slug, POPULATION_SECTION.slug, 'shop-research'].includes(slug)),
     MAP_SECTIONS,
     '신규 화면 추가 전의 6개 메뉴명·경로·상대 순서를 바꾸면 안 됩니다.',
   );
@@ -904,6 +904,7 @@ test('호텔과 인구·이용패턴은 기존 6개 순서를 보존하면서 �
     'assets-leases',
     'igis-retail',
     'market-activities',
+    'shop-research',
     'population',
     'hotel',
     'institutions-community',
@@ -918,7 +919,8 @@ test('호텔과 인구·이용패턴은 기존 6개 순서를 보존하면서 �
     assert.match(app, routePattern, `${slug} nested route 누락`);
   }
   const routeOrder = [...app.matchAll(/<Route path=["']([^"']+)["'] element=\{(?:<MemberRoute>)?<MapActivities \/>(?:<\/MemberRoute>)?\}/g)].map((match) => match[1]);
-  assert.deepEqual(routeOrder, menuItems.filter(({ slug }) => slug !== POPULATION_SECTION.slug).map(({ slug }) => slug), '기존 MapActivities route와 좌측 메뉴의 상대 순서가 일치해야 합니다.');
+  assert.deepEqual(routeOrder, menuItems.filter(({ slug }) => ![POPULATION_SECTION.slug, 'shop-research'].includes(slug)).map(({ slug }) => slug), '기존 MapActivities route와 좌측 메뉴의 상대 순서가 일치해야 합니다.');
+  assert.match(app, /<Route path=["']shop-research["'] element=\{<MemberRoute><ShopResearch \/><\/MemberRoute>\}/, '상점 조사 독립 route의 멤버 보호 누락');
   assert.match(app, /<Route path=["']population["'] element=\{<PopulationInsights \/>\}/, '인구·이용패턴 독립 route 누락');
   assert.match(page, /\{\s*id:\s*['"]hotel['"]\s*,\s*label:\s*['"]호텔['"]\s*\}/, '호텔 section model 누락');
   assert.match(page, /section\.id\s*===\s*['"]hotel['"][\s\S]{0,500}?<SonghyeonHotelWorkspace\b/, '호텔 URL은 전용 workspace를 렌더해야 합니다.');

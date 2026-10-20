@@ -1,0 +1,82 @@
+.sr-root .rs-sheet{font:14px/1.45 Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--sr-text);min-width:0}
+.sr-root .rs-toolbar{display:flex;align-items:center;flex-wrap:nowrap;gap:8px;margin-bottom:12px;min-height:36px;min-width:0}
+.sr-root .rs-search{width:220px;min-width:100px;max-width:240px;height:36px;font-size:14px;flex:0 1 220px}
+.sr-root .rs-toolbar>.sr-multi{flex:0 0 auto;min-width:95px}
+.sr-root .rs-count{flex:0 0 auto;font-size:13px;color:#9da5ad;white-space:nowrap;margin-left:4px}
+.sr-root .rs-button{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--sr-border);background:#292b2e;border-radius:7px;padding:7px 12px;min-height:36px;color:#dddfe4;font-size:14px;line-height:20px;white-space:nowrap}
+.sr-root .rs-button:hover{background:#34383c}
+.sr-root .rs-button.primary{background:#9bb4c5;border-color:#9bb4c5;color:#152029;font-weight:600}
+.sr-root .rs-toolbar>.rs-button.primary{margin-left:auto;flex:0 0 auto}
+.sr-root .rs-scroll{width:100%;overflow:auto;max-height:calc(100dvh - 222px);min-height:340px;border:1px solid #3b3d40;border-radius:7px;scrollbar-color:#5a5d61 #252626;position:relative;isolation:isolate;overscroll-behavior:contain}
+.sr-root .rs-grid{border-collapse:separate;border-spacing:0;table-layout:fixed;margin:0;background:#272726;font-size:14px;text-align:left}
+.sr-root .rs-grid th,.sr-root .rs-grid td{box-sizing:border-box;border-bottom:1px solid #3a3c3f;border-right:1px solid #3a3c3f;padding:0;vertical-align:top;overflow:visible}
+.sr-root .rs-grid thead{position:sticky;top:0;z-index:15}
+.sr-root .rs-grid thead th{background:#2c2e30;height:42px;vertical-align:middle;font-size:14px;font-weight:500;color:#d4d8de;text-align:left;position:relative}
+.sr-root .rs-grid thead .rs-column-head{cursor:grab}
+.sr-root .rs-grid thead .rs-column-head:active{cursor:grabbing}
+.sr-root .rs-grid tbody td{height:42px;background:#272726}
+.sr-root .rs-grid tbody tr:hover td{background:#2b2e30}
+.sr-root .rs-grid tbody tr.rs-row-error td{border-bottom-color:#96615e}
+.sr-root .rs-grid .rs-number-col{width:38px;padding:10px 5px;color:#7e878f;font-size:12px;line-height:21px;text-align:center;vertical-align:top;position:sticky;left:var(--rs-star-width);z-index:7}
+.sr-root .rs-grid thead .rs-number-col{padding:10px 5px;vertical-align:middle}
+.sr-root .rs-column-head-content{display:flex;align-items:center;gap:5px;padding:0 10px;min-width:0}
+.sr-root .rs-sort-button{font:inherit;color:inherit;text-align:left;line-height:22px;background:none;border:0;padding:0;white-space:nowrap;cursor:inherit;overflow:hidden;text-overflow:ellipsis}
+.sr-root .rs-sort-arrow{color:#a9c1d1;font-size:14px;margin-left:auto}
+.sr-root .rs-resize-handle{position:absolute;right:-3px;top:0;bottom:0;width:8px;cursor:col-resize;z-index:20;touch-action:none}
+.sr-root .rs-resize-handle:hover,.sr-root .rs-resize-handle:focus-visible{background:#779bb673}
+.sr-root .rs-drop-target{box-shadow:inset 3px 0 #b1c9da}
+.sr-root .rs-grid .rs-input{display:block;font:inherit;line-height:21px;width:100%;height:42px;min-height:42px;max-height:42px;resize:none;padding:10px;color:#e0e2e5;border:0;border-radius:0;background:transparent;overflow:hidden;white-space:pre;scrollbar-width:none;box-shadow:none}
+.sr-root .rs-grid .rs-input:focus{outline:2px solid #86a8c0;outline-offset:-2px;background:#26323c;border:0}
+.sr-root .rs-cell-name .rs-input{font-weight:600}
+.sr-root .rs-cell-value{display:block;font-size:13px;line-height:21px;height:42px;padding:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#a9b0b6}
+.sr-root .rs-cell-address,.sr-root .rs-cell-links{position:relative}
+.sr-root .rs-cell-view{height:42px;min-height:42px;padding:10px;line-height:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-root .rs-cell-view>a{font-size:14px;line-height:21px;color:#bacbd8;text-decoration:none;text-underline-offset:3px}
+.sr-root .rs-cell-view>a:hover{text-decoration:underline;color:#e4f1fc}
+.sr-root .rs-cell-view .rs-website-link{display:inline;margin-right:12px}
+.sr-root .rs-cell-address>.rs-input,.sr-root .rs-cell-links>.rs-input{display:none}
+.sr-root .rs-cell-editing>.rs-input{display:block}
+.sr-root .rs-cell-editing>.rs-cell-view{display:none}
+.sr-root .rs-grid .rs-input[hidden]{display:none!important}
+.sr-root .rs-retry{position:absolute;right:5px;top:10px;background:#3b2929;border:0;padding:1px 4px;color:#f0b7ad;font-size:11px;line-height:19px;white-space:nowrap}
+.sr-root .rs-cell-updated{position:relative}
+.sr-root .rs-live{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+.sr-root .rs-grid th.rs-star-col,.sr-root .rs-grid td.rs-star-col{position:sticky;left:0;width:34px;min-width:34px;z-index:8;text-align:center;vertical-align:middle}
+.sr-root .rs-grid thead th.rs-star-col{font:500 12px/22px Pretendard,sans-serif;color:#b1b9c0;padding:0}
+.sr-root .rs-grid .rs-frozen-col{position:sticky;z-index:6;background:#272726}
+.sr-root .rs-grid .rs-frozen-edge{box-shadow:2px 0 0 #626970,6px 0 7px -5px #000b}
+.sr-root .rs-grid thead th.rs-frozen-col,.sr-root .rs-grid thead th.rs-number-col,.sr-root .rs-grid thead th.rs-star-col{z-index:18;background:#2c2e30}
+.sr-root .rs-star{display:inline-flex;align-items:center;justify-content:center;font:15px/22px Arial,sans-serif;color:#929ba3;width:28px;height:30px;min-width:0;min-height:0;padding:0;border:0;background:none;border-radius:4px;vertical-align:middle}
+.sr-root .rs-star:hover:not(:disabled){color:#e0c163;background:#38382e}
+.sr-root .rs-star.active{color:#f2c84b}
+.sr-root .rs-star:focus-visible{outline:2px solid #9bb8cc;outline-offset:-2px}
+.sr-root .rs-star:disabled{opacity:.4;cursor:not-allowed}
+.sr-root .rs-delete{display:inline-flex;align-items:center;justify-content:center;font-size:12px;line-height:20px;min-width:30px;height:26px;padding:0 2px;border:0;border-radius:4px;background:none;color:#a5a9af}
+.sr-root .rs-delete[hidden]{display:none}
+.sr-root .rs-delete:hover:not(:disabled){color:#f1aaa5;background:#49312f}
+.sr-root .rs-tip{position:relative;display:inline-flex;align-items:center;cursor:help}
+.sr-root .rs-help-icon{width:15px;height:15px;line-height:13px;background:none;color:#8997a3;border:1px solid #6d7883;border-radius:50%;font-size:10px;padding:0;cursor:help}
+.sr-root .rs-tooltip{display:none;position:absolute;left:-10px;top:25px;width:245px;white-space:normal;padding:11px 13px;border-radius:6px;background:#3a4148;border:1px solid #626f7b;box-shadow:0 5px 18px #0008;color:#e6edf4;font-size:13px;line-height:20px;font-weight:400;z-index:50}
+.sr-root .rs-tip:hover .rs-tooltip,.sr-root .rs-tip:focus-within .rs-tooltip{display:block}
+.sr-root .sr-multi{position:relative;min-width:100px;z-index:30}
+.sr-root .sr-multi[open]{z-index:50}
+.sr-root .sr-multi-summary{display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;border:1px solid #3b3d40;border-radius:7px;background:#202123;padding:7px 11px;line-height:20px;height:36px;color:#c4cad0;font-size:14px!important;white-space:nowrap}
+.sr-root .sr-multi-summary::-webkit-details-marker{display:none}
+.sr-root .sr-multi-summary:after{content:'';display:block;flex:0 0 7px;width:7px;height:7px;border-right:1.5px solid #a4afb8;border-bottom:1.5px solid #a4afb8;transform:translateY(-2px) rotate(45deg);margin-left:2px}.sr-root .sr-multi[open]>.sr-multi-summary:after{transform:translateY(2px) rotate(225deg)}
+.sr-root .sr-multi-options{position:absolute;top:42px;left:0;min-width:190px;max-width:290px;max-height:340px;overflow:auto;padding:7px;background:#292c2f;border:1px solid #4a5056;border-radius:8px;box-shadow:0 8px 28px #0009}
+.sr-root .sr-multi-option:hover{background:#3b4249}
+.sr-root .sr-map-toolbar label.sr-multi-option,.sr-root label.sr-multi-option{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;padding:8px;font-size:14px;line-height:20px;margin:0;text-align:left;color:#d1d6dc;border-radius:4px;white-space:nowrap}
+.sr-root .sr-map-toolbar label.sr-multi-option>input[type=checkbox],.sr-root label.sr-multi-option>input[type=checkbox]{appearance:none;-webkit-appearance:none;box-sizing:border-box;display:inline-grid;place-content:center;flex:0 0 16px;width:16px;height:16px;min-width:16px;min-height:16px;margin:0;padding:0;align-self:center;border:1px solid #73818d;border-radius:3px;background:#23272b;box-shadow:none;cursor:pointer;line-height:1}
+.sr-root label.sr-multi-option>input[type=checkbox]::after{content:'';box-sizing:border-box;width:5px;height:9px;border:solid #17242d;border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg);visibility:hidden}
+.sr-root label.sr-multi-option>input[type=checkbox]:checked{border-color:#a7c1d4;background:#a7c1d4}
+.sr-root label.sr-multi-option>input[type=checkbox]:checked::after{visibility:visible}
+.sr-root label.sr-multi-option>input[type=checkbox]:focus-visible{outline:2px solid #cfdfeb;outline-offset:3px}
+.sr-root label.sr-multi-option>span{flex:0 1 auto;margin:0;text-align:left}
+.sr-root .sr-multi-options>label:first-child{border-bottom:1px solid #42484e;border-radius:0;margin-bottom:3px}
+.rs-postcode-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0009;z-index:10000;font-family:Pretendard,-apple-system,sans-serif}
+.rs-postcode-dialog{width:540px;max-width:calc(100vw - 32px);background:#222325;border:1px solid #4b535a;border-radius:10px;overflow:hidden;box-shadow:0 10px 70px #0008}
+.rs-postcode-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;color:#e6e6e8}
+.rs-postcode-head h2{font-size:18px;line-height:26px;margin:0}.rs-postcode-head button{font:14px Pretendard,sans-serif;border:1px solid #535b64;border-radius:5px;padding:5px 10px;background:#30363c;color:#e6e6e8;cursor:pointer}
+.rs-postcode-body{height:min(590px,calc(100dvh - 140px));min-height:300px;background:#fff;color:#30343a}
+@media(max-width:900px){.sr-root .rs-toolbar{gap:6px}.sr-root .rs-search{width:140px;min-width:80px}.sr-root .rs-toolbar>.sr-multi{min-width:85px}.sr-root .sr-multi-summary{padding:7px 9px;gap:7px}.sr-root .rs-scroll{max-height:calc(100dvh - 236px);min-height:280px}}
+.sr-root .rs-cell-name{position:relative}.sr-root .rs-cell-name.rs-owned-name>.rs-input{width:calc(100% - 38px)}.sr-root .rs-cell-name>.rs-delete{position:absolute;right:4px;top:8px;min-width:30px;height:26px}

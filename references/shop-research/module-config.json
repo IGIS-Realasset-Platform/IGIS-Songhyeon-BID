@@ -1,0 +1,7 @@
+{
+  "apiBase": "/api/insadong-research",
+  "mode": "auto",
+  "pollMs": 8000,
+  "seedHash": "57dea8e8e5a177e9d6a2e572f5b0d43ce545b6e3638e50e70e78f5fb4cdf4177",
+  "defaultTab": "sheet"
+}
