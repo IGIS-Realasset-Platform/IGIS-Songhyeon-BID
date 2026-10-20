@@ -4,7 +4,8 @@
   font-family: inherit;
   background: transparent;
 }
-.songhyeon-shop-research .sr-root .sr-page {
+/* Override the dynamically loaded embedded stylesheet regardless of load order. */
+.songhyeon-shop-research .sr-root.sr-embedded > .sr-page {
   padding: 0;
 }
 .songhyeon-shop-research .sr-root h1,

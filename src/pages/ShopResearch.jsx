@@ -48,7 +48,7 @@ function ResearchContent({ userId }) {
           <span className="text-[17px] font-bold text-[#B8C3CB]">상점 조사·TOP 10</span>
         </div>
       </header>
-      <div className="min-h-0 min-w-0 flex-1 overflow-auto p-5">
+      <div className="min-h-0 min-w-0 flex-1 overflow-auto px-5 pb-5">
       {status.loading && <p role="status" className="px-1 py-6 text-[15px] text-[#A1A1AA]">상점 조사자료를 불러오는 중입니다.</p>}
       {status.error && (
         <div role="alert" className="rounded-xl border border-[#444] bg-[#252524] p-6 text-[15px] text-[#d0d0d2]">
